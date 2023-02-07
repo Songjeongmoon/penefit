@@ -71,9 +71,9 @@
 			<div class="content">
 				<c:forEach var="c" items="${list }">
 					<div class="class_one">
-						<a href=""><img src="images/${c.class_photo }"></a>
+						<a href="class_detail?class_code=${c.class_code }"><img src="images/${c.class_photo }"></a>
 						<p>
-							<a href="#">${c.class_subject }</a>
+							<a href="class_detail?class_code=${c.class_code }">${c.class_subject }</a>
 						</p>
 						<p>${c.class_teacher }</p>
 					</div>

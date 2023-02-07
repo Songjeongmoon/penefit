@@ -69,6 +69,7 @@
 
 			</aside>
 			<div class="content">
+			<div>'${keyword }'로 검색된 결과는 [${result }]건입니다.</div>
 				<c:forEach var="c" items="${list }">
 					<div class="class_one">
 						<a href="class_detail?class_code=${c.class_code }"><img src="images/${c.class_photo }"></a>

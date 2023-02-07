@@ -62,13 +62,16 @@ header {
 	position: relative;
 	bottom: 40px;
 	left: 270px;
-	top: 20px;
-	text-align: right;
+	top: 10px;
+	text-align: left;
 }
 
-#search_bar button {
+#search_btn {
 	background-color: rgba(0, 0, 0, 0);
 	border: none;
+	position: relative;
+	top: 21px;
+	left : 220px;
 }
 
 #loupe_img {
@@ -116,7 +119,7 @@ nav ul {
 	margin: 0 auto;
 	margin-top: 50px;
 	position:absolute;
-	left : 350px;
+	left : 270px;
 	z-index: 100;
 	/* border: 1px solid red; */
 	background-color: white;
@@ -139,6 +142,9 @@ nav li {
 	line-height: 40px;
 	border-radius: 7px;
 	
+}
+.title:hover{
+	cursor: pointer;
 }
 
 .subtitle {
