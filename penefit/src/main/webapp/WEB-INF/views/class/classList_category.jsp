@@ -39,50 +39,49 @@
 </style>
 </head>
 <body>
-	<%@ include file="header.jsp"%>
+	<%@ include file="../header.jsp"%>
 
 	<div class="box">
 		<section>
 			<aside>
 				<ul>
 					<li class="aside_title">클래스</li>
-					<li class="aside_menu"><a href="classList">클래스 전체보기</a></li>
+					<li class="aside_menu"><a href="class/classList">클래스 전체보기</a></li>
 					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
 						<div id="aside_submenu">
 							<p>
-								<a href="categoryClassList?key=CA">&nbsp;&nbsp;의류</a>
+								<a href="classList_category?key=CA">&nbsp;&nbsp;의류</a>
 							</p>
 							<p>
-								<a href="categoryClassList?key=CB">&nbsp;&nbsp;식품</a>
+								<a href="classList_category?key=CB">&nbsp;&nbsp;식품</a>
 							</p>
 							<p>
-								<a href="categoryClassList?key=CC">&nbsp;&nbsp;미용</a>
+								<a href="classList_category?key=CC">&nbsp;&nbsp;미용</a>
 							</p>
 							<p>
-								<a href="categoryClassList?key=CD">&nbsp;&nbsp;기타</a>
+								<a href="classList_category?key=CD">&nbsp;&nbsp;기타</a>
 							</p>
 						</div>
 					</li>
 					<li class="aside_menu"><a href="#">베스트 클래스</a></li>
-					<li class="aside_menu"><a href="newClassList">신규 클래스</a></li>
+					<li class="aside_menu"><a href="classList_new">신규 클래스</a></li>
 				</ul>
 
 			</aside>
 			<div class="content">
-			<div>'${keyword }'로 검색된 결과는 [${result }]건입니다.</div>
 				<c:forEach var="c" items="${list }">
 					<div class="class_one">
-						<a href="class_detail?class_code=${c.class_code }"><img src="images/${c.class_photo }"></a>
+						<a href="class_detail?class_code=${c.class_code }"><img src="../images/${c.class_photo }"></a>
 						<p>
 							<a href="class_detail?class_code=${c.class_code }">${c.class_subject }</a>
 						</p>
 						<p>${c.class_teacher }</p>
-					</div>
+					</div>	
 				</c:forEach>
 			</div>
 		</section>
 	</div>
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../footer.jsp"%>
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
