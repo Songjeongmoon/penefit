@@ -7,4 +7,13 @@
 	<select id="getClassList" resultType="com.penefit.moons.domain.ClassVO">
 		select * from class
 	</select>
+	<!--카테고리 별 클래스 목록 조회  -->
+	<select id="getCtgClassList" resultType="com.penefit.moons.domain.ClassVO">
+		select * from class where class_code like CONCAT(#{key },'%')
+	</select>
+	
+	<!--신규 클래스 목록 조회  -->
+	<select id="getNewClassList" resultType="com.penefit.moons.domain.ClassVO">
+		select * from class order by class_regdate desc limit 8
+	</select>
 </mapper>
