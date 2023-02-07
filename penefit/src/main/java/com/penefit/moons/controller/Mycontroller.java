@@ -43,4 +43,7 @@ public class Mycontroller {
 		model.addAttribute("list", list);
 		return "classList_new";
 	}
+	
+
+
 }
