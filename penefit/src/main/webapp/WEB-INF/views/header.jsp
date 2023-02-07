@@ -19,10 +19,10 @@
 
 <body>
 
-
+<div class="container">
         <div class="box">
             <header>
-                <div id="logo_box"><a href="#"><img src="images/penefit.png" id="logo_img"></a></div>
+                <div id="logo_box"><a href="/"><img src="images/penefit.png" id="logo_img"></a></div>
                 <div id="search_bar"><button><img src="images/loupe.png" id="loupe_img"></button></div>
                 <div id="right_header">
                     <div id="icon_box">
@@ -77,7 +77,7 @@
             </header>
         </div>
 
-
+</div>
 
     <script>
         $(".title").mouseover(function () {

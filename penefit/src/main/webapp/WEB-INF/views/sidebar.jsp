@@ -50,7 +50,7 @@
                     <li class="aside_menu"><a href="#">메뉴1</a></li>
                     <li class="aside_menu"><a href="#">메뉴1</a></li>
                     <li class="aside_menu"><a href="#">메뉴1</a></li>
-                </ul>
+                </ul> 
 
             </aside>
     
