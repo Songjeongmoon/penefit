@@ -6,58 +6,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.penefit.moons.domain.ClassVO;
-import com.penefit.moons.mapper.MapperAboutClass;
+import com.penefit.moons.service.ServiceAboutClass;
 
 @Controller
+@RequestMapping("/class")
 public class ControllerAboutClass {
 	@Autowired
-	MapperAboutClass mapper;
-
-	@GetMapping("/")
-	public String root() {
-		return "home";
-	}
+	ServiceAboutClass service;
+	//서비스(인터)
 
 	// 전체클래스
 	@GetMapping("classList")
-	public String getClassList(Model model) {
-		ArrayList<ClassVO> list = mapper.getClassList();
+	public void getClassList(Model model) {
+		ArrayList<ClassVO> list = service.getClassList();
 		model.addAttribute("list", list);
-		return "classList";
 	}
 
 	// 카테고리별 클래스 목록
-	@GetMapping("categoryClassList")
-	public String getCtgClassList(Model model, String key) {
-		ArrayList<ClassVO> list = mapper.getCtgClassList(key);
+	@GetMapping("classList_category")
+	public void getCtgClassList(Model model, String key) {
+		ArrayList<ClassVO> list = service.getCtgClassList(key);
 		model.addAttribute("list", list);
-		return "classList_category";
 	}
 
 	// 신규 클래스 목록
-	@GetMapping("newClassList")
-	public String getNewClassList(Model model) {
-		ArrayList<ClassVO> list = mapper.getNewClassList();
+	@GetMapping("classList_new")
+	public void getNewClassList(Model model) {
+		ArrayList<ClassVO> list = service.getNewClassList();
 		model.addAttribute("list", list);
-		return "classList_new";
 	}
 
 	// 검색된 클래스 목록
-	@GetMapping("searchClassList")
-	public String getSearchClassList(Model model, String keyword) {
-		ArrayList<ClassVO> list = mapper.getSearchClassList(keyword);
+	@GetMapping("classList_search")
+	public void getSearchClassList(Model model, String keyword) {
+		ArrayList<ClassVO> list = service.getSearchClassList(keyword);
 		model.addAttribute("list", list);
-		int result = mapper.getSearchClassListCnt(keyword);
+		int result = service.getSearchClassListCnt(keyword);
 		model.addAttribute("result", result);
 		model.addAttribute("keyword", keyword);
-		return "classList_search";
 	}
 
 	// 클래스 상세보기
 	@GetMapping("class_detail")
 	public void selectClassOne(Model model, String class_code) {
-		ClassVO cvo = mapper.selectClassOne(class_code);
+		ClassVO cvo = service.selectClassOne(class_code);
 		model.addAttribute("cvo", cvo);
 	}
 }
