@@ -79,15 +79,15 @@ h4{
             <h1>회원가입</h1>
             <h5>회원가입을 통해 다양한 서비스를 만나보세요!</h5>
         </div>
-
+		<form name ="form" action="" method="post">
         <div id="mem_id">
             아이디*<br>
-            <input type="text" placeholder="아이디 입력(6~20자)"/>
-            <input type="button" value="중복확인">
+            <input type="text"  placeholder="아이디 입력(6~20자)" name="member_id"/>
+            <input type="button" value="중복확인" onclick="idCheck()"><div id="demo"></div>
         </div>
         <div id="mem_pw">
             비밀번호*<br>
-            <input type="password" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8-20자)"/>
+            <input type="password" placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8-20자)" name="member_pw"/>
         </div>
         <div id="mem_pw2">
             비밀번호 확인*<br>
@@ -95,19 +95,36 @@ h4{
         </div>
          <div id="mem_tel">
             전화번호*<br>
-            <input type="text" placeholder="휴대폰 번호 입력('-'제외 11자리 입력)"/>
+            <input type="text" placeholder="휴대폰 번호 입력('-'제외 11자리 입력)" name="member_phone"/>
         </div>       
          <div id="mem_address">
             주소*<br>
-            <input type="text" placeholder="주소입력"/>
+            <input type="text" placeholder="주소입력" name="member_address"/>
         </div> 
         <div id="mem_regbutton">
             <input type="button" value="회원가입">
         </div>  
-        </div>  
+        </div>
+           </form>   
     </div>
         </div>
 <%@ include file="footer.jsp" %>
 </div>
+<script>
+function idCheck(){
+	let id = document.form.member_id.value;
+	  const xhttp = new XMLHttpRequest();
+	  xhttp.onload = function() {
+		  
+		if(this.responseText ==1){
+		document.getElementById("demo").innerHTML = "사용가능";	
+		}else{
+	    document.getElementById("demo").innerHTML = "사용불가";
+	    }
+	  xhttp.open("GET", "ajax_info.txt", true);
+	  xhttp.send();
+
+}
+</script>
 </body>
 </html>
