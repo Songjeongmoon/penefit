@@ -23,7 +23,7 @@
         <div class="box">
             <header>
                 <div id="logo_box"><a href="/"><img src="images/penefit.png" id="logo_img"></a></div>
-                <div id="search_bar"><button><img src="images/loupe.png" id="loupe_img"></button></div>
+                <input type="text"	name="search_keyword" id="search_bar"><button id="search_btn"><img src="images/loupe.png" id="loupe_img"></button>
                 <div id="right_header">
                     <div id="icon_box">
                         <img src="images/myinfo.png">
@@ -56,7 +56,7 @@
                         <li>
                             <div class="title">커뮤니티</div>
                             <div class="subtitle">
-                                <div class="subtitle_li"><a href="#">공지사항</a></div>
+                                <div class="subtitle_li"><a href="notice">공지사항</a></div>
                                 <div class="subtitle_li"><a href="#">수강후기</a></div>
                                 <div class="subtitle_li"><a href="#">지역별게시판</a></div>
                                 <div class="subtitle_li"><a href="#">클래스별게시판</a></div>
@@ -92,6 +92,24 @@
         $(".subtitle").mouseout(function () {
             $(".subtitle").css("display", "none");
         })
+        
+        //검색버튼 클릭시 검색창으로 이동
+        $("#search_btn").click(function(){
+        	search();
+        });
+        //검색창에서 엔터시 검색창으로 이동
+        $("#search_bar").keydown(function(evt){
+        	if(evt.keyCode ==13){
+        		search();
+        	}
+        })
+        function search(){
+        	//alert("검색시작!");
+        	let keyword=$("#search_bar").val();
+        	//alert(keyword);
+        	let url = "searchClassList?keyword=" + keyword;
+        	location.href=url;
+        }
     </script>
 </body>
 
