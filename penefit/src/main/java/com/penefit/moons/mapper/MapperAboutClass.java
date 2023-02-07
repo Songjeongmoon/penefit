@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.penefit.moons.domain.ClassVO;
 
 @Mapper
-public interface ClassinfoMapper {
+public interface MapperAboutClass {
 
 	//클래스목록조회
 	public ArrayList<ClassVO> getClassList();
@@ -18,4 +18,17 @@ public interface ClassinfoMapper {
 	
 	//신규클래스 조회
 	public ArrayList<ClassVO> getNewClassList();
+	
+	//클래스 검색
+	public ArrayList<ClassVO> getSearchClassList(@Param(value = "keyword") String keyword);
+	
+	//클래스 검색결과 수
+	public int getSearchClassListCnt(@Param(value = "keyword") String keyword);
+	
+	//1개의 클래스 상세보기
+	public ClassVO selectClassOne(@Param(value = "class_code") String class_code);
+	
+	
+	
+	
 }
