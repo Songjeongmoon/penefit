@@ -8,5 +8,10 @@
 	<select id="idCheck" resultType="_int" >
 		SELECT COUNT(*) FROM member WHERE member_id = #{param1}
 	</select>
+	
+	<select id ="loginCheck" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT * FROM member;
+	</select>
+
 
 </mapper>

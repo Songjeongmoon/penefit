@@ -1,8 +1,13 @@
 package com.penefit.moons.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +38,21 @@ public class ControllerAboutMember {
 	}
 	
 
-
-
+	@GetMapping("login")
+	public void login() {
+		
+	}
+	
+	@PostMapping("login.do")
+	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session) {
+		String path = serviceMember.loginCheck(member_id, member_pw,Session);
+		return path;
+	}
+	
+	@GetMapping("logout")
+	public String logout(HttpSession Session) {
+		String path = serviceMember.logout(Session);
+		System.out.println(Session);
+		return path;
+	}
 }
