@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.penefit.moons.mapper.MapperAboutClassInfo">
+	
+	<insert id="insertSuggestion">
+		insert into suggest (member_id, suggest_title, suggest_content, suggest_regdate, city_code) values(#{member_id}, #{suggest_title}, #{suggest_content}, #{suggest_regdate}, #{city_code})  
+	</insert>
+	
+	
+	
+</mapper>

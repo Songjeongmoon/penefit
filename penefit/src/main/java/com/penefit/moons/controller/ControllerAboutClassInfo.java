@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.service.ServiceAboutClassInfo;
 
 @Controller
@@ -21,9 +21,16 @@ public class ControllerAboutClassInfo {
 		return "/class/suggestion";
 	}
 	
+	
+	
+	
+	
+	
+	
 	@PostMapping("/suggestion.do")
-	public void classSuggestion(ClassVO classVO) {
-		service.classSuggestion(classVO);
+	public void insertSuggestion(SuggestDTO suggest) {
+		System.out.println(suggest);
+		service.insertSuggestion(suggest);
 	}
 	
 	

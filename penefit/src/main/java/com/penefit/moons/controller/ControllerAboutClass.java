@@ -29,21 +29,21 @@ public class ControllerAboutClass {
 	}
 
 	// 카테고리별 클래스 목록
-	@GetMapping("classList_category")
+	@GetMapping("classList-category")
 	public void getCtgClassList(Model model, String key) {
 		ArrayList<ClassVO> list = service.getCtgClassList(key);
 		model.addAttribute("list", list);
 	}
 
 	// 신규 클래스 목록
-	@GetMapping("classList_new")
+	@GetMapping("classList-new")
 	public void getNewClassList(Model model) {
 		ArrayList<ClassVO> list = service.getNewClassList();
 		model.addAttribute("list", list);
 	}
 
 	// 검색된 클래스 목록
-	@GetMapping("classList_search")
+	@GetMapping("classList-search")
 	public void getSearchClassList(Model model, String keyword) {
 		ArrayList<ClassVO> list = service.getSearchClassList(keyword);
 		model.addAttribute("list", list);
@@ -53,7 +53,7 @@ public class ControllerAboutClass {
 	}
 
 	// 클래스 상세보기
-	@GetMapping("class_detail")
+	@GetMapping("class-detail")
 	public void selectClassOne(Model model, String class_code, HttpSession session) {
 		ClassVO cvo = service.selectClassOne(class_code);
 		

@@ -1,9 +1,9 @@
 package com.penefit.moons.service;
 
-import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.SuggestDTO;
 
 public interface ServiceAboutClassInfoIm {
 	
-	public String classSuggestion(ClassVO classvo);
+	public String insertSuggestion(SuggestDTO suggest);
 	
 }
