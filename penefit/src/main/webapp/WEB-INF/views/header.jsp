@@ -29,7 +29,7 @@
                         <img src="../images/myinfo.png">
                         <img src="../images/shopping-cart.png">
                     </div><br>
-                    <div id="log_box"><a href="#">로그인</a> | <a href="#">회원가입</a></div>
+                    <div id="log_box"><a href="#">로그인</a> | <a href="/member/regMember">회원가입</a></div>
                 </div>
                 <nav>
                     <ul>

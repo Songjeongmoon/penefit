@@ -71,7 +71,7 @@ h4{
 </head>
 <body>
 <div class="container">
-<%@ include file="header.jsp" %>
+<%@ include file="../header.jsp" %>
         <div class="box">
         <div class="regmem">
         <div class = "reg_main">
@@ -79,11 +79,12 @@ h4{
             <h1>회원가입</h1>
             <h5>회원가입을 통해 다양한 서비스를 만나보세요!</h5>
         </div>
-		<form name ="form" action="" method="post">
+		<form name ="form" action="regMember" method="post">
         <div id="mem_id">
             아이디*<br>
             <input type="text"  placeholder="아이디 입력(6~20자)" name="member_id"/>
-            <input type="button" value="중복확인" onclick="idCheck()"><div id="demo"></div>
+            <input type="button" value="중복확인" onclick="idCheck()">
+            <br><div id="demo"></div>
         </div>
         <div id="mem_pw">
             비밀번호*<br>
@@ -104,24 +105,31 @@ h4{
         <div id="mem_regbutton">
             <input type="button" value="회원가입">
         </div>  
+              </form>   
         </div>
-           </form>   
+     
     </div>
         </div>
-<%@ include file="footer.jsp" %>
+<%@ include file="../footer.jsp" %>
 </div>
 <script>
 function idCheck(){
 	let id = document.form.member_id.value;
+	alert(id);
 	  const xhttp = new XMLHttpRequest();
 	  xhttp.onload = function() {
 		  
-		if(this.responseText ==1){
+		if(this.responseText == 0){
+		document.getElementById("demo").style.fontSize = "15px";
+		document.getElementById("demo").style.color = "green";
 		document.getElementById("demo").innerHTML = "사용가능";	
 		}else{
+		document.getElementById("demo").style.fontSize = "15px";
+		document.getElementById("demo").style.color = "red";
 	    document.getElementById("demo").innerHTML = "사용불가";
 	    }
-	  xhttp.open("GET", "ajax_info.txt", true);
+	  }
+	  xhttp.open("GET", "idCheck?id="+id, true);
 	  xhttp.send();
 
 }
