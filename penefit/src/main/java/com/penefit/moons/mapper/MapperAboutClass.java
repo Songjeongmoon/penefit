@@ -27,6 +27,9 @@ public interface MapperAboutClass {
 	
 	//1개의 클래스 상세보기
 	public ClassVO selectClassOne(@Param(value = "class_code") String class_code);
+
+	//위시리스트 확인
+	public int checkWishlist(@Param(value = "class_code")String class_code, @Param(value = "member_id")String member_id);
 	
 	
 	
