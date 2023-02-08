@@ -24,4 +24,7 @@ public interface ServiceAboutClassI {
 	//클래스 상세보기
 	ClassVO selectClassOne(String class_code);
 
+	//위시리스트 확인
+	int checkWishlist(String class_code, String member_id);
+
 }

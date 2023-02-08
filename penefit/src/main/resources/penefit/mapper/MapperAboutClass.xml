@@ -44,4 +44,12 @@
 		select * from class where class_code = #{class_code }
 	</select>
 	
+	<!-- 위시리스트 확인  -->
+	<select id="checkWishlist" resultType="_int">
+		select count(*) from wishlist where class_code = #{class_code } and member_id=#{member_id}
+	</select>
+	
+	
+	
+	
 </mapper>

@@ -56,7 +56,7 @@
                         <li>
                             <div class="title">커뮤니티</div>
                             <div class="subtitle">
-                                <div class="subtitle_li"><a href="notice">공지사항</a></div>
+                                <div class="subtitle_li"><a href="/board/notice">공지사항</a></div>
                                 <div class="subtitle_li"><a href="#">수강후기</a></div>
                                 <div class="subtitle_li"><a href="#">지역별게시판</a></div>
                                 <div class="subtitle_li"><a href="#">클래스별게시판</a></div>
