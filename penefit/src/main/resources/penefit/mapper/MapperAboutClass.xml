@@ -49,7 +49,13 @@
 		select count(*) from wishlist where class_code = #{class_code } and member_id=#{member_id}
 	</select>
 	
-	
-	
+	<!-- 위시리스트 추가 -->
+	<insert id="addWishlist">
+		insert into wishlist (member_id, class_code) values (#{member_id}, #{class_code})
+	</insert> 
+	<!-- 위시리스트 삭제 -->
+	<delete id="deleteWishlist">
+		delete from wishlist where member_id = #{member_id} and class_code = #{class_code}
+	</delete>
 	
 </mapper>

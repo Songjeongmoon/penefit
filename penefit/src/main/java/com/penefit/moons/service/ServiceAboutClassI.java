@@ -3,28 +3,35 @@ package com.penefit.moons.service;
 import java.util.ArrayList;
 
 import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.WishlistVO;
 
 public interface ServiceAboutClassI {
 
-	//전체 클래스 목록보기
+	// 전체 클래스 목록보기
 	public ArrayList<ClassVO> getClassList();
 
-	//카테고리별 클래스 목록
+	// 카테고리별 클래스 목록
 	ArrayList<ClassVO> getCtgClassList(String key);
 
-	//신규 클래스 목록
+	// 신규 클래스 목록
 	ArrayList<ClassVO> getNewClassList();
 
-	//검색된 클래스 목록
+	// 검색된 클래스 목록
 	ArrayList<ClassVO> getSearchClassList(String keyword);
-	
-	//검색된 클래스 갯수
+
+	// 검색된 클래스 갯수
 	int getSearchClassListCnt(String keyword);
 
-	//클래스 상세보기
+	// 클래스 상세보기
 	ClassVO selectClassOne(String class_code);
 
-	//위시리스트 확인
+	// 위시리스트 확인
 	int checkWishlist(String class_code, String member_id);
+
+	// 위시리스트 추가
+	public void addWishlist(WishlistVO wish);
+
+	// 위시리스트 삭제
+	public void deleteWishlist(WishlistVO wish);
 
 }

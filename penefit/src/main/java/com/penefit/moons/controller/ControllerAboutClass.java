@@ -19,7 +19,6 @@ import com.penefit.moons.service.ServiceAboutClass;
 public class ControllerAboutClass {
 	@Autowired
 	ServiceAboutClass service;
-	//서비스(인터)
 
 	// 전체클래스
 	@GetMapping("classList")
@@ -29,21 +28,21 @@ public class ControllerAboutClass {
 	}
 
 	// 카테고리별 클래스 목록
-	@GetMapping("classList_category")
+	@GetMapping("classList-category")
 	public void getCtgClassList(Model model, String key) {
 		ArrayList<ClassVO> list = service.getCtgClassList(key);
 		model.addAttribute("list", list);
 	}
 
 	// 신규 클래스 목록
-	@GetMapping("classList_new")
+	@GetMapping("classList-new")
 	public void getNewClassList(Model model) {
 		ArrayList<ClassVO> list = service.getNewClassList();
 		model.addAttribute("list", list);
 	}
 
 	// 검색된 클래스 목록
-	@GetMapping("classList_search")
+	@GetMapping("classList-search")
 	public void getSearchClassList(Model model, String keyword) {
 		ArrayList<ClassVO> list = service.getSearchClassList(keyword);
 		model.addAttribute("list", list);
@@ -53,24 +52,13 @@ public class ControllerAboutClass {
 	}
 
 	// 클래스 상세보기
-	@GetMapping("class_detail")
+	@GetMapping("class-detail")
 	public void selectClassOne(Model model, String class_code, HttpSession session) {
 		ClassVO cvo = service.selectClassOne(class_code);
 		
 		model.addAttribute("cvo", cvo);
 	}
 	
-	@GetMapping("checkWishlist")
-	public @ResponseBody int checkWishlist(String class_code, HttpSession session) {
-		String member_id = (String) session.getAttribute("member_id");
-		//로그인된 아이디가 있으면 ID를 조건으로 검색
-		int result=0;
-		if(member_id!=null) {
-			result = service.checkWishlist(class_code, member_id);
-		}
-		
-		return result;
-	}
 	
 	
 }
