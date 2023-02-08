@@ -8,17 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.penefit.moons.domain.BoardVO;
+import com.penefit.moons.service.ServiceAboutBoard;
 
 @Controller
 @RequestMapping("/board/*")
 public class ControllerAboutBoard {
 	
 	@Autowired
+	ServiceAboutBoard saboard;
+	
 	//커뮤니티 리스트
 	@GetMapping("board/commuList")
 	public String getCommuList() {
 		List<BoardVO> list ;
-		return null;
+		
+		return "board/commuList";
 	}
 	
 	//공지사항 리스트

@@ -8,5 +8,14 @@
 </head>
 <body>
 <h1>공지사항 페이지(하는 중...)</h1>
+<form action="" method="">
+<table>
+	<tr>
+		<thead>
+			<th></th>
+		</thead>
+	</tr>
+</table>
+</form>
 </body>
 </html>
