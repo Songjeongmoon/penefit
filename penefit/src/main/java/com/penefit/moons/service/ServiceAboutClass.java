@@ -13,7 +13,6 @@ public class ServiceAboutClass implements ServiceAboutClassI{
 	
 	@Autowired
 	MapperAboutClass mapper;
-	//mapper선언
 
 	@Override
 	public ArrayList<ClassVO> getClassList() {
@@ -50,6 +49,11 @@ public class ServiceAboutClass implements ServiceAboutClassI{
 	public ClassVO selectClassOne(String class_code) {
 		ClassVO cvo = mapper.selectClassOne(class_code);
 		return cvo;
+	}
+	@Override
+	public int checkWishlist(String class_code, String member_id) {
+		int result = mapper.checkWishlist(class_code, member_id);
+		return result;
 	}
 	
 }

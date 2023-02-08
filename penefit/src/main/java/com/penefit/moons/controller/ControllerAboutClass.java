@@ -2,11 +2,14 @@ package com.penefit.moons.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.service.ServiceAboutClass;
@@ -51,8 +54,23 @@ public class ControllerAboutClass {
 
 	// 클래스 상세보기
 	@GetMapping("class_detail")
-	public void selectClassOne(Model model, String class_code) {
+	public void selectClassOne(Model model, String class_code, HttpSession session) {
 		ClassVO cvo = service.selectClassOne(class_code);
+		
 		model.addAttribute("cvo", cvo);
 	}
+	
+	@GetMapping("checkWishlist")
+	public @ResponseBody int checkWishlist(String class_code, HttpSession session) {
+		String member_id = (String) session.getAttribute("member_id");
+		//로그인된 아이디가 있으면 ID를 조건으로 검색
+		int result=0;
+		if(member_id!=null) {
+			result = service.checkWishlist(class_code, member_id);
+		}
+		
+		return result;
+	}
+	
+	
 }
