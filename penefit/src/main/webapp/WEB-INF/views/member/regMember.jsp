@@ -34,7 +34,7 @@ h4{
 	margin-left :400px;
 	margin-top :200px;
     width: 600px;
-    height : 700px;
+    height :800px;
     border: solid 1px black;
 
 }
@@ -80,6 +80,7 @@ h4{
             <h5>회원가입을 통해 다양한 서비스를 만나보세요!</h5>
         </div>
 		<form name ="form" action="regMember" method="post">
+		
         <div id="mem_id">
             아이디*<br>
             <input type="text"  placeholder="아이디 입력(6~20자)" name="member_id"/>
@@ -92,18 +93,24 @@ h4{
         </div>
         <div id="mem_pw2">
             비밀번호 확인*<br>
-            <input type="password" placeholder="비밀번호 재입력"/>
+            <input type="password" placeholder="비밀번호 재입력" name="member_pw2" onkeyup="checkPwd()"/>
+            <br><div id="checkPw"></div>
+        </div>
+            <div id="mem_name">
+            이름*<br>
+            <input type="text"  placeholder="이름 입력" name="member_name"/>
         </div>
          <div id="mem_tel">
             전화번호*<br>
-            <input type="text" placeholder="휴대폰 번호 입력('-'제외 11자리 입력)" name="member_phone"/>
+            <input type="text" placeholder="휴대폰 번호 입력('-'제외 11자리 입력)" name="member_tel"/>
         </div>       
          <div id="mem_address">
             주소*<br>
             <input type="text" placeholder="주소입력" name="member_address"/>
         </div> 
+        <input type="hidden" name="member_grade" value="A">
         <div id="mem_regbutton">
-            <input type="button" value="회원가입">
+            <input type="submit" value="회원가입">
         </div>  
               </form>   
         </div>
@@ -115,7 +122,6 @@ h4{
 <script>
 function idCheck(){
 	let id = document.form.member_id.value;
-	alert(id);
 	  const xhttp = new XMLHttpRequest();
 	  xhttp.onload = function() {
 		  
@@ -132,6 +138,21 @@ function idCheck(){
 	  xhttp.open("GET", "idCheck?id="+id, true);
 	  xhttp.send();
 
+}
+
+function checkPwd(){
+	  var pw1 = document.form.member_pw.value;
+	  var pw2 = document.form.member_pw2.value;
+	  if(pw1!=pw2){
+	   document.getElementById('checkPw').style.fontSize = "15px";
+	   document.getElementById('checkPw').style.color = "red";
+	   document.getElementById('checkPw').innerHTML = "동일한 암호를 입력하세요.";
+	  }else{
+	   document.getElementById('checkPw').style.fontSize = "15px";
+	   document.getElementById('checkPw').style.color = "green";
+	   document.getElementById('checkPw').innerHTML = "암호가 확인 되었습니다.";
+	   
+	  }
 }
 </script>
 </body>

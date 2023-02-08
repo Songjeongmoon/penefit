@@ -23,7 +23,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		if (result == 1) {
 			return "home";
 		} else {
-			return "regMember";
+			return "home";
 		}
 
 	}
