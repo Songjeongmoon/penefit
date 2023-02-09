@@ -46,7 +46,7 @@
 			<aside>
 				<ul>
 					<li class="aside_title">클래스</li>
-					<li class="aside_menu"><a href="class/classList">클래스 전체보기</a></li>
+					<li class="aside_menu"><a href="classList">클래스 전체보기</a></li>
 					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
 						<div id="aside_submenu">
 							<p>

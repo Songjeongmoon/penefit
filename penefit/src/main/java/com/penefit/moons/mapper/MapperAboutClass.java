@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.WishlistVO;
 
@@ -37,6 +38,18 @@ public interface MapperAboutClass {
 	
 	//위시리스트 삭제
 	public void deleteWishlist(WishlistVO wish);
+
+	//위시리스트 목록조회
+	public ArrayList<WishlistVO> getWishlist(@Param(value = "member_id") String member_id);
+
+	//장바구니에 담기전, 동일 품목이 있는지 확인!
+	public int checkCcodeInCart(@Param(value = "class_code") String param1,@Param(value = "member_id")  String param2);
+	
+	//장바구니에 담기
+	public void addShoppingcart(@Param(value = "class_code") String param1,@Param(value = "member_id")  String param2);
+	
+	//장바구니 목록보기
+	public ArrayList<CartVO> getShoppingcartList(String member_id);
 	
 	
 }

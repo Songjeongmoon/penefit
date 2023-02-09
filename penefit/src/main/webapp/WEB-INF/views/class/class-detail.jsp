@@ -6,16 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
-	integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
-	crossorigin="anonymous"></script>
-<script>
-	Kakao.init('7fc4637ef75ce5e0c13bf113d0284ba6'); // 사용하려는 앱의 JavaScript 키 입력
-</script>
-<script
-	src="https://t1.kakaocdn.net/kakao_js_sdk/${VERSION}/kakao.min.js"
-	integrity="${INTEGRITY_VALUE}" crossorigin="anonymous"></script>
-
 
 <link rel="stylesheet" href="style.css">
 <style>
@@ -62,10 +52,8 @@
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
-	<c:set var="member_id" scope="session" value="chaeng" />
 	<c:set var="class_code" scope="page" value="${cvo.class_code }" />
 
-	로그인아이디 : ${member_id } 님
 	<div class="box">
 		<section>
 			<div class="class_detail">
@@ -85,100 +73,21 @@
 					<div id="heart">
 						<img src="../images/blankHeart.png" class="heart_img">
 					</div>
-					<div id="">
+					<div >
 						<a id="kakaotalk-sharing-btn" href="javascript:;"><img
 							id="kakao"
 							src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
 							alt="카카오톡 공유 보내기 버튼" /> </a>
 					</div>
-					<div>장바구니 버튼</div>
+					<div><button type="button" id="addCart">장바구니에 담기</button></div>
 				</div>
 			</div>
-
-
-
-
-
-
 
 		</section>
 	</div>
 	<%@ include file="../footer.jsp"%>
 	<script>
-		/* function loginWithKakao() {
-		    Kakao.Auth.authorize({
-		      redirectUri: 'https://developers.kakao.com/tool/demo/oauth',
-		      state: 'sendme_feed',
-		      scope: 'talk_message', // 앱 동의 항목 설정 및 사용자 동의 필요
-		    });
-		  }
-
-		  function sendToMe() {
-		    Kakao.API.request({
-		      url: '/v2/api/talk/memo/default/send',
-		      data: {
-		        template_object: {
-		          object_type: 'feed',
-		          content: {
-		            title: '딸기 치즈 케익',
-		            description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
-		            image_url:
-		              'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-		            link: {
-		              // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-		              mobile_web_url: 'https://developers.kakao.com',
-		              web_url: 'https://developers.kakao.com',
-		            },
-		          },
-		          social: {
-		            like_count: 286,
-		            comment_count: 45,
-		            shared_count: 845,
-		          },
-		          buttons: [
-		            {
-		              title: '웹으로 보기',
-		              link: {
-		                mobile_web_url: 'https://developers.kakao.com',
-		                web_url: 'https://developers.kakao.com',
-		              },
-		            },
-		            {
-		              title: '앱으로 보기',
-		              link: {
-		                mobile_web_url: 'https://developers.kakao.com',
-		                web_url: 'https://developers.kakao.com',
-		              },
-		            },
-		          ],
-		        },
-		      },
-		    })
-		      .then(function(res) {
-		        alert('success: ' + JSON.stringify(res));
-		      })
-		      .catch(function(err) {
-		        alert('error: ' + JSON.stringify(err));
-		      });
-		  }
-
-		  // 아래는 데모를 위한 UI 코드입니다.
-		  displayToken()
-		  function displayToken() {
-		    var token = getCookie('authorize-access-token');
-
-		    if(token) {
-		      Kakao.Auth.setAccessToken(token);
-		      document.querySelector('#token-result').innerText = 'login success, ready to send a message';
-		      document.querySelector('button.api-btn').style.visibility = 'visible';
-		    }
-		  }
-
-		  function getCookie(name) {
-		    var parts = document.cookie.split(name + '=');
-		    if (parts.length === 2) { return parts[1].split(';')[0]; }
-		  }
-		 */
+		
 		 
 		 //세션에서 로그인 아이디 받아오기
 		let member_id = "${member_id}";
@@ -186,7 +95,6 @@
 		
 		//로그인된 아이디가 았으면 위시리스트를 받아온다.
 		if (member_id != "") {
-			//alert("위시리스트 받아오기!");
 			wishlist();
 			$(".heart_img").click(function(){
 				if($(".heart_img").attr("src")=="../images/blankHeart.png"){
@@ -199,7 +107,13 @@
 				
 			});
 		}else{
-			$(".heart_img").src("../images/blankHeart.png");
+			
+			$(".heart_img").click(function(){
+				alert("이용하기 위해서는 로그인이 필요합니다.");
+				location.href="/member/login";
+			});
+			
+			
 		}
 
 		//위시리스트 받아오기 ajax
@@ -236,6 +150,13 @@
 			  xhttp.open("GET", "deleteWishlist?class_code="+class_code+"&member_id="+member_id, true);
 			  xhttp.send();
 			}
+		
+		//장바구니에 담기
+		$("#addCart").click(function(){
+			//alert("장바구니 버튼 클릭!");
+			location.href="shoppingcart?class_code="+class_code;
+		});
+		
 		
 		
 	</script>

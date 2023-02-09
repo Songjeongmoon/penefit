@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.mapper.MapperAboutClass;
 
 @Service
-public class ServiceAboutClass implements ServiceAboutClassI{
-	
+public class ServiceAboutClass implements ServiceAboutClassI {
+
 	@Autowired
 	MapperAboutClass mapper;
 
@@ -20,7 +20,7 @@ public class ServiceAboutClass implements ServiceAboutClassI{
 	public ArrayList<ClassVO> getClassList() {
 		ArrayList<ClassVO> list = mapper.getClassList();
 		return list;
-		
+
 	}
 
 	@Override
@@ -52,6 +52,7 @@ public class ServiceAboutClass implements ServiceAboutClassI{
 		ClassVO cvo = mapper.selectClassOne(class_code);
 		return cvo;
 	}
+
 	@Override
 	public int checkWishlist(String class_code, String member_id) {
 		int result = mapper.checkWishlist(class_code, member_id);
@@ -60,13 +61,37 @@ public class ServiceAboutClass implements ServiceAboutClassI{
 
 	@Override
 	public void addWishlist(WishlistVO wish) {
-		//System.out.println("서비스 : " + wish.toString());
-		mapper.addWishlist(wish);		
-	}
-	@Override
-	public void deleteWishlist(WishlistVO wish) {
-		mapper.deleteWishlist(wish);		
+		mapper.addWishlist(wish);
 	}
 
+	@Override
+	public void deleteWishlist(WishlistVO wish) {
+		mapper.deleteWishlist(wish);
+	}
+
+	@Override
+	public ArrayList<WishlistVO> getWishlist(String member_id) {
+		ArrayList<WishlistVO> list = mapper.getWishlist(member_id);
+		return list;
+	}
+
+	@Override
+	public void addShoppingcart(String class_code, String member_id) {
+		mapper.addShoppingcart(class_code, member_id);
+	}
+
+	@Override
+	public ArrayList<CartVO> getShoppingcartList(String member_id) {
+		ArrayList<CartVO> list = mapper.getShoppingcartList(member_id);
+		return list;
+	}
+
+	@Override
+	public int checkCcodeInCart(String class_code, String member_id) {
+		int result = mapper.checkCcodeInCart(class_code, member_id);
+		return result;
+	}
 	
+	
+
 }
