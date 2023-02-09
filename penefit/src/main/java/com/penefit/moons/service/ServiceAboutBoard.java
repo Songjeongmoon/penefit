@@ -22,6 +22,16 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		return blist;
 	}
 
+	@Override
+	public BoardVO noticeSelectOne(int board_num) {
+		bmapper.noticeViewCnt(board_num);
+		BoardVO bvo = bmapper.noticeSelectOne(board_num);
+		
+		return bvo;
+	}
+	
+	
+
 		
 	
 

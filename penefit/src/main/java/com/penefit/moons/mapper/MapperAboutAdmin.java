@@ -8,5 +8,7 @@ import com.penefit.moons.domain.BoardVO;
 public interface MapperAboutAdmin {
 	
 	public int noticeReg(BoardVO bvo);		//공지사항등록
+	
+	
 
 }

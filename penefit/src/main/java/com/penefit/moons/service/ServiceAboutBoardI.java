@@ -9,6 +9,9 @@ public interface ServiceAboutBoardI {
 	//공지사항 리스트 
 	public List<BoardVO> getNoticeList();
 	
+	//공지사항 상세
+	public BoardVO noticeSelectOne(int board_num);
+	
 	
 
 }

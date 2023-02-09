@@ -6,4 +6,13 @@
 	SELECT * FROM board
 </select>
 
+<!-- 공지사항 상세 -->
+<select id="noticeSelectOne" resultType="com.penefit.moons.domain.BoardVO">
+SELECT * FROM board WHERE board_num=#{board_num}
+</select>
+
+<!-- 공지사항 조회수증가 -->
+<update id="noticeViewCnt">
+UPDATE board SET board_viewcnt = board_viewcnt + 1 WHERE board_num=#{board_num}
+</update>
 </mapper>

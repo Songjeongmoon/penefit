@@ -34,7 +34,7 @@
 				<ul>
 					<li class="aside_title">커뮤니티</li>
 					<li class="aside_menu"><a href="notice">공지사항</a></li>
-					<li class="aside_menu" id="aside_menu_btn">수강후기</li>
+					<li class="aside_menu"><a href="#">수강후기</a></li>
 					<li class="aside_menu"><a href="#">지역별게시판</a></li>
 					<li class="aside_menu"><a href="classList_new">클래스별게시판</a></li>
 				</ul>
