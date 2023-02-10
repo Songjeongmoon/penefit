@@ -3,8 +3,22 @@
 <mapper namespace="com.penefit.moons.mapper.MapperAboutClassInfo">
 	
 	<insert id="insertSuggestion">
-		insert into suggest (member_id, suggest_title, suggest_content, suggest_regdate, city_code) values(#{member_id}, #{suggest_title}, #{suggest_content}, #{suggest_regdate}, #{city_code})  
+		INSERT INTO suggest (member_id, suggest_title, suggest_content, suggest_regdate, city_code)
+		VALUES(#{member_id}, #{suggest_title}, #{suggest_content}, #{suggest_regdate}, #{city_code})  
 	</insert>
+	
+	<select id="getMySuggestionList" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		where member_id = #{member_id}
+	</select>
+	
+	<select id="getMyClassList" resultType="com.penefit.moons.domain.ClassListDTO">
+		SELECT *
+		FROM class_list
+		WHERE member_id = #{member_id}
+	</select>
+	
 	
 	
 	
