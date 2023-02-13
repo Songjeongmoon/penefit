@@ -65,7 +65,11 @@
 		const reply_content = $(#reply_content).val();
 		
 		$.ajax({
-			url:"/replyReg"
+			url:"/replyReg",
+			method: "POST",
+			data : {
+				
+			}
 		})
 		
 		

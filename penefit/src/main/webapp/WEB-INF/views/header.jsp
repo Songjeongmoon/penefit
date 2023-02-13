@@ -28,7 +28,7 @@
                 <div id="right_header">
                     <div id="icon_box">
                         <a id="goWishlist"><img src="../images/pinkHeart.png"></a>
-                        <img src="../images/myinfo.png">
+                        <a id="goMypage"><img src="../images/myinfo.png"></a>
                         <a id="shoppingcart"><img src="../images/shopping-cart.png"></a>
                     </div><br>
                     <div id="log_info">
@@ -131,11 +131,22 @@
         	}
         });
         
+      //마이페이지는 회원만 이용가능
+        $("#goMypage").click(function(){
+        	let member_id = "${member_id}";
+        	if(member_id!=""){
+        		location.href="/member/infoMember?id=${member_id }/"
+        	}else{
+        		alert("회원만 이용가능한 서비스 입니다.");
+        		location.href="../member/login"
+        	}
+        });
+        
       //장바구니는 회원만 이용가능
         $("#shoppingcart").click(function(){
         	let member_id = "${member_id}";
         	if(member_id!=""){
-        		location.href="shoppingcart2"
+        		location.href="/shoppingcart1"
         	}else{
         		alert("회원만 이용가능한 서비스 입니다.");
         		location.href="../member/login"
