@@ -16,4 +16,14 @@ public interface MapperAboutClassInfo {
 	
 	public ArrayList<ClassListDTO> getMyClassList(String member_id);
 	
+	public ArrayList<ClassListDTO> getMyClassListDayASC(String member_id);
+	
+	public ArrayList<ClassListDTO> getMyEndClassList(String member_id);
+	
+	public ArrayList<ClassListDTO> getMyActiveClassList(String member_id);
+	
+	public ArrayList<ClassListDTO> getMyClassListCnt(String member_id);
+	
+	public ArrayList<ClassListDTO> getMyClassListCntAsc(String member_id);
+	
 }

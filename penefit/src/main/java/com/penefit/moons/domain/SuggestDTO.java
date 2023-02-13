@@ -11,4 +11,9 @@ public class SuggestDTO {
 	private String suggest_content;
 	private String suggest_regdate;
 	private String city_code;
+	private String suggest_photo;
+	private String class_time;
+	private int maxCnt;
+	private int price;
+	private String type;
 }

@@ -3,8 +3,10 @@
 <mapper namespace="com.penefit.moons.mapper.MapperAboutClassInfo">
 	
 	<insert id="insertSuggestion">
-		INSERT INTO suggest (member_id, suggest_title, suggest_content, suggest_regdate, city_code)
-		VALUES(#{member_id}, #{suggest_title}, #{suggest_content}, #{suggest_regdate}, #{city_code})  
+		INSERT INTO suggest (member_id, suggest_title, suggest_content, suggest_regdate, city_code, suggest_photo,
+		class_time, maxCnt, price, type)
+		VALUES (#{member_id}, #{suggest_title}, #{suggest_content}, NOW(), #{city_code}, #{suggest_photo},
+		#{class_time}, #{maxCnt}, #{price}, #{type})  
 	</insert>
 	
 	<select id="getMySuggestionList" resultType="com.penefit.moons.domain.SuggestDTO">
@@ -14,9 +16,63 @@
 	</select>
 	
 	<select id="getMyClassList" resultType="com.penefit.moons.domain.ClassListDTO">
-		SELECT *
-		FROM class_list
-		WHERE member_id = #{member_id}
+		SELECT A.member_id, A.class_code, A.class_list_current,
+		B.class_subject, B.class_teacher, B.class_day, B.class_time,
+		B.class_memlit, B.class_memcnt, B.class_price,
+		B.city_name, B.class_regdate
+		FROM class_list A, class B, city C
+		WHERE A.member_id = #{member_id} AND A.class_code = B.class_code AND B.city_code = C.city_code
+		ORDER BY B.class_regdate DESC
+	</select>
+	
+	<select id="getMyClassListDayASC" resultType="com.penefit.moons.domain.ClassListDTO">
+		SELECT A.member_id, A.class_code, A.class_list_current,
+		B.class_subject, B.class_teacher, B.class_day, B.class_time,
+		B.class_memlit, B.class_memcnt, B.class_price,
+		C.city_name, B.class_regdate
+		FROM class_list A, class B, city C
+		WHERE A.member_id = #{member_id} AND A.class_code = B.class_code AND B.city_code = C.city_code
+		ORDER BY B.class_regdate ASC
+	</select>
+	
+	<select id="getMyActiveClassList" resultType="com.penefit.moons.domain.ClassListDTO">
+		SELECT A.member_id, A.class_code, A.class_list_current,
+		B.class_subject, B.class_teacher, B.class_day, B.class_time,
+		B.class_memlit, B.class_memcnt, B.class_price,
+		B.city_name, B.class_regdate
+		FROM class_list A, class B, city C
+		WHERE B.class_regdate > NOW() AND A.member_id = #{member_id} AND A.class_code = B.class_code AND B.city_code = C.city_code
+		ORDER BY B.class_regdate DESC
+	</select>
+	
+	<select id="getMyEndClassList" resultType="com.penefit.moons.domain.ClassListDTO">
+		SELECT A.member_id, A.class_code, A.class_list_current,
+		B.class_subject, B.class_teacher, B.class_day, B.class_time,
+		B.class_memlit, B.class_memcnt, B.class_price,
+		B.city_name, B.class_regdate
+		FROM class_list A, class B, city C
+		WHERE NOW() > B.class_regdate AND A.member_id = #{member_id} AND A.class_code = B.class_code AND B.city_code = C.city_code
+		ORDER BY B.class_regdate DESC
+	</select>
+	
+	<select id="getMyClassListCnt" resultType="com.penefit.moons.domain.ClassListDTO">
+		SELECT A.member_id, A.class_code, A.class_list_current,
+		B.class_subject, B.class_teacher, B.class_day, B.class_time,
+		B.class_memlit, B.class_memcnt, B.class_price,
+		B.city_name, B.class_regdate
+		FROM class_list A, class B, city C
+		WHERE A.member_id = #{member_id} AND A.class_code = B.class_code AND B.city_code = C.city_code
+		ORDER BY B.class_memlit DESC
+	</select>
+	
+	<select id="getMyClassListCntAsc" resultType="com.penefit.moons.domain.ClassListDTO">
+		SELECT A.member_id, A.class_code, A.class_list_current,
+		B.class_subject, B.class_teacher, B.class_day, B.class_time,
+		B.class_memlit, B.class_memcnt, B.class_price,
+		B.city_name, B.class_regdate
+		FROM class_list A, class B, city C
+		WHERE A.member_id = #{member_id} AND A.class_code = B.class_code AND B.city_code = C.city_code
+		ORDER BY B.class_memlit
 	</select>
 	
 	

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.penefit.moons.mapper.AdminMapperSong">
+	
+	<select id = "getSuggestInfo" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		WHERE suggest_num = #{suggest_num}
+	</select>
+	
+	<insert id="createClass">
+		INSERT INTO class
+		(class_code, class_subject, suggest_photo, class_teacher, class_date,
+		class_info, class_memlit, class_price, city_code, class_regdate, suggest_num)
+		VALUES (#{class_code}, #{class_subject}, #{suggest_photo}, #{class_teacher},
+		#{class_date}, #{class_info}, #{class_memlit}, #{class_price},  #{city_code}, NOW(), #{suggest_num})
+	</insert>
+	
+	<select id="getTypeCnt" resultType="string">
+		SELECT class_code
+		FROM class
+	</select>
+	
+	
+	
+	
+</mapper>
