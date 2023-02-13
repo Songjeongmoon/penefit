@@ -65,8 +65,13 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	}
 
 	@Override
-	public void deleteWishlist(WishlistVO wish) {
-		mapper.deleteWishlist(wish);
+	public void deleteWishlist(String class_code, String member_id) {
+		mapper.deleteWishlist(class_code, member_id);
+	}
+	
+	@Override
+	public void deleteWishlist2(WishlistVO wish) {
+		mapper.deleteWishlist2(wish);
 	}
 
 	@Override
@@ -90,6 +95,17 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	public int checkCcodeInCart(String class_code, String member_id) {
 		int result = mapper.checkCcodeInCart(class_code, member_id);
 		return result;
+	}
+
+	@Override
+	public void deleteFromCart(int cartNum) {
+		mapper.deleteFromCart(cartNum);
+		
+	}
+
+	@Override
+	public void deleteAllFromCart(String member_id) {
+		mapper.deleteAllFromCart(member_id);
 	}
 	
 	

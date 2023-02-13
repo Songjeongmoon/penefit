@@ -63,13 +63,18 @@
 		delete from wishlist where member_id = #{member_id}
 		and class_code = #{class_code}
 	</delete>
-
+	
+	<!-- 위시리스트 삭제2 -->
+	<delete id="deleteWishlist2">
+		delete from wishlist where member_id = #{member_id}
+		and wishlist_num = #{wishlist_num}
+	</delete>
 	<!-- 위시리스트 목록조회 -->
 	<select id="getWishlist"
 		resultType="com.penefit.moons.domain.WishlistVO">
 		SELECT w.wishlist_num, w.member_id, w.class_code,
-		c.class_subject, c.class_photo, c.class_teacher, c.class_day,
-		c.class_time, c.class_price, c.city_code from wishlist w, class c
+		c.class_subject, c.suggest_photo, c.class_teacher, c.class_date,
+		c.class_price, c.city_code from wishlist w, class c
 		where member_id =#{member_id} AND w.class_code = c.class_code;
 	</select>
 	
@@ -86,11 +91,20 @@
 
 	<!-- 장바구니 목록보기 -->
 	<select id="getShoppingcartList" resultType="com.penefit.moons.domain.CartVO">
-		SELECT c.class_code, c.class_subject, c.class_photo,
-		c.class_teacher, c.class_day, c.class_time, c.class_price,
+		SELECT c.class_code, c.class_subject, c.suggest_photo,
+		c.class_teacher, c.class_date, c.class_price,c.class_memlit, c.class_memcnt,
 		s.shopping_cart_num
 		FROM shopping_cart s, class c
 		WHERE s.class_code = c.class_code AND member_id=#{member_id}
 	</select>
+	
+	<!-- 장바구니에서 삭제 -->
+	<delete id="deleteFromCart">
+		delete from shopping_cart where shopping_cart_num = #{shopping_cart_num}
+	</delete>
 
+	<!-- 장바구니에서 전체삭제 -->
+	<delete id="deleteAllFromCart">
+		delete from shopping_cart where member_id = #{member_id}
+	</delete>
 </mapper>

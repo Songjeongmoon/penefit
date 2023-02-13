@@ -1,20 +1,15 @@
 package com.penefit.moons.controller;
 
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.penefit.moons.domain.CartVO;
-import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.service.ServiceAboutClass;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class ControllerAboutRoot {
 	@Autowired
 	ServiceAboutClass service;
@@ -25,22 +20,19 @@ public class ControllerAboutRoot {
 	}
 
 	// 위시리스트 목록
-	@GetMapping("wishlist")
-	public String goWishlist(Model model, HttpSession session) {
-		System.out.println("=============================");
-		String member_id = (String) session.getAttribute("member_id");
-		ArrayList<WishlistVO> list = service.getWishlist(member_id);
-		model.addAttribute("list", list);
-		return "wishlist";
+	@GetMapping("/wishlist")
+	public void goWishlist() {
 	}
-	
-	 @GetMapping(value = {"shoppingcart2", "class/shoppingcart2"})
-	public String shoppingcart2(HttpSession session, Model model) {
-		String member_id = (String) session.getAttribute("member_id");
-		ArrayList<CartVO> list = service.getShoppingcartList(member_id);
-		model.addAttribute("list", list);
+
+	// 장바구니 담기 없이 바로 header클릭시 목록
+	@GetMapping("/shoppingcart1")
+	public String goCart() {
 		return "shoppingcart";
 	}
 
-
+	// 마이페이지로
+	@GetMapping("/infoMember")
+	public String goInfoMember () {
+		return "member/infoMember";
+	}
 }

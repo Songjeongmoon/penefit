@@ -34,8 +34,11 @@ public interface ServiceAboutClassI {
 	// 위시리스트 추가
 	public void addWishlist(WishlistVO wish);
 
-	// 위시리스트 삭제
-	public void deleteWishlist(WishlistVO wish);
+	// 위시리스트 삭제1
+	public void deleteWishlist(String class_code, String member_id);
+
+	// 위시리스트 삭제2
+	public void deleteWishlist2(WishlistVO wish);
 
 	//위시리스트 목록
 	public ArrayList<WishlistVO> getWishlist(String member_id);
@@ -48,4 +51,11 @@ public interface ServiceAboutClassI {
 	
 	//장바구니 목록보기
 	public ArrayList<CartVO> getShoppingcartList(String member_id);
+	
+	//장바구니에서 삭제
+	public void deleteFromCart(int cartNum);
+	
+	//장바구니에서 전체삭제
+	public void deleteAllFromCart(String member_id);
+	
 }
