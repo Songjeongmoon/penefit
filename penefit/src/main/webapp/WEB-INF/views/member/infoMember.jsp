@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+https://api.iamport.kr /payments/find/{merchant_uid}/{payment_status}
 <link rel="stylesheet" href="style.css">
 <style>
 .mypageTitle {
@@ -51,6 +52,9 @@
 							<th>구매일자</th>
 						</tr>
 					</thead>
+					<tbody id="historyTbody">
+						<!--  -->
+					</tbody>
 				</table>
 			</div>
 			<div class="content" id="myClassSuggest">
@@ -86,6 +90,11 @@
 		$("#myHistoryLabel").click(function() {
 			$(".content:not(#purchaseHistory)").css("display", "none");
 			$("#purchaseHistory").css("display", "block");
+			
+			//결제내역 받아오기
+			$("#historyTbody")
+			
+			
 		});
 		$("#myInquiryLabel").click(function() {
 			$(".content:not(#myInquiry)").css("display", "none");

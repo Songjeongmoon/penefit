@@ -107,4 +107,9 @@
 	<delete id="deleteAllFromCart">
 		delete from shopping_cart where member_id = #{member_id}
 	</delete>
+	
+	<!-- 장바구니용 회원정보 -->
+	<select id="getMemberInfo" resultType="com.penefit.moons.domain.MemberVO">
+		select * from member where member_id=#{member_id}
+	</select>	
 </mapper>

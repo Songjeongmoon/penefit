@@ -35,10 +35,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 
 	@Override
 	public int idCheck(String id) {
-		System.out.println("service의 id : " + id);
 		int result = mapper.idCheck(id);
-		System.out.println("--------------------------" + result);
-		log.info("===============================================");
 		return result;
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.mapper.MapperAboutClass;
 
@@ -106,6 +107,12 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	@Override
 	public void deleteAllFromCart(String member_id) {
 		mapper.deleteAllFromCart(member_id);
+	}
+
+	@Override
+	public MemberVO getMemberInfo(String member_id) {
+		MemberVO member = mapper.getMemberInfo(member_id);
+		return member;
 	}
 	
 	

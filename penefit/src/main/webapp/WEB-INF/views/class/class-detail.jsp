@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +58,7 @@
 		<section>
 			<div class="class_detail">
 				<div id="class_detail_img">
-					<img src="../images/${cvo.suggest_photo }">
+					<img src="../images/${fn:split(cvo.suggest_photo,'-')[0]}">
 				</div>
 				<div id="class_detail_info">
 					<div id="class_code">클래스 코드${cvo.class_code }</div>

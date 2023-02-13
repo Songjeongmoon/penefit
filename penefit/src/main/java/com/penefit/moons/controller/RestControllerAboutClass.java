@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.penefit.moons.domain.CartVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.service.ServiceAboutClass;
 
@@ -30,6 +31,7 @@ public class RestControllerAboutClass {
 	@Autowired
 	ServiceAboutClass service;
 
+	
 	//class-detail페이지에 찜목록 확인
 	@GetMapping("/checkWishlist")
 	public int checkWishlist(@RequestParam String class_code, @RequestParam String member_id) {
@@ -72,9 +74,10 @@ public class RestControllerAboutClass {
 	
 	//장바구니 리스트
 	@GetMapping("/shoppingcartList")
-	public ArrayList<CartVO> shoppingcartList(HttpSession session) {
+	public ArrayList<CartVO> shoppingcartList(HttpSession session,Model model) {
 		String member_id = (String) session.getAttribute("member_id");
 		ArrayList<CartVO> list = service.getShoppingcartList(member_id);
+		
 		return list;
 	}
 	

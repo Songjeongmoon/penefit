@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.WishlistVO;
 
 public interface ServiceAboutClassI {
@@ -58,4 +59,6 @@ public interface ServiceAboutClassI {
 	//장바구니에서 전체삭제
 	public void deleteAllFromCart(String member_id);
 	
+	//장바구니용 회원정보
+	public MemberVO getMemberInfo(String member_id);
 }
