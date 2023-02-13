@@ -57,7 +57,6 @@ input[type=text] {
 
 			</aside>
 			<div class="content" id="myinfo">
-				<h3 class="mypageTitle">[마이페이지]</h3>
 					    <div class="meminfo">
         <div class="mem_info">
             <div id="mem_maintitle">

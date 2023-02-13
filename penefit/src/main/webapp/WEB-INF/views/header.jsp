@@ -37,7 +37,7 @@
                     <a href="/member/regMember">회원가입</a>
                     </c:if>
                     <c:if test="${member_id !=null }">
-                    <a href="/member/infoMember?id=${member_id }/">${member_id }</a>님 | 
+                    ${member_id }님 | 
                     <a href="/member/logout">로그아웃</a>
                     </c:if>
                     </div>
@@ -67,9 +67,9 @@
                         <li>
                             <div class="title">커뮤니티</div>
                             <div class="subtitle">
-                                <div class="subtitle_li"><a href="#">공지사항</a></div>
+                                <div class="subtitle_li"><a href="/board/notice">공지사항</a></div>
                                 <div class="subtitle_li"><a href="#">수강후기</a></div>
-                                <div class="subtitle_li"><a href="#">지역별게시판</a></div>
+                                <div class="subtitle_li"><a href="/board/cityBoard">지역별게시판</a></div>
                                 <div class="subtitle_li"><a href="#">클래스별게시판</a></div>
                            
                             </div>
@@ -78,7 +78,7 @@
                             <div class="title">문의</div>
                             <div class="subtitle">
                                 <div class="subtitle_li"><a href="#">FAQ</a></div>
-                                <div class="subtitle_li"><a href="#">Q&A</a></div>
+                                <div class="subtitle_li"><a href="/board/QnA">Q&A</a></div>
                                 <div class="subtitle_li">&nbsp;</div>
                                 <div class="subtitle_li">&nbsp;</div>
                             </div>
@@ -135,7 +135,7 @@
         $("#goMypage").click(function(){
         	let member_id = "${member_id}";
         	if(member_id!=""){
-        		location.href="infoMember"
+        		location.href="/member/infoMember?id=${member_id }/"
         	}else{
         		alert("회원만 이용가능한 서비스 입니다.");
         		location.href="../member/login"
