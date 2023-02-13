@@ -4,10 +4,8 @@
 
 <!-- 공지사항 등록 -->
 <insert id="noticeReg">
-INSERT INTO board (board_title,board_content,member_id,board_regdate,board_viewcnt) VALUES (#{board_title},#{board_content},#{member_id}, now(),1)
+INSERT INTO notice(notice_title,notice_content,member_id,notice_regdate,notice_viewcnt) VALUES (#{notice_title},#{notice_content},#{member_id}, now(),0)
 </insert>
-
-
 
 
 </mapper>

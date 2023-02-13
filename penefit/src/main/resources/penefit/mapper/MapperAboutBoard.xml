@@ -2,17 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="com.penefit.moons.mapper.MapperAboutBoard">
 
-<select id="getNoticeList" resultType="com.penefit.moons.domain.BoardVO">				
-	SELECT * FROM board
+<select id="getNoticeList" resultType="com.penefit.moons.domain.NoticeVO">				
+	SELECT * FROM notice
 </select>
 
 <!-- 공지사항 상세 -->
-<select id="noticeSelectOne" resultType="com.penefit.moons.domain.BoardVO">
-SELECT * FROM board WHERE board_num=#{board_num}
+<select id="noticeSelectOne" resultType="com.penefit.moons.domain.NoticeVO">
+	SELECT * FROM notice WHERE notice_num=#{notice_num}
 </select>
 
 <!-- 공지사항 조회수증가 -->
 <update id="noticeViewCnt">
-UPDATE board SET board_viewcnt = board_viewcnt + 1 WHERE board_num=#{board_num}
+	UPDATE notice SET notice_viewcnt = notice_viewcnt + 1 WHERE notice_num=#{notice_num}
 </update>
+
+<!-- 공지사항 수정 -->
+<update id="modiNotice">
+	UPDATE notice SET notice_title=#{notice_title}, notice_content=#{notice_content},notice_modidate=now() WHERE notice_num=#{notice_num}
+</update>
+<!-- 공지사항 삭제 -->
+<delete id="delNotice">
+	DELETE FROM notice WHERE notice_num=#{notice_num}
+</delete>
+
+<!-- 지역별 게시판 -->
+
+<!-- QnA 게시판 -->
+<select id="getQnAList" resultType="com.penefit.moons.domain.QnAVO">
+	SELECT * FROM qna
+</select>
+
+<insert id="regQnA">
+	INSERT INTO qna(qna_title, qna_content, member_id, qna_regdate) VALUES (#{qna_title}, #{qna_content}, #{member_id}, now())
+</insert>
+
+<select id="qnaSelectOne" resultType="com.penefit.moons.domain.QnAVO">
+	SELECT * FROM qna WHERE qna_num=#{qna_num}
+</select>
+
+<!-- 댓글 -->
+<insert id="regReply">
+	INSERT INTO reply (reply_content, reply_regdate, member_id) VALUES(#{reply_content},now(),#{member_id})
+</insert>
+
 </mapper>

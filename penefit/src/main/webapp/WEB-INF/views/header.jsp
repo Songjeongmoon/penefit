@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,10 +27,20 @@
                 <input type="text"	name="search_keyword" id="search_bar"><button id="search_btn"><img src="../images/loupe.png" id="loupe_img"></button>
                 <div id="right_header">
                     <div id="icon_box">
+                        <a id="goWishlist"><img src="../images/pinkHeart.png"></a>
                         <img src="../images/myinfo.png">
-                        <img src="../images/shopping-cart.png">
+                        <a id="shoppingcart"><img src="../images/shopping-cart.png"></a>
                     </div><br>
-                    <div id="log_box"><a href="#">로그인</a> | <a href="#">회원가입</a></div>
+                    <div id="log_info">
+                    <c:if test="${member_id ==null }">
+                    <a href="/member/login">로그인</a> | 
+                    <a href="/member/regMember">회원가입</a>
+                    </c:if>
+                    <c:if test="${member_id !=null }">
+                    ${member_id }님 | 
+                    <a href="/member/logout">로그아웃</a>
+                    </c:if>
+                    </div>
                 </div>
                 <nav>
                     <ul>
@@ -58,7 +69,7 @@
                             <div class="subtitle">
                                 <div class="subtitle_li"><a href="/board/notice">공지사항</a></div>
                                 <div class="subtitle_li"><a href="#">수강후기</a></div>
-                                <div class="subtitle_li"><a href="#">지역별게시판</a></div>
+                                <div class="subtitle_li"><a href="/board/cityBoard">지역별게시판</a></div>
                                 <div class="subtitle_li"><a href="#">클래스별게시판</a></div>
                            
                             </div>
@@ -67,7 +78,7 @@
                             <div class="title">문의</div>
                             <div class="subtitle">
                                 <div class="subtitle_li"><a href="#">FAQ</a></div>
-                                <div class="subtitle_li"><a href="#">Q&A</a></div>
+                                <div class="subtitle_li"><a href="/board/QnA">Q&A</a></div>
                                 <div class="subtitle_li">&nbsp;</div>
                                 <div class="subtitle_li">&nbsp;</div>
                             </div>
@@ -104,12 +115,32 @@
         	}
         })
         function search(){
-        	//alert("검색시작!");
         	let keyword=$("#search_bar").val();
-        	//alert(keyword);
-        	let url = "classList_search?keyword=" + keyword;
+        	let url = "class/classList-search?keyword=" + keyword;
         	location.href=url;
         }
+        
+        //위시리스트는 회원만 이용가능
+        $("#goWishlist").click(function(){
+        	let member_id = "${member_id}";
+        	if(member_id!=""){
+        		location.href="../wishlist"
+        	}else{
+        		alert("회원만 이용가능한 서비스 입니다.");
+        		location.href="../member/login"
+        	}
+        });
+        
+      //장바구니는 회원만 이용가능
+        $("#shoppingcart").click(function(){
+        	let member_id = "${member_id}";
+        	if(member_id!=""){
+        		location.href="shoppingcart2"
+        	}else{
+        		alert("회원만 이용가능한 서비스 입니다.");
+        		location.href="../member/login"
+        	}
+        });
     </script>
 </body>
 

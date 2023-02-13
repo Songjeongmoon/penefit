@@ -35,12 +35,12 @@
 					<li class="aside_title">커뮤니티</li>
 					<li class="aside_menu"><a href="notice">공지사항</a></li>
 					<li class="aside_menu"><a href="#">수강후기</a></li>
-					<li class="aside_menu"><a href="#">지역별게시판</a></li>
+					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
 					<li class="aside_menu"><a href="classList_new">클래스별게시판</a></li>
 				</ul>
 			</aside>
 			<div class="content">
-				<h1>공지사항 페이지(하는 중...)</h1>
+				<h1>공지사항 페이지</h1>
 				<table id="notice_tbl">
 					<thead>
 						<tr>
@@ -54,11 +54,11 @@
 					<tbody>
 						<c:forEach var="nlist" items="${nlist }">
 							<tr>
-								<td>${nlist.board_num }</td>
-								<td><a href="notice_detail?board_num=${nlist.board_num }">${nlist.board_title }</a></td>
+								<td>${nlist.notice_num }</td>
+								<td><a href="notice_detail?notice_num=${nlist.notice_num }">${nlist.notice_title }</a></td>
 								<td>${nlist.member_id }</td>
-								<td>${nlist.board_regdate }</td>
-								<td>${nlist.board_viewcnt }</td>
+								<td>${nlist.notice_regdate }</td>
+								<td>${nlist.notice_viewcnt }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
