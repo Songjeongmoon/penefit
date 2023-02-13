@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.service.ServiceAboutClass;
 
 @Controller
@@ -19,7 +22,6 @@ import com.penefit.moons.service.ServiceAboutClass;
 public class ControllerAboutClass {
 	@Autowired
 	ServiceAboutClass service;
-	//서비스(인터)
 
 	// 전체클래스
 	@GetMapping("classList")
@@ -56,21 +58,29 @@ public class ControllerAboutClass {
 	@GetMapping("class-detail")
 	public void selectClassOne(Model model, String class_code, HttpSession session) {
 		ClassVO cvo = service.selectClassOne(class_code);
-		
+
 		model.addAttribute("cvo", cvo);
 	}
+
 	
-	@GetMapping("checkWishlist")
-	public @ResponseBody int checkWishlist(String class_code, HttpSession session) {
-		String member_id = (String) session.getAttribute("member_id");
-		//로그인된 아이디가 있으면 ID를 조건으로 검색
-		int result=0;
-		if(member_id!=null) {
-			result = service.checkWishlist(class_code, member_id);
+	// 장바구니에 담고 --> 리스트와 함께 페이지로 이동
+	//경로 수정중...
+		@GetMapping(value = {"shoppingcart", "wishlist/shoppingcart"})
+		public String shoppingcart(String class_code, HttpSession session) {
+			String member_id = (String) session.getAttribute("member_id");
+
+			int result = service.checkCcodeInCart(class_code, member_id);
+			if (result == 1) {
+				// alert필요!
+			} else {
+				service.addShoppingcart(class_code, member_id);
+			}
+			return "redirect:shoppingcart2";
 		}
 		
-		return result;
-	}
-	
-	
+
+		
+
+		
+
 }

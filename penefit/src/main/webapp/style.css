@@ -100,6 +100,9 @@ header {
 	width: 200px;
 	height: 50px;
 	margin: 5px;
+	border:1px solid red;
+	text-align: right;
+	line-height: 40px;
 }
 
 #icon_box img {
@@ -108,18 +111,18 @@ header {
 	margin: 3px 10px;
 	float: right;
 }
-
-#log_box {
-	text-align: right;
-	line-height: 40px;
+#log_info{
+	display: inline;
+	float:right;
+	margin-right : 15px;
 }
 
 nav ul {
 	width: 915px;
 	margin: 0 auto;
 	margin-top: 50px;
-	position:absolute;
-	left : 270px;
+	position:relative;
+	left : 20px;
 	z-index: 100;
 	/* border: 1px solid red; */
 	background-color: white;

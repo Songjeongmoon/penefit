@@ -30,26 +30,67 @@
 		CONCAT('%', #{keyword},'%')
 	</select>
 	<!--클래스 검색 건수 -->
-	<select id="getSearchClassListCnt"
-		resultType="_int">
-		select count(*) from class where class_code like CONCAT('%',
-		#{keyword },'%') or class_subject like CONCAT('%', #{keyword},'%') or
-		class_teacher like CONCAT('%', #{keyword},'%') or class_info like
-		CONCAT('%', #{keyword},'%')
+	<select id="getSearchClassListCnt" resultType="_int">
+		select count(*)
+		from class where class_code like CONCAT('%',
+		#{keyword },'%') or
+		class_subject like CONCAT('%', #{keyword},'%') or
+		class_teacher like
+		CONCAT('%', #{keyword},'%') or class_info like
+		CONCAT('%',
+		#{keyword},'%')
 	</select>
-	
+
 	<!--클래스 상세보기 -->
 	<select id="selectClassOne"
 		resultType="com.penefit.moons.domain.ClassVO">
 		select * from class where class_code = #{class_code }
 	</select>
-	
-	<!-- 위시리스트 확인  -->
+
+	<!-- 위시리스트 확인 -->
 	<select id="checkWishlist" resultType="_int">
-		select count(*) from wishlist where class_code = #{class_code } and member_id=#{member_id}
+		select count(*) from
+		wishlist where class_code = #{class_code } and member_id=#{member_id}
+	</select>
+
+	<!-- 위시리스트 추가 -->
+	<insert id="addWishlist">
+		insert into wishlist (member_id, class_code) values
+		(#{member_id}, #{class_code})
+	</insert>
+	<!-- 위시리스트 삭제 -->
+	<delete id="deleteWishlist">
+		delete from wishlist where member_id = #{member_id}
+		and class_code = #{class_code}
+	</delete>
+
+	<!-- 위시리스트 목록조회 -->
+	<select id="getWishlist"
+		resultType="com.penefit.moons.domain.WishlistVO">
+		SELECT w.wishlist_num, w.member_id, w.class_code,
+		c.class_subject, c.class_photo, c.class_teacher, c.class_day,
+		c.class_time, c.class_price, c.city_code from wishlist w, class c
+		where member_id =#{member_id} AND w.class_code = c.class_code;
 	</select>
 	
+	<!-- 동일한 제품코드가 장바구니에 있는지 확인 -->
+	<select id="checkCcodeInCart" resultType="_int">
+		select count(*) from shopping_cart where member_id=#{param2} and class_code=#{param1}
+	</select>
 	
-	
-	
+	<!-- 장바구니에 담기 -->
+	<insert id="addShoppingcart">
+		insert into shopping_cart (class_code, member_id)
+		values (#{param1}, #{param2})
+	</insert>
+
+	<!-- 장바구니 목록보기 -->
+	<select id="getShoppingcartList" resultType="com.penefit.moons.domain.CartVO">
+		SELECT c.class_code, c.class_subject, c.class_photo,
+		c.class_teacher, c.class_day, c.class_time, c.class_price,
+		s.shopping_cart_num
+		FROM shopping_cart s, class c
+		WHERE s.class_code = c.class_code AND member_id=#{member_id}
+	</select>
+
 </mapper>
