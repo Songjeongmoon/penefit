@@ -7,36 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="style.css">
-<style>
-.class_one {
-	width: 225px;
-	height : 300px;
-	display: inline-block;
-}
-
-.class_one img {
-	width: 220px;
-	height: 200px;
-}
-
-.class_one p a:nth-of-type(1) {
-	font-size: 18px;
-}
-
-.class_one p:nth-of-type(2) {
-	font-size: 13px;
-	line-height: 0px;
-}
-
-#aside_submenu {
-	display: none;
-	width: 100px;
-}
-
-#aside_submenu p {
-	margin: 5px 0;
-}
-</style>
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -50,16 +20,16 @@
 					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
 						<div id="aside_submenu">
 							<p>
-								<a href="classList-category?key=CA">&nbsp;&nbsp;의류</a>
+								<a href="classList-category?key=A">&nbsp;&nbsp;의류</a>
 							</p>
 							<p>
-								<a href="classList-category?key=CB">&nbsp;&nbsp;식품</a>
+								<a href="classList-category?key=B">&nbsp;&nbsp;식품</a>
 							</p>
 							<p>
-								<a href="classList-category?key=CC">&nbsp;&nbsp;미용</a>
+								<a href="classList-category?key=C">&nbsp;&nbsp;미용</a>
 							</p>
 							<p>
-								<a href="classList-category?key=CD">&nbsp;&nbsp;기타</a>
+								<a href="classList-category?key=D">&nbsp;&nbsp;기타</a>
 							</p>
 						</div>
 					</li>
@@ -68,10 +38,10 @@
 				</ul>
 
 			</aside>
-			<div class="content">
+			<div class="content" id="listBox">
 				<c:forEach var="c" items="${list }">
 					<div class="class_one">
-						<a href="class-detail?class_code=${c.class_code }"><img src="../images/${c.class_photo }"></a>
+						<a href="class-detail?class_code=${c.class_code }"><img src="../images/${c.suggest_photo }"></a>
 						<p>
 							<a href="class-detail?class_code=${c.class_code }">${c.class_subject }</a>
 						</p>

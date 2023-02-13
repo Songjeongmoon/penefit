@@ -8,6 +8,15 @@ public class ClassListDTO {
 	private String member_id;
 	private String class_code;
 	private String class_list_current;
+	private String class_subject;
+	private String class_teacher;
+	private String class_day;
+	private String class_time;
 	private int class_memlit;
+	private int class_memcnt;
+	private int class_price;
+	private String city_name;
+	private String class_regdate;
+	
 	
 }
