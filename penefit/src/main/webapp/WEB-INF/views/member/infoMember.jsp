@@ -12,6 +12,25 @@
 	text-align: center;
 	margin-bottom: 10PX;
 }
+.meminfo{
+    width: 600px;
+    height : 800px;
+    border: solid 1px black;
+    margin-left :200px;
+	margin-top :100px;
+}
+.mem_info{
+    margin-top: 60px;
+    margin-left: 110px;
+
+}
+input[type=text] {
+	width: 300px;
+	height: 40px;
+	font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
 </style>
 </head>
 <body>
@@ -39,6 +58,47 @@
 			</aside>
 			<div class="content" id="myinfo">
 				<h3 class="mypageTitle">[마이페이지]</h3>
+					    <div class="meminfo">
+        <div class="mem_info">
+            <div id="mem_maintitle">
+                <h2>내 정보 관리</h2>
+                <hr>
+            </div>
+           
+        
+            <div id="mem_id">
+                아이디<br>
+                <input type="text" name="member_id" value="${member_id }">
+            </div>
+            <div id="mem_pw">
+                비밀번호<br>
+                <input type="text" name="member_pw" value="${memberinfo.member_pw }">
+            </div>
+            <div id="mem_name">
+                이름<br>
+                <input type="text" name="member_name" value="${memberinfo.member_name }">
+            </div>
+            <div id="mem_tel">
+                전화번호<br>
+                <input type="text" name="member_tel" value="${memberinfo.member_tel }">
+            </div>
+              <div id="mem_address">
+                전화번호<br>
+                <input type="text" name="member_address" value="${memberinfo.member_address }">
+            </div>
+            <div id="mem_grade">
+                회원등급<br>
+                <input type="hidden" name="member_grade" value="${memberinfo.member_grade }">
+            </div> 
+     
+            <div id="mem_buttons">
+                <input type="button" name="mem_update" value="정보수정" onclick="UpdateMem()">
+                <input type="button" name="mem_delete" value="회원탈퇴" onclick="delMem()">
+            </div>     		
+		</div>
+		</div>
+				
+	
 			</div>
 			<div class="content" id="purchaseHistory">
 				<h3 class="mypageTitle">[구매내역]</h3>
@@ -99,6 +159,54 @@
 			$(".content:not(#myClassList)").css("display", "none");
 			$("#myClassList").css("display", "block");
 		});
+		
+		
+		
+		function UpdateMem(){
+		     const updateid= $("input[name='member_id']").val();
+		     const updatepw= $("input[name='member_pw']").val();
+		     const updatename= $("input[name='member_name']").val();
+		     const updatetel= $("input[name='member_tel']").val();
+		     const updateaddress= $("input[name='member_address']").val();
+		     const updategrade= $("input[name='member_grade']").val();
+		     
+		     let member={
+		    	"member_id" : updateid,
+		    	"member_pw" : updatepw,
+		    	"member_name" : updatename,
+		    	"member_tel" : updatetel,
+		    	"member_address" : updateaddress,
+		    	"member_grade" : updategrade
+		     }
+		     $.ajax({
+		        url: "/member/updateMember",
+		        method: "POST",
+		        contentType: "application/json",
+		        data : JSON.stringify(member),
+		        success: (data) => {
+		        	alert(data);
+		        },
+		        error : () => {
+		        	alert("error");
+		        }
+		     })
+		     
+		      
+		  }
+
+		function delMem(){
+		     const memberid= $("input[name='member_id']").val();
+		     
+		     $.ajax({
+		        url: "deleteMember",
+		        method: "DELETE",
+		        data : {     
+		        		"member_id" : memberid  
+		        	}
+
+		     })
+		     
+		  }  
 	</script>
 </body>
 </html>

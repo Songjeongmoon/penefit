@@ -13,5 +13,16 @@
 		SELECT * FROM member;
 	</select>
 
+	<select id ="selectAll" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT * FROM member  WHERE member_id = #{param1};
+	</select>
+	
+   <update id="updateMember" >
+      UPDATE member SET member_pw = #{member_pw}, member_tel = #{member_tel}, member_address =#{member_address} WHERE member_id = #{member_id}
+   </update>
+   
+   <delete id="deleteMember">
+   		DELETE FROM member  WHERE member_id = #{member_id};
+   </delete>
 
 </mapper>

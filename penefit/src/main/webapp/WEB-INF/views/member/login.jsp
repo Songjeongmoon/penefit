@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
 <style>
 .login {
 	margin-left: 500px;
@@ -30,11 +32,11 @@ input[type=password] {
 }
 </style>
 </head>
-
 <body>
-	<div class="container">
-		<%@ include file="../header.jsp"%>
-		<div class="box">
+	<%@ include file="../header.jsp"%>
+
+	<div class="box">
+			<section>
 			<form name="frm_login" method="post" action="login.do">
 				<div class="login">
 					<div class="loginmain">
@@ -54,8 +56,9 @@ input[type=password] {
 					</div>
 				</div>
 			</form>
+		</section>
 		</div>
 		<%@ include file="../footer.jsp"%>
-	</div>
+
 </body>
 </html>

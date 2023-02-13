@@ -2,8 +2,6 @@ package com.penefit.moons.mapper;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +18,11 @@ public interface MapperAboutMember {
 	
 	//로그인
 	public ArrayList<MemberVO> loginCheck(String id, String pw);
-	
+	//회원정보수정
+	public int updateMember(MemberVO member);
+	//회원정보조회
+	public MemberVO selectAll(String id);
+	//회원탈퇴
+	public int deleteMember(String id);
 	
 }
