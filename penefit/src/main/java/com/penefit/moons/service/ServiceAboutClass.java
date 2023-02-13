@@ -98,8 +98,8 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	}
 
 	@Override
-	public void deleteFromCart(int cartNum) {
-		mapper.deleteFromCart(cartNum);
+	public void deleteFromCart(int shopping_cart_num) {
+		mapper.deleteFromCart(shopping_cart_num);
 		
 	}
 

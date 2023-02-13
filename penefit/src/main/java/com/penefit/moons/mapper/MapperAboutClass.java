@@ -56,7 +56,7 @@ public interface MapperAboutClass {
 	public ArrayList<CartVO> getShoppingcartList(@Param(value = "member_id") String member_id);
 	
 	// 장바구니에서 삭제
-	public void deleteFromCart(@Param(value = "cartNum")int shopping_cart_num);
+	public void deleteFromCart(@Param(value = "shopping_cart_num")int shopping_cart_num);
 
 	//장바구니에서 전체삭제
 	public void deleteAllFromCart(String member_id);

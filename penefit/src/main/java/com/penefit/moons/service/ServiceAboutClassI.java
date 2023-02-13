@@ -53,7 +53,7 @@ public interface ServiceAboutClassI {
 	public ArrayList<CartVO> getShoppingcartList(String member_id);
 	
 	//장바구니에서 삭제
-	public void deleteFromCart(int cartNum);
+	public void deleteFromCart(int shopping_cart_num);
 	
 	//장바구니에서 전체삭제
 	public void deleteAllFromCart(String member_id);

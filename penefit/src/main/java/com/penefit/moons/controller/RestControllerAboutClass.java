@@ -48,16 +48,9 @@ public class RestControllerAboutClass {
 	@DeleteMapping("/deleteWishlist/class-code/{class_code}")
 	public void deleteWishlist(@PathVariable(value = "class_code") String class_code, HttpSession session) {
 		String member_id=(String) session.getAttribute("member_id");
-		log.info("===================================");
-		log.info(member_id);
 		service.deleteWishlist(class_code, member_id);
 	}
-	
-	//장바구니에서 삭제
-	@DeleteMapping("/deleteCart/cartNum/{cartNum}")
-	public void deleteCart(@PathVariable(value = "cartNum") int cartNum) {
-		service.deleteFromCart(cartNum);
-	}
+
 
 	//위시리시트 페이지에서 삭제
 	@DeleteMapping("/wishlist2")
@@ -90,6 +83,13 @@ public class RestControllerAboutClass {
 	public void deleteAllCart(HttpSession session ) {
 		String member_id = (String) session.getAttribute("member_id");
 		service.deleteAllFromCart(member_id);
+	}
+	
+	
+	//장바구니에서 삭제
+	@DeleteMapping("/deleteCart/shopping-cart-num/{shopping_cart_num}")
+	public void deleteCart(@PathVariable(value = "shopping_cart_num") int cartNum) {
+		service.deleteFromCart(cartNum);
 	}
 	
 

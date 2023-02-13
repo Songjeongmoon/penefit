@@ -37,12 +37,14 @@ table {
 	width: 1100px;
 	margin: 0 auto;
 }
-#cartbox{
+
+#cartbox {
 	border: 1px solid black;
 	width: 1100px;
 	margin: 0 auto;
 }
-#payZone{
+
+#payZone {
 	float: right;
 }
 </style>
@@ -77,16 +79,17 @@ table {
 					</tbody>
 				</table>
 				<div id="payZone">
-				<div>
-					<div class="sub">
-					<span class="sub">상품금액 </span>
-				</div>
-				<div class="price">
-					<span class="price" id="price">0 원</span>
-				</div>
-				</div>
-				<div><button id="pay_btn"
-								onclick="requestPay({{ auth()->check() }})">결제하기</button></div>
+					<div>
+						<div class="sub">
+							<span class="sub">상품금액 </span>
+						</div>
+						<div class="price">
+							<span class="price" id="price"></span>
+						</div>
+					</div>
+					<div>
+						<button id="pay_btn" onclick="requestPay({{ auth()->check() }})">결제하기</button>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -119,6 +122,7 @@ table {
 		$("#tbody").empty();
 		  const xhttp = new XMLHttpRequest();
 		  xhttp.onload = function() {
+			  
 		    let data = this.responseText;
 		    let list= JSON.parse(data);
 			for(let i = 0; i<list.length;i++){
@@ -135,6 +139,7 @@ table {
 				);
 				
 			}
+			calcPrice();
 			
 		    
 		    }
@@ -153,9 +158,10 @@ table {
 		  xhttp.onload = function() {
 		    this.responseText;
 		    getList();
+		    calcPrice();
 		    alert("삭제되었습니다.");
 		    }
-		  xhttp.open("DELETE", "deleteCart/cartNum/" + cartNum, true);
+		  xhttp.open("DELETE", "deleteCart/shopping-cart-num/" + cartNum, true);
 		  xhttp.send();
 		}
 	
@@ -169,6 +175,7 @@ table {
 		  xhttp.onload = function() {
 		    this.responseText;
 		    getList();
+		    calcPrice();
 		    alert("삭제되었습니다.");
 		    }
 		  xhttp.open("DELETE", "allCart", true);
@@ -186,7 +193,7 @@ table {
 		    	deleteSomeCart(cartNum);
 		    }
 		  });	
-		getList();
+		location.reload();
 		alert("삭제되었습니다.");
 	})
 		function deleteSomeCart(cartNum) {
@@ -194,28 +201,35 @@ table {
 		  xhttp.onload = function() {
 		    this.responseText;
 		    }
-		  xhttp.open("DELETE", "deleteCart/cartNum/" + cartNum, true);
+		  xhttp.open("DELETE", "deleteCart/shopping-cart-num/" + cartNum, true);
 		  xhttp.send();
 		}
 	
 	
-	$("#testbtn").click(function(){
-		alert("test start");
-		$("input[class='checking']").each(function(){
-		    if( $(this).is(":checked") == true ){
-				alert(this.parentElement.parentElement.children[0].innerText);
-				checkArr.push(this.parentElement.parentElement.children[0].innerText);
-		    }
-		  });
-		alert(checkArr);
-	})
-	
-	//선택된 것 삭제
 
 	//1차 금액계산
 	
-	//체크 변경시 금액계산
+	calcPrice();
+	function calcPrice(){
+		let sum = 0;
+		$("input[class='checking']").each(function(){
+		    if( $(this).is(":checked") == true ){
+		    	//금액을 계산한다.
+		    	let pricee = this.parentElement.parentElement.children[6].innerText;
+		    	let price = parseInt(pricee);
+		    	sum += price;
+		    	$("#price").text(sum);
+		    }
+		  });	
+	}
 
+	
+	
+	//체크 변경시 금액계산
+	
+	$(document).on("click", ".checking", function() {
+		calcPrice();
+	});
 	</script>
 
 	<script>
