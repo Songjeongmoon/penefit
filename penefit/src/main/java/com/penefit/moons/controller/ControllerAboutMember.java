@@ -48,6 +48,8 @@ public class ControllerAboutMember {
 	@PostMapping("login.do")
 	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session) {
 		serviceMember.loginCheck(member_id, member_pw,Session);
+		log.info("===============================");
+		log.info(serviceMember.loginCheck(member_id, member_pw,Session));
 		return "redirect:/";
 	}
 	
