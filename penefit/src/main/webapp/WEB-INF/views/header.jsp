@@ -37,7 +37,7 @@
                     <a href="/member/regMember">회원가입</a>
                     </c:if>
                     <c:if test="${member_id !=null }">
-                    ${member_id }님 | 
+                    <a href="/member/infoMember?id=${member_id }/">${member_id }</a>님 | 
                     <a href="/member/logout">로그아웃</a>
                     </c:if>
                     </div>

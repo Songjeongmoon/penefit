@@ -17,4 +17,10 @@ public interface ServiceAboutMemberI {
 	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession Session);
 	//로그아웃
 	public String logout(HttpSession session);
+	//회원정보수정
+	public String UpdateMember(MemberVO member);
+	//회원정보조회
+	public MemberVO selectOne(String id);
+	//회원탈퇴
+	public String DeleteMem(HttpSession session, String id);
 }
