@@ -1,5 +1,7 @@
 package com.penefit.moons.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,11 @@ public class ControllerAboutMember {
 	public void login() {
 		
 	}
+	
+	@GetMapping("/MemberListManager")
+	public void MemberListManager() {
+		
+	}
 
 	
 	@PostMapping("login.do")
@@ -79,4 +86,26 @@ public class ControllerAboutMember {
 		String path =serviceMember.DeleteMem(Session, member_id);
 		return "redirect:/";
 	}
+	@GetMapping("/selectall")
+	public @ResponseBody ArrayList<MemberVO> seletALl() {
+		ArrayList<MemberVO>list = serviceMember.selectAll(); 
+		return list;
+	}
+	@GetMapping("/selectOneid")
+	public @ResponseBody ArrayList<MemberVO> selectid(String id) {
+		ArrayList<MemberVO>list = serviceMember.selectid(id);
+		return  list;
+	}
+	@GetMapping("/selectOnename")
+	public @ResponseBody ArrayList<MemberVO> selectOnename(String name) {
+		ArrayList<MemberVO>list = serviceMember.seletname(name);
+		return  list;
+	}
+	@GetMapping("/selectOnegrade")
+	public @ResponseBody ArrayList<MemberVO> selectOnegrade(String grade) {
+		ArrayList<MemberVO>list = serviceMember.selectgrade(grade);
+		return  list;
+	}
+	public String 
+	
 }
