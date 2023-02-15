@@ -8,6 +8,27 @@
 		WHERE suggest_num = #{suggest_num}
 	</select>
 	
+	<!--  클래스 리스트  -->
+	<select id = "getClassList" resultType = "com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		ORDER BY class_regdate DESC
+	</select>
+	
+	<!-- 클래스 검색 -->
+	<select id = "searchClass" resultType = "com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		WHERE class_subject LIKE CONCAT('%',#{class_subject},'%')
+		ORDER BY class_regdate DESC
+	</select>
+	
+	<!-- 제안서 리스트 -->
+	<select id = "getSuggestionList" resultType = "com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+	</select>
+	
 	<insert id="createClass">
 		INSERT INTO class
 		(class_code, class_subject, suggest_photo, class_teacher, class_date,
@@ -20,6 +41,21 @@
 		SELECT class_code
 		FROM class
 	</select>
+	
+	<update id = "updateClass">
+		UPDATE class
+		SET class_subject = #{class_subject}, suggest_photo = #{suggest_photo},
+		class_date = #{class_date}, class_info = #{class_info}, class_memlit = #{class_memlit},
+		class_price = #{class_price}, class_modidate = NOW()
+		WHERE class_code = #{class_code}
+	</update>
+	
+	<delete id = "deleteClass">
+		DELETE FROM class
+		WHERE class_code = #{class_code}
+	</delete>
+	
+	
 	
 	
 	
