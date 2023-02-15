@@ -34,6 +34,6 @@ public interface MapperAboutMember {
 	//관리자 회원 찾기(등급)
 	public ArrayList<MemberVO> selectOneGrade(String grade);
 	//관리자 등급변경
-	public int updateGrade(String id, String grade);
+	public int updateGrade(@Param(value="member_id") String id, @Param(value="member_grade") String grade);
 	
 }

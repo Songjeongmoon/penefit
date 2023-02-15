@@ -39,6 +39,6 @@
 	</select>
 	
 	 <update id="updateGrade" >
-      UPDATE member SET member_grade = #{member_grade} WHERE member_id;
+      UPDATE member SET member_grade = #{member_grade} WHERE member_id = #{member_id};
    </update>
 </mapper>

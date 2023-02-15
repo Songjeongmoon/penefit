@@ -117,6 +117,8 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 	@Override
 	public String updateGrade(String id, String grade) {
 		int result = mapper.updateGrade(id, grade) ;
+		System.out.println("service id" + id);
+		System.out.println("service id" + grade);
 		String path = "";
 		if(result==1) {
 			path = "등급 수정 완료되었습니다.";
