@@ -123,7 +123,7 @@ nav ul {
 	margin-top: 50px;
 	position:relative;
 	left : 20px;
-	z-index: 100;
+	z-index: 200;
 	/* border: 1px solid red; */
 	background-color: white;
 }
@@ -243,7 +243,7 @@ aside li {
 	/* border: 1px solid green; */
 	position: absolute;
 	left :240px;
-	z-index: 0;
+	z-index: 100;
 	
 }
 

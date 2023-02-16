@@ -44,26 +44,24 @@ input[type=text] {
 
 #modal_history {
 	position: absolute;
-	width: 800px;
-	height: 600px;
+	width: 450px;
+	height: 500px;
+	    top: 50%;
+    left: 50%;
 	border: 2px solid black;
-	display: none;
 	background-color: white;
-	z-index: 50;
+	z-index: 300;
 	border-radius: 10px;
 }
 
-#cancel_Modol {
-	position: absolute;
-	width: 400px;
-	height: 250px;
-	top: 150px;
-	left: 310px;
+.selectBox{
 	display: none;
-	border: 2px solid black;
-	background-color: white;
-	border-radius: 10px;
-	z-index: 100;
+}
+#modal_history_case{
+	position: fixed;
+  top:0; left: 0; bottom: 0; right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 300;
 }
 </style>
 </head>
@@ -137,6 +135,7 @@ input[type=text] {
 			<div class="content" id="purchaseHistory">
 				<h3 class="mypageTitle">[구매내역]</h3>
 				<!-- 구매상세내역 모달 -->
+				<div id="modal_history_case">
 				<div id="modal_history">
 					<h4>구매상세내역</h4>
 					<button type="button" id="modalClose">Ｘ</button>
@@ -145,21 +144,15 @@ input[type=text] {
 						<!-- 구매내역 상세보기 -->
 					</table>
 					<button type="button" id="cancelbtn">구매취소하기</button>
-					<button type="button" id="writebtn">리뷰쓰기</button>
+					<button type="button" id="writebtn">리뷰</button>
+					
+					<div class="selectBox">
+						<select id="selectClass">
+						
+						</select>
+						<button type="button" id = "gotoReviewForm">리뷰작성하러가기</button>
+					</div>
 				</div>
-				<!-- 구매취소모달 -->
-				<div id="cancel_Modol">
-					<div>
-						<h6>구매취소</h6>
-						<hr>
-						정말로 이 클래스를 취소할까요?
-					</div>
-					<div>
-						<button type="button" id="cancelbtn1">구매취소하기</button>
-					</div>
-					<div>
-						<button type="button" id="noCancelbtn">돌아가기</button>
-					</div>
 				</div>
 
 				<!-- 구매리스트 -->
@@ -192,11 +185,9 @@ input[type=text] {
 	<%@ include file="../footer.jsp"%>
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
-			//alert('dd');
 			$("#aside_submenu").css("display", "block");
 		});
 		$("#aside_menu_btn").mouseout(function() {
-			//alert('dd');
 			$("#aside_submenu").css("display", "none");
 		});
 		//메뉴선택시 내용 div display 설정
@@ -211,7 +202,7 @@ input[type=text] {
 		$("#myHistoryLabel").click(function() {
 			$(".content:not(#purchaseHistory)").css("display", "none");
 			$("#purchaseHistory").css("display", "block");
-			
+			$("#modal_history_case").css("display","none");
 			//결제내역 받아오기
 			getHistory();
 		});
@@ -300,43 +291,43 @@ input[type=text] {
 		
 		//구매번호를 누르면 모달창
 		$(document).on("click",".modal_history",function(evt){
-			$("#modal_history").css("display","block");
+			$("#modal_history_case").css("display","block");
+			$(".content").css("z-index", "500");
 			let buy_history_num = evt.target.parentElement.parentElement.children[0].innerText;
 			getOneHistory(buy_history_num);
 		});
 		//결제 상세내역 닫기
 		$("#modalClose").click(function(){
-			$("#cancel_Modol").css("display","none");
-			$("#modal_history").css("display","none");
+			$("#modal_history_case").css("display","none");
+			$(".content").css("z-index", "50");
 		});
 		//구매취소-1
 			$("#cancelbtn").click(function(){
-			$("#cancel_Modol").css("display","block");
-		});
-		//구매취소 -2
-		$("#cancelbtn1").click(function(){
-			if($(".current").text()=="결제완료"){
-				alert("취소 처리 되었습니다.");
-				//취소function
-				let buy_history_num = $(".buy_history_num").val();
-				alert(buy_history_num);
-				cancelClass(buy_history_num);
-			}else if($(".current").text()=="취소완료"){
-				alert("이미 취소된 주문입니다.");
-			}else if($(".current").text()=="취소승인대기"){
-				alert("관리자가 취소 확인중인 주문입니다.");
-			}else{
-				let msg;
-				if($(".current").text()=="기간만료"){
-					msg = "사유 : 기간만료\n";
-				}else{
-					msg = "사유 : 수강완료\n";
+				let result = confirm("정말 취소하시겠습니까?");
+				if(result){
+					if($(".current").text()=="결제완료"){
+						alert("취소 처리 되었습니다.");
+						//취소function
+						let buy_history_num = $(".buy_history_num").val();
+						alert(buy_history_num);
+						cancelClass(buy_history_num);
+					}else if($(".current").text()=="취소완료"){
+						alert("이미 취소된 주문입니다.");
+					}else if($(".current").text()=="취소승인대기"){
+						alert("관리자가 취소 확인중인 주문입니다.");
+					}else{
+						let msg;
+						if($(".current").text()=="기간만료"){
+							msg = "사유 : 기간만료\n";
+						}else{
+							msg = "사유 : 수강완료\n";
+						}
+						alert(msg + "취소가 불가능 한 주문입니다. ");
+					}
+						
 				}
-				alert(msg + "취소가 불가능 한 주문입니다. ");
-			}
-				
 		});
-		cancelbtn
+		
 		//결제상세내역 받아오기
 		function getOneHistory(buy_history_num){
 			$("#history_detail").empty();
@@ -345,11 +336,12 @@ input[type=text] {
 			  xhttp.onload = function() {
 			    let data = this.responseText;
 			    let json = JSON.parse(data);
-			    let class_buyy = json.class_arr.slice(0, -1 );
+			    
 			    
 			    
 			    $("#history_detail").html("<tr><th>구매번호</th><td class='merchant_uid'>" + json.merchant_uid +"</td></tr>"
 			    		+ "<input type ='hidden' class = 'buy_history_num' value=" + json.buy_history_num +">"
+			    		+ "<input type ='hidden' class = 'class_arr' value=" + json.class_arr +">"
 			    		+ "<tr><th>결제방법</th><td>" + json.pay_method +"</td></tr>"
 			    		+ "<tr><th>구매일자</th><td>" + json.buy_history_date +"</td></tr>"
 			    		+ "<tr><th>구매자명</th><td>" + json.buyer_name +"</td></tr>"
@@ -358,7 +350,9 @@ input[type=text] {
 			    		+ "<tr><th>주소</th><td>" + json.buyer_addr +"</td></tr>"
 			    		+ "<tr><th>상태</th><td class='current'>" + json.buy_history_current +"</td></tr>"
 			    		+ "<tr><th>내용</th><td>" + json.name +"</td></tr>"
-			    		)
+			    		);
+			   
+			    
 			    }
 			  xhttp.open("GET", "/OneHistory/buy_history_num/" + buy_history_num, true);
 			  xhttp.send();
@@ -375,8 +369,26 @@ input[type=text] {
 			xhttp.send();
 		}
 		
+		//리뷰쓸 코드 선택
+		$("#writebtn").click(function(){
+			$(".selectBox").css("display", "block");
+			let class_arr = $(".class_arr").val();
+			let class_buy = class_arr.split("-");
+			for(let i = 0;i<class_buy.length-1;i++){
+				 $("#selectClass").append("<option value='" + class_buy[i]+"'> "+class_buy[i]+"</option>");
+			}
+		});
 		
+		//리뷰쓰러가기
 		
+		$("#gotoReviewForm").click(function(){
+			let class_code = $(".selectBox option:selected").val();
+			alert(class_code);
+			let buy_history_num = $(".buy_history_num").val();
+			alert(buy_history_num);
+			
+			
+		});
 		</script>
 </body>
 </html>
