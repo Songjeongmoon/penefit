@@ -1,12 +1,16 @@
 package com.penefit.moons.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.HistoryDTO;
+import com.penefit.moons.domain.HistoryVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.mapper.MapperAboutClass;
 
@@ -68,7 +72,7 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	public void deleteWishlist(String class_code, String member_id) {
 		mapper.deleteWishlist(class_code, member_id);
 	}
-	
+
 	@Override
 	public void deleteWishlist2(WishlistVO wish) {
 		mapper.deleteWishlist2(wish);
@@ -100,14 +104,79 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	@Override
 	public void deleteFromCart(int shopping_cart_num) {
 		mapper.deleteFromCart(shopping_cart_num);
-		
+
 	}
 
 	@Override
 	public void deleteAllFromCart(String member_id) {
 		mapper.deleteAllFromCart(member_id);
 	}
-	
-	
+
+	@Override
+	public MemberVO getMemberInfo(String member_id) {
+		MemberVO member = mapper.getMemberInfo(member_id);
+		return member;
+	}
+
+	@Override
+	public void addHistory(HistoryDTO history, String member_id) {
+		List<Integer> numArr = history.getClass_arr();
+		String numStr = "";
+		List<String> codeArr = history.getClassCode_arr();
+		String codeStr = "";
+		for (int i = 0; i < numArr.size(); i++) {
+			numStr += numArr.get(i) + "-";
+			codeStr += codeArr.get(i) + "-";
+		}
+		
+		// 히스토리에 추가
+		mapper.addHistory(history, member_id, codeStr);
+		int buy_history_num = mapper.getOneHistory2(history.getMerchant_uid());
+		for (int i = 0; i < numArr.size(); i++) {
+			// 클래스 정보얻기
+			String class_code = mapper.getClass(numArr.get(i));
+			// 얻은 클래스 정보로 개인 클래스리스트와, 클래스 신청인원 업데이트
+			mapper.addClassMember(class_code, member_id, buy_history_num);
+			mapper.updateClassMemcnt(class_code);
+			// 장바구니에서 삭제하기
+			mapper.deleteFromCart(numArr.get(i));
+		}
+
+	}
+
+	// 히스토리 목록조회
+	@Override
+	public ArrayList<HistoryVO> getHistory(String member_id) {
+		ArrayList<HistoryVO> list = mapper.getHistory(member_id);
+		return list;
+	}
+
+	// 히스토리 상세조회
+	@Override
+	public HistoryVO getOneHistory(String member_id, int buy_history_num) {
+		HistoryVO history = mapper.getOneHistory(member_id, buy_history_num);
+		return history;
+	}
+
+	// 구매내역 취소
+	@Override
+	public void cancelClass(String buy_history_num, String member_id) {
+		// 구매내역에서 취소로 변경한다.
+		mapper.cancelClass(buy_history_num);
+		//결제했던 클래스 배열 받아오기
+		String str =  mapper.getClassArr(buy_history_num);
+		System.out.println("STR : " + str);
+		String[] list = str.split("-");
+		System.out.println(list);
+		
+		for(String class_code : list) {
+			// 클래스 인원수 -1
+			mapper.delClassMember(class_code);
+		}
+		
+		// 나의클래스 리스트에서 삭제
+		mapper.delClassList(buy_history_num, member_id);
+		
+	}
 
 }
