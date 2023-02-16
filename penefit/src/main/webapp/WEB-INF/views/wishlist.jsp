@@ -12,9 +12,17 @@ section {
 	border: 1px solid blue;
 }
 
-#list_img {
+.list_img {
 	width: 100px;
 	height: 100px;
+}
+
+table {
+	width: 1200px;
+}
+
+table, tr, th, td {
+	border: 1px solid black;
 }
 </style>
 </head>
@@ -26,31 +34,19 @@ section {
 		<section>
 			<h2>위시리스트</h2>
 			<table border="1">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>클래스코드</th>
-					<th>사진</th>
-					<th>클래스명</th>
-					<th>강사명</th>
-					<th>강의일</th>
-					<th>강의시간</th>
-				</tr>
-				</thead>
-				<tbody>
-				<c:forEach var="w" items="${list }">
+				<thead>
 					<tr>
-						<td>${w.wishlist_num }</td>
-						<td>${w.class_code }</td>
-						<td><img id="list_img" src="images/${w.class_photo }"></td>
-
-						<td>${w.class_subject }</td>
-						<td>${w.class_teacher }</td>
-						<td>${w.class_day }</td>
-						<td>${w.class_time }</td>
-						<td><button type="button" class="addCart">장바구니</button></td>
+						<th>번호</th>
+						<th>클래스코드</th>
+						<th>사진</th>
+						<th>클래스명</th>
+						<th>강사명</th>
+						<th>강의시간</th>
+						<th>장바구니</th>
+						<th>삭제</th>
 					</tr>
-				</c:forEach>
+				</thead>
+				<tbody id="tbody">
 				</tbody>
 			</table>
 		</section>
@@ -59,10 +55,52 @@ section {
 
 	<script>
 		//장바구니에 담기
-		$(".addCart").click(function(evt) {
-			let class_code = evt.target.parentElement.parentElement.children[1].innerText;
-			location.href="shoppingcart?class_code="+class_code;
-		});
+		$(document).on("click",".addCart", function(evt) {
+							let class_code = evt.target.parentElement.parentElement.children[1].innerText;
+							location.href = "class/shoppingcart?class_code="
+									+ class_code;
+						});
+		//위시리스트에서 삭제
+		$(document).on("click",".deleteClass", function(evt) {
+							let wishNum = evt.target.parentElement.parentElement.children[0].innerText;
+							deleteWish(wishNum);
+						});
+		//위시리스트페이지에서 삭제기능
+		function deleteWish(wishNum) {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				let data = this.responseText;
+				getWishList();
+			}
+			xhttp.open("DELETE", "/wishlist2?wishNum=" + wishNum, true);
+			xhttp.send();
+		}
+		getWishList();
+		//위시리스트 목록
+		function getWishList() {
+			$("#tbody").empty();
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				let data = this.responseText;
+				let list= JSON.parse(data);
+				for(let i = 0; i<list.length;i++){
+					$("#tbody").append("<tr><td>"
+							+ list[i].wishlist_num +"</td><td>"
+							+ list[i].class_code +"</td><td>"
+							+ "<a href='class/class-detail?class_code=" + list[i].class_code + "'><img class='list_img' src='images/"+list[i].suggest_photo+"'></a></td><td>"
+							+ "<a href='class/class-detail?class_code=" + list[i].class_code + "'>" +list[i].class_subject+"</td><td>"
+							+ "<a href='class/classList-search?keyword=" + list[i].class_teacher + "'>" + list[i].class_teacher+"</td><td>"
+							+ list[i].class_date +"</td><td>"
+							+ "<button type='button' class='addCart'>장바구니</button></td><td>"
+							+ "<button type='button' class='deleteClass'>삭제</button></td><td>"
+					);
+					
+				}
+			}
+			xhttp.open("GET", "/wishlist3", true);
+			xhttp.send();
+		}
+		
 	</script>
 </body>
 </html>

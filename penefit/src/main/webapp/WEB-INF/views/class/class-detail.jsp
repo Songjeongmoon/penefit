@@ -53,19 +53,17 @@
 <body>
 	<%@ include file="../header.jsp"%>
 	<c:set var="class_code" scope="page" value="${cvo.class_code }" />
-
 	<div class="box">
 		<section>
 			<div class="class_detail">
 				<div id="class_detail_img">
-					<img src="../images/${cvo.class_photo }">
+					<img src="../images/${cvo.suggest_photo }">
 				</div>
 				<div id="class_detail_info">
 					<div id="class_code">클래스 코드${cvo.class_code }</div>
 					<div id="class_subject">${cvo.class_subject }</div>
 					<div id="class_teacher">${cvo.class_teacher }</div>
-					<div id="class_day">${cvo.class_day }</div>
-					<div id="class_time">${cvo.class_time }</div>
+					<div id="class_day">${cvo.class_date }</div>
 					<div id="class_info">${cvo.class_info }</div>
 					<div id="class_memlit">정원수 : ${cvo.class_memlit }</div>
 					<div id="class_memcnt">현재 신청인원 : ${cvo.class_memcnt }</div>
@@ -73,13 +71,15 @@
 					<div id="heart">
 						<img src="../images/blankHeart.png" class="heart_img">
 					</div>
-					<div >
+					<div>
 						<a id="kakaotalk-sharing-btn" href="javascript:;"><img
 							id="kakao"
 							src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
 							alt="카카오톡 공유 보내기 버튼" /> </a>
 					</div>
-					<div><button type="button" id="addCart">장바구니에 담기</button></div>
+					<div>
+						<button type="button" id="addCart">장바구니에 담기</button>
+					</div>
 				</div>
 			</div>
 
@@ -87,78 +87,84 @@
 	</div>
 	<%@ include file="../footer.jsp"%>
 	<script>
-		
-		 
-		 //세션에서 로그인 아이디 받아오기
+		//세션에서 로그인 아이디 받아오기
 		let member_id = "${member_id}";
 		let class_code = "${class_code}";
-		
+
 		//로그인된 아이디가 았으면 위시리스트를 받아온다.
 		if (member_id != "") {
 			wishlist();
-			$(".heart_img").click(function(){
-				if($(".heart_img").attr("src")=="../images/blankHeart.png"){
+			$(".heart_img").click(function() {
+				if ($(".heart_img").attr("src") == "../images/blankHeart.png") {
 					$(".heart_img").attr("src", "../images/pinkHeart.png");
 					addWishlist();
-				}else{
+				} else {
 					$(".heart_img").attr("src", "../images/blankHeart.png");
 					deleteWishlist();
 				}
-				
+
 			});
-		}else{
-			
-			$(".heart_img").click(function(){
+		} else {
+
+			$(".heart_img").click(function() {
 				alert("이용하기 위해서는 로그인이 필요합니다.");
-				location.href="/member/login";
+				location.href = "/member/login";
 			});
-			
-			
+
 		}
 
 		//위시리스트 받아오기 ajax
 		function wishlist() {
-		  const xhttp = new XMLHttpRequest();
-		  xhttp.onload = function() {
-		   let data= this.responseText;
-		   if(data==1){
-			   $(".heart_img").attr("src", "../images/pinkHeart.png");
-		   }else{
-			   $(".heart_img").attr("src", "../images/blankHeart.png");
-		   }
-		    }
-		  xhttp.open("GET", "checkWishlist?class_code="+class_code+"&member_id="+member_id, true);
-		  xhttp.send();
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				let data = this.responseText;
+				if (data == 1) {
+					$(".heart_img").attr("src", "../images/pinkHeart.png");
+				} else {
+					$(".heart_img").attr("src", "../images/blankHeart.png");
+				}
+			}
+			xhttp.open("GET", "/checkWishlist?class_code=" + class_code
+					+ "&member_id=" + member_id, true);
+			xhttp.send();
 		}
-		
+
 		//위시리스트 추가 ajax
 		function addWishlist() {
-			  const xhttp = new XMLHttpRequest();
-			  xhttp.onload = function() {
-			   let data= this.responseText;
-			    }
-			  xhttp.open("GET", "addWishlist?class_code="+class_code+"&member_id="+member_id, true);
-			  xhttp.send();
+
+			const xhttp = new XMLHttpRequest();
+			const obj_wish = {
+				class_code : class_code,
+				member_id : member_id
 			}
-		
+			const json_wish = JSON.stringify(obj_wish);
+
+			xhttp.onload = function() {
+				let data = this.responseText;
+				alert("위시리스트에 추가 되었습니다.");
+			}
+			xhttp.open("POST", "/addWishlist", true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(json_wish);
+		}
+
 		//위시리스트 제거 ajax
 		function deleteWishlist() {
-			  const xhttp = new XMLHttpRequest();
-			  xhttp.onload = function() {
-			   let data= this.responseText;
-			    }
-			  xhttp.open("GET", "deleteWishlist?class_code="+class_code+"&member_id="+member_id, true);
-			  xhttp.send();
+			alert(class_code);
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				let data = this.responseText;
+				alert("위시리스트에서 삭제 되었습니다.");
 			}
-		
+			xhttp.open("DELETE", "/deleteWishlist/class-code/" + class_code, true);
+			xhttp.send();
+		}
+
 		//장바구니에 담기
-		$("#addCart").click(function(){
+		$("#addCart").click(function() {
 			//alert("장바구니 버튼 클릭!");
-			location.href="shoppingcart?class_code="+class_code;
+			location.href = "shoppingcart?class_code=" + class_code;
 		});
-		
-		
-		
 	</script>
 </body>
 </html>

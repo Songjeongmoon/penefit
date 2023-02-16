@@ -62,4 +62,30 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		Session.invalidate();
 		return "home";
 	}
+
+	@Override
+	public String UpdateMember(MemberVO member) {
+		int result = mapper.updateMember(member);
+		String path = "";
+		if(result==1) {
+			path = "수정완료";
+		}else {
+			path = "수정실패";
+		}
+		return path;
+	}
+
+	@Override
+	public MemberVO selectOne(String id) {
+		MemberVO member = mapper.selectAll(id);
+		return member;
+	}
+
+	@Override
+	public String DeleteMem(HttpSession session, String id) {
+		mapper.deleteMember(id);
+		session.invalidate();
+		
+		return "home";
+	}
 }
