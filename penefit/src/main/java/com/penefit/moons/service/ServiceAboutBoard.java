@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.penefit.moons.domain.BoardVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.ReplyVO;
@@ -46,6 +47,20 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		
 		return result;
 	}
+	
+	//전체 지역 게시판 리스트
+	@Override
+	public List<BoardVO> getCitylist() {
+		List<BoardVO> clist = bmapper.getCityList();
+		return clist;
+	}
+	
+	//각 지역 게시판 리스트
+	@Override
+	public List<BoardVO> getCityListOne(String check_city) {
+		List<BoardVO> oneCList = bmapper.getOneCityList(check_city);
+		return oneCList;
+	}
 
 	@Override		//qna등록
 	public int qnaReg(QnAVO qvo) {
@@ -61,9 +76,21 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 	}
 
 	@Override
-	public QnAVO qnaSelectOnt(int qna_num) {
+	public QnAVO qnaSelectOne(int qna_num) {
 		QnAVO qna = bmapper.qnaSelectOne(qna_num);
 		return qna;
+	}
+	
+	@Override
+	public void modiQnA(QnAVO qvo) {
+		bmapper.modiQnA(qvo);
+		
+	}
+
+	@Override
+	public int delQnA(int qna_num) {
+		int result = bmapper.delQnA(qna_num);
+		return result;
 	}
 
 	@Override
@@ -71,6 +98,44 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 			int result = bmapper.regReply(rvo);
 		return result;
 	}
+
+	@Override
+	public List<ReplyVO> getRlist(int qna_num) {
+		List<ReplyVO> rList = bmapper.getReplyList(qna_num);
+		return rList;
+	}
+	
+	@Override
+	public int replyDel(int reply_num) {
+		int result = bmapper.delReply(reply_num);
+		return result;
+	}
+
+	@Override
+	public List<BoardVO> getFaQList() {
+		List<BoardVO> flist = bmapper.getFaQList();
+		return flist;
+	}
+
+	public BoardVO faqSelectOne(int board_num) {
+		BoardVO faq = bmapper.getFaQselectOne(board_num);
+		return faq;
+	}
+
+
+	
+
+	
+	
+
+
+
+
+	
+
+	
+
+	
 
 	
 

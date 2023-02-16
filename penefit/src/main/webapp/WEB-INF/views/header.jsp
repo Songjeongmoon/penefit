@@ -69,7 +69,7 @@
                             <div class="subtitle">
                                 <div class="subtitle_li"><a href="/board/notice">공지사항</a></div>
                                 <div class="subtitle_li"><a href="#">수강후기</a></div>
-                                <div class="subtitle_li"><a href="/board/cityBoard">지역별게시판</a></div>
+                                <div class="subtitle_li"><a href="/board/cityBoardview">지역별게시판</a></div>
                                 <div class="subtitle_li"><a href="#">클래스별게시판</a></div>
                            
                             </div>
@@ -77,7 +77,7 @@
                         <li>
                             <div class="title">문의</div>
                             <div class="subtitle">
-                                <div class="subtitle_li"><a href="#">FAQ</a></div>
+                                <div class="subtitle_li"><a href="/board/FAQ">FAQ</a></div>
                                 <div class="subtitle_li"><a href="/board/QnA">Q&A</a></div>
                                 <div class="subtitle_li">&nbsp;</div>
                                 <div class="subtitle_li">&nbsp;</div>
