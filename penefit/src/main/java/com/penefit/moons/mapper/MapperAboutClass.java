@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.HistoryDTO;
+import com.penefit.moons.domain.HistoryVO;
 import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.WishlistVO;
 
@@ -64,5 +66,41 @@ public interface MapperAboutClass {
 	
 	//장바구니용 회원정보
 	public MemberVO getMemberInfo(String member_id);
+
+	//히스토리에 추가
+	public void addHistory(@Param(value = "history") HistoryDTO history, @Param(value = "member_id") String param1, @Param(value = "str") String param2);
+	
+	//클래스 정보얻기
+	public String getClass(int shopping_cart_num);
+	
+	//얻은 클래스 정보로 개인 클래스리스트 업데이트
+	public void addClassMember(@Param(value = "class_code")String class_code, @Param(value = "member_id") String member_id,@Param(value = "buy_history_num") int buy_history_num);
+	
+	//얻은 클래스 정보로 클래스 신청인원 업데이트
+	public void updateClassMemcnt(String class_code);
+
+	//히스토리 목록 조회
+	public ArrayList<HistoryVO> getHistory(String member_id);
+
+	//히스토리 상세보기
+	public HistoryVO getOneHistory(@Param(value = "member_id")String member_id ,@Param(value = "buy_history_num")int buy_history_num);
+
+	//클래스 취소
+	public void cancelClass(String buy_history_num);
+
+	//결제시 클래스 정보받아오기
+	public int getOneHistory2(String merchant_uid);
+
+	//취소시 수강인원감소
+	public void delClassMember(String class_code);
+
+	//결제했던 수업내역 받아오기
+	public String getClassArr(String buy_history_num);
+
+	//취소시 나의 클래스에서 삭제
+	public void delClassList(@Param(value = "buy_history_num")String buy_history_num, @Param(value = "member_id")String member_id);
+
+	
+	
 
 }

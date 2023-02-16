@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.penefit.moons.domain.CartVO;
-import com.penefit.moons.domain.MemberVO;
+import com.penefit.moons.domain.HistoryDTO;
+import com.penefit.moons.domain.HistoryVO;
 import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.service.ServiceAboutClass;
 
@@ -93,7 +95,37 @@ public class RestControllerAboutClass {
 		service.deleteFromCart(cartNum);
 	}
 	
-
+	//구매내역에 추가
+	@PostMapping("/hitory")
+	public void addHistory(@RequestBody HistoryDTO history, HttpSession session ) {
+		//history에 넣기
+		String member_id = (String) session.getAttribute("member_id");
+		service.addHistory(history, member_id);
+	}
 	
+	//구매내역 받아오기
+	@GetMapping("/historyList")
+	public ArrayList<HistoryVO> getHistory(HttpSession session){
+		String member_id = (String) session.getAttribute("member_id");
+		ArrayList<HistoryVO> list = service.getHistory(member_id);
+		return list;
+	}
+	
+	//구매 상세내역
+	@GetMapping("/OneHistory/buy_history_num/{buy_history_num}")
+	public HistoryVO getOneHistory(HttpSession session, @PathVariable int buy_history_num ) {
+		String member_id = (String) session.getAttribute("member_id");
+		HistoryVO history = service.getOneHistory(member_id, buy_history_num);
+		return history;
+		
+	}
+	
+	//구매취소
+	@DeleteMapping("noClass/buy_history_num/{buy_history_num}")
+	public void cancelClass(@PathVariable String buy_history_num, HttpSession session) {
+		String member_id = (String) session.getAttribute("member_id");
+		log.info("======Rest cancelClass=========");
+		service.cancelClass(buy_history_num, member_id);
+	}
 	
 }

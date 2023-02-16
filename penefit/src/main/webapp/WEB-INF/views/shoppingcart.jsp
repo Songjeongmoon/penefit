@@ -106,10 +106,15 @@ table {
 		$(document).on('click', '#checkAll', function() {
 			if ($('#checkAll').is(':checked')) {
 				$('.checking').prop('checked', true);
+				calcPrice();
 			} else {
 				$('.checking').prop('checked', false);
+				sum=0;
+				$("#price").text(0);
+				
 
 			}
+			
 		});
 		//전부 클릭이면 -->전체선택에 체크 / 아니면 -->전체선택에 체크해제
 		$(document)
@@ -140,7 +145,7 @@ table {
 									"<tr><td>"
 											+ list[i].shopping_cart_num
 											+ "</td><td>"
-											+ "<input type='checkbox' class='checking'></td><td>"
+											+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox' class='checking'></td><td>"
 											+ "<a href='class/class-detail?class_code="
 											+ list[i].class_code
 											+ "'><img class='list_img' src='images/"+suggest_photo+"' class='cart_img' style='width:100px; height:100px;'></a></td><td>"
@@ -258,7 +263,6 @@ table {
 		}
 
 		//체크 변경시 금액계산
-
 		$(document).on("click", ".checking", function() {
 			calcPrice();
 		});
@@ -276,7 +280,6 @@ table {
 					.toUpperCase();
 			let order_num = date.concat(today.getFullYear(),
 					today.getMonth() + 1, today.getDate(), '-', randomStr);
-			alert(order_num);
 			IMP.request_pay({
 				pg : "html5_inicis",
 				pay_method : "card",
@@ -291,13 +294,71 @@ table {
 			}, function(rsp) { // callback
 				if (rsp.success) {
 					// 결제 성공 시 로직
-					console.log(rsp);
+					var msg = '결제가 완료되었습니다.';
+					sendParam(sum,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
+					
+
 				} else {
 					// 결제 실패 시 로직
-					console.log(rsp);
+					var msg = '결제에 실패하였습니다.';
+			         msg += '에러내용 : ' + rsp.error_msg;
 				}
+				 alert(msg);
+			});
+			
+			}
+		
+		
+		function sendParam(sum,imp_uid,merchant_uid,pay_method,pg_provider,pg_tid,bank_name,card_name,card_quota,card_number,name,currency,buyer_name,buyer_email,buyer_tel,buyer_addr ){
+			class_arr=[];
+			classCode_arr=[];
+			$("input[class='checking']").each(function() {
+						if ($(this).is(":checked") == true) {
+							cartNum = this.parentElement.parentElement.children[0].innerText;
+							class_arr.push(cartNum);
+							let cl_code = this.parentElement.parentElement.children[1].children[0].value;
+							classCode_arr.push(cl_code);
+						}
+					});
+			
+			const his_obj = {
+					class_arr : class_arr,
+			    	sum : sum,
+			    	imp_uid:imp_uid,
+			    	merchant_uid:merchant_uid,
+			    	pay_method:pay_method,
+			    	pg_provider:pg_provider,
+			    	pg_tid:pg_tid,
+			    	bank_name:bank_name,
+			    	card_name:card_name,
+			    	card_quota:card_quota,
+			    	card_number:card_number,
+			    	name:name,
+			    	currency:currency,
+			    	buyer_name:buyer_name,
+			    	buyer_email:buyer_email,
+			    	buyer_tel:buyer_tel,
+			    	buyer_addr:buyer_addr,
+			    	classCode_arr:classCode_arr
+			} 
+			
+			const json_obj = JSON.stringify(his_obj);
+
+			
+			$.ajax({
+			    url: "/hitory", // 요청 할 주소
+			    method : "POST", // GET, PUT
+			    contentType : "application/json",
+			    data: json_obj
+			    ,success : function(){
+			    	location.reload();
+			    }, error : function(){
+			    	alert("error");
+			    }
 			});
 		}
+		
+		
 	</script>
 
 </body>
