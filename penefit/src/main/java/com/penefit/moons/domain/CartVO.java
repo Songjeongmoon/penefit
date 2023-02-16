@@ -8,5 +8,6 @@ public class CartVO {
 	private String class_code, class_subject, suggest_photo, class_teacher, class_date;
 	private int class_price, class_memlit, class_memcnt;
 	private String member_id;
+	private String class_modidate;
 	
 }

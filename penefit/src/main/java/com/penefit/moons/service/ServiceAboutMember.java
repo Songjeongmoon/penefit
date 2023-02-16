@@ -74,7 +74,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 
 	@Override
 	public MemberVO selectOne(String id) {
-		MemberVO member = mapper.selectAll(id);
+		MemberVO member = mapper.selectOne(id);
 		return member;
 	}
 
@@ -84,5 +84,62 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		session.invalidate();
 		
 		return "home";
+	}
+
+	@Override
+	public ArrayList<MemberVO> selectAll() {
+		ArrayList<MemberVO>list = mapper.selectALL();
+
+		return list;
+	}
+
+	@Override
+	public ArrayList<MemberVO> selectid(String id) {
+		ArrayList<MemberVO> list = mapper.selectOneID(id);
+		return list;
+	}
+
+	@Override
+	public ArrayList<MemberVO> seletname(String name) {
+		ArrayList<MemberVO> list = mapper.selectOneName(name);
+		return list;
+	}
+
+	@Override
+	public ArrayList<MemberVO> selectgrade(String grade) {
+		ArrayList<MemberVO> list = mapper.selectOneGrade(grade);
+		return list;
+	}
+
+	@Override
+	public String updateGrade(String id, String grade) {
+		int result = mapper.updateGrade(id, grade) ;
+		System.out.println("service id" + id);
+		System.out.println("service id" + grade);
+		String path = "";
+		if(result==1) {
+			path = "등급 수정 완료되었습니다.";
+		}
+		return path;
+	}
+
+	@Override
+	public String updateMemberManager(MemberVO member) {
+		int result = mapper.updateMemberManager(member);
+		String path = "";
+		if(result==1) {
+			path = "회원정보수정 완료되었습니다.";
+		}
+		return path;
+	}
+
+	@Override
+	public String deleteMemberManager(String id) {
+		int result = mapper.deleteMemberManager(id);
+		String path = "";
+		if(result==1) {
+			path = "회원탈퇴 완료되었습니다.";
+		}
+		return path;
 	}
 }
