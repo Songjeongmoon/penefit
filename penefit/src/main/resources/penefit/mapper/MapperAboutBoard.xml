@@ -25,7 +25,15 @@
 	DELETE FROM notice WHERE notice_num=#{notice_num}
 </delete>
 
-<!-- 지역별 게시판 -->
+<!-- 지역 전체 게시판 -->
+<select id="getCityList" resultType="com.penefit.moons.domain.BoardVO">
+	SELECT * FROM board WHERE board_type= 'CC'  
+</select>
+
+<!-- 각 지역별 게시판 -->
+<select id="getOneCityList" resultType="com.penefit.moons.domain.BoardVO">
+	SELECT * FROM board WHERE board_type= 'CC' AND city_code=#{city_code} 
+</select>
 
 <!-- QnA 게시판 -->
 <select id="getQnAList" resultType="com.penefit.moons.domain.QnAVO">
@@ -40,9 +48,30 @@
 	SELECT * FROM qna WHERE qna_num=#{qna_num}
 </select>
 
+<update id="modiQnA">
+	UPDATE qna SET qna_title=#{qna_title}, qna_content=#{qna_content} WHERE qna_num=#{qna_num}
+</update>
+
+<delete id="delQnA">
+	DELETE FROM qna WHERE qna_num=#{qna_num}
+</delete>
+
 <!-- 댓글 -->
 <insert id="regReply">
-	INSERT INTO reply (reply_content, reply_regdate, member_id) VALUES(#{reply_content},now(),#{member_id})
+	INSERT INTO reply (qna_num,reply_content, reply_regdate, member_id, reply_type) VALUES(#{qna_num},#{reply_content},now(),#{member_id}, 'R')
 </insert>
+
+<select id="getReplyList" resultType="com.penefit.moons.domain.ReplyVO">
+	SELECT * FROM reply WHERE qna_num=#{qna_num} and reply_type ='R'
+</select>
+
+<delete id="delReply">
+	DELETE FROM reply WHERE reply_num=#{reply_num}
+</delete>
+
+<select id="getFaQList" resultType="com.penefit.moons.domain.BoardVO">
+	SELECT * FROM board WHERE board_type= 'FF'  
+</select>
+
 
 </mapper>
