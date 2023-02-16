@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,10 +85,11 @@ table, tr, th, td {
 				let data = this.responseText;
 				let list= JSON.parse(data);
 				for(let i = 0; i<list.length;i++){
+					let suggest_photo = list[i].suggest_photo.split('-',1);
 					$("#tbody").append("<tr><td>"
 							+ list[i].wishlist_num +"</td><td>"
 							+ list[i].class_code +"</td><td>"
-							+ "<a href='class/class-detail?class_code=" + list[i].class_code + "'><img class='list_img' src='images/"+list[i].suggest_photo+"'></a></td><td>"
+							+ "<a href='class/class-detail?class_code=" + list[i].class_code + "'><img class='list_img' src='images/"+suggest_photo+"'></a></td><td>"
 							+ "<a href='class/class-detail?class_code=" + list[i].class_code + "'>" +list[i].class_subject+"</td><td>"
 							+ "<a href='class/classList-search?keyword=" + list[i].class_teacher + "'>" + list[i].class_teacher+"</td><td>"
 							+ list[i].class_date +"</td><td>"

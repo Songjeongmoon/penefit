@@ -30,6 +30,10 @@ public class ControllerAboutClass {
 		ArrayList<ClassVO> list = service.getClassList();
 		model.addAttribute("list", list);
 	}
+	// 전체클래스
+		@GetMapping("/test1")
+		public void tesg1() {
+		}
 
 	// 카테고리별 클래스 목록
 	@GetMapping("/classList-category")

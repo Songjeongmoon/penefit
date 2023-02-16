@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 
 import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.HistoryDTO;
+import com.penefit.moons.domain.HistoryVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.WishlistVO;
 
 public interface ServiceAboutClassI {
@@ -40,22 +43,37 @@ public interface ServiceAboutClassI {
 	// 위시리스트 삭제2
 	public void deleteWishlist2(WishlistVO wish);
 
-	//위시리스트 목록
+	// 위시리스트 목록
 	public ArrayList<WishlistVO> getWishlist(String member_id);
-	
-	//동일한 제품코드가 장바구니에 있는지 확인
+
+	// 동일한 제품코드가 장바구니에 있는지 확인
 	public int checkCcodeInCart(String class_code, String member_id);
-	
-	//장바구니에 담기
+
+	// 장바구니에 담기
 	public void addShoppingcart(@Param(value = "cls") String class_code, String member_id);
-	
-	//장바구니 목록보기
+
+	// 장바구니 목록보기
 	public ArrayList<CartVO> getShoppingcartList(String member_id);
-	
-	//장바구니에서 삭제
+
+	// 장바구니에서 삭제
 	public void deleteFromCart(int shopping_cart_num);
-	
-	//장바구니에서 전체삭제
+
+	// 장바구니에서 전체삭제
 	public void deleteAllFromCart(String member_id);
-	
+
+	// 장바구니용 회원정보
+	public MemberVO getMemberInfo(String member_id);
+
+	// 히스토리에 추가
+	public void addHistory(HistoryDTO history, String member_id);
+
+	//히스토리 조회
+	public ArrayList<HistoryVO> getHistory(String member_id);
+
+	//히스토리 상세조회
+	public HistoryVO getOneHistory(String member_id, int buy_history_num);
+
+	//클래스 취소
+	void cancelClass(String buy_history_num, String member_id);
+
 }

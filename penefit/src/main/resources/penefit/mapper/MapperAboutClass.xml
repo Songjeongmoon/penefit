@@ -107,4 +107,68 @@
 	<delete id="deleteAllFromCart">
 		delete from shopping_cart where member_id = #{member_id}
 	</delete>
+	
+	<!-- 장바구니용 회원정보 -->
+	<select id="getMemberInfo" resultType="com.penefit.moons.domain.MemberVO">
+		select * from member where member_id=#{member_id}
+	</select>	
+	
+	<!-- history에 추가 -->
+	<insert id="addHistory">
+		insert into buy_history (merchant_uid ,imp_uid, pay_method,bank_name, card_name, card_quota, buy_history_date, 
+		member_id, buyer_name, buyer_email, buyer_tel, buyer_addr, buy_history_current, name, class_arr) 
+		values ( #{history.merchant_uid},#{history.imp_uid}, #{history.pay_method},#{history.bank_name , jdbcType=VARCHAR}, #{history.card_name, jdbcType=VARCHAR}, 
+		#{history.card_quota, jdbcType=VARCHAR}, NOW(), #{member_id }, #{history.buyer_name}, #{history.buyer_email, jdbcType=VARCHAR}, 
+		#{history.buyer_tel, jdbcType=VARCHAR}, #{history.buyer_addr, jdbcType=VARCHAR}, '결제완료', #{history.name}, #{str})
+	</insert>
+	
+	<!-- 클래스 정보얻기 -->
+	<select id="getClass" resultType="string">
+		select class_code from shopping_cart where shopping_cart_num = #{shopping_cart_num}
+	</select>
+	<!-- 얻은 클래스 정보로 개인 클래스리스트 업데이트 -->
+	<insert id="addClassMember">
+		insert into class_list (member_id, class_code, class_list_current, buy_history_num) values (#{member_id}, #{class_code}, 'ongoing', #{buy_history_num})
+	</insert>
+	
+	<!-- 얻은 클래스 정보로 클래스 신청인원 업데이트 -->
+	<update id="updateClassMemcnt">
+	 update class set class_memcnt = class_memcnt+1 where class_code=#{class_code}
+	</update>
+	
+	<!-- 히스토리 조회 -->
+	<select id="getHistory" resultType="com.penefit.moons.domain.HistoryVO">
+		select * from buy_history where member_id = #{member_id}
+	</select>
+	
+	<!-- 히스토리 상세보기 -->
+	<select id="getOneHistory" resultType="com.penefit.moons.domain.HistoryVO" >
+		select * from buy_history where member_id = #{member_id} and buy_history_num=#{buy_history_num}
+	</select>
+	
+	<!-- 클래스 취소 -->
+	<update id="cancelClass">
+		update buy_history set buy_history_current = '취소승인대기'  where buy_history_num=#{buy_history_num}
+	</update>
+	
+	<!-- buy_history_num 받아오기 -->
+	<select id="getOneHistory2" resultType="_int" >
+		select buy_history_num from buy_history where merchant_uid = #{merchant_uid} 
+	</select>
+	
+	<!-- 클래슼 코드 배열 받아오기 -->
+	<select id="getClassArr" resultType="string" >
+		select class_arr from buy_history where buy_history_num = #{buy_history_num} 
+	</select>
+	
+	<!-- 취소시 수강인원 감소 -->
+	<update id="delClassMember">
+		update class set class_memcnt = class_memcnt-1 where class_code= #{class_code}
+	</update>
+	
+	<!-- 취소시 나의 클래스에서 삭제 -->
+	<delete id="delClassList">
+		delete from class_list where buy_history_num=#{buy_history_num} and member_id =#{member_id}
+	</delete>
+	
 </mapper>
