@@ -60,7 +60,7 @@
                                 <div class="subtitle_li"><a href="/class/classList">클래스과정</a></div>
                                 <div class="subtitle_li"><a href="#">수강문의</a></div>
                                 <div class="subtitle_li"><a href="#">수강신청</a></div>
-                                <div class="subtitle_li"><a href="#">클래스제안</a></div>
+                                <div class="subtitle_li"><a href="/class/suggestion">클래스제안</a></div>
 
                             </div>
                         </li>
