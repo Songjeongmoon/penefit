@@ -47,10 +47,17 @@ public class ControllerAboutMember {
 		
 	}
 	
+	@GetMapping("/MemberListGradeManager")
+	public void MemberListGradeManager() {
+		
+	}
+	
+	
 	@GetMapping("/MemberListManager")
 	public void MemberListManager() {
 		
 	}
+
 
 	
 	@PostMapping("login.do")
@@ -115,5 +122,18 @@ public class ControllerAboutMember {
 		String path = serviceMember.updateGrade(id, grade);
 		return path;
 	}
-	
+	@PostMapping("/UpdateMemManager")
+	@ResponseBody
+	public String UpdateMemManager(@RequestBody MemberVO member) {
+		System.out.println("uptatemember :"+member);
+		String path = serviceMember.updateMemberManager(member);
+		return path;
+	}
+	@DeleteMapping("/deleteMemManager")
+	@ResponseBody
+	public String deleteMemManager(String id) {
+		System.out.println("delid :"+id);
+		String path = serviceMember.deleteMemberManager(id);
+		return path;
+	}
 }

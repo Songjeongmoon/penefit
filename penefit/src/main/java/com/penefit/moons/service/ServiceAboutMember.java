@@ -92,7 +92,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 	@Override
 	public ArrayList<MemberVO> selectAll() {
 		ArrayList<MemberVO>list = mapper.selectALL();
-		
+
 		return list;
 	}
 
@@ -122,6 +122,26 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		String path = "";
 		if(result==1) {
 			path = "등급 수정 완료되었습니다.";
+		}
+		return path;
+	}
+
+	@Override
+	public String updateMemberManager(MemberVO member) {
+		int result = mapper.updateMemberManager(member);
+		String path = "";
+		if(result==1) {
+			path = "회원정보수정 완료되었습니다.";
+		}
+		return path;
+	}
+
+	@Override
+	public String deleteMemberManager(String id) {
+		int result = mapper.deleteMemberManager(id);
+		String path = "";
+		if(result==1) {
+			path = "회원탈퇴 완료되었습니다.";
 		}
 		return path;
 	}

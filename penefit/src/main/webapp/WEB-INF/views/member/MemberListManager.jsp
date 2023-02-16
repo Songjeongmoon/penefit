@@ -9,8 +9,8 @@
 <link rel="stylesheet" href="../../style.css">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <style>
-.memberlist{
-  	margin-left :300px;
+.memberlistgrade{
+  	margin-left :0px;
 	margin-top :100px;
 }
 </style>
@@ -21,8 +21,8 @@
 	<div class="box">
 		<section>
 			
-<div class = memberlist>
-	<div id = "memberlistTitle">
+<div class = memberlistgrade>
+	<div id = "memberlistgradeTitle">
 		<h2>[회원목록]</h2>
 	</div>
 	<div id="memberSearch">
@@ -66,13 +66,14 @@ function getlist() {
 	  xhttp.onload = function() {
 		 let data = this.responseText;
 		 let obj = JSON.parse(data);
+		 alert(obj[0].member_address);
 
 			for(i = 0;i<obj.length;i++ ){
-				tbody.innerHTML +="<tr><td class='objid''>" +obj[i].member_id +"</td><td>" + obj[i].member_pw +"</td><td>" + obj[i].member_name+"</td><td>" + obj[i].member_tel+"</td><td>"
-				+ obj[i].member_address+"</td><td>"+obj[i].member_grade+"</td><td><select name='memberOptionChange'>"
-			  	+ "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
-			  	+ "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
-			  	+ "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>";
+				tbody.innerHTML +="<tr><td class='objid''>" +obj[i].member_id +"</td><td><input type='text' value="+obj[i].member_pw+"></td><td>" 
+				+ "<input type='text' value="+obj[i].member_name+"></td><td><input type='text' value=" + obj[i].member_tel+"></td><td>"
+				+ "<input type='text' value="+obj[i].member_address+"></td><td>"+obj[i].member_grade+"</td>"
+			  	+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+			  	+ "<td><input type='button' class = 'memDel' value='삭제'></td></tr>";
 			}
 	    }
 	  xhttp.open("GET", "selectall", true);
@@ -86,7 +87,7 @@ function serchMem() {
     let memberOption = $("select[name='memberOption']").val();
     let search = $("#searchMem").val();
     alert(memberOption);
-    alert(search);
+
     urldata = "";
     data ="";
     if(memberOption=="member_id"){
@@ -105,11 +106,11 @@ function serchMem() {
        dataType: "json",
        success: (data) => {
     	   for(let i=0 ; i<data.length;i++){
-    		   $("#tbody").append("<tr><td>" +data[i].member_id +"</td><td>" + data[i].member_pw +"</td><td>" + data[i].member_name+"</td><td>" + data[i].member_tel+"</td><td>"
-    	  				+ data[i].member_address+"</td><td>"+data[i].member_grade+"</td><td><select name='memberOptionChange'>"
-    				  	+ "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
-    				  	+ "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
-    				  	+ "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>")
+    		   $("#tbody").append("<tr><td>" +data[i].member_id +"</td><td><input type='text' value=" + data[i].member_pw +"></td><td>"
+    				    + "<input type='text' value="+data[i].member_name+"></td><td><input type='text' value=" + data[i].member_tel+"></td><td>"
+    	  				+ "<input type='text' value="+data[i].member_address+"></td><td>"+data[i].member_grade+"</td>"
+    				  	+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+    				  	+ "<td><input type='button' class = 'memDel'  value='삭제'></td></tr>")
     	          
     	   }
          
@@ -117,31 +118,53 @@ function serchMem() {
        
     })
 }	
+
+
 $("#tbody").click((e) => {
-	if(e.target.className == "gradeChange"){
-		 let memberOptionChange = e.target.parentElement.previousElementSibling.firstChild.value;
-		 let id = e.target.parentElement.parentElement.firstChild.innerText;
+	if(e.target.value == "수정"){
+		let id = e.target.parentElement.parentElement.children[0].innerText;
+		let pw = e.target.parentElement.parentElement.children[1].firstChild.value;
+		let name = e.target.parentElement.parentElement.children[2].firstChild.value;
+		let tel = e.target.parentElement.parentElement.children[3].firstChild.value;
+		let address = e.target.parentElement.parentElement.children[4].firstChild.value;
+		let grade = e.target.parentElement.parentElement.children[5].innerText;
+		
+		   let obj_member = {
+	               "member_id" : id,
+	               "member_pw" : pw,
+	               "member_name" : name,
+	               "member_tel" : tel,
+	               "member_address" : address,
+	               "member_grade" :grade
+	            }
+		   alert(JSON.stringify(obj_member));
+		      $.ajax({
+		             url: "/member/UpdateMemManager",
+		             method: "POST",
+		             contentType: "application/json",
+		             data: JSON.stringify(obj_member),
+		             success: function(data){
+		                 alert(data);
+		         	}
+		      })  
+
+	} else if(e.target.value == "삭제"){
+		let id = e.target.parentElement.parentElement.children[0].innerText;
+		
 		 $.ajax({
-		        url: "gradeChange",
-		        method: "PUT",
-		        data : {     
-		         "id": id,
-		         "grade":memberOptionChange
-		        },
-		        success: function(data){
-		           alert(data);
-		           
-		        },
-		        error: function(){
-		           alert("error..");
-		        }
-		        
-		     })      
-		  
+             url: "/member/deleteMemManager",
+             method: "DELETE",
+             data: {
+            	 "id" : id
+             },
+             success: function(data){
+                 alert(data);
+         	}
+      })  
+		
 	}
 
 })
-
 </script>
 </body>
 </html>

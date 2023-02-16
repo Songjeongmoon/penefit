@@ -36,5 +36,9 @@ public interface ServiceAboutMemberI {
 	public ArrayList<MemberVO> selectgrade(String grade);
 	//관리자 등급변경
 	public String updateGrade(String id, String grade);
+	//관리자 회원정보수정
+	public String updateMemberManager(MemberVO member);
+	//관리자 회원탈퇴
+	public String deleteMemberManager(String id);
 		
 }
