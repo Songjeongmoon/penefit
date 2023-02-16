@@ -29,7 +29,15 @@ public class ControllerAboutClassInfo {
 		return "/class/suggestion";
 	}
 	
+	@GetMapping("/suggestion-list")
+	public String classSuggestListWindow() {
+		return "/class/suggestion/list";
+	}
 	
+	@GetMapping("/myList")
+	public String ClassListWindow() {
+		return "/class/myClassList";
+	}
 	
 	
 	
@@ -98,6 +106,7 @@ public class ControllerAboutClassInfo {
 	
 	@PostMapping("/suggestion")
 	public String insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files) {
+		System.out.println(suggest);
 		service.insertSuggestion(suggest, files);
 		
 		return "home";
@@ -112,6 +121,8 @@ public class ControllerAboutClassInfo {
 		model.addAttribute("list", list);
 		return list;
 	}
+	
+	
 	
 	
 	
