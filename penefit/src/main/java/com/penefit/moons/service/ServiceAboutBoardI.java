@@ -2,6 +2,7 @@ package com.penefit.moons.service;
 
 import java.util.List;
 
+import com.penefit.moons.domain.BoardVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.ReplyVO;
@@ -22,8 +23,11 @@ public interface ServiceAboutBoardI {
 	
 	//---------------------------------------
 
-	//지역별 게시판
+	//지역전체 게시판
+	public List<BoardVO> getCitylist();
 	
+	//각 지역별 리스트
+	public List<BoardVO> getCityListOne(String check_city);
 	
 	//---------------------------------------
 	
@@ -32,11 +36,25 @@ public interface ServiceAboutBoardI {
 	
 	public List<QnAVO> qlist();
 	
-	public QnAVO qnaSelectOnt(int qna_num);
+	public QnAVO qnaSelectOne(int qna_num);
+	
+	public void modiQnA(QnAVO qvo);
+	
+	public int delQnA(int qna_num);
 
-	//댓글(reply) 게시판
+	//댓글(reply)등록  
 	public int replyReg(ReplyVO rvo);
 	
+	//댓글리스트
+	public List<ReplyVO> getRlist(int qna_num);
+	
+	//댓글(reply) 삭제
+	public int replyDel(int reply_num);
+	
+	
+	//FAQ 게시판
+	public List<BoardVO> getFaQList();
+
 	
 
 }

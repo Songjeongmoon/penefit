@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.penefit.moons.domain.BoardVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.service.ServiceAboutBoard;
@@ -53,7 +52,7 @@ public class ControllerAboutBoard {
 	
 	//공지사항 수정
 	@PostMapping("/notice_modi.do")
-	public String modiNoticeDo(NoticeVO nvo, Model model) {
+	public String modiNoticeDo(NoticeVO nvo) {
 		bservice.modiNotice(nvo);
 		
 		return "redirect:notice";
@@ -68,21 +67,7 @@ public class ControllerAboutBoard {
 		return "redirect:notice";
 	}
 	
-	//지역별 게시판
-	@GetMapping("/cityBoard")
-	public String reViewBoard() {  
-		
-		return "board/cityBoard";
-	}
-	
-	
-	//지역별게시판 뷰
-	@GetMapping("/city_regView")
-	public String cityBoardReg() {  
-		
-		return "board/city_regView";
-	}
-	
+
 	
 	//QnA list뽑
 	@GetMapping("/QnA")
@@ -110,10 +95,51 @@ public class ControllerAboutBoard {
 	//QnA상세페이지
 	@GetMapping("/qna_detail")
 	public void qnaSelecOne(@RequestParam("qna_num") int qna_num, Model model) {
-		QnAVO qna = bservice.qnaSelectOnt(qna_num);
+		QnAVO qna = bservice.qnaSelectOne(qna_num);
 		model.addAttribute("qna",qna);
 	}
 	
+	//QnA수정페이지
+	@GetMapping("/qna_ModiView")
+	public void qnaModiView(@RequestParam("qna_num") int qna_num, Model model) {
+		QnAVO qvo = bservice.qnaSelectOne(qna_num);
+		
+		model.addAttribute("qvo",qvo);
+	}
+	
+	@PostMapping("/qna_ModiDo")
+	public String modiQnA(QnAVO qvo) {
+		bservice.modiQnA(qvo);
+		
+		return "redirect:QnA";
+	}
+	
+	//QnA삭제
+	@GetMapping("/qna_delete")
+	public String delQnA(int qna_num) {
+		bservice.delQnA(qna_num);
+		
+		return "redirect:QnA";
+	}
+	
+	//FAQ 게시판
+	@GetMapping("/FAQ")
+	public void faqList(Model model) {
+		List<BoardVO> flist = bservice.getFaQList();
+		model.addAttribute("flist",flist);	
+	}
+	
+	//FAQ 게시판 상세
+	@GetMapping("/faq_detail")
+	public void faqSelectOne(@RequestParam("board_num") int board_num, Model model) {
+		BoardVO faq = bservice.faqSelectOne(board_num);
+		model.addAttribute("faq",faq);
+	}
+	
+	@GetMapping("/cityBoardview")
+	public String cityBoard1() {
+		return "board/cityBoard";
+	}
 	
 	
 	
