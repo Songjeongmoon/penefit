@@ -56,7 +56,6 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 			}
 		}
 		suggest.setSuggest_photo(fileNames);
-		System.out.println(suggest);
 		int result = mapper.insertSuggestion(suggest);
 		return "";
 	}
