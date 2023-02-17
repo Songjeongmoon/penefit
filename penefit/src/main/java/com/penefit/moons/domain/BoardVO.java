@@ -12,4 +12,7 @@ public class BoardVO {
 	private String board_modidate;
 	private String board_photo;
 	private int board_viewcnt;
+	private String city_code;
+	private String city_name;
+	private String board_type;
 }

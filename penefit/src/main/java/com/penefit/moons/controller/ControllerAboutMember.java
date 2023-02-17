@@ -1,5 +1,7 @@
 package com.penefit.moons.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +46,18 @@ public class ControllerAboutMember {
 	public void login() {
 		
 	}
+	
+	@GetMapping("/MemberListGradeManager")
+	public void MemberListGradeManager() {
+		
+	}
+	
+	
+	@GetMapping("/MemberListManager")
+	public void MemberListManager() {
+		
+	}
+
 
 	
 	@PostMapping("login.do")
@@ -78,5 +93,47 @@ public class ControllerAboutMember {
 		Session.getAttribute("member_id");
 		String path =serviceMember.DeleteMem(Session, member_id);
 		return "redirect:/";
+	}
+	@GetMapping("/selectall")
+	public @ResponseBody ArrayList<MemberVO> seletALl() {
+		ArrayList<MemberVO>list = serviceMember.selectAll(); 
+		return list;
+	}
+	@GetMapping("/selectOneid")
+	public @ResponseBody ArrayList<MemberVO> selectid(String id) {
+		ArrayList<MemberVO>list = serviceMember.selectid(id);
+		return  list;
+	}
+	@GetMapping("/selectOnename")
+	public @ResponseBody ArrayList<MemberVO> selectOnename(String name) {
+		ArrayList<MemberVO>list = serviceMember.seletname(name);
+		return  list;
+	}
+	@GetMapping("/selectOnegrade")
+	public @ResponseBody ArrayList<MemberVO> selectOnegrade(String grade) {
+		ArrayList<MemberVO>list = serviceMember.selectgrade(grade);
+		return  list;
+	}
+	@PutMapping("/gradeChange")
+	@ResponseBody
+	public String gradeChange(String id, String grade) {
+		System.out.println("id , grade : "+id);
+		System.out.println("id , grade : "+grade);
+		String path = serviceMember.updateGrade(id, grade);
+		return path;
+	}
+	@PostMapping("/UpdateMemManager")
+	@ResponseBody
+	public String UpdateMemManager(@RequestBody MemberVO member) {
+		System.out.println("uptatemember :"+member);
+		String path = serviceMember.updateMemberManager(member);
+		return path;
+	}
+	@DeleteMapping("/deleteMemManager")
+	@ResponseBody
+	public String deleteMemManager(String id) {
+		System.out.println("delid :"+id);
+		String path = serviceMember.deleteMemberManager(id);
+		return path;
 	}
 }

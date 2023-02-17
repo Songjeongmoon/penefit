@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +58,7 @@
 		<section>
 			<div class="class_detail">
 				<div id="class_detail_img">
-					<img src="../images/${cvo.suggest_photo }">
+					<img src="../images/${fn:split(cvo.suggest_photo,'-')[0]}">
 				</div>
 				<div id="class_detail_info">
 					<div id="class_code">클래스 코드${cvo.class_code }</div>
@@ -81,8 +82,20 @@
 						<button type="button" id="addCart">장바구니에 담기</button>
 					</div>
 				</div>
-			</div>
 
+
+			</div>
+			<div>
+				<ul>
+					<li>상세설명</li>
+					<li>클래스후기</li>
+					<li>위치설명</li>
+					<li>취소약관</li>
+				</ul>
+			</div>
+			<div>
+				<img src="../images/01.jpg" style="width: 800px;"> 
+			</div>
 		</section>
 	</div>
 	<%@ include file="../footer.jsp"%>
@@ -156,7 +169,8 @@
 				let data = this.responseText;
 				alert("위시리스트에서 삭제 되었습니다.");
 			}
-			xhttp.open("DELETE", "/deleteWishlist/class-code/" + class_code, true);
+			xhttp.open("DELETE", "/deleteWishlist/class-code/" + class_code,
+					true);
 			xhttp.send();
 		}
 

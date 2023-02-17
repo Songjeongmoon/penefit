@@ -13,7 +13,7 @@
 <div class="container">
 	<div>
 		<strong>내용</strong>
-		<textarea name="review_content"></textarea>
+		<textarea type="textarea" name="review_content"></textarea>
 	</div>
 	
 	<button type="submit">등록</button>

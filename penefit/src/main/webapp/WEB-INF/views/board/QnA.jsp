@@ -13,7 +13,7 @@
 			<aside>
 				<ul>
 					<li class="aside_title">문의</li>
-					<li class="aside_menu"><a href="#">FAQ</a></li>
+					<li class="aside_menu"><a href="FAQ">FAQ</a></li>
 					<li class="aside_menu"><a href="QnA">Q&A</a></li>				
 				</ul>
 			</aside>

@@ -13,7 +13,7 @@
 		SELECT * FROM member;
 	</select>
 
-	<select id ="selectAll" resultType="com.penefit.moons.domain.MemberVO">
+	<select id ="selectOne" resultType="com.penefit.moons.domain.MemberVO">
 		SELECT * FROM member  WHERE member_id = #{param1};
 	</select>
 	
@@ -24,5 +24,29 @@
    <delete id="deleteMember">
    		DELETE FROM member  WHERE member_id = #{member_id};
    </delete>
-
+   
+   <select id ="selectALL" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT * FROM member; 
+	</select>
+   <select id ="selectOneID" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT * FROM member WHERE member_id LIKE CONCAT('%',#{id},'%')
+	</select>
+	   <select id ="selectOneName" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT * FROM member WHERE member_name LIKE CONCAT('%',#{name},'%')
+	</select>
+	   <select id ="selectOneGrade" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT * FROM member WHERE member_grade LIKE CONCAT('%',#{grade},'%')
+	</select>
+	
+	 <update id="updateGrade" >
+      UPDATE member SET member_grade = #{member_grade} WHERE member_id = #{member_id};
+  	 </update>
+   
+   	 <update id="updateMemberManager" >
+        UPDATE member SET member_pw = #{member_pw}, member_name = #{member_name}, member_tel = #{member_tel},member_address = #{member_address} WHERE member_id = #{member_id};
+  	 </update>
+  	 
+  	 <delete id="deleteMemberManager">
+   		DELETE FROM member  WHERE member_id = #{member_id};
+   	 </delete>
 </mapper>
