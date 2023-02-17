@@ -37,7 +37,7 @@ input[type=password] {
 
 	<div class="box">
 			<section>
-			<form name="frm_login" method="post" action="login.do">
+			<form name="frm_login" id ="frm_login"  method="post" action="login.do">
 				<div class="login">
 					<div class="loginmain">
 						<div id="login_title">
@@ -51,7 +51,7 @@ input[type=password] {
 							비밀번호<br> <input type="password" name="member_pw">
 						</div>
 						<div>
-							<input type="submit" value="로그인">
+							<input type="submit" value="로그인" onclick="return submit_check()">
 						</div>
 					</div>
 				</div>
@@ -59,6 +59,32 @@ input[type=password] {
 		</section>
 		</div>
 		<%@ include file="../footer.jsp"%>
+<script>
 
+/*$("#frm_login").ready(function() {
+    let message = "[[${msg}]]";
+    if (message != "") {
+        alert(message);
+    }else {
+    }
+})*/
+
+function submit_check(){
+	const member_id= $("input[name='member_id']").val();
+	const member_pw= $("input[name='member_pw']").val();
+	
+	if(member_id ==''){
+		alert("아이디를 입력하세요");
+		member_id.focus();
+		return false;
+	}else if(member_pw ==''){
+		alert("비밀번호를 입력하세요");
+		member_pw.focus();
+		return false;
+	}else{
+		submit();
+	}
+};
+</script>
 </body>
 </html>

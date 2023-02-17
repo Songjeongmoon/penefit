@@ -47,6 +47,12 @@ public class ControllerAboutMember {
 		
 	}
 	
+	@GetMapping("/home")
+	public String home() {
+		return "/home";
+		
+	}
+	
 	@GetMapping("/MemberListGradeManager")
 	public void MemberListGradeManager() {
 		
@@ -61,10 +67,17 @@ public class ControllerAboutMember {
 
 	
 	@PostMapping("login.do")
+<<<<<<< HEAD
+	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session,Model model) {
+		String path=serviceMember.loginCheck(member_id, member_pw,Session);
+		 model.addAttribute("msg","로그인 실패하였습니다!");
+		log.info("===============================");
+=======
 	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session) {
 		serviceMember.loginCheck(member_id, member_pw,Session);
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 		log.info(serviceMember.loginCheck(member_id, member_pw,Session));
-		return "redirect:/";
+		return "redirect:"+path;
 	}
 	
 	@GetMapping("logout")
@@ -86,11 +99,12 @@ public class ControllerAboutMember {
 		return path;
 	}
 	@DeleteMapping("deleteMember")
+	@ResponseBody
 	public String deleteMember(String member_id, HttpSession Session) {
 		System.out.println("memberid : " +member_id);
 		Session.getAttribute("member_id");
 		String path =serviceMember.DeleteMem(Session, member_id);
-		return "redirect:/";
+		return path;
 	}
 	@GetMapping("/selectall")
 	public @ResponseBody ArrayList<MemberVO> seletALl() {

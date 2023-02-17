@@ -173,12 +173,236 @@ input[type=text] {
                   <div class="selectBox">
                      <select id="selectClass">
 
+<<<<<<< HEAD
+				<!-- 구매리스트 -->
+				<table border="1">
+					<thead>
+						<tr>
+							<th>구매번호</th>
+							<th>주문번호</th>
+							<th>구매일자</th>
+							<th>구매내용</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					<tbody id="historyTbody">
+						<!-- 구매리스트 -->
+					</tbody>
+				</table>
+			</div>
+			<div class="content" id="myClassSuggest">
+				<h3 class="mypageTitle">[클래스제안내역]</h3>
+			</div>
+			<div class="content" id="myClassList">
+				<h3 class="mypageTitle">[나의클래스]</h3>
+			</div>
+			<div class="content" id="myInquiry">
+				<h3 class="mypageTitle">[문의내역]</h3>
+			</div>
+		</section>
+	</div>
+	<%@ include file="../footer.jsp"%>
+	<script>
+		$("#aside_menu_btn").mouseover(function() {
+			//alert('dd');
+			$("#aside_submenu").css("display", "block");
+		});
+		$("#aside_menu_btn").mouseout(function() {
+			//alert('dd');
+			$("#aside_submenu").css("display", "none");
+		});
+		//메뉴선택시 내용 div display 설정
+		$(document).ready(function() {
+			$(".content:not(#myinfo)").css("display", "none");
+			$("#myinfo").css("display", "block");
+		});
+		$("#myinfoLabel").click(function() {
+			$(".content:not(#myinfo)").css("display", "none");
+			$("#myinfo").css("display", "block");
+		});
+		$("#myHistoryLabel").click(function() {
+			$(".content:not(#purchaseHistory)").css("display", "none");
+			$("#purchaseHistory").css("display", "block");
+			
+			//결제내역 받아오기
+			getHistory();
+		});
+		$("#myInquiryLabel").click(function() {
+			$(".content:not(#myInquiry)").css("display", "none");
+			$("#myInquiry").css("display", "block");
+		});
+		$("#mySuggestLabel").click(function() {
+			$(".content:not(#myClassSuggest)").css("display", "none");
+			$("#myClassSuggest").css("display", "block");
+			
+		});
+		$("#myClassLabel").click(function() {
+			$(".content:not(#myClassList)").css("display", "none");
+			$("#myClassList").css("display", "block");
+		});
+		
+		
+		
+		function UpdateMem(){
+		     const updateid= $("input[name='member_id']").val();
+		     const updatepw= $("input[name='member_pw']").val();
+		     const updatename= $("input[name='member_name']").val();
+		     const updatetel= $("input[name='member_tel']").val();
+		     const updateaddress= $("input[name='member_address']").val();
+		     const updategrade= $("input[name='member_grade']").val();
+		     
+		     let member={
+		    	"member_id" : updateid,
+		    	"member_pw" : updatepw,
+		    	"member_name" : updatename,
+		    	"member_tel" : updatetel,
+		    	"member_address" : updateaddress,
+		    	"member_grade" : updategrade
+		     }
+		     $.ajax({
+		        url: "/member/updateMember",
+		        method: "POST",
+		        contentType: "application/json",
+		        data : JSON.stringify(member),
+		        success: (data) => {
+		        	alert(data);
+		        },
+		        error : () => {
+		        	alert("error");
+		        }
+		     });
+		     
+		      
+		  }
+=======
                      </select>
                      <button type="button" id="gotoReviewForm">리뷰작성하러가기</button>
                   </div>
                </div>
             </div>
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 
+<<<<<<< HEAD
+		function delMem(){
+		     const memberid= $("input[name='member_id']").val();
+		     
+		     $.ajax({
+		        url: "deleteMember",
+		        method: "DELETE",
+		        data : {     
+		        		"member_id" : memberid  
+		        	},
+		     			success:(data) => {
+				        	alert(data);
+				        	location.href="/member/home";
+				        },
+		     });
+		     
+		  }  
+		
+		//결제내역 받아오기
+		function getHistory(){
+			$("#historyTbody").empty();
+			
+			const xhttp = new XMLHttpRequest();
+			  xhttp.onload = function() {
+			    let data = this.responseText;
+			    let list =JSON.parse(data);
+			    for(let i=0;i<list.length;i++){
+					$("#historyTbody").append(
+							"<tr><td><a href='#' class='modal_history'>" + list[i].buy_history_num + "</a></td>"
+							+"<td><a href='#' class='modal_history'>" + list[i].merchant_uid +"</a></td>"
+							+"<td><a href='#' class='modal_history'>" + list[i].buy_history_date +"</a></td>"
+							+"<td><a href='#' class='modal_history'>" + list[i].name+ "</a></td>"
+							+"<td><a href='#' class='modal_history'>" + list[i].buy_history_current +  "</a></td></tr>");
+				}
+			    }
+			  xhttp.open("GET", "/historyList", true);
+			  xhttp.send();
+			  
+		}
+		
+		//구매번호를 누르면 모달창
+		$(document).on("click",".modal_history",function(evt){
+			$("#modal_history").css("display","block");
+			let buy_history_num = evt.target.parentElement.parentElement.children[0].innerText;
+			getOneHistory(buy_history_num);
+		});
+		//결제 상세내역 닫기
+		$("#modalClose").click(function(){
+			$("#cancel_Modol").css("display","none");
+			$("#modal_history").css("display","none");
+		});
+		//구매취소-1
+			$("#cancelbtn").click(function(){
+			$("#cancel_Modol").css("display","block");
+		});
+		//구매취소 -2
+		$("#cancelbtn1").click(function(){
+			if($(".current").text()=="결제완료"){
+				alert("취소 처리 되었습니다.");
+				//취소function
+				let buy_history_num = $(".buy_history_num").val();
+				alert(buy_history_num);
+				cancelClass(buy_history_num);
+			}else if($(".current").text()=="취소완료"){
+				alert("이미 취소된 주문입니다.");
+			}else if($(".current").text()=="취소승인대기"){
+				alert("관리자가 취소 확인중인 주문입니다.");
+			}else{
+				let msg;
+				if($(".current").text()=="기간만료"){
+					msg = "사유 : 기간만료\n";
+				}else{
+					msg = "사유 : 수강완료\n";
+				}
+				alert(msg + "취소가 불가능 한 주문입니다. ");
+			}
+				
+		});
+		cancelbtn
+		//결제상세내역 받아오기
+		function getOneHistory(buy_history_num){
+			$("#history_detail").empty();
+			
+			const xhttp = new XMLHttpRequest();
+			  xhttp.onload = function() {
+			    let data = this.responseText;
+			    let json = JSON.parse(data);
+			    let class_buyy = json.class_arr.slice(0, -1 );
+			    
+			    
+			    $("#history_detail").html("<tr><th>구매번호</th><td class='merchant_uid'>" + json.merchant_uid +"</td></tr>"
+			    		+ "<input type ='hidden' class = 'buy_history_num' value=" + json.buy_history_num +">"
+			    		+ "<tr><th>결제방법</th><td>" + json.pay_method +"</td></tr>"
+			    		+ "<tr><th>구매일자</th><td>" + json.buy_history_date +"</td></tr>"
+			    		+ "<tr><th>구매자명</th><td>" + json.buyer_name +"</td></tr>"
+			    		+ "<tr><th>이메일</th><td>" + json.buyer_email +"</td></tr>"
+			    		+ "<tr><th>연락처</th><td>" + json.buyer_tel +"</td></tr>"
+			    		+ "<tr><th>주소</th><td>" + json.buyer_addr +"</td></tr>"
+			    		+ "<tr><th>상태</th><td class='current'>" + json.buy_history_current +"</td></tr>"
+			    		+ "<tr><th>내용</th><td>" + json.name +"</td></tr>"
+			    		)
+			    }
+			  xhttp.open("GET", "/OneHistory/buy_history_num/" + buy_history_num, true);
+			  xhttp.send();
+			  
+		}
+		
+		//취소하기
+		function cancelClass(buy_history_num) {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				this.responseText;
+			}
+			xhttp.open("DELETE", "/noClass/buy_history_num/" + buy_history_num, true);
+			xhttp.send();
+		}
+		
+		
+		
+		</script>
+=======
             <!-- 구매리스트 -->
             <table border="1">
                <thead>
@@ -585,5 +809,6 @@ input[type=text] {
       
       </script>
 
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 </body>
 </html>
