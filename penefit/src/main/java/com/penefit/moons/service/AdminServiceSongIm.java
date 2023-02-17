@@ -9,9 +9,9 @@ import com.penefit.moons.domain.SuggestDTO;
 
 public interface AdminServiceSongIm {
 	
-	public String createClass(String suggest_num);
+	public SuggestDTO createClass(String suggest_num);
 	
-	public int updateClass(ClassVO classvo, MultipartHttpServletRequest files);
+	public String updateClass(ClassVO classvo, MultipartHttpServletRequest files);
 	
 	public String deleteClass(String class_code);
 	
@@ -21,8 +21,4 @@ public interface AdminServiceSongIm {
 	
 	public List<SuggestDTO> getSuggestionList();
 	
-	public SuggestDTO getSuggestionInfo(String suggest_num);
-	
-	public ClassVO getClassOne(String class_code);
- 	
 }

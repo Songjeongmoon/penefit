@@ -15,7 +15,7 @@
         integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/style.css" >
+    <link rel="stylesheet" href="../style.css" >
 </head>
 
 <body>
@@ -57,10 +57,10 @@
                         <li>
                             <div class="title">클래스</div>
                             <div class="subtitle">
-                                <div class="subtitle_li"><a href="/class/classList">클래스과정</a></div>
+                                <div class="subtitle_li"><a href="/class/classList-ongoing">클래스과정</a></div>
                                 <div class="subtitle_li"><a href="#">수강문의</a></div>
                                 <div class="subtitle_li"><a href="#">수강신청</a></div>
-                                <div class="subtitle_li"><a href="/class/suggestion">클래스제안</a></div>
+                                <div class="subtitle_li"><a href="#">클래스제안</a></div>
 
                             </div>
                         </li>

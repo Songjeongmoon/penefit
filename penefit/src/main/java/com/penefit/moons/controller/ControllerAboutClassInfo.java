@@ -96,6 +96,8 @@ public class ControllerAboutClassInfo {
 	@ResponseBody
 	public  ArrayList<ClassListDTO> getMyClassList(Model model, String member_id){
 		ArrayList<ClassListDTO> list = service.getMyClassList(member_id);
+		model.addAttribute("list", list);
+		
 		return list;
 	}
 	
@@ -114,8 +116,9 @@ public class ControllerAboutClassInfo {
 	
 	@PostMapping("/suggestion-list")
 	@ResponseBody
-	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id) {
+	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id, Model model) {
 		ArrayList<SuggestDTO> list = service.getMySuggestionList(member_id);
+		model.addAttribute("list", list);
 		return list;
 	}
 	

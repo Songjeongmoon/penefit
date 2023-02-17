@@ -123,7 +123,7 @@ nav ul {
 	margin-top: 50px;
 	position:relative;
 	left : 20px;
-	z-index: 200;
+	z-index: 150;
 	/* border: 1px solid red; */
 	background-color: white;
 }

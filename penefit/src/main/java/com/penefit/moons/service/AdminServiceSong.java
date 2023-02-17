@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.penefit.moons.domain.ClassListDTO;
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.mapper.AdminMapperSong;
@@ -21,7 +22,7 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	AdminMapperSong mapper;
 	
 	@Override
-	public String createClass(String suggest_num) {
+	public SuggestDTO createClass(String suggest_num) {
 		int cnt = 0;
 		SuggestDTO suggest = mapper.getSuggestInfo(suggest_num);
 		String[] code = mapper.getTypeCnt();
@@ -52,19 +53,18 @@ public class AdminServiceSong implements AdminServiceSongIm{
 		classvo.setClass_teacher(suggest.getMember_id());
 		classvo.setClass_date(suggest.getClass_time());
 		System.out.println(classvo);
-		int value = mapper.createClass(classvo);
-		String result = "";
-		if(value == 1) {
-			result = "정식 클래스 등록되었습니다.";
-		} else {
-			result = "클래스 등록 실패하였습니다.";
-		}
+		mapper.createClass(classvo);
+		ClassListDTO list = new ClassListDTO();
+		list.setClass_code(classvo.getClass_code());
+		list.setMember_id(suggest.getMember_id());
+		list.setClass_list_current("paid");
+		mapper.createClassList(list);
 		
-		return result;
+		return suggest;
 	}
 
 	@Override
-	public int updateClass(ClassVO classvo, MultipartHttpServletRequest files) {
+	public String updateClass(ClassVO classvo, MultipartHttpServletRequest files) {
 		
 		if(files != null) {
 			String savePath = System.getProperty("user.dir") + "/src/main/webapp/images";
@@ -114,8 +114,14 @@ public class AdminServiceSong implements AdminServiceSongIm{
 			
 		}
 		
+		String val = "";
 		int result = mapper.updateClass(classvo);
-		return result;
+		if(result == 1) {
+			val = "수정 완료";
+		} else {
+			val = "수정 실패";
+		}
+		return val;
 	}
 
 	
@@ -149,19 +155,6 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	@Override
 	public List<SuggestDTO> getSuggestionList() {
 		return mapper.getSuggestionList();
-	}
-
-	@Override
-	public SuggestDTO getSuggestionInfo(String suggest_num) {
-		return mapper.getSuggestInfo(suggest_num);
-		
-		
-	}
-
-	@Override
-	public ClassVO getClassOne(String class_code) {
-		ClassVO vo = mapper.getClassOne(class_code);
-		return vo;
 	}
 	
 	

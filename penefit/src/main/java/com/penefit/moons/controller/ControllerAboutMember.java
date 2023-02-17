@@ -63,7 +63,6 @@ public class ControllerAboutMember {
 	@PostMapping("login.do")
 	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session) {
 		serviceMember.loginCheck(member_id, member_pw,Session);
-		log.info("===============================");
 		log.info(serviceMember.loginCheck(member_id, member_pw,Session));
 		return "redirect:/";
 	}
@@ -71,10 +70,9 @@ public class ControllerAboutMember {
 	@GetMapping("logout")
 	public String logout(HttpSession Session) {
 		serviceMember.logout(Session);
-		System.out.println(Session);
 		return "redirect:/";
 	}
-	@GetMapping("infoMember")
+	@GetMapping("/infoMember")
 	public String goinfoMember(HttpSession Session, Model model) {
 		String member_id = (String) Session.getAttribute("member_id");
 		MemberVO member = serviceMember.selectOne(member_id);

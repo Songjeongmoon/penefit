@@ -1,6 +1,7 @@
 package com.penefit.moons.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -124,8 +125,16 @@ public class RestControllerAboutClass {
 	@DeleteMapping("noClass/buy_history_num/{buy_history_num}")
 	public void cancelClass(@PathVariable String buy_history_num, HttpSession session) {
 		String member_id = (String) session.getAttribute("member_id");
-		log.info("======Rest cancelClass=========");
 		service.cancelClass(buy_history_num, member_id);
 	}
 	
+	//중복된 리뷰인지 확인하기 위해 클래스 리뷰받기
+	@GetMapping("/classAndReviewList")
+	public List<String> classAndReviewList(HttpSession session, String class_code) {
+		log.info("================class_code =========" + class_code);
+		String member_id = (String) session.getAttribute("member_id");
+		List<String> result = service.getReviewCheck(class_code, member_id);
+		log.info("================result =========" + result);
+		return result;
+	}
 }

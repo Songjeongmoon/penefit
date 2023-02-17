@@ -40,14 +40,7 @@
 
 
 <script>
-	
-	$("#tbody").click( (event) => {
-		if(event.target.className == "suggestion_title"){
-			let num = event.target.previousElementSibling.previousElementSibling.innerText;
-			
-			location.href = "/admin/suggestion/detail?suggest_num=" + num;
-		}
-	})
+
 
 	$.ajax({
 		url: "/admin/suggestion/list",
@@ -57,7 +50,7 @@
 			for(let i = 0; i < data.length; i++){
 				$("#tbody").append("<tr>"
 						+ "<td>" + data[i].suggest_num + "</td><td>" + data[i].type + "</td>"
-						+ "<td class = 'suggestion_title' value = '" + data[i].suggest_num + "'>" + data[i].suggest_title + "</td><td>" + data[i].city_code + "</td>"
+						+ "<td>" + data[i].suggest_title + "</td><td>" + data[i].city_code + "</td>"
 						+ "<td>" + data[i].price + "</td><td>" + data[i].member_id + "</td>"
 						+ "<td>" + data[i].maxCnt + "</td><td>" + data[i].class_time + "</td>"
 						+ "<td>" + data[i].suggest_regdate + "</td>"
