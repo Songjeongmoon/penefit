@@ -1,6 +1,7 @@
 package com.penefit.moons.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,6 +11,7 @@ import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.HistoryDTO;
 import com.penefit.moons.domain.HistoryVO;
 import com.penefit.moons.domain.MemberVO;
+import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.domain.WishlistVO;
 
 @Mapper
@@ -52,6 +54,9 @@ public interface MapperAboutClass {
 	// 장바구니에 담기전, 동일 품목이 있는지 확인!
 	public int checkCcodeInCart(@Param(value = "class_code") String param1, @Param(value = "member_id") String param2);
 
+	//장바구니 갯수세기
+	public int checkCntInCart(String member_id);
+	
 	// 장바구니에 담기
 	public void addShoppingcart(@Param(value = "class_code") String param1, @Param(value = "member_id") String param2);
 
@@ -101,7 +106,7 @@ public interface MapperAboutClass {
 	public void delClassList(@Param(value = "buy_history_num")String buy_history_num, @Param(value = "member_id")String member_id);
 
 	//리뷰등록
-	public void addReview(@Param(value = "class_code")String class_code,@Param(value = "review_content") String review_content,@Param(value = "member_id") String member_id);
+	public void addReview(@Param(value = "class_code")String class_code,@Param(value = "review_content") String review_content,@Param(value = "member_id") String member_id,@Param(value = "score") int score);
 
 	// 스코어가 있는지 확인하기 
 	public int getScore(@Param("member_id") String member_id);
@@ -115,4 +120,20 @@ public interface MapperAboutClass {
 	//선생님 id받아오기
 	public String getTeacherId(String class_code);
 
+	//상세보기에 출력할 리뷰
+	public ReviewVO getReview(String class_code);
+
+	//중복리뷰 방지
+	public List<String> getReviewCheck(@Param(value = "class_code")String class_code,@Param(value = "member_id") String member_id);
+
+	//마감기한이 지나지 않은 것
+	public ArrayList<ClassVO> getClassList1();
+
+	//진행중인 목록
+	public ArrayList<ClassVO> getOngoingClassList();
+
+	//마감된 목록
+	public ArrayList<ClassVO> getExpiredClassList();
+
+	
 }

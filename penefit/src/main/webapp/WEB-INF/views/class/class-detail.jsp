@@ -2,12 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script type="text/javascript"
+   src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="style.css">
 <style>
 .class_detail img {
@@ -49,6 +51,16 @@
 #heart img:hover {
 	cursor: pointer;
 }
+.detail_box{
+	position:absolute;
+	display:none;
+	width: 900px;
+	border: 2px solid pink;
+}
+#detail_box1{
+	display:block;
+}
+
 </style>
 </head>
 <body>
@@ -61,7 +73,6 @@
 					<img src="../images/${fn:split(cvo.suggest_photo,'-')[0]}">
 				</div>
 				<div id="class_detail_info">
-					<div id="class_code">클래스 코드${cvo.class_code }</div>
 					<div id="class_subject">${cvo.class_subject }</div>
 					<div id="class_teacher">${cvo.class_teacher }</div>
 					<div id="class_day">${cvo.class_date }</div>
@@ -79,7 +90,8 @@
 							alt="카카오톡 공유 보내기 버튼" /> </a>
 					</div>
 					<div>
-						<button type="button" id="addCart">장바구니에 담기</button>
+						<c:if test="${cvo.class_memlit<=cvo.class_memcnt || status =='마감'}"><button type="button" >마감된 클래스입니다</button></c:if>
+						<c:if test="${cvo.class_memlit>cvo.class_memcnt  || status !='마감'} "><button type="button" id="addCart">장바구니에 담기</button></c:if>
 					</div>
 				</div>
 
@@ -87,18 +99,25 @@
 			</div>
 			<div>
 				<ul>
-					<li>상세설명</li>
-					<li>클래스후기</li>
-					<li>위치설명</li>
-					<li>취소약관</li>
+					<li id="detail_box1_btn"><label for="detail_box1_btn">상세설명</label></li>
+					<li id="detail_box2_btn"><label for="detail_box2_btn">클래스후기</label></li>
+					<li id="detail_box3_btn"><label for="detail_box3_btn">위치설명</label></li>
+					<li id="detail_box4_btn"><label for="detail_box4_btn">취소약관</label></li>
 				</ul>
 			</div>
-			<div>
-				<img src="../images/01.jpg" style="width: 800px;"> 
+			<div class="detail_box" id="detail_box1">
+				<img src="../images/01.jpg" style="width: 800px;">
 			</div>
+			<div class="detail_box" id="detail_box2">
+				${rvo.review_content }
+				${rvo.member_id }
+				${rvo.review_regdate }
+				${rvo.score }
+			</div>
+			<div class="detail_box" id="detail_box3"></div>
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
+	<%-- <%@ include file="../footer.jsp"%> --%>
 	<script>
 		//세션에서 로그인 아이디 받아오기
 		let member_id = "${member_id}";
@@ -179,6 +198,23 @@
 			//alert("장바구니 버튼 클릭!");
 			location.href = "shoppingcart?class_code=" + class_code;
 		});
-	</script>
+		
+		
+		
+		$("#detail_box1_btn").click(function(){
+			$(".detail_box:not(#detail_box1)").css("display", "none");
+	         $("#detail_box1").css("display", "block");
+		});
+		$("#detail_box2_btn").click(function(){
+			$(".detail_box:not(#detail_box2)").css("display", "none");
+	         $("#detail_box2").css("display", "block");
+		});
+		$("#detail_box3_btn").click(function(){
+			$(".detail_box:not(#detail_box3)").css("display", "none");
+	         $("#detail_box3").css("display", "block");
+		});
+		
+		
+		</script>
 </body>
 </html>

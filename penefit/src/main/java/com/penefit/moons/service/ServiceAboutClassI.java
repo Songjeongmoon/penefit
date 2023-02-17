@@ -1,6 +1,7 @@
 package com.penefit.moons.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -9,6 +10,7 @@ import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.HistoryDTO;
 import com.penefit.moons.domain.HistoryVO;
 import com.penefit.moons.domain.MemberVO;
+import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.domain.WishlistVO;
 
 public interface ServiceAboutClassI {
@@ -49,6 +51,9 @@ public interface ServiceAboutClassI {
 	// 동일한 제품코드가 장바구니에 있는지 확인
 	public int checkCcodeInCart(String class_code, String member_id);
 
+	//장바구니 갯수세기
+	public int checkCntInCart(String member_id);
+	
 	// 장바구니에 담기
 	public void addShoppingcart(@Param(value = "cls") String class_code, String member_id);
 
@@ -77,7 +82,7 @@ public interface ServiceAboutClassI {
 	void cancelClass(String buy_history_num, String member_id);
 
 	// 리뷰등록
-	public void addReview(String class_code, String review_content, String member_id);
+	public void addReview(String class_code, String review_content, String member_id, int class_score);
 
 	// 스코어가 있는지 확인하기
 	public int getScore(String member_id);
@@ -90,5 +95,19 @@ public interface ServiceAboutClassI {
 
 	//선생님 정보
 	public String getTeacherId(String class_code);
+
+	//상세보기에 출력할 후기 목록
+	public ReviewVO getReview(String class_code);
+
+	//리뷰 중복방지
+	List<String> getReviewCheck(String class_code, String member_id);
+	
+	//마감기간이 지나지 않은 목록
+	public ArrayList<ClassVO> getClassList1();
+
+	//진행중인 목록
+	public ArrayList<ClassVO> getOngoingClassList();
+	//마감된 목록
+	public ArrayList<ClassVO> getExpiredClassList();
 
 }
