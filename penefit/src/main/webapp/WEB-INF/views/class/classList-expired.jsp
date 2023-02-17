@@ -42,7 +42,6 @@
 
 			</aside>
 			<div class="content" id="listBox">
-			<div>'${keyword }'로 검색된 결과는 [${result }]건입니다.</div>
 				<c:forEach var="c" items="${list }">
 					<div class="class_one">
 						<a href="class-detail?class_code=${c.class_code }"><img src="../images/${fn:split(c.suggest_photo,'-')[0]}"></a>

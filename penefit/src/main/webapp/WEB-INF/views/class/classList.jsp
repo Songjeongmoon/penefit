@@ -34,8 +34,8 @@
 							</p>
 						</div>
 					</li>
-					<li class="aside_menu"><a href="#">베스트 클래스</a></li>
 					<li class="aside_menu"><a href="classList-new">신규 클래스</a></li>
+					<li class="aside_menu"><a href="classList-expired">지난클래스</a></li>
 				</ul>
 
 			</aside>

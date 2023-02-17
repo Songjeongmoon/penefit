@@ -4,7 +4,7 @@
 
 <!-- 공지사항 등록 -->
 <insert id="noticeReg">
-INSERT INTO notice(notice_title,notice_content,member_id,notice_regdate,notice_viewcnt) VALUES (#{notice_title},#{notice_content},#{member_id}, now(),0)
+INSERT INTO notice(notice_title,notice_content,member_id,notice_regdate,notice_viewcnt) VALUES (#{qna.notice_title},#{qna.notice_content},#{qna.member_id}, now())
 </insert>
 
 

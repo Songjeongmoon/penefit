@@ -11,6 +11,7 @@ import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.HistoryDTO;
 import com.penefit.moons.domain.HistoryVO;
 import com.penefit.moons.domain.MemberVO;
+import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.mapper.MapperAboutClass;
 
@@ -128,7 +129,7 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 			numStr += numArr.get(i) + "-";
 			codeStr += codeArr.get(i) + "-";
 		}
-		
+
 		// 히스토리에 추가
 		mapper.addHistory(history, member_id, codeStr);
 		int buy_history_num = mapper.getOneHistory2(history.getMerchant_uid());
@@ -163,20 +164,93 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	public void cancelClass(String buy_history_num, String member_id) {
 		// 구매내역에서 취소로 변경한다.
 		mapper.cancelClass(buy_history_num);
-		//결제했던 클래스 배열 받아오기
-		String str =  mapper.getClassArr(buy_history_num);
+		// 결제했던 클래스 배열 받아오기
+		String str = mapper.getClassArr(buy_history_num);
 		System.out.println("STR : " + str);
 		String[] list = str.split("-");
 		System.out.println(list);
-		
-		for(String class_code : list) {
+
+		for (String class_code : list) {
 			// 클래스 인원수 -1
 			mapper.delClassMember(class_code);
 		}
-		
+
 		// 나의클래스 리스트에서 삭제
 		mapper.delClassList(buy_history_num, member_id);
-		
+
 	}
 
+	// 리뷰등록
+	@Override
+	public void addReview(String class_code, String review_content, String member_id, int class_score) {
+		mapper.addReview(class_code, review_content, member_id, class_score);
+	}
+
+	// 점수를 찾아서
+	@Override
+	public int getScore(String member_id) {
+		int result = mapper.getScore(member_id);
+		return result;
+	}
+
+	// 점수가 있으면 업데이트
+	@Override
+	public void updateScore(int score, String member_id) {
+		mapper.updateScore(score, member_id);
+	}
+
+	// 없으면 채워넣기
+	@Override
+	public void addScore(int score, String member_id) {
+		mapper.addScore(score, member_id);
+	}
+
+	// 선생님 이름
+	@Override
+	public String getTeacherId(String class_code) {
+		String class_teacher = mapper.getTeacherId(class_code);
+		return class_teacher;
+	}
+
+	// 리뷰 보기
+	@Override
+	public ReviewVO getReview(String class_code) {
+		ReviewVO rvo = mapper.getReview(class_code);
+		return rvo;
+	}
+
+	// w리뷰 중복방지 확인
+	@Override
+	public List<String> getReviewCheck(String class_code, String member_id) {
+		List<String> result = mapper.getReviewCheck(class_code, member_id);
+		return result;
+	}
+
+	// 장자구니 갯수세기
+	@Override
+	public int checkCntInCart(String member_id) {
+		int result = mapper.checkCntInCart(member_id);
+		return result;
+	}
+
+	// 마감기한이 지나지 않은 목록
+	@Override
+	public ArrayList<ClassVO> getClassList1() {
+		ArrayList<ClassVO> list = mapper.getClassList1();
+		return list;
+	}
+
+	// 진행중인 목록
+	@Override
+	public ArrayList<ClassVO> getOngoingClassList() {
+		ArrayList<ClassVO> list = mapper.getOngoingClassList();
+		return list;
+	}
+
+	// 마감된 목록
+	@Override
+	public ArrayList<ClassVO> getExpiredClassList() {
+		ArrayList<ClassVO> list = mapper.getExpiredClassList();
+		return list;
+	}
 }
