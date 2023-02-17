@@ -17,9 +17,9 @@
 	
 	<select id="getMyClassList" resultType="com.penefit.moons.domain.ClassListDTO">
 		SELECT A.member_id, A.class_code, A.class_list_current,
-		B.class_subject, B.class_teacher, B.class_day, B.class_time,
+		B.class_subject, B.class_teacher, B.class_date,
 		B.class_memlit, B.class_memcnt, B.class_price,
-		B.city_name, B.class_regdate
+		C.city_name, B.class_regdate
 		FROM class_list A, class B, city C
 		WHERE A.member_id = #{member_id} AND A.class_code = B.class_code AND B.city_code = C.city_code
 		ORDER BY B.class_regdate DESC

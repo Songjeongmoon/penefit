@@ -29,7 +29,15 @@ public class ControllerAboutClassInfo {
 		return "/class/suggestion";
 	}
 	
+	@GetMapping("/suggestion-list")
+	public String classSuggestListWindow() {
+		return "/class/suggestion/list";
+	}
 	
+	@GetMapping("/myList")
+	public String ClassListWindow() {
+		return "/class/myClassList";
+	}
 	
 	
 	
@@ -88,8 +96,6 @@ public class ControllerAboutClassInfo {
 	@ResponseBody
 	public  ArrayList<ClassListDTO> getMyClassList(Model model, String member_id){
 		ArrayList<ClassListDTO> list = service.getMyClassList(member_id);
-		model.addAttribute("list", list);
-		
 		return list;
 	}
 	
@@ -98,6 +104,7 @@ public class ControllerAboutClassInfo {
 	
 	@PostMapping("/suggestion")
 	public String insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files) {
+		System.out.println(suggest);
 		service.insertSuggestion(suggest, files);
 		
 		return "home";
@@ -107,11 +114,12 @@ public class ControllerAboutClassInfo {
 	
 	@PostMapping("/suggestion-list")
 	@ResponseBody
-	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id, Model model) {
+	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id) {
 		ArrayList<SuggestDTO> list = service.getMySuggestionList(member_id);
-		model.addAttribute("list", list);
 		return list;
 	}
+	
+	
 	
 	
 	

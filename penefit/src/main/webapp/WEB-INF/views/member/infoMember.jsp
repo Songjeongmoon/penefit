@@ -114,9 +114,32 @@ input[type=text] {
 			</div>
 			<div class="content" id="myClassSuggest">
 				<h3 class="mypageTitle">[클래스제안내역]</h3>
+				<table border = "1">
+					<thead>
+						<tr>
+							<th>분류</th><th>제목</th><th>지역</th><th>시간대</th>
+							<th>참가비</th><th>최대정원</th><th>등록일</th>
+						</tr>
+					</thead>
+					
+					<tbody id="suggestionBody"></tbody>
+				
+				</table>
 			</div>
 			<div class="content" id="myClassList">
 				<h3 class="mypageTitle">[나의클래스]</h3>
+				<table border = "1">
+					<thead>
+						<tr>
+							<th>제목</th>
+							<th>강사</th><th>강의일자</th><th>지역</th>
+						</tr>
+					</thead>
+	
+					<tbody id="myClassListBody"></tbody>
+				
+				</table>
+				
 			</div>
 			<div class="content" id="myInquiry">
 				<h3 class="mypageTitle">[문의내역]</h3>
@@ -205,7 +228,53 @@ input[type=text] {
 
 		     })
 		     
-		  }  
+		 }
+
+		
+		$.ajax({
+			url: "/class/list/my",
+			method: "POST",
+			dataType: "json",
+			data: {
+				member_id: "${member_id}"
+			},
+			success: (data) => {
+				for(let i = 0; i < data.length; i++){
+					$("#myClassListBody").append("<tr>"
+							+ "<td>" + data[i].class_subject + "</td><td>" + data[i].class_teacher + "</td>"
+							+ "<td>" + data[i].city_date + "</td><td>" + data[i].class_name + "</td>"
+							+ "</tr>");
+				}
+			},
+			error: () => {
+				alert("error");
+			}
+			
+		})
+		
+		
+		$.ajax({
+			url: "/class/suggestion-list",
+			method: "POST",
+			dataType: "json",
+			data: {
+				member_id: "${member_id}"
+			},
+			success: (data) => {
+				for(let i = 0; i < data.length; i++){
+					$("#suggestionBody").append("<tr>"
+							+ "<td>" + data[i].type + "</td><td>" + data[i].suggest_title + "</td>"
+							+ "<td>" + data[i].city_code + "</td><td>" + data[i].class_time + "</td>"
+							+ "<td>" + data[i].price + "</td><td>" + data[i].maxCnt + "</td>"
+							+ "<td>" + data[i].suggest_regdate + "</td>"
+							+ "</tr>");
+				}
+			},
+			error: () => {
+				alert("error");
+			}
+			
+		})
 	</script>
 </body>
 </html>
