@@ -171,4 +171,28 @@
 		delete from class_list where buy_history_num=#{buy_history_num} and member_id =#{member_id}
 	</delete>
 	
+	<!-- 리뷰등록 -->
+	<insert id="addReview">
+		insert into review (class_code, review_content, member_id, review_regdate) values (#{class_code}, #{review_content},#{member_id}, now())
+	</insert>
+	
+	<!-- 선생님 확인하기 -->
+	<select id="getTeacherId" resultType="string">
+		select class_teacher from class where class_code =#{class_code}
+	</select>
+	
+	<!-- 스코어가 있는지 확인하기 -->
+	<select id="getScore" resultType="_int">
+		select score from member where member_id =#{member_id}
+	</select>
+	
+	<!-- 만약 있다면? 등록이 아닌 업데이트 -->
+	<update id="updateScore">
+		update member set score = (score + #{score} )/2 where member_id =#{member_id}
+	</update>
+	
+	<!-- 만약 없다면 등록! -->
+	<update id="addScore">
+		update member set score = #{score} where member_id =#{member_id}
+	</update>
 </mapper>

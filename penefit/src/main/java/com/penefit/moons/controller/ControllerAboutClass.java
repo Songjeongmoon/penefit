@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //github.com/eseo99/penefit.git
 
@@ -80,8 +81,33 @@ public class ControllerAboutClass {
 		return "redirect:../shoppingcart1";
 	}
 	
+	//리뷰 등록하기 페이지로
+	@GetMapping("/reviewForm")
+	public void regFormView(Model model, HttpSession session, String class_code) {
+		String member_id = (String) session.getAttribute("member_id");
+		ClassVO classinfo =  service.selectClassOne(class_code);
+		model.addAttribute("m", member_id);
+		model.addAttribute("classinfo", classinfo);
+	}
 	
-	
+	//리뷰등록
+	@GetMapping("/reviewList")
+	public String regReview(String class_code, String review_content, String score, HttpSession session) {
+		String member_id = (String) session.getAttribute("member_id");
+		int class_score = Integer.parseInt(score);
+		System.out.println("=======class_score==========" + class_score);
+		service.addReview(class_code, review_content, member_id);
+		String teacher_id =service.getTeacherId(class_code);
+		System.out.println("=======teacher_id==========" + teacher_id);
+		int member_score = service.getScore(teacher_id);
+		System.out.println("=======member_score==========" + member_score);
+		if(member_score==0) {
+			service.addScore(class_score, teacher_id);
+		}else {
+			service.updateScore(class_score, teacher_id);
+		}
+		return "redirect:/member/infoMember";
+	}
 
 
 }

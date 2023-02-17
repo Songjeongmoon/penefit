@@ -128,7 +128,7 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 			numStr += numArr.get(i) + "-";
 			codeStr += codeArr.get(i) + "-";
 		}
-		
+
 		// 히스토리에 추가
 		mapper.addHistory(history, member_id, codeStr);
 		int buy_history_num = mapper.getOneHistory2(history.getMerchant_uid());
@@ -163,20 +163,48 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	public void cancelClass(String buy_history_num, String member_id) {
 		// 구매내역에서 취소로 변경한다.
 		mapper.cancelClass(buy_history_num);
-		//결제했던 클래스 배열 받아오기
-		String str =  mapper.getClassArr(buy_history_num);
+		// 결제했던 클래스 배열 받아오기
+		String str = mapper.getClassArr(buy_history_num);
 		System.out.println("STR : " + str);
 		String[] list = str.split("-");
 		System.out.println(list);
-		
-		for(String class_code : list) {
+
+		for (String class_code : list) {
 			// 클래스 인원수 -1
 			mapper.delClassMember(class_code);
 		}
-		
+
 		// 나의클래스 리스트에서 삭제
 		mapper.delClassList(buy_history_num, member_id);
-		
+
+	}
+
+	//리뷰등록
+	@Override
+	public void addReview(String class_code, String review_content, String member_id) {
+		mapper.addReview(class_code, review_content, member_id);
+	}
+
+	@Override
+	public int getScore(String member_id) {
+		int result = mapper.getScore(member_id);
+		return result;
+	}
+
+	@Override
+	public void updateScore(int score, String member_id) {
+		mapper.updateScore(score, member_id);
+	}
+
+	@Override
+	public void addScore(int score, String member_id) {
+		mapper.addScore(score, member_id);
+	}
+
+	@Override
+	public String getTeacherId(String class_code) {
+		String class_teacher = mapper.getTeacherId(class_code);
+		return class_teacher;
 	}
 
 }

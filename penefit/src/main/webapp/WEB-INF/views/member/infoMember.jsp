@@ -46,22 +46,46 @@ input[type=text] {
 	position: absolute;
 	width: 450px;
 	height: 500px;
-	    top: 50%;
-    left: 50%;
 	border: 2px solid black;
 	background-color: white;
 	z-index: 300;
 	border-radius: 10px;
 }
 
-.selectBox{
+.selectBox {
 	display: none;
 }
-#modal_history_case{
+
+#modal_history_case {
 	position: fixed;
-  top:0; left: 0; bottom: 0; right: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 300;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 300;
+	display: none;
+}
+
+#modal_qna_case {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: none;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 600;
+}
+
+#modal_qna {
+	position: absolute;
+	width: 450px;
+	height: 500px;
+	border: 2px solid black;
+	background-color: white;
+	z-index: 600;
+	border-radius: 10px;
 }
 </style>
 </head>
@@ -130,29 +154,28 @@ input[type=text] {
 					</div>
 				</div>
 
-
 			</div>
 			<div class="content" id="purchaseHistory">
 				<h3 class="mypageTitle">[구매내역]</h3>
 				<!-- 구매상세내역 모달 -->
 				<div id="modal_history_case">
-				<div id="modal_history">
-					<h4>구매상세내역</h4>
-					<button type="button" id="modalClose">Ｘ</button>
+					<div id="modal_history">
+						<h4>구매상세내역</h4>
+						<button type="button" id="modalClose">Ｘ</button>
 
-					<table id="history_detail">
-						<!-- 구매내역 상세보기 -->
-					</table>
-					<button type="button" id="cancelbtn">구매취소하기</button>
-					<button type="button" id="writebtn">리뷰</button>
-					
-					<div class="selectBox">
-						<select id="selectClass">
-						
-						</select>
-						<button type="button" id = "gotoReviewForm">리뷰작성하러가기</button>
+						<table id="history_detail">
+							<!-- 구매내역 상세보기 -->
+						</table>
+						<button type="button" id="cancelbtn">구매취소하기</button>
+						<button type="button" id="writebtn">리뷰</button>
+
+						<div class="selectBox">
+							<select id="selectClass">
+
+							</select>
+							<button type="button" id="gotoReviewForm">리뷰작성하러가기</button>
+						</div>
 					</div>
-				</div>
 				</div>
 
 				<!-- 구매리스트 -->
@@ -173,12 +196,74 @@ input[type=text] {
 			</div>
 			<div class="content" id="myClassSuggest">
 				<h3 class="mypageTitle">[클래스제안내역]</h3>
+				<table border="1">
+					<thead>
+						<tr>
+							<th>분류</th>
+							<th>제목</th>
+							<th>지역</th>
+							<th>시간대</th>
+							<th>참가비</th>
+							<th>최대정원</th>
+							<th>등록일</th>
+						</tr>
+					</thead>
+
+					<tbody id="suggestionBody"></tbody>
+
+				</table>
 			</div>
 			<div class="content" id="myClassList">
 				<h3 class="mypageTitle">[나의클래스]</h3>
+				<table border="1">
+					<thead>
+						<tr>
+							<th>제목</th>
+							<th>강사</th>
+							<th>강의일자</th>
+							<th>지역</th>
+						</tr>
+					</thead>
+
+					<tbody id="myClassListBody"></tbody>
+
+				</table>
+			
 			</div>
 			<div class="content" id="myInquiry">
 				<h3 class="mypageTitle">[문의내역]</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>문의번호</th>
+							<th>문의글</th>
+							<th>상태</th>
+							<th>등록일</th>
+						</tr>
+					</thead>
+					<tbody id="qnaTbody">
+						<!--  -->
+					</tbody>
+				</table>
+
+				<div id="modal_qna_case">
+					<div id="modal_qna">
+						<h4>문의상세내역</h4>
+						<table id="qna_detail">
+							<!-- 문의 상세보기 -->
+						</table>
+						<table id="qna_reply">
+							<!-- 문의 답변 -->
+							<tr>
+								<th>답변 내용</th>
+								<td id="qna_reply_content"></td>
+							</tr>
+						</table>
+						<button type="button" id="closebtn">뒤로 돌아가기</button>
+
+					</div>
+				</div>
+
 			</div>
 		</section>
 	</div>
@@ -209,6 +294,7 @@ input[type=text] {
 		$("#myInquiryLabel").click(function() {
 			$(".content:not(#myInquiry)").css("display", "none");
 			$("#myInquiry").css("display", "block");
+			qnaList();
 		});
 		$("#mySuggestLabel").click(function() {
 			$(".content:not(#myClassSuggest)").css("display", "none");
@@ -383,12 +469,120 @@ input[type=text] {
 		
 		$("#gotoReviewForm").click(function(){
 			let class_code = $(".selectBox option:selected").val();
-			alert(class_code);
-			let buy_history_num = $(".buy_history_num").val();
-			alert(buy_history_num);
-			
+			location.href="/class/reviewForm?class_code=" + class_code;			
 			
 		});
+		
+		
+		//qna리스트 가져오기
+		function qnaList() {
+			$("#qnaTbody").empty();
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				let data = this.responseText;
+				let json = JSON.parse(data);
+				for(let i = 0;i<json.length;i++){
+					$("#qnaTbody").append("<tr><td class='viewReply'>" + json[i].qna_num + "</td>"
+							+"<td class='viewReply'>" + json[i].qna_title + "</td>"
+							+"<td class='viewReply'>" + json[i].qna_status + "</td>"
+							+"<td class='viewReply'>" + json[i].qna_regdate + "</td></tr>"	
+					)
+				}
+			}
+			xhttp.open("GET", "/qnaList", true);
+			xhttp.send();
+		}
+		
+		//상세내역
+		$(document).on("click",".viewReply",function(evt){
+			$("#modal_qna_case").css("display","block");
+			$(".content").css("z-index", "500");
+			let qna_num = evt.target.parentElement.children[0].innerText;
+			$("#qna_detail").empty();;
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				let data = this.responseText;
+				let obj = JSON.parse(data);
+					$("#qna_detail").append("<tr><th>제목</th><td class='viewReply'>" + obj.qna_title + "</td></tr>"
+							+"<tr><th>내용</th><td class='viewReply'>" + obj.qna_content + "</td></tr>"
+							+"<tr><th>상태</th><td class='viewReply'>" + obj.qna_status + "</td></tr>"
+							+"<tr><th>등록일</th><td class='viewReply'>" + obj.qna_regdate + "</td></tr>");
+					qnaReply(qna_num);
+			}
+			xhttp.open("GET", "/qnaOneList/qna_num/" + qna_num, true);
+			xhttp.send();
+		})
+		
+		$("#closebtn").click(function(){
+			$("#modal_qna_case").css("display","none");
+		});
+		
+		//답변내용 불러오기
+		
+		
+		function qnaReply(qna_num){
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				let data = this.responseText;
+				alert(data);
+					$("#qna_reply_content").text(data);	
+			}
+			xhttp.open("GET", "/qnaReply/qna_num/" + qna_num, true);
+			xhttp.send();
+		}
+		
+		$("#closebtn").click(function(){
+			$("#modal_qna_case").css("display","none");
+			$(".content").css("z-index", "50");
+		});
+		
+		$.ajax({
+			url: "/class/list/my",
+			method: "POST",
+			dataType: "json",
+			data: {
+				member_id: "${member_id}"
+			},
+			success: (data) => {
+				for(let i = 0; i < data.length; i++){
+					$("#myClassListBody").append("<tr>"
+							+ "<td>" + data[i].class_subject + "</td><td>" + data[i].class_teacher + "</td>"
+							+ "<td>" + data[i].city_date + "</td><td>" + data[i].class_name + "</td>"
+							+ "</tr>");
+				}
+			},
+			error: () => {
+				alert("error");
+			}
+			
+		})
+		
+		
+		$.ajax({
+			url: "/class/suggestion-list",
+			method: "POST",
+			dataType: "json",
+			data: {
+				member_id: "${member_id}"
+			},
+			success: (data) => {
+				for(let i = 0; i < data.length; i++){
+					$("#suggestionBody").append("<tr>"
+							+ "<td>" + data[i].type + "</td><td>" + data[i].suggest_title + "</td>"
+							+ "<td>" + data[i].city_code + "</td><td>" + data[i].class_time + "</td>"
+							+ "<td>" + data[i].price + "</td><td>" + data[i].maxCnt + "</td>"
+							+ "<td>" + data[i].suggest_regdate + "</td>"
+							+ "</tr>");
+				}
+			},
+			error: () => {
+				alert("error");
+			}
+			
+		})
+		
 		</script>
+
+
 </body>
 </html>

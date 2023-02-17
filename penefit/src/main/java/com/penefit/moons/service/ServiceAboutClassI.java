@@ -67,13 +67,28 @@ public interface ServiceAboutClassI {
 	// 히스토리에 추가
 	public void addHistory(HistoryDTO history, String member_id);
 
-	//히스토리 조회
+	// 히스토리 조회
 	public ArrayList<HistoryVO> getHistory(String member_id);
 
-	//히스토리 상세조회
+	// 히스토리 상세조회
 	public HistoryVO getOneHistory(String member_id, int buy_history_num);
 
-	//클래스 취소
+	// 클래스 취소
 	void cancelClass(String buy_history_num, String member_id);
+
+	// 리뷰등록
+	public void addReview(String class_code, String review_content, String member_id);
+
+	// 스코어가 있는지 확인하기
+	public int getScore(String member_id);
+
+	// 스코어가 있다면 업데이트
+	public void updateScore(int score, String member_id);
+
+	// 스코어가 없다면 등록
+	public void addScore(int score, String member_id);
+
+	//선생님 정보
+	public String getTeacherId(String class_code);
 
 }

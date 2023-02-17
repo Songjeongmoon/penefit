@@ -100,7 +100,19 @@ public interface MapperAboutClass {
 	//취소시 나의 클래스에서 삭제
 	public void delClassList(@Param(value = "buy_history_num")String buy_history_num, @Param(value = "member_id")String member_id);
 
+	//리뷰등록
+	public void addReview(@Param(value = "class_code")String class_code,@Param(value = "review_content") String review_content,@Param(value = "member_id") String member_id);
+
+	// 스코어가 있는지 확인하기 
+	public int getScore(@Param("member_id") String member_id);
 	
+	//스코어가 있다면 업데이트
+	public void updateScore(@Param(value = "score")int score, @Param("member_id") String member_id);
 	
+	//스코어가 없다면 등록
+	public void addScore(@Param(value = "score")int score, @Param("member_id") String member_id);
+
+	//선생님 id받아오기
+	public String getTeacherId(String class_code);
 
 }
