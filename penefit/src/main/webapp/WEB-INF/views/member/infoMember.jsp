@@ -222,6 +222,7 @@ input[type=text] {
 		$("#mySuggestLabel").click(function() {
 			$(".content:not(#myClassSuggest)").css("display", "none");
 			$("#myClassSuggest").css("display", "block");
+			
 		});
 		$("#myClassLabel").click(function() {
 			$(".content:not(#myClassList)").css("display", "none");
@@ -270,8 +271,11 @@ input[type=text] {
 		        method: "DELETE",
 		        data : {     
 		        		"member_id" : memberid  
-		        	}
-
+		        	},
+		     			success:(data) => {
+				        	alert(data);
+				        	location.href="/member/home";
+				        },
 		     });
 		     
 		  }  

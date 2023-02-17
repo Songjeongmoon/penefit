@@ -28,7 +28,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		if (result == 1) {
 			return "home";
 		} else {
-			return "home";
+			return "/member/regMember";
 		}
 
 	}
@@ -46,11 +46,11 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 			if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
 				Session.setAttribute("member_id", member_id);
 				
-				return "home";
+				return "/member/home";
 			}
 			
 		}
-		return "/member/regMember";
+		return "/member/login";
 		
 	}
 
@@ -80,10 +80,15 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 
 	@Override
 	public String DeleteMem(HttpSession session, String id) {
-		mapper.deleteMember(id);
+		int result =mapper.deleteMember(id);
 		session.invalidate();
+		String path="";
+		if(result==1) {
+			path = "회원탈퇴 되었습니다!";
+		}
 		
-		return "home";
+		
+		return path;
 	}
 
 	@Override
