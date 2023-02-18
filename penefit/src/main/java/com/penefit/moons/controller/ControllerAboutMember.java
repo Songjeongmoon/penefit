@@ -47,6 +47,12 @@ public class ControllerAboutMember {
 		
 	}
 	
+	@GetMapping("/home")
+	public String home() {
+		return "/home";
+		
+	}
+	
 	@GetMapping("/MemberListGradeManager")
 	public void MemberListGradeManager() {
 		
@@ -62,19 +68,17 @@ public class ControllerAboutMember {
 	
 	@PostMapping("login.do")
 	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session) {
-		serviceMember.loginCheck(member_id, member_pw,Session);
-		log.info("===============================");
+		String path = serviceMember.loginCheck(member_id, member_pw,Session);
 		log.info(serviceMember.loginCheck(member_id, member_pw,Session));
-		return "redirect:/";
+		return "redirect:"+path;
 	}
 	
 	@GetMapping("logout")
 	public String logout(HttpSession Session) {
 		serviceMember.logout(Session);
-		System.out.println(Session);
 		return "redirect:/";
 	}
-	@GetMapping("infoMember")
+	@GetMapping("/infoMember")
 	public String goinfoMember(HttpSession Session, Model model) {
 		String member_id = (String) Session.getAttribute("member_id");
 		MemberVO member = serviceMember.selectOne(member_id);
@@ -88,11 +92,12 @@ public class ControllerAboutMember {
 		return path;
 	}
 	@DeleteMapping("deleteMember")
+	@ResponseBody
 	public String deleteMember(String member_id, HttpSession Session) {
 		System.out.println("memberid : " +member_id);
 		Session.getAttribute("member_id");
 		String path =serviceMember.DeleteMem(Session, member_id);
-		return "redirect:/";
+		return path;
 	}
 	@GetMapping("/selectall")
 	public @ResponseBody ArrayList<MemberVO> seletALl() {

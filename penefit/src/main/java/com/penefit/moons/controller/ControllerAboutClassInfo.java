@@ -1,6 +1,12 @@
 package com.penefit.moons.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +31,21 @@ public class ControllerAboutClassInfo {
 	// 신청서 페이
 	
 	@GetMapping("/suggestion")
-	public String classSuggestWindow() {
+	public String classSuggestWindow(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		if(session.getAttribute("member_id") == null) {
+			try {
+				res.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = res.getWriter();
+				out.print("<script> alert('로그인후 사용하실수 있습니다'); location.href = '/member/login';</script>");
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return "/class/suggestion";
+		
 	}
 	
 	@GetMapping("/suggestion-list")
@@ -96,6 +115,8 @@ public class ControllerAboutClassInfo {
 	@ResponseBody
 	public  ArrayList<ClassListDTO> getMyClassList(Model model, String member_id){
 		ArrayList<ClassListDTO> list = service.getMyClassList(member_id);
+		model.addAttribute("list", list);
+		
 		return list;
 	}
 	
@@ -114,8 +135,9 @@ public class ControllerAboutClassInfo {
 	
 	@PostMapping("/suggestion-list")
 	@ResponseBody
-	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id) {
+	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id, Model model) {
 		ArrayList<SuggestDTO> list = service.getMySuggestionList(member_id);
+		model.addAttribute("list", list);
 		return list;
 	}
 	

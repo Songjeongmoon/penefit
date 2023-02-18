@@ -36,7 +36,7 @@
 	</select>
 	   <select id ="selectOneGrade" resultType="com.penefit.moons.domain.MemberVO">
 		SELECT * FROM member WHERE member_grade LIKE CONCAT('%',#{grade},'%')
-	</select>
+	  </select>
 	
 	 <update id="updateGrade" >
       UPDATE member SET member_grade = #{member_grade} WHERE member_id = #{member_id};

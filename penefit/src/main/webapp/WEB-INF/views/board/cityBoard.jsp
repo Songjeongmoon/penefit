@@ -57,11 +57,11 @@
 				&nbsp;&nbsp;&nbsp; <input type="text" name="searchReview"
 					id="searchReview"> <input type="button" value="검색"
 					id="searchBtn">
-
-				<div align="right">
-					<button type="button" onclick="location.href='city_regView'">글쓰기</button>
-				</div>
-
+				<c:if test="${member_id != null }">
+					<div align="right">
+						<button type="button" onclick="location.href='city_regView'">글쓰기</button>
+					</div>
+				</c:if>
 
 				<div id="citybox1">
 					<table border="1">

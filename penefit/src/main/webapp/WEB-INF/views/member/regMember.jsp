@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -154,6 +155,43 @@ function checkPwd(){
 	   
 	  }
 }
+
+function legcheck(){
+	const member_id= $("input[name='member_id']").val();
+	const member_pw= $("input[name='member_pw']").val();
+	const member_pw2= $("input[name='member_pw2']").val();
+	const member_name= $("input[name='member_name']").val();
+	const member_tel= $("input[name='member_tel']").val();
+	const member_address= $("input[name='member_address']").val();
+	
+	if(member_id ==''){
+		alert("아이디를 입력하세요");
+		member_id.focus();
+		return false;
+	}else if(member_pw ==''){
+		alert("비밀번호를 입력하세요");
+		member_pw.focus();
+		return false;
+	}else if(member_pw2 ==''){
+		alert("비밀번호를 확인하세요");
+		member_pw2.focus();
+		return false;
+	}else if(member_name ==''){
+		alert("이름을 입력하세요");
+		member_name.focus();
+		return false;
+	}else if(member_tel ==''){
+		alert("전화번호를 입력하세요");
+		member_tel.focus();
+		return false;
+	}else if(member_address ==''){
+		alert("주소를 입력하세요");
+		member_address.focus();
+		return false;
+	}else{
+		submit();
+	}
+};
 </script>
 </body>
 </html>
