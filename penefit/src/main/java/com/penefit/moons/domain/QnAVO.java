@@ -9,4 +9,5 @@ public class QnAVO {
 	private String qna_title;
 	private String qna_content;
 	private String qna_regdate;
+	private int reply_num;
 }

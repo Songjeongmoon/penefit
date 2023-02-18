@@ -9,15 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.penefit.moons.domain.BoardVO;
 import com.penefit.moons.domain.NoticeVO;
-import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.service.ServiceAboutBoard;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping("/board/*")
 public class ControllerAboutBoard {
@@ -67,60 +65,6 @@ public class ControllerAboutBoard {
 		return "redirect:notice";
 	}
 	
-
-	
-	//QnA list뽑
-	@GetMapping("/QnA")
-	public void getQnAList(Model model) {
-		List<QnAVO> qlist = bservice.qlist();
-		model.addAttribute("qlist", qlist);
-	}
-	
-	//QnA 글등록 뷰
-	@GetMapping("/QnARegView")
-	public String qnaBoardForm() {
-		
-		return "board/QnARegView";
-	}
-	
-	//QnA 글등록
-	@PostMapping("/QnARegDo")
-	public String qnaRedDO(QnAVO qna) {
-		bservice.qnaReg(qna);
-		log.info(qna.toString());
-		return "redirect:QnA";
-	}
-	
-	
-	//QnA상세페이지
-	@GetMapping("/qna_detail")
-	public void qnaSelecOne(@RequestParam("qna_num") int qna_num, Model model) {
-		QnAVO qna = bservice.qnaSelectOne(qna_num);
-		model.addAttribute("qna",qna);
-	}
-	
-	//QnA수정페이지
-	@GetMapping("/qna_ModiView")
-	public void qnaModiView(@RequestParam("qna_num") int qna_num, Model model) {
-		QnAVO qvo = bservice.qnaSelectOne(qna_num);
-		
-		model.addAttribute("qvo",qvo);
-	}
-	
-	@PostMapping("/qna_ModiDo")
-	public String modiQnA(QnAVO qvo) {
-		bservice.modiQnA(qvo);
-		
-		return "redirect:QnA";
-	}
-	
-	//QnA삭제
-	@GetMapping("/qna_delete")
-	public String delQnA(int qna_num) {
-		bservice.delQnA(qna_num);
-		
-		return "redirect:QnA";
-	}
 	
 	//FAQ 게시판
 	@GetMapping("/FAQ")
@@ -136,12 +80,79 @@ public class ControllerAboutBoard {
 		model.addAttribute("faq",faq);
 	}
 	
+	//지역 게시판 
 	@GetMapping("/cityBoardview")
 	public String cityBoard1() {
-		return "board/cityBoard";
+		return "/board/cityBoard";
+	}
+	
+	// 지역별게시판 등록뷰
+	@GetMapping("/city_regView")
+	public String cityBoardReg() {
+
+		return "board/city_regView";
+	}
+	
+	//지역 게시판 글등록
+	
+	
+	//@PostMapping("/cityReg.do")
+	public String cityBoardRegDo2(BoardVO bvo) {
+		bservice.cityReg(bvo);
+		System.out.println("bvo:"+bvo);
+		
+		return "redirect:citycity";
 	}
 	
 	
+	//지역 게시판 상세보기
+	@GetMapping("/city_detail")
+	public void citySelectOne(@RequestParam("board_num") int board_num, Model model) {
+		BoardVO cvo = bservice.citySelectOne(board_num);
+		model.addAttribute("cvo",cvo);
+	}
+	
+	//지역게시판 수정
+	@PostMapping("/city_modi.do")
+	public String modiCityDo(BoardVO bvo) {
+		bservice.modiCity(bvo);
+		
+		return "redirect:cityBoardview";
+	}
+
+	//지역게시판 검색
+	@GetMapping("/citySearch")
+	public @ResponseBody List<BoardVO> getSearchCity(Model model, String keyword, String citysel) {
+		System.out.println(keyword);
+		System.out.println("=======================");
+		System.out.println(citysel);
+		List<BoardVO> list = bservice.searchCity(keyword, citysel);
+		
+		
+		return list;
+	}
+
+	
+	//공지사항 수정 view로
+	@GetMapping("/city_modiView")
+	public String modiCity(@RequestParam int board_num, Model model) {
+		BoardVO cvo = bservice.citySelectOne(board_num);
+		model.addAttribute("cvo", cvo);
+		
+		return "board/city_modiView";
+	}
+	
+	//지역게시판 삭제
+	@GetMapping("/delCity")
+	public String delCity(int board_num) {
+		
+		bservice.delCity(board_num);
+		
+		return "redirect:cityBoardview";
+	}
+	
+	
+
 	
 	
 	

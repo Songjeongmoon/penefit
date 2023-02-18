@@ -27,7 +27,7 @@
 
 <!-- 지역 전체 게시판 -->
 <select id="getCityList" resultType="com.penefit.moons.domain.BoardVO">
-	SELECT * FROM board WHERE board_type= 'CC'  
+	SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND c.city_code = b.city_code	
 </select>
 
 <!-- 각 지역별 게시판 -->
@@ -35,43 +35,49 @@
 	SELECT * FROM board WHERE board_type= 'CC' AND city_code=#{city_code} 
 </select>
 
-<!-- QnA 게시판 -->
-<select id="getQnAList" resultType="com.penefit.moons.domain.QnAVO">
-	SELECT * FROM qna
+<!-- 지역상세 게시판 -->
+<select id="citySelectOne" resultType="com.penefit.moons.domain.BoardVO">
+	SELECT * FROM board WHERE board_num=#{board_num}
 </select>
 
-<insert id="regQnA">
-	INSERT INTO qna(qna_title, qna_content, member_id, qna_regdate) VALUES (#{qna_title}, #{qna_content}, #{member_id}, now())
-</insert>
-
-<select id="qnaSelectOne" resultType="com.penefit.moons.domain.QnAVO">
-	SELECT * FROM qna WHERE qna_num=#{qna_num}
-</select>
-
-<update id="modiQnA">
-	UPDATE qna SET qna_title=#{qna_title}, qna_content=#{qna_content} WHERE qna_num=#{qna_num}
+<update id="cityViewCnt">
+	UPDATE board SET board_viewcnt = board_viewcnt + 1 WHERE board_num=#{board_num}
 </update>
 
-<delete id="delQnA">
-	DELETE FROM qna WHERE qna_num=#{qna_num}
-</delete>
-
-<!-- 댓글 -->
-<insert id="regReply">
-	INSERT INTO reply (qna_num,reply_content, reply_regdate, member_id, reply_type) VALUES(#{qna_num},#{reply_content},now(),#{member_id}, 'R')
+<insert id="cityReg">
+	INSERT INTO board (board_title, board_content, member_id, board_regdate, board_viewcnt, board_type, city_code) VALUES (#{board_title}, #{board_content}, #{member_id}, now(), 0, 'CC', #{city_code})
 </insert>
 
-<select id="getReplyList" resultType="com.penefit.moons.domain.ReplyVO">
-	SELECT * FROM reply WHERE qna_num=#{qna_num} and reply_type ='R'
+<!-- 지역게시판 수정 -->
+<update id="modiCity">
+	UPDATE board SET board_title=#{board_title}, board_content=#{board_content},board_modidate=now() WHERE board_num=#{board_num}
+</update>
+<!-- 지역게시판 삭제 -->
+<delete id="delCity">
+	DELETE FROM board WHERE board_num=#{board_num}
+</delete>
+
+<select id="search_city" resultType="com.penefit.moons.domain.BoardVO">
+	SELECT * FROM board WHERE board_title LIKE CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%', #{keyword},'%') AND city_code=#{city_code}	
 </select>
 
-<delete id="delReply">
+<!-- 댓글 -->
+<insert id="reg_cityReply">
+	INSERT INTO reply(board_num, reply_content, reply_regdate, member_id, reply_type) VALUES (#{board_num}, #{reply_content},now(),#{member_id}, 'C')
+</insert>
+
+<select id="get_CityReplyList" resultType="com.penefit.moons.domain.ReplyVO">
+	SELECT * FROM reply WHERE board_num=#{board_num} and reply_type ='C'
+</select>
+
+<delete id="del_CityReply">
 	DELETE FROM reply WHERE reply_num=#{reply_num}
 </delete>
+
+<!-- FAQ 게시판 -->
 
 <select id="getFaQList" resultType="com.penefit.moons.domain.BoardVO">
 	SELECT * FROM board WHERE board_type= 'FF'  
 </select>
-
 
 </mapper>

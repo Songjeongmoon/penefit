@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.penefit.moons.domain.BoardVO;
 import com.penefit.moons.domain.NoticeVO;
-import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.ReplyVO;
 
 public interface ServiceAboutBoardI {
@@ -29,32 +28,39 @@ public interface ServiceAboutBoardI {
 	//각 지역별 리스트
 	public List<BoardVO> getCityListOne(String check_city);
 	
-	//---------------------------------------
+	//지역 상세조회
+	public BoardVO citySelectOne(int board_num);
 	
-	//QnA 게시판
-	public int qnaReg(QnAVO qvo);
+	//지역 게시판 등록 
+	public int cityReg(BoardVO bvo);
+	//지역 수정
+	public void modiCity(BoardVO bvo);
 	
-	public List<QnAVO> qlist();
+	//지역 삭제
+	public int delCity(int board_num);
 	
-	public QnAVO qnaSelectOne(int qna_num);
+	//지역 검색
+	public List<BoardVO> searchCity(String keyword, String citysel);
 	
-	public void modiQnA(QnAVO qvo);
-	
-	public int delQnA(int qna_num);
-
+	//지역 댓글
 	//댓글(reply)등록  
-	public int replyReg(ReplyVO rvo);
+	public int cityreplyReg(ReplyVO crvo);
 	
 	//댓글리스트
-	public List<ReplyVO> getRlist(int qna_num);
+	public List<ReplyVO> get_CityRlist(int board_num);
 	
 	//댓글(reply) 삭제
-	public int replyDel(int reply_num);
+	public int cityReplyDel(int reply_num);
 	
 	
 	//FAQ 게시판
 	public List<BoardVO> getFaQList();
 
 	
+	//---------------------------------------
+	
+	
+
+
 
 }

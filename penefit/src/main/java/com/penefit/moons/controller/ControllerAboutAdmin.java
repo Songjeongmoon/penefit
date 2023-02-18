@@ -36,5 +36,10 @@ public class ControllerAboutAdmin {
 		
 		return "redirect:board/notice";
 	}
+	
+	@GetMapping("errorWindow")
+	public String errorView() {
+		return "errorWindow";
+	}
 
 }
