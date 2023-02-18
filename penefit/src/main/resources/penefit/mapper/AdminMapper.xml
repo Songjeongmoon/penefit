@@ -15,6 +15,27 @@
 		ORDER BY class_regdate DESC
 	</select>
 	
+	<!--  클래스 리스트 시간역 -->
+	<select id = "getClassListASC" resultType= "com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		ORDER BY class_regdate ASC
+	</select>
+	
+	<select id = "getClassListActive" resultType= "com.penefit.moons.domain.ClassVO">
+		SELECt *
+		FROM class
+		WHERE class_date > NOW()
+		ORDER BY class_regdate DESC
+	</select>
+	
+	<select id = "getClassListEnd" resultType= "com.penefit.moons.domain.ClassVO">
+		SELECt *
+		FROM class
+		WHERE NOW() > class_date
+		ORDER BY class_regdate DESC
+	</select>
+	
 	<!-- 클래스 검색 -->
 	<select id = "searchClass" resultType = "com.penefit.moons.domain.ClassVO">
 		SELECT *

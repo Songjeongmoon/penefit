@@ -163,6 +163,21 @@ public class AdminServiceSong implements AdminServiceSongIm{
 		ClassVO vo = mapper.getClassOne(class_code);
 		return vo;
 	}
+
+	@Override
+	public List<ClassVO> getClassListASC() {
+		return mapper.getClassListASC();		
+	}
+
+	@Override
+	public List<ClassVO> getClassListEnd() {
+		return mapper.getClassListEnd();
+	}
+
+	@Override
+	public List<ClassVO> getClassListActive() {
+		return mapper.getClassListActive();
+	}
 	
 	
 	

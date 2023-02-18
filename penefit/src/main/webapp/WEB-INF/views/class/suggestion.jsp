@@ -35,7 +35,7 @@
 		<option value = "M">전남</option><option value = "N">광주</option>
 		<option value = "O">제주</option><option value = "Z">온라인</option>
 	</select><br>
-	
+	시간<input type = "datetime-local" name = "class_time"><br>
 	내용<textarea name = "suggest_content"></textarea><br>
 	최대인원<input type = "number" name = "maxCnt"><br>
 	참가비용<input type = "number" name = "price"><br>
@@ -69,6 +69,9 @@
 			return false;
 		} else if($("input[name='files']").val() == ""){
 			alert("첨부이미지를 추가해주세요.");
+			return false;
+		} else if($("input[name='class_time']").val() == ""){
+			alert("시간대를 선택해주세요.");
 			return false;
 		} else{
 			return true;

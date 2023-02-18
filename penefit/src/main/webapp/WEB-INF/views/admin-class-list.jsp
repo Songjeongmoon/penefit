@@ -59,18 +59,115 @@
 		</form>
 		
 	</div>
-<button id = "dayBtn" value = "dd">날짜순</button>
+<button id = "dayBtn" value = "desc">날짜순</button>
+<button id = "endBtn">완료된 클래스</button>
+<button id = "activeBtn">진행중 클래스</button>
 <%@ include file = "./footer.jsp" %>
 
 
 <script>
+
+	$("#endBtn").click((event) => {
+		$.ajax({
+			url: "/admin/class/end",
+			method: "GET",
+			dataType: "json",
+			success: (data) => {
+				$("#classListBody").empty();
+				for(let i = 0; i < data.length; i++){
+					$("#classListBody").append("<tr>"
+					+ "<td>" + data[i].class_code + "</td><td class = classDetail>" + data[i].class_subject + "</td>"
+					+ "<td>" + data[i].class_memcnt + "/" + data[i].class_memlit + "</td><td>" + data[i].class_teacher + "</td>"
+					+ "<td>" + data[i].class_date + "</td><td>" + data[i].class_price + "</td>"
+					+ "<td>" + data[i].city_code + "</td><td>" + data[i].class_regdate + "</td>"
+					+ "<td>" + data[i].class_modidate + "</td>"
+					+ "<td><button class='deleteBtn' value = '" + data[i].class_code + "'>삭제</button></td>"
+					+ "</tr>");
+				}
+			},
+			error: () => {
+				alert("error");
+			}
+			
+		})
+	})
+	
+	$("#activeBtn").click((event) => {
+		$.ajax({
+			url: "/admin/class/active",
+			method: "GET",
+			dataType: "json",
+			success: (data) => {
+				$("#classListBody").empty();
+				for(let i = 0; i < data.length; i++){
+					$("#classListBody").append("<tr>"
+					+ "<td>" + data[i].class_code + "</td><td class = classDetail>" + data[i].class_subject + "</td>"
+					+ "<td>" + data[i].class_memcnt + "/" + data[i].class_memlit + "</td><td>" + data[i].class_teacher + "</td>"
+					+ "<td>" + data[i].class_date + "</td><td>" + data[i].class_price + "</td>"
+					+ "<td>" + data[i].city_code + "</td><td>" + data[i].class_regdate + "</td>"
+					+ "<td>" + data[i].class_modidate + "</td>"
+					+ "<td><button class='deleteBtn' value = '" + data[i].class_code + "'>삭제</button></td>"
+					+ "</tr>");
+				}
+			},
+			error: () => {
+				alert("error");
+			}
+			
+		})
+	})
+
 	$("#dayBtn").click((event) => {
-		if(event.target.value == "dd"){
-			alert("dd");
-			event.target.value = "zz";
+		if(event.target.value == "desc"){
+			event.target.value = "asc";
+			alert(event.target.value);
+			$.ajax({
+				url: "/admin/class/ASC",
+				method: "GET",
+				dataType: "json",
+				success: (data) => {
+					$("#classListBody").empty();
+					for(let i = 0; i < data.length; i++){
+						$("#classListBody").append("<tr>"
+						+ "<td>" + data[i].class_code + "</td><td class = classDetail>" + data[i].class_subject + "</td>"
+						+ "<td>" + data[i].class_memcnt + "/" + data[i].class_memlit + "</td><td>" + data[i].class_teacher + "</td>"
+						+ "<td>" + data[i].class_date + "</td><td>" + data[i].class_price + "</td>"
+						+ "<td>" + data[i].city_code + "</td><td>" + data[i].class_regdate + "</td>"
+						+ "<td>" + data[i].class_modidate + "</td>"
+						+ "<td><button class='deleteBtn' value = '" + data[i].class_code + "'>삭제</button></td>"
+						+ "</tr>");
+					}
+				},
+				error: () => {
+					alert("error");
+				}
+				
+			})
 		} else{
-			alert("zz");
-			event.target.value = "dd";
+			event.target.value = "desc";
+			alert(event.target.value);
+			$.ajax({
+				url: "/admin/class/DESC",
+				method: "GET",
+				dataType: "json",
+				success: (data) => {
+					$("#classListBody").empty();
+					for(let i = 0; i < data.length; i++){
+						$("#classListBody").append("<tr>"
+						+ "<td>" + data[i].class_code + "</td><td class = classDetail>" + data[i].class_subject + "</td>"
+						+ "<td>" + data[i].class_memcnt + "/" + data[i].class_memlit + "</td><td>" + data[i].class_teacher + "</td>"
+						+ "<td>" + data[i].class_date + "</td><td>" + data[i].class_price + "</td>"
+						+ "<td>" + data[i].city_code + "</td><td>" + data[i].class_regdate + "</td>"
+						+ "<td>" + data[i].class_modidate + "</td>"
+						+ "<td><button class='deleteBtn' value = '" + data[i].class_code + "'>삭제</button></td>"
+						+ "</tr>");
+					}
+				},
+				error: () => {
+					alert("error");
+				}
+				
+			})
 		}
 	})
 	

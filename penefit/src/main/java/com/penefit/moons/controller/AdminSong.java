@@ -62,6 +62,30 @@ class AdminSong {
 		return "admin-class-list";
 	}
 	
+	@GetMapping("/class/DESC")
+	@ResponseBody
+	public List<ClassVO> getClassListDESC(){
+		return service.getClassList();
+	}
+	
+	@GetMapping("/class/ASC")
+	@ResponseBody
+	public List<ClassVO> getClassListASC(){
+		return service.getClassListASC();
+	}
+	
+	@GetMapping("/class/end")
+	@ResponseBody
+	public List<ClassVO> getClassListEnd(){
+		return service.getClassListEnd();
+	}
+	
+	@GetMapping("/class/active")
+	@ResponseBody
+	public List<ClassVO> getClassListActive(){
+		return service.getClassListActive();
+	}
+	
 	@GetMapping("/class/one")
 	@ResponseBody
 	public ClassVO getClassOne(String class_code) {
