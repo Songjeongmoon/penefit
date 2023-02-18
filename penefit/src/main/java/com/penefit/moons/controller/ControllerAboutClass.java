@@ -90,7 +90,9 @@ public class ControllerAboutClass {
 		//System.out.println("Date-2: " + dateFormat.format(date2));
 		if(date1.before(date2)){
 			model.addAttribute("status", "마감");
-        } 
+        } else {
+        	model.addAttribute("status", "진행");
+        }
 		model.addAttribute("rvo", rvo);
 		model.addAttribute("cvo", cvo);
 	}
@@ -101,6 +103,7 @@ public class ControllerAboutClass {
 		String member_id = (String) session.getAttribute("member_id");
 		int result = service.checkCcodeInCart(class_code, member_id);
 		int cntResult = service.checkCntInCart(member_id);
+		
 		if (result == 1 || cntResult > 3) {
 			// alert필요!
 		} else {

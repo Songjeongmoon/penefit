@@ -35,6 +35,7 @@ public class ControllerAboutRoot {
 	public String goCart(Model model, HttpSession session) {
 		String member_id = (String) session.getAttribute("member_id");
 		MemberVO member= service.getMemberInfo(member_id);
+		
 		model.addAttribute("memberinfo", member);
 		return "shoppingcart";
 	}
