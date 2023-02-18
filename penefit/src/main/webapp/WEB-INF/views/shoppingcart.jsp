@@ -18,15 +18,13 @@
 
 
 <style>
-h2 {
-	text-align: center;
-}
 
 table {
+text-align : center;
 	width: 1100px;
 	margin: 0 auto;
+	border-collapse: collapse;
 }
-
 .cart_img {
 	width: 100px;
 	height: 100px;
@@ -43,13 +41,27 @@ table {
 }
 
 #cartbox {
-	border: 1px solid black;
 	width: 1100px;
 	margin: 0 auto;
 }
 
 #payZone {
 	float: right;
+}
+.price, .sub{
+	display: inline;
+}
+.price{
+	float: right;
+}
+input[id="checkAll"] {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #BBB09F;
+	cursor: pointer;
+	position: relative;
+	top: 4px;
 }
 </style>
 </head>
@@ -65,11 +77,10 @@ table {
 						for="deleteSome" id="deleteSome">선택삭제</label> | <label
 						for="deleteExpired" id="deleteExpired">구매불가능 강의삭제</label>
 				</div>
-				<table border="1">
-					<thead>
-						<tr>
-							<th>순서</th>
-							<th>체크박스</th>
+				<table>
+					<thead >
+						<tr style="background-color: #DBD5CB; ">
+							<th colspan="2"></th>
 							<th>클래스사진</th>
 							<th>클래스명</th>
 							<th>강사명</th>
@@ -92,7 +103,7 @@ table {
 						</div>
 					</div>
 					<div>
-						<button onclick="requestPay()">결제하기</button>
+						<button onclick="requestPay()" id="goPayBtn">결제하기</button>
 						<!-- 결제하기 버튼 생성 -->
 					</div>
 				</div>
@@ -103,6 +114,22 @@ table {
 	<%@ include file="footer.jsp"%>
 
 	<script>
+	
+	$("#blackloupe_img2").click(()=> {
+  	  if ($("#divsearch").css("display") == "none") { 
+  	        $("#divsearch").css("display", "block");//display :none 일떄
+  	    } else {
+  	    	 $("#divsearch").css("display", "none"); //display :block 일떄
+  	    } 
+  });
+    $(".title").click(function(){
+  	//  alert("click");
+  	  if ($(".subtitle").css("display") == "none"){
+  		  $(".subtitle").css("display", "block");
+  	  }else{
+  		  $(".subtitle").css("display", "none");
+  	  }
+    });
 		//체크박스로 전체 선택
 		$(document).on('click', '#checkAll', function() {
 			if ($('#checkAll').is(':checked')) {
@@ -144,9 +171,9 @@ table {
 					if(list[i].class_memcnt>=list[i].class_memlit || list[i].statusMsg =="마감"){
 						$("#tbody")
 						.append(
-								"<tr><td>"
+								"<tr><td><input type='hidden' value='"
 										+ list[i].shopping_cart_num
-										+ "</td><td>"
+										+ "'></td><td>"
 										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox'  disabled='disabled'></td><td>"
 										+ "<a href='class/class-detail?class_code="
 										+ list[i].class_code
@@ -175,9 +202,9 @@ table {
 					else{
 						$("#tbody")
 						.append(
-								"<tr><td>"
-										+ list[i].shopping_cart_num
-										+ "</td><td>"
+								"<tr><td><input type='hidden' value='"
+								+ list[i].shopping_cart_num
+								+ "'></td><td>"
 										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox' class='checking'></td><td>"
 										+ "<a href='class/class-detail?class_code="
 										+ list[i].class_code
@@ -204,7 +231,16 @@ table {
 
 			}
 					}
-					
+				$("tr").css("borderBottom","1px solid #BBB09F");
+				$("input[type='checkbox']").css({
+						"display" : "inline-block",
+						"width": "20px",
+						"height": "20px",
+						"border": "2px solid #BBB09F",
+						"cursor": "pointer",
+						"position": "relative",
+						"top": "4px"
+				});
 				calcPrice();
 
 			}
@@ -308,7 +344,7 @@ table {
 									let pricee = this.parentElement.parentElement.children[6].innerText;
 									let price = parseInt(pricee);
 									sum += price;
-									$("#price").text(sum);
+									$("#price").text(sum + " 원");
 								}
 							});
 		}

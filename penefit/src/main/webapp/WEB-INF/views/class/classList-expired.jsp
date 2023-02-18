@@ -12,8 +12,6 @@
 <body>
 	<%@ include file="../header.jsp"%>
 
-
-
 	<div class="box">
 	<section>
 			<aside>
@@ -55,7 +53,6 @@
 		</section>
 	</div>
 	
-	<%@ include file="../footer.jsp"%>
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');

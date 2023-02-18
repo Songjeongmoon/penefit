@@ -8,28 +8,55 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="style.css">
 <style>
+*{
+/* border :1px solid pink; */
+}
+section{
+text-align: center;
+}
 .login {
-	margin-left: 500px;
-	margin-top: 300px;
-	width: 300px;
-	height: 300px;
-	border: solid 1px black;
+	position : relative;
+	top : 30px;
+	margin : 0 auto;
+	display: inline-block;
+	width: 400px;
+	height: 500px;
+	border: solid 1px #BBB09F;
+	border-radius : 7px;
+	box-shadow: 7px 7px 7px 7px #DBD5CB;
+}
+#login_title h2{
+	margin-top: 50px;
+	font-size: 40px;
+	color: #BBB09F;
+}
+#login_id,  #login_pw{
+	margin-top: 35px;
+
+}
+input[type='text'], input[type='password']{
+	height: 40px;
+	width: 250px;
+}
+input[type='submit']{
+	width: 250px;
+	margin-top: 20px;
+	height: 40px;
+	background-color: #75BD43;
+	font-size: 20px;
+	line-height: 50px;
+	border-radius: 7px;
+	color: white;
+	border : none;
+}
+p{
+	text-align: left;
+	display: inline;
+	position: relative;
+	right : 90px;
+	
 }
 
-.loginmain {
-	margin-top: 25px;
-	margin-left: 35px;
-}
-
-input[type=text] {
-	width: 200px;
-	height: 30px;
-}
-
-input[type=password] {
-	width: 200px;
-	height: 30px;
-}
 </style>
 </head>
 <body>
@@ -42,13 +69,12 @@ input[type=password] {
 					<div class="loginmain">
 						<div id="login_title">
 							<h2>로그인</h2>
-							<h5>로그인화면입니다!</h5>
 						</div>
 						<div id="login_id">
-							아이디<br> <input type="text" name="member_id">
+							<p>아&nbsp;이&nbsp;디</p><br> <input type="text" name="member_id">
 						</div>
 						<div id="login_pw">
-							비밀번호<br> <input type="password" name="member_pw">
+							<p>비밀번호</p><br> <input type="password" name="member_pw">
 						</div>
 						<div>
 							<input type="submit" value="로그인" onclick="return submit_check()">
