@@ -9,5 +9,7 @@ public class CartVO {
 	private int class_price, class_memlit, class_memcnt;
 	private String member_id;
 	private String class_modidate;
+	private String statusMsg;
+
 	
 }
