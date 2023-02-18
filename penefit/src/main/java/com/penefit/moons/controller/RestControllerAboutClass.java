@@ -1,6 +1,11 @@
 package com.penefit.moons.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -75,10 +80,21 @@ public class RestControllerAboutClass {
 	
 	//장바구니 리스트
 	@GetMapping("/shoppingcartList")
-	public ArrayList<CartVO> shoppingcartList(HttpSession session,Model model) {
+	public ArrayList<CartVO> shoppingcartList(HttpSession session,Model model) throws Exception {
 		String member_id = (String) session.getAttribute("member_id");
 		ArrayList<CartVO> list = service.getShoppingcartList(member_id);
-		
+		for(int i=0;i<list.size();i++ ) {
+			LocalDateTime now = LocalDateTime.now();
+			 String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date date1 = dateFormat.parse(list.get(i).getClass_date());
+			Date date2 = dateFormat.parse(formatedNow);
+			if(date1.before(date2)){
+				list.get(i).setStatusMsg("마감");
+			} else {
+				list.get(i).setStatusMsg("진행");
+	        }
+		}
 		return list;
 	}
 	

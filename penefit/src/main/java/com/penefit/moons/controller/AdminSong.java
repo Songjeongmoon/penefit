@@ -42,13 +42,11 @@ class AdminSong {
 	
 	
 	@GetMapping("/class")
-	@ResponseBody
-	public List<ClassVO> getClassList(Model model){
+	public String getClassList(Model model){
 		
 		List<ClassVO> list = service.getClassList();
-		System.out.println(list);
 		model.addAttribute("list", list);
-		return list;
+		return "/admin-class-list";
 	}
 	
 	@GetMapping("/class/DESC")

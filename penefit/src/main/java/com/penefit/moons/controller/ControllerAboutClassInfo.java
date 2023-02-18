@@ -124,11 +124,28 @@ public class ControllerAboutClassInfo {
 	//클래스 신청서 접수
 	
 	@PostMapping("/suggestion")
-	public String insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files) {
-		System.out.println(suggest);
-		service.insertSuggestion(suggest, files);
+	public void insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res, HttpServletRequest req) {
+		int result = service.insertSuggestion(suggest, files);
+		res.setContentType("text/html; charset=UTF-8");
 		
-		return "home";
+		if(result == 1) {
+			try {
+				PrintWriter out = res.getWriter();
+				out.print("<script> alert('등록 되었습니다.'); location.href='/'; </script>");
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				PrintWriter out = res.getWriter();
+				out.print("<script> alert('알수없는 이유로 등록이 실패하였습니다.'); location.href='/'; </script>");
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	//나의 신청서 리스트

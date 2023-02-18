@@ -36,6 +36,7 @@
 		<option value = "O">제주</option><option value = "Z">온라인</option>
 	</select><br>
 	시간<input type = "datetime-local" name = "class_time"><br>
+	강의시간(최소 1시간)<input type = "number" name = "time" min = "1" value = "1"><br>
 	내용<textarea name = "suggest_content"></textarea><br>
 	최대인원<input type = "number" name = "maxCnt"><br>
 	참가비용<input type = "number" name = "price"><br>
