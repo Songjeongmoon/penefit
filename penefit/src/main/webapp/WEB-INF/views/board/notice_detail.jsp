@@ -6,9 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+h1 {
+text-align: center;
+}
+</style>
 </head>
 <body>
-
 <%@ include file="../header.jsp"%>
 	<div class="box">
 		<section>
@@ -22,7 +26,7 @@
 				</ul>
 			</aside>
 			<div class="content">
-			<h1>공지사항 상세목록</h1>
+			<h2>공지사항 상세목록</h2>
 			<form action="noticeOne.do" method="post">
 
 				<table border="1">
@@ -61,7 +65,6 @@
 		</section>
 	</div>
 	
-<%@ include file="../footer.jsp"%>
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
