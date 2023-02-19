@@ -1,3 +1,5 @@
+
+
 package com.penefit.moons.controller;
 
 import java.util.List;
@@ -45,6 +47,7 @@ class AdminSong {
 	public String getClassList(Model model){
 		
 		List<ClassVO> list = service.getClassList();
+		System.out.println(list);
 		model.addAttribute("list", list);
 		return "/admin-class-list";
 	}
@@ -76,13 +79,13 @@ class AdminSong {
 	@GetMapping("/class/one")
 	@ResponseBody
 	public ClassVO getClassOne(String class_code) {
+		System.out.println(class_code);
 		return service.getClassOne(class_code);
 	}
 	
 	@PostMapping("/class")
 	@ResponseBody
 	public SuggestDTO regClass(String suggest_num) {
-		
 		SuggestDTO suggest = service.createClass(suggest_num);
 		
 		return suggest;

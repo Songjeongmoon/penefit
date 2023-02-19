@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/css/style.css">
 <style>
 section {
 }
@@ -119,5 +119,6 @@ th{
 		}
 		
 	</script>
+	<script type="text/javascript" src="js/javascript.js"></script>
 </body>
 </html>

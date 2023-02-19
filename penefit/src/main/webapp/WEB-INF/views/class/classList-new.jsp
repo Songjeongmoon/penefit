@@ -62,5 +62,6 @@
 			$("#aside_submenu").css("display", "none");
 		})
 	</script>
+	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

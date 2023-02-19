@@ -1,3 +1,5 @@
+
+
 package com.penefit.moons.controller;
 
 import java.io.IOException;
@@ -124,28 +126,25 @@ public class ControllerAboutClassInfo {
 	//클래스 신청서 접수
 	
 	@PostMapping("/suggestion")
-	public void insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res, HttpServletRequest req) {
+	public void insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res) {
+		System.out.println(suggest);
 		int result = service.insertSuggestion(suggest, files);
 		res.setContentType("text/html; charset=UTF-8");
-		
 		if(result == 1) {
 			try {
 				PrintWriter out = res.getWriter();
-				out.print("<script> alert('등록 되었습니다.'); location.href='/'; </script>");
-				out.close();
+				out.print("<script> alert('제안서 신청이 완료되었습니다.'); location.href='/';</script>");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
 				PrintWriter out = res.getWriter();
-				out.print("<script> alert('알수없는 이유로 등록이 실패하였습니다.'); location.href='/'; </script>");
-				out.close();
+				out.print("<script> alert('서버오류로 인해 신청이 취소되었습니다.'); location.href='/';</script>");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 	//나의 신청서 리스트

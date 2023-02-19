@@ -22,6 +22,12 @@
 		ORDER BY class_regdate ASC
 	</select>
 	
+	<select id = "getClassOne" resultType= "com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		WHERE class_code = #{class_code}
+	</select>
+	
 	<select id = "getClassListActive" resultType= "com.penefit.moons.domain.ClassVO">
 		SELECt *
 		FROM class

@@ -61,21 +61,6 @@
 	</div>
 	<script>
 
-	    $("#blackloupe_img2").click(()=> {
-	    	  if ($("#divsearch").css("display") == "none") { 
-	    	        $("#divsearch").css("display", "block");//display :none 일떄
-	    	    } else {
-	    	    	 $("#divsearch").css("display", "none"); //display :block 일떄
-	    	    } 
-	    });
-	      $(".title").click(function(){
-	    	//  alert("click");
-	    	  if ($(".subtitle").css("display") == "none"){
-	    		  $(".subtitle").css("display", "block");
-	    	  }else{
-	    		  $(".subtitle").css("display", "none");
-	    	  }
-	      });
       
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
@@ -86,5 +71,6 @@
 			$("#aside_submenu").css("display", "none");
 		})
 	</script>
+	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>
