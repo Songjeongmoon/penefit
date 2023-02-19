@@ -44,49 +44,49 @@ input[type=text] {
 
 #modal_history {
 <<<<<<< HEAD
-   position: absolute;
-   width: 450px;
-   height: 500px;
-   border: 2px solid black;
-   background-color: white;
-   z-index: 300;
-   border-radius: 10px;
+	position: absolute;
+	width: 450px;
+	height: 500px;
+	border: 2px solid black;
+	background-color: white;
+	z-index: 300;
+	border-radius: 10px;
 }
 
 .selectBox {
-   display: none;
+	display: none;
 }
 
 #modal_history_case {
-   position: fixed;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   background: rgba(0, 0, 0, 0.8);
-   z-index: 300;
-   display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 300;
+	display: none;
 }
 
 #modal_qna_case {
-   position: fixed;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   display: none;
-   background: rgba(0, 0, 0, 0.8);
-   z-index: 600;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: none;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 600;
 }
 
 #modal_qna {
-   position: absolute;
-   width: 450px;
-   height: 500px;
-   border: 2px solid black;
-   background-color: white;
-   z-index: 600;
-   border-radius: 10px;
+	position: absolute;
+	width: 450px;
+	height: 500px;
+	border: 2px solid black;
+	background-color: white;
+	z-index: 600;
+	border-radius: 10px;
 }
 </style>
 </head>

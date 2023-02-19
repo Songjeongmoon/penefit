@@ -6,7 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+	crossorigin="anonymous"></script>
 <style>
+#city_tbl th, tr, td {
+	border: 1px solid black;
+}
+
 #city_box1 {
 	display: block;
 }
@@ -32,7 +39,7 @@
 			<div class="content">
 				<h3>지역별 게시판</h3>
 				<!-- 1. 이동 버튼이 있어야함 -->
-				<select name="sel">
+				<select id="sel" name="sel">
 					<option value="All">전체</option>
 					<option value="A">서울</option>
 					<option value="B">경기</option>
@@ -54,17 +61,17 @@
 				</select>
 
 				<button type="button" id="check_city" onclick="one_City()">선택</button>
-				&nbsp;&nbsp;&nbsp; <input type="text" name="searchReview"
-					id="searchReview"> <input type="button" value="검색"
-					id="searchBtn">
-				<c:if test="${member_id != null }">
-					<div align="right">
-						<button type="button" onclick="location.href='city_regView'">글쓰기</button>
-					</div>
-				</c:if>
+				&nbsp;&nbsp;&nbsp; <input type="text" name="keyword" id="keyword"
+					placeholder="제목을 입력하세요..."> <input type="button" value="검색"
+					id="searchBtn" onclick="search_city()">
+
+				<div align="right">
+					<button type="button" onclick="location.href='city_regView'">글쓰기</button>
+				</div>
+
 
 				<div id="citybox1">
-					<table border="1">
+					<table border="1" id="city_tbl">
 						<thead>
 							<tr>
 								<th>번호</th>
@@ -81,9 +88,6 @@
 						</tbody>
 					</table>
 				</div>
-
-
-
 			</div>
 		</section>
 	</div>
@@ -102,29 +106,33 @@
 		<!-- 2. 이동버튼을 클릭했을때, 선택된 값을 받아와야해 -->
 		all_City();
 		
+		
 		function all_City(){
+			
 			const tbody = document.querySelector("#tbody1");
-			 tbody.replaceChildren();
-	         const xhttp = new XMLHttpRequest();
-	         xhttp.onload = function() {
+			$("tbody").empty();
+			 
+	        const xhttp = new XMLHttpRequest();
+	        xhttp.onload = function() {
 
-	            let data = this.responseText;
-	            let obj = JSON.parse(data);
-
+	        	
+	           let data = this.responseText;
+	           let obj = JSON.parse(data);
+	         
 	            for (let i = 0; i < obj.length; i++) {
-	               tbody.innerHTML += "<tr><td>" + obj[i].board_num + "</td><td>"
-	                     			+ "</td><td>" +obj[i].city_name + "</td><td>" 
-	                     			+ "</td><td>"+ obj[i].board_title+ "</td><td>" 
-	                     			+"</td><td>" + obj[i].member_id + "</td><td>" 
-	                     			+"</td><td>" + obj[i].board_viewcnt + "</td><td>" 
-	                     			+"</td><td>" + obj[i].board_regdate + "</td><tr>"     
-	                     
+	               tbody.innerHTML += "<tr><td>" + obj[i].board_num 
+	               					+"</td><td>" +obj[i].city_name 
+	                     			+ "</td><td><a href='city_detail?board_num="+obj[i].board_num+"'>"+ obj[i].board_title  
+	                     			+"</td><td>" + obj[i].member_id  
+	                     			+"</td><td>" + obj[i].board_viewcnt  
+	                     			+"</td><td>" + obj[i].board_regdate + "</td><tr>"
+               
 	            }
 	         }
 	         xhttp.open("GET","/api/cityBoard/");
 	         xhttp.send();
 	    }
-
+	
 		function one_City(){
 			$("#city_box1").css("display","none");
 			$("#city_box2").css("display","block");
@@ -143,26 +151,55 @@
 	            let obj = JSON.parse(data);
 
 	            for (let i = 0; i < obj.length; i++) {
-	               tbody.innerHTML += "<tr><td>" + obj[i].board_num + "</td><td>"
-	               					 + "</td><td>"+ obj[i].city_name +"</td><td>"  
-	               					 + "</td><td>"+ obj[i].board_title+"</td><td>"
-	                     			+ "</td><td>" + obj[i].board_content + "</td><td>" 
-	                     +"</td><td>" + obj[i].member_id + "</td><td>" 
-	                     +"</td><td>" + obj[i].board_viewcnt + "</td><td>" 
-	                     +"</td><td>" + obj[i].board_regdate + "</td><tr>";     
-	                   
+	               tbody.innerHTML += "<tr><td>" + obj[i].board_num
+	               					+ "</td><td>"+ obj[i].city_code
+	               				 	+ "</td><td><a href='city_detail?board_num="+obj[i].board_num+"'>"+ obj[i].board_title
+	                     			+ "</a></td><td>" + obj[i].member_id  
+	                   	 		 	+ "</td><td>" + obj[i].board_viewcnt
+	                     			+ "</td><td>" + obj[i].board_regdate + "</td><tr>";     
+	             
 	            }
 	         }
-	         xhttp.open("GET","/api/oneCityBaord?check_city=" +check_city);
+	         xhttp.open("GET","/api/oneCityBoard?check_city=" +check_city);
 	         xhttp.send();
 	    }
 		
-		
-	
 		//const obj = document.querySelector().val;
 		
-		<!-- 3. 값을 넣어서 함수를 실행해야해 ( ajax tbody로 채워 넣는것.) -->
-		
+  function search_city(){
+            
+            $("#tbody1").empty();         
+            const citysel= $("select[name='sel']").val();
+               const keyword= $("#keyword").val();
+          
+                    $.ajax({
+                       url: "/board/citySearch",
+                       method: "GET",
+                       data : {
+                          citysel : citysel,
+                          keyword : keyword
+                       },
+                       success:function(data){
+                              for(let i=0 ; i<data.length ; i++){
+                                  $("#tbody1").append("<tr><td>" + data[i].board_num +
+                                                 "</td><td>" + data[i].city_code +
+                                                 "</td><td>" + data[i].board_title +
+                                                 "</td><td>" + data[i].member_tel +
+                                                 "</td><td>" + data[i].board_content +
+                                                 "</td><td>" + data[i].member_id +
+                                                 "</td><td>" + data[i].board_viewcnt +
+                                                 "</td><td>" +data[i].board_regdate + 
+                                                 "</td></tr>"
+                                                 )
+                                alert(data);
+                             }
+                       },
+                       error : () => {
+                          alert("error");
+                       }
+                       });
+             }
+             
 	</script>
 
 </body>

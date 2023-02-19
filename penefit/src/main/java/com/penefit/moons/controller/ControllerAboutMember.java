@@ -70,6 +70,7 @@ public class ControllerAboutMember {
 	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session) {
 		String path = serviceMember.loginCheck(member_id, member_pw,Session);
 		log.info(serviceMember.loginCheck(member_id, member_pw,Session));
+
 		return "redirect:"+path;
 	}
 	
