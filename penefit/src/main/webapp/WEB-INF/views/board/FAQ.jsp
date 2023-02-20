@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+h2{
+	text-align: center;
+	font-size: 35px;
+	margin-bottom: 20px;
+}
         .layout{
     max-width: 600px;
     margin: 0 auto;
@@ -77,8 +82,8 @@
 				</ul>
 			</aside>
 			<div class="content">
-				<h2>? FAQ _ 자주묻는 질문 ¿(임시)</h2>
-				
+				<h2>? FAQ _ 자주묻는 질문 ¿</h2>
+			
 		<ul class="qna">
         <li>
             <input type="checkbox" id="qna-1">
@@ -135,22 +140,6 @@
 		</section>
 	</div>
 	<script>
-	 $("#blackloupe_img2").click(()=> {
-   	  if ($("#divsearch").css("display") == "none") { 
-   	        $("#divsearch").css("display", "block");//display :none 일떄
-   	    } else {
-   	    	 $("#divsearch").css("display", "none"); //display :block 일떄
-   	    } 
-   });
-     $(".title").click(function(){
-   	//  alert("click");
-   	  if ($(".subtitle").css("display") == "none"){
-   		  $(".subtitle").css("display", "block");
-   	  }else{
-   		  $(".subtitle").css("display", "none");
-   	  }
-     });
- 
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
 			$("#aside_submenu").css("display", "block");
@@ -160,5 +149,6 @@
 			$("#aside_submenu").css("display", "none");
 		})
 	</script>
+	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

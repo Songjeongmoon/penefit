@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -66,5 +66,6 @@
 			$("#aside_submenu").css("display", "none");
 		})
 	</script>
+	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

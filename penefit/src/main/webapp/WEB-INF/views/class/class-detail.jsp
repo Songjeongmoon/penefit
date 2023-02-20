@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <script type="text/javascript"
    src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/css/style.css">
 <style>
 .class_detail img {
 	width: 400px;

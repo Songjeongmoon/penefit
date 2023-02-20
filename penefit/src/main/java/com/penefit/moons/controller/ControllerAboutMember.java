@@ -49,7 +49,7 @@ public class ControllerAboutMember {
 	
 	@GetMapping("/home")
 	public String home() {
-		return "/home";
+		return "redirect:/";
 		
 	}
 	
@@ -69,8 +69,8 @@ public class ControllerAboutMember {
 	@PostMapping("login.do")
 	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session,Model model) {
 		String path=serviceMember.loginCheck(member_id, member_pw,Session);
-
-		return "redirect:/";
+		 model.addAttribute("msg","로그인 실패하였습니다!");
+		return "redirect:"+path;
 	}
 	
 	@GetMapping("logout")
@@ -142,3 +142,4 @@ public class ControllerAboutMember {
 		return path;
 	}
 }
+

@@ -46,7 +46,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 			if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
 				Session.setAttribute("member_id", member_id);
 				
-				return "/";
+				return "/member/home";
 			}
 			
 		}

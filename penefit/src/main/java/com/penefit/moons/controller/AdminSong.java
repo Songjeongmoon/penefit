@@ -1,3 +1,5 @@
+
+
 package com.penefit.moons.controller;
 
 import java.util.List;
@@ -45,6 +47,7 @@ class AdminSong {
 	public String getClassList(Model model){
 		
 		List<ClassVO> list = service.getClassList();
+		System.out.println(list);
 		model.addAttribute("list", list);
 		return "/admin-class-list";
 	}
@@ -76,16 +79,16 @@ class AdminSong {
 	@GetMapping("/class/one")
 	@ResponseBody
 	public ClassVO getClassOne(String class_code) {
+		System.out.println(class_code);
 		return service.getClassOne(class_code);
 	}
 	
 	@PostMapping("/class")
 	@ResponseBody
-	public SuggestDTO regClass(String suggest_num) {
+	public int regClass(String suggest_num) {
+		int result = service.createClass(suggest_num);
 		
-		SuggestDTO suggest = service.createClass(suggest_num);
-		
-		return suggest;
+		return result;
 		
 	}
 	
@@ -93,6 +96,14 @@ class AdminSong {
 	@ResponseBody
 	public String updateClass(ClassVO classvo, MultipartHttpServletRequest files) {
 		String result = service.updateClass(classvo, files);
+		
+		return result;
+	}
+	
+	@PutMapping("/suggestion")
+	@ResponseBody
+	public int rejectSuggestion(String suggest_num, String reject_reason) {
+	    int result = service.rejectSuggestion(suggest_num, reject_reason);
 		
 		return result;
 	}
@@ -112,6 +123,13 @@ class AdminSong {
 		List<ClassVO> list = service.searchClass(class_subject);
 		
 		return list;
+	}
+	
+	@GetMapping("/suggestion/one")
+	@ResponseBody
+	public SuggestDTO getSuggestionOne(String suggest_num) {
+		
+		return service.getSuggestionInfo(suggest_num);
 	}
 	
 	

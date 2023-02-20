@@ -8,13 +8,70 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.3.js"
 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 	crossorigin="anonymous"></script>
 </head>
+<style>
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.youtube {
+	margin: 0 auto;
+	display: inline-flex;
+}
 
+.youtube ifram {
+	width: 600px;
+	margin: 0 20px;
+}
+
+#banner1 img {
+	position: absolute;
+	top: 800px;
+	height: 600px;
+}
+
+h1 {
+	font-family: 'SBAggroB';
+	position: absolute;
+	z-index: 1;
+	font-size: 90px;
+	text-align: center;
+	top: 1000px;
+	left : 900px;
+	color : #F99417;
+}
+#banner2btn{
+	width: 170px;
+	height: 40px;
+	border-radius: 20px;
+	position: absolute;
+	background-color: #F99417;
+	color: white;
+	font-size: 25px;
+	border: none;
+	line-height: 40px;
+	top : 1260px;
+	left: 910px;
+}
+#banner1info{
+animation : slide 2s;
+
+}
+@keyframes slide{
+	from{
+		right : -100px;
+	}
+	to{
+		right : 500px;
+	}
+}
+</style>
 <body>
 
 	<%@include file="header.jsp"%>
@@ -31,77 +88,54 @@
 				<img src="../images/mainbanner1.png">
 				<button class="infomore">자세히보기</button>
 			</div>
+			<div id="banner1">
+				<img src="../images/mango.jpg" style="width: 100%">
+
+			</div>
+						<div id="banner1info">
+
+				<h1>
+					망고랑 <br> 놀자&#9829;
+				</h1>
+				<button id="banner2btn">자세히보기</button>
+			</div>
 		</section>
 	</div>
-
-
-	<script>
-    $("#blackloupe_img2").click(()=> {
-    	  if ($("#divsearch").css("display") == "none") { 
-    	        $("#divsearch").css("display", "block");//display :none 일떄
-    	    } else {
-    	    	 $("#divsearch").css("display", "none"); //display :block 일떄
-    	    } 
-    });
-      $(".title").click(function(){
-    	//  alert("click");
-    	  if ($(".subtitle").css("display") == "none"){
-    		  $(".subtitle").css("display", "block");
-    	  }else{
-    		  $(".subtitle").css("display", "none");
-    	  }
-      });
-      
-      
-      //검색버튼 클릭시 검색창으로 이동
-      $("#search_btn").click(function(){
-      	search();
-      });
-      //검색창에서 엔터시 검색창으로 이동
-      $("#search_bar").keydown(function(evt){
-      	if(evt.keyCode ==13){
-      		search();
-      	}
-      })
-      function search(){
-      	let keyword=$("#search_bar").val();
-      	let url = "class/classList-search?keyword=" + keyword;
-      	location.href=url;
-      }
-      
-      //위시리스트는 회원만 이용가능
-      $("#goWishlist").click(function(){
-      	let member_id = "${member_id}";
-      	if(member_id!=""){
-      		location.href="../wishlist"
-      	}else{
-      		alert("회원만 이용가능한 서비스 입니다.");
-      		location.href="../member/login"
-      	}
-      });
-      
-    //마이페이지는 회원만 이용가능
-      $("#goMypage").click(function(){
-      	let member_id = "${member_id}";
-      	if(member_id!=""){
-      		location.href="/member/infoMember?id=${member_id }/"
-      	}else{
-      		alert("회원만 이용가능한 서비스 입니다.");
-      		location.href="../member/login"
-      	}
-      });
-      
-    //장바구니는 회원만 이용가능
-      $("#shoppingcart").click(function(){
-      	let member_id = "${member_id}";
-      	if(member_id!=""){
-      		location.href="/shoppingcart1"
-      	}else{
-      		alert("회원만 이용가능한 서비스 입니다.");
-      		location.href="../member/login"
-      	}
-      });
-        </script>
+	<br>
+	<br>
+	<br>
+	<br>
+	<!-- <div class="banner">
+				<img src="../images/banner3.png">
+				<button class="infomore">자세히보기</button>
+			</div> -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<!-- 			<div class="youtube">
+				<iframe width="600" height="315" style ="margin:  0 22px;" src="https://www.youtube.com/embed/HHIQp-cMrro" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+			</div>
+			<div class="youtube">
+				<iframe width="600" height="315" style ="margin:  0 22px;" src="https://www.youtube.com/embed/hvF2MFzx0Vw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+			</div> -->
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<%@include file = "footer.jsp" %>
+<script>
+	$("#blackloupe_img2").click(()=> {
+		  if ($("#divsearch").css("display") == "none") { 
+		        $("#divsearch").css("display", "block");//display :none 일떄
+		    } else {
+		    	 $("#divsearch").css("display", "none"); //display :block 일떄
+		    } 
+	});
+</script>
 </body>
 
 </html>

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/css/style.css">
 <style>
 #aside_submenu {
 	display: none;
@@ -22,16 +22,22 @@ h2{
 	width: 700px;
 	text-align: center;
 }
-table {
-text-align : center;
-	width: 1200px;
+#notice_tbl {
+	text-align : center;
+	width: 950px;
 	margin: 0 auto;
 	border-collapse: collapse;
+	border-bottom : 2px solid black;
 }
 #notice_tbl th{
-	background-color: #DBD5CB;
+	background-color: black;
+	color: white;
 
 }
+#notice_tbl tr { 
+	border-bottom : thin solid black;
+}
+
 </style>
 </head>
 <body>
@@ -74,7 +80,6 @@ text-align : center;
 			</div>
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
@@ -86,6 +91,6 @@ text-align : center;
 		})
 	</script>
 
-
+<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

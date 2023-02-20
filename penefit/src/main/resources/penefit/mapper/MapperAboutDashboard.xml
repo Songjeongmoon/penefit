@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.penefit.moons.mapper.MapperAboutDashBoard">
 	
-<select id ="teacherSelectALL" resultType="com.penefit.moons.domain.MemberVO">
+	<select id ="teacherSelectALL" resultType="com.penefit.moons.domain.MemberVO">
 		SELECT *
 		FROM member
 		WHERE member_grade = 'B'
@@ -60,6 +58,20 @@
 		SELECT Count(*)
 		FROM suggest
 		WHERE status = '검토'
+	</select>
+	
+	<select id = "getQnACount" resultType = "_int">
+		SELECT Count(*)
+		FROM qna
+		WHERE qna_status = '답변대기'
+	</select>
+	
+	<select id = "getQnAList" resultType = "com.penefit.moons.domain.QnAVO">
+		SELECT *
+		FROM qna
+		WHERE qna_status = '답변대기'
+		ORDER BY qna_regdate ASC
+		LIMIT 5
 	</select>
 	
 </mapper>

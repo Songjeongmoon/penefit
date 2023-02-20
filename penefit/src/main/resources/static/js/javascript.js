@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * 
  */
@@ -22,3 +23,5 @@
          let detailurl = url.split("/");
          location.href=detailurl[4];
       });
+=======
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
