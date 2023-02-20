@@ -9,7 +9,7 @@ import com.penefit.moons.domain.SuggestDTO;
 
 public interface AdminServiceSongIm {
 	
-	public SuggestDTO createClass(String suggest_num);
+	public int createClass(String suggest_num);
 	
 	public String updateClass(ClassVO classvo, MultipartHttpServletRequest files);
 	

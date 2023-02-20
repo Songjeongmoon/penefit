@@ -9,17 +9,7 @@
 </head>
 <body>
 <%@ include file="../../header.jsp" %>
-	private int suggest_num;
-	private String member_id;
-	private String suggest_title;
-	private String suggest_content;
-	private String suggest_regdate;
-	private String city_code;
-	private String suggest_photo;
-	private String class_time;
-	private int maxCnt;
-	private int price;
-	private String type;
+
 <table border = "1">
 	
 	<thead>
@@ -32,6 +22,8 @@
 	
 	<tbody id = "tbody"></tbody>
 </table>
+
+<div id = "detailModal"></div>
 
 
 
@@ -50,7 +42,7 @@
 			for(let i = 0; i < data.length; i++){
 				$("#tbody").append("<tr>"
 						+ "<td>" + data[i].suggest_num + "</td><td>" + data[i].type + "</td>"
-						+ "<td>" + data[i].suggest_title + "</td><td>" + data[i].city_code + "</td>"
+						+ "<td class='showDetail'>" + data[i].suggest_title + "</td><td>" + data[i].city_code + "</td>"
 						+ "<td>" + data[i].price + "</td><td>" + data[i].member_id + "</td>"
 						+ "<td>" + data[i].maxCnt + "</td><td>" + data[i].class_time + "</td>"
 						+ "<td>" + data[i].suggest_regdate + "</td>"
@@ -61,6 +53,58 @@
 			alert("Error!...");
 		}
 	})
+	
+	$("#tbody").click( (event) => {
+		if(event.target.className == "showDetail"){
+			let num = event.target.previousElementSibling.previousElementSibling.textContent;
+			
+			$.ajax({
+				url: "/admin/suggestion/one",
+				method: "GET",
+				dataType: "json",
+				data: {
+					suggest_num : num
+				},
+				success: (data) => {
+					$("#detailModal").html("<div>"
+							+ "코드 : <div id = 'suggestNum'>" + data.suggest_num + "</div>"
+							+ "제목 : <div>" + data.suggest_title + "</div>내용 : <div>" + data.suggest_content + "</div>"
+							+ "첨부 이미지 : <div>" + data.suggest_photo + "</div>강의날짜 : <div>" + data.class_time + "</div>"
+							+ "</div><button id = admitBtn>승인</button>");
+				},
+				error: () => {
+					alert("fail");
+				}
+			})
+		}
+	})
+	
+	$("#detailModal").click( (event) => {
+		if(event.target.id == "admitBtn"){
+			let num = $("#suggestNum").text();
+			$.ajax({
+				url: "/admin/class",
+				method: "post",
+				data: {
+					suggest_num: num
+				},
+				success: (data) => {
+					if(data == 1){
+						alert("등록 완료되었습니다.");
+					} else{
+						alert("에러로 인해 등록실패하였습니다.");
+					}
+					location.href = "/adminView";
+				},
+				error: () => {
+					alert("Error");
+					location.href = "adminView";
+				}
+			})
+		}
+	})
+	
+
 
 
 </script>

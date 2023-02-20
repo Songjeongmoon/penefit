@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
 <%@ include file="../header.jsp" %>
@@ -40,8 +41,8 @@
 	시간<input type = "datetime-local" name = "class_time"><br>
 	수업시간<input type = "number" name = "time" value = "1" min = "1"><br>
 	내용<textarea name = "suggest_content"></textarea><br>
-	최대인원<input type = "number" name = "maxCnt"><br>
-	참가비용<input type = "number" name = "price"><br>
+	최대인원<input type = "number" name = "maxCnt" value = 0><br>
+	참가비용<input type = "number" name = "price" value = 0><br>
 	추가 첨부이미지<input type = "file" multiple = "multiple" name = "files"><br>
 	<input type = "submit" value = "신청">
 </form>
@@ -49,38 +50,7 @@
 
 <%@ include file="../footer.jsp" %>
 
-<script>
-	$("input[type='submit']").click( (event) => {
-		if($("select[name='type']").val() == ""){
-			alert("분류를 선택해주세요.");
-			return false;
-		} else if($("input[name='suggest_title']").val() == ""){
-			alert("주제를 입력해주세요.");
-			return false;
-		} else if($("select[name='city_code']").val() == ""){
-			alert("수업하시려는 지역을 선택해주세요.");
-			return false;
-		} else if($("textarea[name='suggest_content']").val() == ""){
-			alert("내용을 입력해주세요.");
-			return false;
-		} else if($("input[name='maxCnt']").val() == ""){
-			alert("최대 수용인원을 입력해주세요.");
-			return false;
-		} else if($("input[name='price']").val() == ""){
-			alert("참가비용을 입력해주세요.");
-			return false;
-		} else if($("input[name='files']").val() == ""){
-			alert("첨부이미지를 추가해주세요.");
-			return false;
-		} else if($("input[name='class_time']").val() == ""){
-			alert("시간대를 선택해주세요.");
-			return false;
-		} else{
-			return true;
-		}
-	
-	})
-</script>
+
 
 
 </body>

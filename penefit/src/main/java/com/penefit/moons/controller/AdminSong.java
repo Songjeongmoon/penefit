@@ -85,10 +85,10 @@ class AdminSong {
 	
 	@PostMapping("/class")
 	@ResponseBody
-	public SuggestDTO regClass(String suggest_num) {
-		SuggestDTO suggest = service.createClass(suggest_num);
+	public int regClass(String suggest_num) {
+		int result = service.createClass(suggest_num);
 		
-		return suggest;
+		return result;
 		
 	}
 	
@@ -115,6 +115,13 @@ class AdminSong {
 		List<ClassVO> list = service.searchClass(class_subject);
 		
 		return list;
+	}
+	
+	@GetMapping("/suggestion/one")
+	@ResponseBody
+	public SuggestDTO getSuggestionOne(String suggest_num) {
+		
+		return service.getSuggestionInfo(suggest_num);
 	}
 	
 	
