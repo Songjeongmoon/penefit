@@ -80,7 +80,7 @@ input[id="checkAll"] {
 				</div>
 				<table>
 					<thead>
-						<tr style="background-cocheckAlllor: #DBD5CB;">
+						<tr style="background-color: #DBD5CB;">
 							<th colspan="2"></th>
 							<th>클래스사진</th>
 							<th>클래스명</th>

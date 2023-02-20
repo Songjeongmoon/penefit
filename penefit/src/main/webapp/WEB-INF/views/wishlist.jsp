@@ -23,6 +23,7 @@ table {
 
 th {
 	background-color: #DBD5CB;
+	height: 35px;
 }
 </style>
 </head>
@@ -94,11 +95,12 @@ th {
 							+ "<button type='button' class='addCart'>장바구니</button></td><td>"
 							+ "<button type='button' class='deleteClass'>&nbsp;&nbsp;X&nbsp;&nbsp;</button></td><td>"
 					);
+					
+				}
 					$("a").css("text-decoration","none");
 					$("a").css("color","black");
 					$("tr").css("borderBottom","1px solid #BBB09F");
-					
-				}
+					$("td").css("height","35px");
 			}
 			xhttp.open("GET", "/wishlist3", true);
 			xhttp.send();

@@ -17,4 +17,6 @@ public class SuggestDTO {
 	private int maxCnt;
 	private int price;
 	private String type;
+	private String status;
+	private String reject_reason;
 }

@@ -1,4 +1,5 @@
 package com.penefit.moons.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,10 +83,10 @@ class AdminSong {
 	
 	@PostMapping("/class")
 	@ResponseBody
-	public SuggestDTO regClass(String suggest_num) {
-		SuggestDTO suggest = service.createClass(suggest_num);
+	public int regClass(String suggest_num) {
+		int result = service.createClass(suggest_num);
 		
-		return suggest;
+		return result;
 		
 	}
 	
@@ -93,6 +94,14 @@ class AdminSong {
 	@ResponseBody
 	public String updateClass(ClassVO classvo, MultipartHttpServletRequest files) {
 		String result = service.updateClass(classvo, files);
+		
+		return result;
+	}
+	
+	@PutMapping("/suggestion")
+	@ResponseBody
+	public int rejectSuggestion(String suggest_num, String reject_reason) {
+	    int result = service.rejectSuggestion(suggest_num, reject_reason);
 		
 		return result;
 	}
@@ -112,6 +121,13 @@ class AdminSong {
 		List<ClassVO> list = service.searchClass(class_subject);
 		
 		return list;
+	}
+	
+	@GetMapping("/suggestion/one")
+	@ResponseBody
+	public SuggestDTO getSuggestionOne(String suggest_num) {
+		
+		return service.getSuggestionInfo(suggest_num);
 	}
 	
 	

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.penefit.moons.domain.ClassListDTO;
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.mapper.AdminMapperSong;
@@ -22,7 +21,7 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	AdminMapperSong mapper;
 	
 	@Override
-	public SuggestDTO createClass(String suggest_num) {
+	public int createClass(String suggest_num) {
 		int cnt = 0;
 		SuggestDTO suggest = mapper.getSuggestInfo(suggest_num);
 		String[] code = mapper.getTypeCnt();
@@ -53,14 +52,9 @@ public class AdminServiceSong implements AdminServiceSongIm{
 		classvo.setClass_teacher(suggest.getMember_id());
 		classvo.setClass_date(suggest.getClass_time());
 		System.out.println(classvo);
-		mapper.createClass(classvo);
-		ClassListDTO list = new ClassListDTO();
-		list.setClass_code(classvo.getClass_code());
-		list.setMember_id(suggest.getMember_id());
-		list.setClass_list_current("paid");
-		mapper.createClassList(list);
-		
-		return suggest;
+		int result = mapper.createClass(classvo);
+
+		return result;
 	}
 
 	@Override
@@ -183,6 +177,11 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	@Override
 	public List<ClassVO> getClassListActive() {
 		return mapper.getClassListActive();
+	}
+
+	@Override
+	public int rejectSuggestion(String suggest_num, String reject_reason) {
+		return mapper.rejectSuggestion(suggest_num, reject_reason);
 	}
 	
 	

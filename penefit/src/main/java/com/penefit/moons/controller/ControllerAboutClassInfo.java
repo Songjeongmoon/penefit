@@ -5,6 +5,7 @@ package com.penefit.moons.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.penefit.moons.domain.ClassListDTO;
@@ -127,24 +129,46 @@ public class ControllerAboutClassInfo {
 	
 	@PostMapping("/suggestion")
 	public void insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res) {
-		System.out.println(suggest);
-		int result = service.insertSuggestion(suggest, files);
 		res.setContentType("text/html; charset=UTF-8");
-		if(result == 1) {
-			try {
-				PrintWriter out = res.getWriter();
-				out.print("<script> alert('제안서 신청이 완료되었습니다.'); location.href='/';</script>");
-			} catch (IOException e) {
-				e.printStackTrace();
+		List<MultipartFile> list = files.getFiles("files");
+		
+		try {
+			PrintWriter out = res.getWriter();
+			
+			if(suggest.getType().equals("")) {
+				out.print("<script> alert('분류를 선택해주세요.'); location.href='/';</script>");
+			} else if(suggest.getSuggest_title().equals("")) {
+				out.print("<script> alert('주제을 입력해주세요.'); location.href='/';</script>");
+			} else if(suggest.getCity_code().equals("")) {
+				out.print("<script> alert('지역을 선택해주세요.'); location.href='/';</script>");
+			} else if(suggest.getTime().equals("")) {
+				out.print("<script> alert('수업시간을 입력해주세요.'); location.href='/';</script>");
+			} else if(suggest.getClass_time().equals("")) {
+				out.print("<script> alert('날짜를 선택해주세요.'); location.href='/';</script>");
+			} else if(suggest.getSuggest_content().equals("")) {
+				out.print("<script> alert('내용을 선택해주세요.'); location.href='/';</script>");
+			} else if(suggest.getMaxCnt() == 0) {
+				out.print("<script> alert('최대인원을 선택해주세요.'); location.href='/';</script>");
+			} else if(suggest.getPrice() == 0) {
+				out.print("<script> alert('참가비를 선택해주세요.'); location.href='/';</script>");
+			} else if(list.get(0).getOriginalFilename().equals("")) {
+				out.print("<script> alert('첨부파일을 넣어주세요.'); location.href='/';</script>");
+			} else {
+				int result = service.insertSuggestion(suggest, files);
+				
+				if(result == 1) {
+					out.print("<script> alert('제안서 신청이 완료되었습니다.'); location.href='/';</script>");
+					
+				} else {
+					out.print("<script> alert('서버오류로 인해 신청이 취소되었습니다.'); location.href='/';</script>");
+				}
 			}
-		} else {
-			try {
-				PrintWriter out = res.getWriter();
-				out.print("<script> alert('서버오류로 인해 신청이 취소되었습니다.'); location.href='/';</script>");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+			
+		
+		
 	}
 	
 	//나의 신청서 리스트
