@@ -30,5 +30,7 @@ public interface AdminServiceSongIm {
 	public List<ClassVO> getClassListEnd();
 	
 	public List<ClassVO> getClassListActive();
+	
+	public int rejectSuggestion(String suggest_num, String reject_reason);
  	
 }

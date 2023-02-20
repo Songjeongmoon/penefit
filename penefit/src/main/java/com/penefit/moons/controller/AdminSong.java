@@ -100,6 +100,14 @@ class AdminSong {
 		return result;
 	}
 	
+	@PutMapping("/suggestion")
+	@ResponseBody
+	public int rejectSuggestion(String suggest_num, String reject_reason) {
+	    int result = service.rejectSuggestion(suggest_num, reject_reason);
+		
+		return result;
+	}
+	
 	
 	@DeleteMapping("/class")
 	@ResponseBody

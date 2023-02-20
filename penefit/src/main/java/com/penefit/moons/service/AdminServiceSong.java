@@ -178,6 +178,11 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	public List<ClassVO> getClassListActive() {
 		return mapper.getClassListActive();
 	}
+
+	@Override
+	public int rejectSuggestion(String suggest_num, String reject_reason) {
+		return mapper.rejectSuggestion(suggest_num, reject_reason);
+	}
 	
 	
 	

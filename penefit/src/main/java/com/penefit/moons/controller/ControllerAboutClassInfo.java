@@ -130,9 +130,7 @@ public class ControllerAboutClassInfo {
 	@PostMapping("/suggestion")
 	public void insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res) {
 		res.setContentType("text/html; charset=UTF-8");
-		System.out.println(suggest);
 		List<MultipartFile> list = files.getFiles("files");
-		System.out.println(list.get(0).getOriginalFilename());
 		
 		try {
 			PrintWriter out = res.getWriter();

@@ -22,8 +22,10 @@
 	
 	<tbody id = "tbody"></tbody>
 </table>
-
+<div id = "modal" style = 'display:none'>
 <div id = "detailModal"></div>
+<textarea id = "rejectReason" placeholder = "반려사유"></textarea>
+</div>
 
 
 
@@ -57,6 +59,7 @@
 	$("#tbody").click( (event) => {
 		if(event.target.className == "showDetail"){
 			let num = event.target.previousElementSibling.previousElementSibling.textContent;
+			$("#modal").css("display", "block");
 			
 			$.ajax({
 				url: "/admin/suggestion/one",
@@ -70,7 +73,7 @@
 							+ "코드 : <div id = 'suggestNum'>" + data.suggest_num + "</div>"
 							+ "제목 : <div>" + data.suggest_title + "</div>내용 : <div>" + data.suggest_content + "</div>"
 							+ "첨부 이미지 : <div>" + data.suggest_photo + "</div>강의날짜 : <div>" + data.class_time + "</div>"
-							+ "</div><button id = admitBtn>승인</button>");
+							+ "</div><button id = admitBtn>승인</button></div><button id = rejectBtn>반려</button>");
 				},
 				error: () => {
 					alert("fail");
@@ -93,6 +96,33 @@
 						alert("등록 완료되었습니다.");
 					} else{
 						alert("에러로 인해 등록실패하였습니다.");
+					}
+					location.href = "/adminView";
+				},
+				error: () => {
+					alert("Error");
+					location.href = "adminView";
+				}
+			})
+		}
+	})
+	
+	$("#detailModal").click( (event) => {
+		if(event.target.id == "rejectBtn"){
+			let num = $("#suggestNum").text();
+			let reason = $("#rejectReason").val();
+			$.ajax({
+				url: "/admin/suggestion",
+				method: "put",
+				data: {
+					suggest_num: num,
+					reject_reason: reason
+				},
+				success: (data) => {
+					if(data == 1){
+						alert("제안서를 반려하였습니다.");
+					} else{
+						alert("에러로 인해 반려 실패했습니다.");
 					}
 					location.href = "/adminView";
 				},

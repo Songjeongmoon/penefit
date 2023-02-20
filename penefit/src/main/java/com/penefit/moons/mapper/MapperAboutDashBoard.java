@@ -1,12 +1,13 @@
 package com.penefit.moons.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.MemberVO;
+import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.SuggestDTO;
 
 @Mapper
@@ -19,5 +20,21 @@ public interface MapperAboutDashBoard {
 	
 	//제안 목록 
 	public ArrayList<SuggestDTO> SuggestionList();
+	
+	public int getClassTodayCount();
+	
+	public int getClassEndCount();
+	
+	public int getClassActiveCount();
+	
+	public List<ClassVO> getClassListToday();
+	
+	public List<SuggestDTO> getSuggestList();
+	
+	public int getSuggestCount();
+	
+	public int getQnACount();
+	
+	public List<QnAVO> getQnaList();
 
 }

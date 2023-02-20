@@ -54,6 +54,7 @@
 	<select id = "getSuggestionList" resultType = "com.penefit.moons.domain.SuggestDTO">
 		SELECT *
 		FROM suggest
+		WHERE status = '검토'
 	</select>
 	
 	<insert id="createClass">
@@ -68,6 +69,12 @@
 		SELECT class_code
 		FROM class
 	</select>
+	
+	<update id = "rejectSuggestion">
+		Update suggest
+		SET status = '반려', reject_reason = #{reject_reason}
+		WHERE suggest_num = #{suggest_num}
+	</update>
 	
 	<update id = "updateClass">
 		UPDATE class
