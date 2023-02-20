@@ -1,5 +1,4 @@
 package com.penefit.moons.controller;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,21 +41,48 @@ class AdminSong {
 	
 	
 	@GetMapping("/class")
-	@ResponseBody
-	public List<ClassVO> getClassList(Model model){
+	public String getClassList(Model model){
 		
 		List<ClassVO> list = service.getClassList();
 		System.out.println(list);
 		model.addAttribute("list", list);
-		return list;
+		return "/admin-class-list";
 	}
 	
+	@GetMapping("/class/DESC")
+	@ResponseBody
+	public List<ClassVO> getClassListDESC(){
+		return service.getClassList();
+	}
 	
+	@GetMapping("/class/ASC")
+	@ResponseBody
+	public List<ClassVO> getClassListASC(){
+		return service.getClassListASC();
+	}
+	
+	@GetMapping("/class/end")
+	@ResponseBody
+	public List<ClassVO> getClassListEnd(){
+		return service.getClassListEnd();
+	}
+	
+	@GetMapping("/class/active")
+	@ResponseBody
+	public List<ClassVO> getClassListActive(){
+		return service.getClassListActive();
+	}
+	
+	@GetMapping("/class/one")
+	@ResponseBody
+	public ClassVO getClassOne(String class_code) {
+		System.out.println(class_code);
+		return service.getClassOne(class_code);
+	}
 	
 	@PostMapping("/class")
 	@ResponseBody
 	public SuggestDTO regClass(String suggest_num) {
-		
 		SuggestDTO suggest = service.createClass(suggest_num);
 		
 		return suggest;

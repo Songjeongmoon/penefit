@@ -25,8 +25,16 @@ public interface AdminMapperSong {
 	
 	public List<ClassVO> getClassList();
 	
+	public List<ClassVO> getClassListASC();
+	
+	public List<ClassVO> getClassListEnd();
+	
+	public List<ClassVO> getClassListActive();
+	
 	public List<ClassVO> searchClass(String class_subject);
 	
 	public List<SuggestDTO> getSuggestionList();
+
+	public ClassVO getClassOne(String class_code);
 	
 }

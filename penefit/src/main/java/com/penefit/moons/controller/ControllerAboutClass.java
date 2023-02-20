@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //github.com/eseo99/penefit.git
 
@@ -68,12 +69,14 @@ public class ControllerAboutClass {
 
 	// 검색된 클래스 목록
 	@GetMapping("/classList-search")
-	public void getSearchClassList(Model model, String keyword) {
+	public String getSearchClassList(Model model,@RequestParam("keyword") String keyword) {
+		System.out.println("keyword : " + keyword);
 		ArrayList<ClassVO> list = service.getSearchClassList(keyword);
 		model.addAttribute("list", list);
 		int result = service.getSearchClassListCnt(keyword);
 		model.addAttribute("result", result);
 		model.addAttribute("keyword", keyword);
+		return "/class/classList-search";
 	}
 
 	// 클래스 상세보기

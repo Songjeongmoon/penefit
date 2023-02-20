@@ -2,40 +2,40 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript"
-   src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<link rel="stylesheet" href="style.css">
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
 .class_detail img {
 	width: 400px;
 	height: 400px;
+	margin-right: 20px;
 }
 
 .class_detail {
-	border: 1px solid red;
-	width: 1000px;
+	margin-top: 30px;
+	width: 800px;
 	display: flex;
 	margin: 0 auto;
 }
 
 #class_detail_img {
 	display: inline-block;
-	border: 3px solid green;
-}
-
-#class_detail_info {
-	width: 550px;
 }
 
 #class_subject {
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 26px;
+	margin-top: 30px;
+}
+
+#class_price {
+	margin-bottom: 20px;
 }
 
 #kakao, #heart img {
@@ -44,19 +44,95 @@
 	height: 30px;
 }
 
+#heart, #kakao {
+	display: inline;
+}
+
+#kakao {
+	position: relative;
+	left: -15px;
+}
+
 #heart img:hover {
 	cursor: pointer;
 }
-.detail_box{
-	position:absolute;
-	display:none;
-	width: 900px;
-	border: 2px solid pink;
-}
-#detail_box1{
-	display:block;
+
+.detail_box {
+	position: absolute;
+	display: none;
+	width: 800px;
+	margin: 0 quto;
 }
 
+#detail_box1 {
+	display: block;
+}
+
+#class_memlit, #class_memcnt {
+	display: inline;
+}
+
+#addCart, #expired {
+	width: 350px;
+	height: 40px;
+	color: white;
+	background-color: #75BD43;
+	border: none;
+	border-radius: 7px;
+	line-height: 40px;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
+	display: inline;
+	position: absolute;
+	top: 350px;
+}
+#expired{
+	background-color: gray;
+	cursor: default;
+}
+#detailMenu {
+	margin: 0 auto;
+	width: 800px;
+	height: 40px;
+	position: absolute;
+	margin-top: 20px;
+	top: 450px;
+}
+
+#detailMenu ul {
+	margin: 0 auto;
+	margin-left: 12px;
+}
+
+#detailMenu li {
+	width: 190px;
+	height: 30px;
+	line-height: 32px;
+	list-style-type: none;
+	display: inline-block;
+	float: left;
+	text-align: center;
+	border: 1px #BBB09F solid;
+	border-collapse: collapse;
+}
+
+#detailMenu li:hover {
+	border: none; 
+	background-color : #BBB09F;
+	line-height: 32px;
+	color: white;
+	width: 192px;
+	height: 32px;
+}
+#detail_box1{
+position: absolute;
+	margin-top: 20px;
+	top: 500px;
+}
+#detailview{
+	width: 100%;
+	height: 100%;
+	margin-bottom: 200px;
+}
 </style>
 </head>
 <body>
@@ -71,29 +147,35 @@
 				<div id="class_detail_info">
 					<div id="class_subject">${cvo.class_subject }</div>
 					<div id="class_teacher">${cvo.class_teacher }</div>
-					<div id="class_day">${cvo.class_date }</div>
-					<div id="class_info">${cvo.class_info }</div>
-					<div id="class_memlit">정원수 : ${cvo.class_memlit }</div>
-					<div id="class_memcnt">현재 신청인원 : ${cvo.class_memcnt }</div>
-					<div id="class_price">${cvo.class_price }</div>
+					<br><hr><br>
+					<div id="class_day">일 자 : ${cvo.class_date }</div>
+					<br>
+					<div id="class_memcnt">인 원 : ${cvo.class_memcnt } /</div>
+					<div id="class_memlit">${cvo.class_memlit }</div>
+					<div id="class_price">가 격 : ${cvo.class_price }원</div>
 					<div id="heart">
 						<img src="../images/blankHeart.png" class="heart_img">
 					</div>
-					<div>
+					<div style="display: inline;">
 						<a id="kakaotalk-sharing-btn" href="javascript:;"><img
 							id="kakao"
 							src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
 							alt="카카오톡 공유 보내기 버튼" /> </a>
 					</div>
 					<div>
-						<c:if test="${cvo.class_memlit<=cvo.class_memcnt || status =='마감'}"><button type="button" >마감된 클래스입니다</button></c:if>
-						<c:if test="${cvo.class_memlit>cvo.class_memcnt  && status =='진행'}"><button type="button" id="addCart" >장바구니에 담기</button></c:if>
+						<c:if
+							test="${cvo.class_memlit<=cvo.class_memcnt || status =='마감'}">
+							<button type="button" id="expired">마감된 클래스입니다</button>
+						</c:if>
+						<c:if
+							test="${cvo.class_memlit>cvo.class_memcnt  && status =='진행'}">
+							<button type="button" id="addCart">장바구니에 담기</button>
+						</c:if>
 					</div>
 				</div>
 
 
-			</div>
-			<div>
+			<div id="detailMenu">
 				<ul>
 					<li id="detail_box1_btn"><label for="detail_box1_btn">상세설명</label></li>
 					<li id="detail_box2_btn"><label for="detail_box2_btn">클래스후기</label></li>
@@ -102,15 +184,12 @@
 				</ul>
 			</div>
 			<div class="detail_box" id="detail_box1">
-				<img src="../images/01.jpg" style="width: 800px;">
+				<img src="../images/01.jpg" id="detailview">
 			</div>
-			<div class="detail_box" id="detail_box2">
-				${rvo.review_content }
-				${rvo.member_id }
-				${rvo.review_regdate }
-				${rvo.score }
-			</div>
+			<div class="detail_box" id="detail_box2">${rvo.review_content }
+				${rvo.member_id } ${rvo.review_regdate } ${rvo.score }</div>
 			<div class="detail_box" id="detail_box3"></div>
+			</div>
 		</section>
 	</div>
 	<%-- <%@ include file="../footer.jsp"%> --%>
@@ -194,23 +273,19 @@
 			//alert("장바구니 버튼 클릭!");
 			location.href = "shoppingcart?class_code=" + class_code;
 		});
-		
-		
-		
-		$("#detail_box1_btn").click(function(){
+
+		$("#detail_box1_btn").click(function() {
 			$(".detail_box:not(#detail_box1)").css("display", "none");
-	         $("#detail_box1").css("display", "block");
+			$("#detail_box1").css("display", "block");
 		});
-		$("#detail_box2_btn").click(function(){
+		$("#detail_box2_btn").click(function() {
 			$(".detail_box:not(#detail_box2)").css("display", "none");
-	         $("#detail_box2").css("display", "block");
+			$("#detail_box2").css("display", "block");
 		});
-		$("#detail_box3_btn").click(function(){
+		$("#detail_box3_btn").click(function() {
 			$(".detail_box:not(#detail_box3)").css("display", "none");
-	         $("#detail_box3").css("display", "block");
+			$("#detail_box3").css("display", "block");
 		});
-		
-		
-		</script>
+	</script>
 </body>
 </html>

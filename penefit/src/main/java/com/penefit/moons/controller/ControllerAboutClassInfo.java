@@ -1,6 +1,14 @@
+
+
 package com.penefit.moons.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +33,21 @@ public class ControllerAboutClassInfo {
 	// 신청서 페이
 	
 	@GetMapping("/suggestion")
-	public String classSuggestWindow() {
+	public String classSuggestWindow(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		if(session.getAttribute("member_id") == null) {
+			try {
+				res.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = res.getWriter();
+				out.print("<script> alert('로그인후 사용하실수 있습니다'); location.href = '/member/login';</script>");
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return "/class/suggestion";
+		
 	}
 	
 	@GetMapping("/suggestion-list")
@@ -105,11 +126,25 @@ public class ControllerAboutClassInfo {
 	//클래스 신청서 접수
 	
 	@PostMapping("/suggestion")
-	public String insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files) {
+	public void insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res) {
 		System.out.println(suggest);
-		service.insertSuggestion(suggest, files);
-		
-		return "home";
+		int result = service.insertSuggestion(suggest, files);
+		res.setContentType("text/html; charset=UTF-8");
+		if(result == 1) {
+			try {
+				PrintWriter out = res.getWriter();
+				out.print("<script> alert('제안서 신청이 완료되었습니다.'); location.href='/';</script>");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				PrintWriter out = res.getWriter();
+				out.print("<script> alert('서버오류로 인해 신청이 취소되었습니다.'); location.href='/';</script>");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	//나의 신청서 리스트

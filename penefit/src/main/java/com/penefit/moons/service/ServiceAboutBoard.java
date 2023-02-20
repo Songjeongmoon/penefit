@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.penefit.moons.domain.BoardVO;
 import com.penefit.moons.domain.NoticeVO;
-import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.ReplyVO;
 import com.penefit.moons.mapper.MapperAboutBoard;
 
@@ -37,7 +36,7 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 	
 	@Override		//공지사항 수정
 	public void modiNotice(NoticeVO nvo) {
-		System.out.println(nvo);
+		
 		bmapper.modiNotice(nvo);
 	}
 
@@ -61,53 +60,58 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		List<BoardVO> oneCList = bmapper.getOneCityList(check_city);
 		return oneCList;
 	}
-
-	@Override		//qna등록
-	public int qnaReg(QnAVO qvo) {
-		
-		int result = bmapper.regQnA(qvo);
+	
+	//지역게시판 상세보기
+	@Override
+	public BoardVO citySelectOne(int board_num) {
+		bmapper.cityViewCnt(board_num);
+		BoardVO cvo = bmapper.citySelectOne(board_num);
+		return cvo;
+	}
+	
+	//지역 게시판 등록
+	@Override
+	public int cityReg(BoardVO bvo) {
+		int result = bmapper.cityReg(bvo);
 		return result;
 	}
-
+	
+	//지역 게시판 검색
 	@Override
-	public List<QnAVO> qlist() {
-		List<QnAVO> qlist = bmapper.getQnAList();
-		return qlist;
+	public List<BoardVO> searchCity(String keyword, String citysel) {
+		List<BoardVO> list = bmapper.search_city(keyword, citysel);
+		
+		return list;
 	}
 
 	@Override
-	public QnAVO qnaSelectOne(int qna_num) {
-		QnAVO qna = bmapper.qnaSelectOne(qna_num);
-		return qna;
+	public void modiCity(BoardVO bvo) {
+		System.out.println(bvo);
+		bmapper.modiCity(bvo);
+	}
+
+	@Override
+	public int delCity(int board_num) {
+		int result = bmapper.delCity(board_num);
+		return result;
+	}
+	
+	
+	@Override
+	public int cityreplyReg(ReplyVO rvo) {
+		int result = bmapper.reg_cityReply(rvo);
+		return result;
+	}
+	//city 댓글
+	@Override
+	public List<ReplyVO> get_CityRlist(int board_num) {
+		List<ReplyVO> crList = bmapper.get_CityReplyList(board_num);
+		return crList;
 	}
 	
 	@Override
-	public void modiQnA(QnAVO qvo) {
-		bmapper.modiQnA(qvo);
-		
-	}
-
-	@Override
-	public int delQnA(int qna_num) {
-		int result = bmapper.delQnA(qna_num);
-		return result;
-	}
-
-	@Override
-	public int replyReg(ReplyVO rvo) {
-			int result = bmapper.regReply(rvo);
-		return result;
-	}
-
-	@Override
-	public List<ReplyVO> getRlist(int qna_num) {
-		List<ReplyVO> rList = bmapper.getReplyList(qna_num);
-		return rList;
-	}
-	
-	@Override
-	public int replyDel(int reply_num) {
-		int result = bmapper.delReply(reply_num);
+	public int cityReplyDel(int reply_num) {
+		int result = bmapper.del_CityReply(reply_num);
 		return result;
 	}
 
@@ -121,6 +125,11 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		BoardVO faq = bmapper.getFaQselectOne(board_num);
 		return faq;
 	}
+
+
+
+
+
 
 
 	

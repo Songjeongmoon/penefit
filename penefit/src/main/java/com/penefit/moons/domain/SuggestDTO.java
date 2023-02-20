@@ -13,6 +13,7 @@ public class SuggestDTO {
 	private String city_code;
 	private String suggest_photo;
 	private String class_time;
+	private String time;
 	private int maxCnt;
 	private int price;
 	private String type;

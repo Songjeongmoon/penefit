@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js"
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
 <style>
         .layout{
     max-width: 600px;
@@ -119,8 +122,10 @@
             </div>
         </li>
     </ul>
-
     </div>
+		</section>
+			
+	</div>
     <script>
 
         $("#question").click(function(){
@@ -131,34 +136,5 @@
         });
         
     </script>
-			
-		</section>
-	</div>
-	<script>
-	 $("#blackloupe_img2").click(()=> {
-   	  if ($("#divsearch").css("display") == "none") { 
-   	        $("#divsearch").css("display", "block");//display :none 일떄
-   	    } else {
-   	    	 $("#divsearch").css("display", "none"); //display :block 일떄
-   	    } 
-   });
-     $(".title").click(function(){
-   	//  alert("click");
-   	  if ($(".subtitle").css("display") == "none"){
-   		  $(".subtitle").css("display", "block");
-   	  }else{
-   		  $(".subtitle").css("display", "none");
-   	  }
-     });
- 
-		$("#aside_menu_btn").mouseover(function() {
-			//alert('dd');
-			$("#aside_submenu").css("display", "block");
-		})
-		$("#aside_menu_btn").mouseout(function() {
-			//alert('dd');
-			$("#aside_submenu").css("display", "none");
-		})
-	</script>
 </body>
 </html>

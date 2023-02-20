@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -15,9 +15,10 @@
 	<div class="box">
 	<section>
 			<aside>
-				<ul>
+								<ul>
 					<li class="aside_title">클래스</li>
-					<li class="aside_menu"><a href="classList">클래스 전체보기</a></li>
+					<li class="aside_menu"><a href="/class/classList">클래스 전체보기</a></li>
+					<li class="aside_menu"><a href="/class/classList-ongoing">진행중인클래스</a></li>
 					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
 						<div id="aside_submenu">
 							<p>
@@ -34,8 +35,9 @@
 							</p>
 						</div>
 					</li>
-				<li class="aside_menu"><a href="classList-new">신규 클래스</a></li>
-					<li class="aside_menu"><a href="classList-expired">지난클래스</a></li>
+					<li class="aside_menu"><a href="/class/classList-new">신규 클래스</a></li>
+					<li class="aside_menu"><a href="/class/classList-expired">지난클래스</a></li>
+					<li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
 				</ul>
 
 			</aside>
