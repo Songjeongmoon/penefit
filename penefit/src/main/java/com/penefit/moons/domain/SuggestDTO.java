@@ -16,4 +16,5 @@ public class SuggestDTO {
 	private int maxCnt;
 	private int price;
 	private String type;
+	private int time;
 }

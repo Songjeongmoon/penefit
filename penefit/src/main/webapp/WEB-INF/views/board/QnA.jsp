@@ -5,7 +5,51 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
+<style>
+input[type='text'] {
+	width: 400px;
+}
+
+textarea {
+	width: 400px;
+	height: 300px;
+}
+table{
+	margin: 0 auto;
+	position: relative;
+	right : 40px;
+	box-shadow: 3px 3px 3px 3px #DBD5CB;
+	border-radius: 7px;
+}
+}
+#table tr, th, td {
+	border-radius: 7px;
+	border: 1px solid #BBB09F;
+}
+
+tbody th {
+	width: 150px;
+	text-align: center;
+}
+tbody td {
+	text-align: center;
+	padding: 10px;
+}
+input[type='submit']{
+	background-color: #75BD43;
+	font-size: 25px;
+	color: white;
+	width: 200px;
+	height: 40px;
+	border : none;
+	border-radius: 7px;
+	box-shadow: 3px 3px 3px 3px #DBD5CB;
+	margin: 10px 0;
+}
+</style>
 <body>
 	<%@ include file="../header.jsp"%>
 	<div class="box">
@@ -19,9 +63,9 @@
 			</aside>
 
 			<div class="content">
-				<h1>Q&A 게시판</h1>
+				<h2>Q&A 게시판</h2>
 				<form action="/qnaForm" method="post">
-					<table border="1">
+					<table id="table">
 						<tr>
 							<th>제목</th>
 							<td><input type="text" name="qna_title"></td>
@@ -32,7 +76,8 @@
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td><input type="text" name="member_id" value="${member_id }" readonly="readonly"></td>
+							<td><input type="text" name="member_id"
+								value="${member_id }" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="submit" value="등록"></td>
@@ -43,7 +88,6 @@
 			</div>
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
 			$("#aside_submenu").css("display", "block");

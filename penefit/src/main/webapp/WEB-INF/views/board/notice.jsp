@@ -12,7 +12,9 @@
 	display: none;
 	width: 100px;
 }
-
+h2{
+	text-align: center;
+}
 #notice_tbl {
 	margin: 0 auto;
 	border: 1px solid black;
@@ -20,9 +22,15 @@
 	width: 700px;
 	text-align: center;
 }
+table {
+text-align : center;
+	width: 1200px;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+#notice_tbl th{
+	background-color: #DBD5CB;
 
-#notice_tbl th, tr, td{
-	border: 1px solid black;
 }
 </style>
 </head>
@@ -40,12 +48,12 @@
 				</ul>
 			</aside>
 			<div class="content">
-				<h1>공지사항 페이지</h1>
+				<h2>공지사항</h2>
 				<table id="notice_tbl">
 					<thead>
 						<tr>
 							<th>번호</th>
-							<th>제목</th>
+							<th style="width: 250px;">제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
 							<th>조회수</th>

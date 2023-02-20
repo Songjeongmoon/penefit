@@ -156,6 +156,34 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	public List<SuggestDTO> getSuggestionList() {
 		return mapper.getSuggestionList();
 	}
+
+	@Override
+	public SuggestDTO getSuggestionInfo(String suggest_num) {
+		return mapper.getSuggestInfo(suggest_num);
+		
+		
+	}
+
+	@Override
+	public ClassVO getClassOne(String class_code) {
+		ClassVO vo = mapper.getClassOne(class_code);
+		return vo;
+	}
+
+	@Override
+	public List<ClassVO> getClassListASC() {
+		return mapper.getClassListASC();		
+	}
+
+	@Override
+	public List<ClassVO> getClassListEnd() {
+		return mapper.getClassListEnd();
+	}
+
+	@Override
+	public List<ClassVO> getClassListActive() {
+		return mapper.getClassListActive();
+	}
 	
 	
 	

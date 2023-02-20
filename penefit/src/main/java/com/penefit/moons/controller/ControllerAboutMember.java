@@ -69,8 +69,8 @@ public class ControllerAboutMember {
 	@PostMapping("login.do")
 	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session,Model model) {
 		String path=serviceMember.loginCheck(member_id, member_pw,Session);
-		 model.addAttribute("msg","로그인 실패하였습니다!");
-		return "redirect:"+path;
+
+		return "redirect:/";
 	}
 	
 	@GetMapping("logout")

@@ -56,7 +56,6 @@
 		</section>
 	</div>
 	
-	<%@ include file="../footer.jsp"%>
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');

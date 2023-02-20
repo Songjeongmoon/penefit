@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,15 +18,13 @@
 
 
 <style>
-h2 {
-	text-align: center;
-}
 
 table {
+text-align : center;
 	width: 1100px;
 	margin: 0 auto;
+	border-collapse: collapse;
 }
-
 .cart_img {
 	width: 100px;
 	height: 100px;
@@ -43,13 +41,27 @@ table {
 }
 
 #cartbox {
-	border: 1px solid black;
 	width: 1100px;
 	margin: 0 auto;
 }
 
 #payZone {
 	float: right;
+}
+.price, .sub{
+	display: inline;
+}
+.price{
+	float: right;
+}
+input[id="checkAll"] {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #BBB09F;
+	cursor: pointer;
+	position: relative;
+	top: 4px;
 }
 </style>
 </head>
@@ -62,13 +74,13 @@ table {
 				<div id="checkbar">
 					<input type="checkbox" id="checkAll"><label for="checkAll">전체선택</label>
 					| <label for="deleteAll" id="deleteAll">전체삭제</label> | <label
-						for="deleteSome" id="deleteSome">선택삭제</label>
+						for="deleteSome" id="deleteSome">선택삭제</label> | <label
+						for="deleteExpired" id="deleteExpired">구매불가능 강의삭제</label>
 				</div>
-				<table border="1">
-					<thead>
-						<tr>
-							<th>순서</th>
-							<th>체크박스</th>
+				<table>
+					<thead >
+						<tr style="background-color: #DBD5CB; ">
+							<th colspan="2"></th>
 							<th>클래스사진</th>
 							<th>클래스명</th>
 							<th>강사명</th>
@@ -91,7 +103,7 @@ table {
 						</div>
 					</div>
 					<div>
-						<button onclick="requestPay()">결제하기</button>
+						<button onclick="requestPay()" id="goPayBtn">결제하기</button>
 						<!-- 결제하기 버튼 생성 -->
 					</div>
 				</div>
@@ -102,6 +114,22 @@ table {
 	<%@ include file="footer.jsp"%>
 
 	<script>
+	
+	$("#blackloupe_img2").click(()=> {
+  	  if ($("#divsearch").css("display") == "none") { 
+  	        $("#divsearch").css("display", "block");//display :none 일떄
+  	    } else {
+  	    	 $("#divsearch").css("display", "none"); //display :block 일떄
+  	    } 
+  });
+    $(".title").click(function(){
+  	//  alert("click");
+  	  if ($(".subtitle").css("display") == "none"){
+  		  $(".subtitle").css("display", "block");
+  	  }else{
+  		  $(".subtitle").css("display", "none");
+  	  }
+    });
 		//체크박스로 전체 선택
 		$(document).on('click', '#checkAll', function() {
 			if ($('#checkAll').is(':checked')) {
@@ -140,36 +168,79 @@ table {
 				let list = JSON.parse(data);
 				for (let i = 0; i < list.length; i++) {
 					let suggest_photo = list[i].suggest_photo.split('-', 1);
-					$("#tbody")
-							.append(
-									"<tr><td>"
-											+ list[i].shopping_cart_num
-											+ "</td><td>"
-											+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox' class='checking'></td><td>"
-											+ "<a href='class/class-detail?class_code="
-											+ list[i].class_code
-											+ "'><img class='list_img' src='images/"+suggest_photo+"' class='cart_img' style='width:100px; height:100px;'></a></td><td>"
-											+ "<a href='class/class-detail?class_code="
-											+ list[i].class_code
-											+ "'>"
-											+ list[i].class_subject
-											+ "</td><td>"
-											+ "<a href='class/classList-search?keyword="
-											+ list[i].class_teacher
-											+ "'>"
-											+ list[i].class_teacher
-											+ "</td><td>"
-											+ list[i].class_date
-											+ "</td><td>"
-											+ list[i].class_price
-											+ "</td><td>"
-											+ list[i].class_memcnt
-											+ "&#47;"
-											+ list[i].class_memlit
-											+ "</td><td>"
-											+ "<a><img src='../images/delete.png' class='delete_img'></a></td></tr>");
+					if(list[i].class_memcnt>=list[i].class_memlit || list[i].statusMsg =="마감"){
+						$("#tbody")
+						.append(
+								"<tr><td><input type='hidden' value='"
+										+ list[i].shopping_cart_num
+										+ "'></td><td>"
+										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox'  disabled='disabled'></td><td>"
+										+ "<a href='class/class-detail?class_code="
+										+ list[i].class_code
+										+ "'><img class='list_img' src='images/"+suggest_photo+"' class='cart_img' style='width:100px; height:100px;'></a></td><td>"
+										+ "<a href='class/class-detail?class_code="
+										+ list[i].class_code
+										+ "'>"
+										+ list[i].class_subject
+										+ "</td><td>"
+										+ "<a href='class/classList-search?keyword="
+										+ list[i].class_teacher
+										+ "'>"
+										+ list[i].class_teacher
+										+ "</td><td>"
+										+ list[i].class_date
+										+ "</td><td>"
+										+ list[i].class_price
+										+ "</td><td>"
+										+ list[i].class_memcnt
+										+ "&#47;"
+										+ list[i].class_memlit
+										+ "</td><td>"
+										+ "<a><img src='../images/delete.png' class='delete_img'></a></td></tr>");
 
-				}
+			}
+					else{
+						$("#tbody")
+						.append(
+								"<tr><td><input type='hidden' value='"
+								+ list[i].shopping_cart_num
+								+ "'></td><td>"
+										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox' class='checking'></td><td>"
+										+ "<a href='class/class-detail?class_code="
+										+ list[i].class_code
+										+ "'><img class='list_img' src='images/"+suggest_photo+"' class='cart_img' style='width:100px; height:100px;'></a></td><td>"
+										+ "<a href='class/class-detail?class_code="
+										+ list[i].class_code
+										+ "'>"
+										+ list[i].class_subject
+										+ "</td><td>"
+										+ "<a href='class/classList-search?keyword="
+										+ list[i].class_teacher
+										+ "'>"
+										+ list[i].class_teacher
+										+ "</td><td>"
+										+ list[i].class_date
+										+ "</td><td>"
+										+ list[i].class_price
+										+ "</td><td>"
+										+ list[i].class_memcnt
+										+ "&#47;"
+										+ list[i].class_memlit
+										+ "</td><td>"
+										+ "<a><img src='../images/delete.png' class='delete_img'></a></td></tr>");
+
+			}
+					}
+				$("tr").css("borderBottom","1px solid #BBB09F");
+				$("input[type='checkbox']").css({
+						"display" : "inline-block",
+						"width": "20px",
+						"height": "20px",
+						"border": "2px solid #BBB09F",
+						"cursor": "pointer",
+						"position": "relative",
+						"top": "4px"
+				});
 				calcPrice();
 
 			}
@@ -216,7 +287,23 @@ table {
 			xhttp.open("DELETE", "allCart", true);
 			xhttp.send();
 		}
-
+		
+		
+		//구매 불가능 품목
+		$("#deleteExpired").click( ()=>{
+							$("input[ disabled='disabled']").each(
+								function() {
+									if($(this).is(":disabled") == true) {
+										cartNum = this.parentElement.parentElement.children[0].innerText;
+										deleteSomeCart(cartNum);
+									}
+								}
+							)
+							location.reload();
+							alert("삭제되었습니다.");
+							});
+		
+		
 		//선택 삭제
 		let checkArr = [];
 		//체크박스를 전체 확인하면서 체크된것을 삭제
@@ -233,7 +320,7 @@ table {
 											});
 							location.reload();
 							alert("삭제되었습니다.");
-						})
+						});
 		function deleteSomeCart(cartNum) {
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
@@ -257,7 +344,7 @@ table {
 									let pricee = this.parentElement.parentElement.children[6].innerText;
 									let price = parseInt(pricee);
 									sum += price;
-									$("#price").text(sum);
+									$("#price").text(sum + " 원");
 								}
 							});
 		}

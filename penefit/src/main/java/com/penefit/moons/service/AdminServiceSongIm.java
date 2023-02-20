@@ -21,4 +21,14 @@ public interface AdminServiceSongIm {
 	
 	public List<SuggestDTO> getSuggestionList();
 	
+	public SuggestDTO getSuggestionInfo(String suggest_num);
+	
+	public ClassVO getClassOne(String class_code);
+	
+	public List<ClassVO> getClassListASC();
+	
+	public List<ClassVO> getClassListEnd();
+	
+	public List<ClassVO> getClassListActive();
+ 	
 }

@@ -17,6 +17,10 @@ public interface MapperAboutDashBoard {
 	//오늘의 클래스목록조회
 	public ArrayList<ClassVO> selectClassToday(String class_date);
 	
+	//오늘의 클래스건수
+	public int selectClassTodayCount(String class_date);
+		
+	
 	//제안 목록 
 	public ArrayList<SuggestDTO> SuggestionList();
 

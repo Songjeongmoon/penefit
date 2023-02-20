@@ -42,16 +42,42 @@ class AdminSong {
 	
 	
 	@GetMapping("/class")
-	@ResponseBody
-	public List<ClassVO> getClassList(Model model){
+	public String getClassList(Model model){
 		
 		List<ClassVO> list = service.getClassList();
-		System.out.println(list);
 		model.addAttribute("list", list);
-		return list;
+		return "/admin-class-list";
 	}
 	
+	@GetMapping("/class/DESC")
+	@ResponseBody
+	public List<ClassVO> getClassListDESC(){
+		return service.getClassList();
+	}
 	
+	@GetMapping("/class/ASC")
+	@ResponseBody
+	public List<ClassVO> getClassListASC(){
+		return service.getClassListASC();
+	}
+	
+	@GetMapping("/class/end")
+	@ResponseBody
+	public List<ClassVO> getClassListEnd(){
+		return service.getClassListEnd();
+	}
+	
+	@GetMapping("/class/active")
+	@ResponseBody
+	public List<ClassVO> getClassListActive(){
+		return service.getClassListActive();
+	}
+	
+	@GetMapping("/class/one")
+	@ResponseBody
+	public ClassVO getClassOne(String class_code) {
+		return service.getClassOne(class_code);
+	}
 	
 	@PostMapping("/class")
 	@ResponseBody

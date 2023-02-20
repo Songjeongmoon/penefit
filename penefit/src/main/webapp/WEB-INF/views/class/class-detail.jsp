@@ -38,10 +38,6 @@
 	font-size: 30px;
 }
 
-#kakaobox, #heart {
-	
-}
-
 #kakao, #heart img {
 	border-radius: 45%;
 	width: 30px;
@@ -91,7 +87,7 @@
 					</div>
 					<div>
 						<c:if test="${cvo.class_memlit<=cvo.class_memcnt || status =='마감'}"><button type="button" >마감된 클래스입니다</button></c:if>
-						<c:if test="${cvo.class_memlit>cvo.class_memcnt  || status !='마감'} "><button type="button" id="addCart">장바구니에 담기</button></c:if>
+						<c:if test="${cvo.class_memlit>cvo.class_memcnt  && status =='진행'}"><button type="button" id="addCart" >장바구니에 담기</button></c:if>
 					</div>
 				</div>
 
