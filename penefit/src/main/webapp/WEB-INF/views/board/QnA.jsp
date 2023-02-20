@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/style.css">
+<script src="https://code.jquery.com/jquery-3.6.3.js"
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
 </head>
 
 <style>
@@ -64,7 +66,7 @@ input[type='submit']{
 
 			<div class="content">
 				<h2>Q&A 게시판</h2>
-				<form action="/qnaForm" method="post">
+				<form action="/board/qnaForm" method="post">
 					<table id="table">
 						<tr>
 							<th>제목</th>
@@ -96,6 +98,5 @@ input[type='submit']{
 			$("#aside_submenu").css("display", "none");
 		})
 	</script>
-<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

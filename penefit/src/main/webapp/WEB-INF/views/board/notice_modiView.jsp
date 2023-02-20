@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 수정</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <form action="notice_modi.do" method="post">
@@ -34,5 +35,6 @@
 		</div>
 </div>
 </form>
+<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>
