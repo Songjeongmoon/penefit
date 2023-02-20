@@ -83,8 +83,8 @@ public class ServiceAboutDashBoard implements ServiceAboutDashBoardI{
 
 
 	@Override
-	public List<QnAVO> getQnaList() {
-		return mapper.getQnaList();
+	public List<QnAVO> getQnAList() {
+		return mapper.getQnAList();
 	}
 
 }

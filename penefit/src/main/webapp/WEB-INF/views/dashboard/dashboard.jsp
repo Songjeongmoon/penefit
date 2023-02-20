@@ -46,6 +46,7 @@
     height: 400px;
     border : 1px solid green;
     display: inline-block;
+    text-align: center;
 }
 #dashboard_chart{
     width:900px;
@@ -86,7 +87,30 @@
 ol,li{
  list-style: none;
  font-size: 25px;
+ padding: 0;
 }
+#dashboard_menu a{
+margin: 10px;
+	padding: 0;
+	display: inline-block;
+	height: 80px;
+	width: 230px;
+	text-align: center;
+	line-height: 80px;
+	border: 1px solid;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.1s ease-in;
+}
+a{
+	color: black;
+	text-decoration: none;
+	font-size: 20px;
+}
+a:hover{
+	background-color: orange;
+}
+
 </style>
 </head>
 <body>
