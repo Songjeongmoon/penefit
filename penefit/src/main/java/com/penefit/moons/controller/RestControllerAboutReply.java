@@ -24,10 +24,25 @@ public class RestControllerAboutReply {
 
 	@Autowired
 	ServiceAboutBoard bservice;
+	
+	// 각 지역별 게시판
+	@GetMapping("/api/oneCityBoard")
+	public List<BoardVO> getOneCityList(@RequestParam("check_city") String check_city) {
+		List<BoardVO> oneCList = bservice.getCityListOne(check_city);
+		log.info(check_city);
+		return oneCList;
+	}
 
-	@PostMapping("/api/qna/reply") // 댓글등록
-	public String regReply(@RequestBody ReplyVO rvo) {
-		int result = bservice.replyReg(rvo);
+	// 지역별 게시판
+	@GetMapping("/api/cityBoard/")
+	public List<BoardVO> cityBoard() {
+		List<BoardVO> clist = bservice.getCitylist();
+		return clist;
+	}
+
+	@PostMapping("/api/city/reply") // 댓글등록
+	public String regReply(@RequestBody ReplyVO crvo) {
+		int result = bservice.cityreplyReg(crvo);
 		String msg = "";
 
 		if (result == 1) {
@@ -38,9 +53,10 @@ public class RestControllerAboutReply {
 		return msg;
 	}
 
-	@DeleteMapping("/api/qna/delReply/qna_num/{qna_num}") // 댓글삭제
-	public String delReply(@PathVariable("qna_num") int qna_num) {
-		int result = bservice.replyDel(qna_num);
+	@DeleteMapping("/api/city/delReply/reply_num/{reply_num}") // 댓글삭제
+	public String delReply(@PathVariable("reply_num") String reply_numm) {
+		int reply_num = Integer.parseInt(reply_numm);
+		int result = bservice.cityReplyDel(reply_num);
 		String msg = "";
 
 		if (result == 1) {
@@ -52,33 +68,33 @@ public class RestControllerAboutReply {
 		return msg;
 	}
 
-	@GetMapping("/api/qna/replyList/qna_num/{qna_num}") // 댓글목록
-	public List<ReplyVO> getReplyList(Model model, @PathVariable("qna_num") int qna_num) {
-		List<ReplyVO> rlist = bservice.getRlist(qna_num);
-		System.out.println(rlist);
-		return rlist;
+	
+	@GetMapping("/api/city/replyList/board_num/{board_num}") // 댓글목록
+	public List<ReplyVO> getReplyList(Model model, @PathVariable("board_num") int board_num) {
+		System.out.println(board_num);
+		List<ReplyVO> crlist = bservice.get_CityRlist(board_num);
+		return crlist;
 	}
-
-	// 각 지역별 게시판
-	@GetMapping("/api/oneCityBaord")
-	public List<BoardVO> getOneCityList(@RequestParam("check_city") String check_city) {
-		List<BoardVO> oneCList = bservice.getCityListOne(check_city);
-		log.info(check_city);
-		return oneCList;
+	
+	@PostMapping("/cityReg.do")
+	public String cityBoardRegDo2(@RequestBody BoardVO bvo) {
+		System.out.println("bvo:"+ bvo);
+		System.out.println("--------------------");
+		int result = bservice.cityReg(bvo);
+		String msg="";
+		System.out.println("bvo:"+ bvo);
+		if(result == 1) {
+			msg="등록 완료";
+		}else{
+			msg="등록 실패";
+		}
+		
+		return msg;
 	}
+	
+	
 
-	// 지역별게시판 등록뷰
-	@GetMapping("/city_regView")
-	public String cityBoardReg() {
 
-		return "board/city_regView";
-	}
 
-	// 지역별 게시판
-	@GetMapping("/api/cityBoard/")
-	public List<BoardVO> cityBoard() {
-		List<BoardVO> clist = bservice.getCitylist();
-		return clist;
-	}
 
 }

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -23,6 +23,6 @@
 		</section>
 	</div>
 	
-	<%@ include file="../footer.jsp"%>
+	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

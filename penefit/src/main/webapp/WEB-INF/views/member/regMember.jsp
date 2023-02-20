@@ -91,8 +91,8 @@ span::after {
 </style>
 </head>
 <body>
-	<div class="container">
 		<%@ include file="../header.jsp"%>
+	<div class="container">
 		<div class="box">
 			<div class="regmem">
 				<div class="reg_main">
@@ -138,7 +138,6 @@ span::after {
 
 			</div>
 		</div>
-		<%@ include file="../footer.jsp"%>
 	</div>
 	<script>
 	$("#blackloupe_img2").click(()=> {

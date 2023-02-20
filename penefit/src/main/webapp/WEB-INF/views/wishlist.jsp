@@ -1,40 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/style.css">
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
-section {
-}
-
 .list_img {
 	width: 100px;
 	height: 100px;
 }
 
 table {
-	text-align:center;
+	margin: 0 auto;
+	text-align: center;
 	width: 1200px;
 }
-th{
-	background-color: #DBD5CB; 
-}
 
+th {
+	background-color: #DBD5CB;
+	height: 35px;
+}
 </style>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
+
 	<c:set var="class_code" scope="page" value="${cvo.class_code }" />
 
 	<div class="box">
 		<section>
 			<h2>위시리스트</h2>
-			<table>
+			<table id="table">
 				<thead>
 					<tr>
 						<th colspan="2">번호</th>
@@ -50,24 +51,8 @@ th{
 			</table>
 		</section>
 	</div>
-	<%@ include file="footer.jsp"%>
 
 	<script>
-	 $("#blackloupe_img2").click(()=> {
-   	  if ($("#divsearch").css("display") == "none") { 
-   	        $("#divsearch").css("display", "block");//display :none 일떄
-   	    } else {
-   	    	 $("#divsearch").css("display", "none"); //display :block 일떄
-   	    } 
-   });
-     $(".title").click(function(){
-   	//  alert("click");
-   	  if ($(".subtitle").css("display") == "none"){
-   		  $(".subtitle").css("display", "block");
-   	  }else{
-   		  $(".subtitle").css("display", "none");
-   	  }
-     });
  
 		//장바구니에 담기
 		$(document).on("click",".addCart", function(evt) {
@@ -110,15 +95,17 @@ th{
 							+ "<button type='button' class='addCart'>장바구니</button></td><td>"
 							+ "<button type='button' class='deleteClass'>&nbsp;&nbsp;X&nbsp;&nbsp;</button></td><td>"
 					);
-					$("tr").css("borderBottom","1px solid #BBB09F");
 					
 				}
+					$("a").css("text-decoration","none");
+					$("a").css("color","black");
+					$("tr").css("borderBottom","1px solid #BBB09F");
+					$("td").css("height","35px");
 			}
 			xhttp.open("GET", "/wishlist3", true);
 			xhttp.send();
 		}
 		
 	</script>
-	<script type="text/javascript" src="js/javascript.js"></script>
 </body>
 </html>

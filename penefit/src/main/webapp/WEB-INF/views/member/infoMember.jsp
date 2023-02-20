@@ -1,49 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link rel="stylesheet" href="resources/css/style.css" type="text/css">
 <!-- jQuery -->
-<script type="text/javascript"
-   src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript"
-   src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.js"
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="../style.css">
 <style>
 .mypageTitle {
-   text-align: center;
-   margin-bottom: 10PX;
+	text-align: center;
+	margin-bottom: 10PX;
 }
 
 .meminfo {
-   width: 600px;
-   height: 800px;
-   border: solid 1px black;
-   margin-left: 200px;
-   margin-top: 100px;
+	width: 500px;
+	height: 700px;
+	margin: 0 auto;
+	margin-top: 30px;
+	border-radius: 7px;
+	padding: 10px;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
 }
 
 .mem_info {
-   margin-top: 60px;
-   margin-left: 110px;
+	margin-top: 60px;
+	margin-left: 110px;
 }
 
 input[type=text] {
-   width: 300px;
-   height: 40px;
-   font-size: 14px;
-   margin-top: 5px;
-   margin-bottom: 10px;
+	width: 300px;
+	height: 40px;
+	font-size: 14px;
+	margin-top: 5px;
+	margin-bottom: 10px;
 }
 
 #modal_history {
-<<<<<<< HEAD
 	position: absolute;
 	width: 450px;
 	height: 500px;
@@ -51,6 +49,10 @@ input[type=text] {
 	background-color: white;
 	z-index: 300;
 	border-radius: 10px;
+	display: inline-block;
+	padding: 20px;
+	top: 170px;
+	left: 700px;
 }
 
 .selectBox {
@@ -79,197 +81,341 @@ input[type=text] {
 	z-index: 600;
 }
 
+#history_content th {
+	background-color: #DBD5CB;
+	height: 35px;
+}
+
+#history_content {
+	margin: 0 auto;
+	text-align: center;
+	width: 900px;
+}
+
+#history_content tr {
+	height: 40px;
+}
+
 #modal_qna {
 	position: absolute;
 	width: 450px;
 	height: 500px;
 	border: 2px solid black;
 	background-color: white;
-	z-index: 600;
+	z-index: 300;
 	border-radius: 10px;
+	display: inline-block;
+	padding: 20px;
+	top: 170px;
+	left: 700px;
 }
+
+input[type='button'] {
+	background-color: #75BD43;
+	border-radius: 7px;
+	border: none;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
+	width: 148px;
+	height: 40px;
+	line-height: 40px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+#delMemBtn {
+	background-color: gray;
+}
+
+h2 {
+	text-align: center;
+	font-size: 35px;
+	margin-bottom: 30px;
+}
+
+table {
+	margin: 0 auto;
+	border: none;
+}
+
+h4 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 35px;
+	margin-bottom: 30px;
+}
+
+#modalClose {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	left: 450px;
+	bottom: 490px;
+	font-size: 40px;
+}
+
+#cancelbtn, #writebtn, #closebtn {
+	width: 150px;
+	height: 40px;
+	background-color: #75BD43;
+	border-radius: 7px;
+	border: none;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
+}
+ #closebtn{
+ 	position: absolute;
+ 	left: 160px;
+ 	bottom: 30px;
+ 
+ }
+#history_detail tr {
+	height: 35px;
+}
+
+#history_detail  th {
+	width: 100px;
+}
+
+.aside_menu:hover {
+	cursor: pointer;
+}
+
+#sugTbl {
+	width: 900px;
+	text-align: center;
+}
+
+#sugTbl  th {
+	background-color: #DBD5CB;
+	height: 35px;
+	margin-top: 20px;
+}
+
+.mypageTitle {
+	text-align: center;
+	font-size: 35px;
+	margin-bottom: 30px;
+}
+
+
+#myclasstbl {
+	width: 900px;
+	text-align: center;
+}
+#myclasstbl th {
+	background-color: #DBD5CB;
+	height: 35px;
+	margin-top: 20px;
+}
+
+#qnatbl {
+	width: 900px;
+	text-align: center;
+}
+#qnatbl th {
+	background-color: #DBD5CB;
+	height: 35px;
+	margin-top: 20px;
+}
+#qna_reply, #qna_detail{
+	width: 400px;
+}
+#qna_reply th{
+text-align: center;}
+
+
+#qna_detail th {
+	text-align: center;
+	}
+	#qna_reply{
+		text-align: left;
+	}
+		#qna_reply tr:nth-of-type(2){
+		text-align: left;
+		height: 150px;
+		overflow: scroll;
+	}
 </style>
 </head>
 <body>
-   <%@ include file="../header.jsp"%>
+	<%@ include file="../header.jsp"%>
 
-   <div class="box">
-      <section>
-         <aside>
-            <ul>
-               <li class="aside_title">마이페이지</li>
-               <li class="aside_menu" id="myinfoLabel">내 정보</li>
-               <li class="aside_menu" id="myHistoryLabel"><a href="#">구매내역</a></li>
-               <li class="aside_menu" id="aside_menu_btn">나의 클래스
-                  <div id="aside_submenu">
-                     <p id="mySuggestLabel">&nbsp;&nbsp;제안내역</p>
-                     <p>
-                     <p id="myClassLabel">&nbsp;&nbsp;클래스내역</p>
-                     <p>
-                     <p>&nbsp;&nbsp;추가?</p>
-                  </div>
-               </li>
-               <li class="aside_menu" id="myInquiryLabel">나의 문의내역</li>
-            </ul>
+	<div class="box">
+		<section>
+			<aside>
+				<ul>
+					<li class="aside_title">마이페이지</li>
+					<li class="aside_menu" id="myinfoLabel">내 정보</li>
+					<li class="aside_menu" id="myHistoryLabel"><a href="#">구매내역</a></li>
+					<li class="aside_menu" id="aside_menu_btn">나의 클래스
+						<div id="aside_submenu">
+							<p id="mySuggestLabel">&nbsp;&nbsp;제안내역</p>
+							<p>
+							<p id="myClassLabel">&nbsp;&nbsp;클래스내역</p>
+							<p>
+							<p>&nbsp;&nbsp;추가?</p>
+						</div>
+					</li>
+					<li class="aside_menu" id="myInquiryLabel">나의 문의내역</li>
+				</ul>
 
-         </aside>
-         <div class="content" id="myinfo">
-            <div class="meminfo">
-               <div class="mem_info">
-                  <div id="mem_maintitle">
-                     <h2>내 정보 관리</h2>
-                     <hr>
-                  </div>
+			</aside>
+			<div class="content" id="myinfo">
+				<h2>내 정보 관리</h2>
+				<div class="meminfo">
+					<div class="mem_info">
+						<div id="mem_maintitle"></div>
 
 
-                  <div id="mem_id">
-                     아이디<br> <input type="text" name="member_id"
-                        value="${member_id }">
-                  </div>
-                  <div id="mem_pw">
-                     비밀번호<br> <input type="text" name="member_pw"
-                        value="${memberinfo.member_pw }">
-                  </div>
-                  <div id="mem_name">
-                     이름<br> <input type="text" name="member_name"
-                        value="${memberinfo.member_name }">
-                  </div>
-                  <div id="mem_tel">
-                     전화번호<br> <input type="text" name="member_tel"
-                        value="${memberinfo.member_tel }">
-                  </div>
-                  <div id="mem_address">
-                     전화번호<br> <input type="text" name="member_address"
-                        value="${memberinfo.member_address }">
-                  </div>
-                  <div id="mem_grade">
-                     회원등급<br> <input type="hidden" name="member_grade"
-                        value="${memberinfo.member_grade }">
-                  </div>
+						<div id="mem_id">
+							아이디<br> <input type="text" name="member_id"
+								value="${member_id }">
+						</div>
+						<div id="mem_pw">
+							비밀번호<br> <input type="text" name="member_pw"
+								value="${memberinfo.member_pw }">
+						</div>
+						<div id="mem_name">
+							이름<br> <input type="text" name="member_name"
+								value="${memberinfo.member_name }">
+						</div>
+						<div id="mem_tel">
+							전화번호<br> <input type="text" name="member_tel"
+								value="${memberinfo.member_tel }">
+						</div>
+						<div id="mem_address">
+							주소<br> <input type="text" name="member_address"
+								value="${memberinfo.member_address }">
+						</div>
+						<div id="mem_grade">
+							<br> <input type="hidden" name="member_grade"
+								value="${memberinfo.member_grade }">
+						</div>
 
-                  <div id="mem_buttons">
-                     <input type="button" name="mem_update" value="정보수정"
-                        onclick="UpdateMem()"> <input type="button"
-                        name="mem_delete" value="회원탈퇴" onclick="delMem()">
-                  </div>
-               </div>
-            </div>
+						<div id="mem_buttons">
+							<input type="button" name="mem_update" value="정보수정"
+								onclick="UpdateMem()"> <input type="button"
+								name="mem_delete" value="회원탈퇴" id="delMemBtn" onclick="delMem()">
+						</div>
+					</div>
+				</div>
 
-         </div>
-         <div class="content" id="purchaseHistory">
-            <h3 class="mypageTitle">[구매내역]</h3>
-            <!-- 구매상세내역 모달 -->
-            <div id="modal_history_case">
-               <div id="modal_history">
-                  <h4>구매상세내역</h4>
-                  <button type="button" id="modalClose">Ｘ</button>
+			</div>
+			<div class="content" id="purchaseHistory">
+				<h2 class="mypageTitle">구매내역</h2>
+				<!-- 구매상세내역 모달 -->
+				<div id="modal_history_case">
+					<div id="modal_history">
+						<h4>구매상세내역</h4>
+						<button type="button" id="modalClose">Ｘ</button>
 
-                  <table id="history_detail">
-                     <!-- 구매내역 상세보기 -->
-                  </table>
-                  <button type="button" id="cancelbtn">구매취소하기</button>
-                  <button type="button" id="writebtn">리뷰</button>
+						<table id="history_detail">
+							<!-- 구매내역 상세보기 -->
+						</table>
+						<div style="text-align: center; margin-top: 20px;">
+							<button type="button" id="cancelbtn">구매취소하기</button>
+							<button type="button" id="writebtn">리뷰</button>
+						</div>
+						<div class="selectBox">
+							<select id="selectClass">
 
-                  <div class="selectBox">
-                     <select id="selectClass">
+							</select>
+							<button type="button" id="gotoReviewForm">리뷰작성하러가기</button>
+						</div>
+					</div>
+				</div>
 
-                     </select>
-                     <button type="button" id="gotoReviewForm">리뷰작성하러가기</button>
-                  </div>
-               </div>
-            </div>
+				<!-- 구매리스트 -->
+				<table id="history_content">
+					<thead>
+						<tr>
+							<th>구매번호</th>
+							<th>주문번호</th>
+							<th>구매일자</th>
+							<th>구매내용</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					<tbody id="historyTbody">
+						<!-- 구매리스트 -->
+					</tbody>
+				</table>
+			</div>
+			<div class="content" id="myClassSuggest">
+				<h2 class="mypageTitle">클래스제안내역</h2>
+				<table id="sugTbl">
+					<thead>
+						<tr>
+							<th>분류</th>
+							<th style="width: 300px;">제목</th>
+							<th>지역</th>
+							<th>시간대</th>
+							<th>참가비</th>
+							<th>정원</th>
+							<th>등록일</th>
+						</tr>
+					</thead>
 
-            <!-- 구매리스트 -->
-            <table border="1">
-               <thead>
-                  <tr>
-                     <th>구매번호</th>
-                     <th>주문번호</th>
-                     <th>구매일자</th>
-                     <th>구매내용</th>
-                     <th>상태</th>
-                  </tr>
-               </thead>
-               <tbody id="historyTbody">
-                  <!-- 구매리스트 -->
-               </tbody>
-            </table>
-         </div>
-         <div class="content" id="myClassSuggest">
-            <h3 class="mypageTitle">[클래스제안내역]</h3>
-            <table border="1">
-               <thead>
-                  <tr>
-                     <th>분류</th>
-                     <th>제목</th>
-                     <th>지역</th>
-                     <th>시간대</th>
-                     <th>참가비</th>
-                     <th>최대정원</th>
-                     <th>등록일</th>
-                  </tr>
-               </thead>
+					<tbody id="suggestionBody"></tbody>
 
-               <tbody id="suggestionBody"></tbody>
+				</table>
+			</div>
+			<div class="content" id="myClassList">
+				<h2 class="mypageTitle">나의클래스</h2>
+				<table id="myclasstbl">
+					<thead>
+						<tr>
+							<th style="width: 300px;">제목</th>
+							<th>강사</th>
+							<th>강의일자</th>
+							<th>지역</th>
+						</tr>
+					</thead>
 
-            </table>
-         </div>
-         <div class="content" id="myClassList">
-            <h3 class="mypageTitle">[나의클래스]</h3>
-            <table border="1">
-               <thead>
-                  <tr>
-                     <th>제목</th>
-                     <th>강사</th>
-                     <th>강의일자</th>
-                     <th>지역</th>
-                  </tr>
-               </thead>
+					<tbody id="myClassListBody"></tbody>
 
-               <tbody id="myClassListBody"></tbody>
+				</table>
 
-            </table>
-         
-         </div>
-         <div class="content" id="myInquiry">
-            <h3 class="mypageTitle">[문의내역]</h3>
-            <table>
-               <thead>
-                  <tr>
-                     <th>문의번호</th>
-                     <th>문의글</th>
-                     <th>상태</th>
-                     <th>등록일</th>
-                  </tr>
-               </thead>
-               <tbody id="qnaTbody">
-                  <!--  -->
-               </tbody>
-            </table>
+			</div>
+			<div class="content" id="myInquiry">
+				<h2 class="mypageTitle">문의내역</h2>
+				<table id="qnatbl">
+					<thead>
+						<tr>
+							<th>문의번호</th>
+							<th>문의글</th>
+							<th>상태</th>
+							<th>등록일</th>
+						</tr>
+					</thead>
+					<tbody id="qnaTbody">
+						<!--  -->
+					</tbody>
+				</table>
 
-            <div id="modal_qna_case">
-               <div id="modal_qna">
-                  <h4>문의상세내역</h4>
-                  <table id="qna_detail">
-                     <!-- 문의 상세보기 -->
-                  </table>
-                  <table id="qna_reply">
-                     <!-- 문의 답변 -->
-                     <tr>
-                        <th>답변 내용</th>
-                        <td id="qna_reply_content"></td>
-                     </tr>
-                  </table>
-                  <button type="button" id="closebtn">뒤로 돌아가기</button>
+				<div id="modal_qna_case">
+					<div id="modal_qna">
+						<h4>문의상세내역</h4>
+						<table id="qna_detail">
+							<!-- 문의 상세보기 -->
+						</table>
+						<table id="qna_reply">
+							<!-- 문의 답변 -->
+							<tr>
+								<th>답변 내용</th>
+							</tr>
+							<tr>
+								<td id="qna_reply_content" style="height: 200px; "> </td>
+							</tr>
+						</table>
+						<button type="button" id="closebtn">뒤로 돌아가기</button>
 
-               </div>
-            </div>
+					</div>
+				</div>
 
-         </div>
-      </section>
-   </div>
-   <%@ include file="../footer.jsp"%>
-   <script>
+			</div>
+		</section>
+	</div>
+	<script>
       $("#aside_menu_btn").mouseover(function() {
          $("#aside_submenu").css("display", "block");
       });
@@ -330,7 +476,6 @@ input[type=text] {
               contentType: "application/json",
               data : JSON.stringify(member),
               success: (data) => {
-                 alert(data);
               },
               error : () => {
                  alert("error");
@@ -364,13 +509,17 @@ input[type=text] {
              let list =JSON.parse(data);
              for(let i=0;i<list.length;i++){
                $("#historyTbody").append(
-                     "<tr><td><a href='#' class='modal_history'>" + list[i].buy_history_num + "</a></td>"
+                     "<tr class='tr'><td><a href='#' class='modal_history'>" + list[i].buy_history_num + "</a></td>"
                      +"<td><a href='#' class='modal_history'>" + list[i].merchant_uid +"</a></td>"
                      +"<td><a href='#' class='modal_history'>" + list[i].buy_history_date +"</a></td>"
                      +"<td><a href='#' class='modal_history'>" + list[i].name+ "</a></td>"
                      +"<td><a href='#' class='modal_history'>" + list[i].buy_history_current +  "</a></td></tr>");
-            }
+            
              }
+               $("#historyTbody td").css("border-bottom","thin solid #BBB09F");
+	            $("#historyTbody a").css("color","black");
+	            $("#historyTbody a").css("text-decoration","none");
+           }
            xhttp.open("GET", "/historyList", true);
            xhttp.send();
            
@@ -396,7 +545,6 @@ input[type=text] {
                   alert("취소 처리 되었습니다.");
                   //취소function
                   let buy_history_num = $(".buy_history_num").val();
-                  alert(buy_history_num);
                   cancelClass(buy_history_num);
                }else if($(".current").text()=="취소완료"){
                   alert("이미 취소된 주문입니다.");
@@ -438,9 +586,9 @@ input[type=text] {
                    + "<tr><th>상태</th><td class='current'>" + json.buy_history_current +"</td></tr>"
                    + "<tr><th>내용</th><td>" + json.name +"</td></tr>"
                    );
-            
              
              }
+	            
            xhttp.open("GET", "/OneHistory/buy_history_num/" + buy_history_num, true);
            xhttp.send();
            
@@ -490,6 +638,10 @@ input[type=text] {
                      +"<td class='viewReply'>" + json[i].qna_regdate + "</td></tr>"   
                )
             }
+               $("td").css("border-bottom","thin solid #BBB09F");
+               $("td").css("height","40px");
+	            $("a").css("color","black");
+	            $("a").css("text-decoration","none");
          }
          xhttp.open("GET", "/qnaList", true);
          xhttp.send();
@@ -510,6 +662,9 @@ input[type=text] {
                      +"<tr><th>상태</th><td class='viewReply'>" + obj.qna_status + "</td></tr>"
                      +"<tr><th>등록일</th><td class='viewReply'>" + obj.qna_regdate + "</td></tr>");
                qnaReply(qna_num);
+               $("td").css("border-bottom","thin solid #BBB09F");
+	            $("a").css("color","black");
+	            $("a").css("text-decoration","none");
          }
          xhttp.open("GET", "/qnaOneList/qna_num/" + qna_num, true);
          xhttp.send();
@@ -526,7 +681,6 @@ input[type=text] {
          const xhttp = new XMLHttpRequest();
          xhttp.onload = function() {
             let data = this.responseText;
-            alert(data);
                $("#qna_reply_content").text(data);   
          }
          xhttp.open("GET", "/qnaReply/qna_num/" + qna_num, true);
@@ -539,6 +693,7 @@ input[type=text] {
       });
       
       $.ajax({
+    	 
          url: "/class/list/my",
          method: "POST",
          dataType: "json",
@@ -546,12 +701,16 @@ input[type=text] {
             member_id: "${member_id}"
          },
          success: (data) => {
+        	 $("#myClassListBody").empty();
             for(let i = 0; i < data.length; i++){
                $("#myClassListBody").append("<tr>"
                      + "<td>" + data[i].class_subject + "</td><td>" + data[i].class_teacher + "</td>"
                      + "<td>" + data[i].city_date + "</td><td>" + data[i].class_name + "</td>"
                      + "</tr>");
             }
+               $("td").css("border-bottom","thin solid #BBB09F");
+	            $("a").css("color","black");
+	            $("a").css("text-decoration","none");
          },
          error: () => {
             alert("error");
@@ -576,6 +735,9 @@ input[type=text] {
                      + "<td>" + data[i].suggest_regdate + "</td>"
                      + "</tr>");
             }
+               $("td").css("border-bottom","thin solid #BBB09F");
+	            $("a").css("color","black");
+	            $("a").css("text-decoration","none");
          },
          error: () => {
             alert("error");
@@ -584,6 +746,5 @@ input[type=text] {
       })
       
       </script>
-
 </body>
 </html>

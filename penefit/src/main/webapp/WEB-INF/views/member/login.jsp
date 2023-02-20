@@ -6,10 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
-*{
-/* border :1px solid pink; */
-}
 section{
 text-align: center;
 }
@@ -111,6 +109,5 @@ function submit_check(){
 };
 
 </script>
-<script type="text/javascript" src="js/javascript.js"></script>
 </body>
 </html>
