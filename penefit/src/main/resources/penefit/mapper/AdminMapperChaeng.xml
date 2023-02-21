@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.penefit.moons.mapper.AdminMapperChaeng">
+
+	<!-- 전체 qna리스트  -->
+	<select id="getAdminQnaList" resultType="com.penefit.moons.domain.QnAVO">
+		select * from qna
+	</select>
+	
+	<!-- qna리스트 필터 -->
+	<select id="getAdminQnaWithFilter" resultType="com.penefit.moons.domain.QnAVO">
+		select * from qna where #{filterKey}
+	</select>
+	
+	<!-- qna상세보기 -->
+	<select id="adminQnaDetail" resultType="com.penefit.moons.domain.QnAVO">
+		select * from qna where qna_num = #{qnaNum}
+	</select>
+	
+	<!-- qna 답변등록하기 -->
+	<insert id="regReplyforQna">
+		insert into reply (reply_content, reply_regdate, member_id, qna_num, reply_type) 
+		values(#{param1 }, now(), #{param2},#{param3}, 'Q')
+	</insert>
+	
+	<!-- 답변시 상태변경 -->
+	<update id="changeQnaStatus">
+		update qna set qna_status = '답변완료' where qna_num = #{param1}
+	</update>
+	
+	<!-- 답변내용을 표시 -->
+	<select id="replyofQna" resultType="string">
+		select reply_content from reply where qna_num = #{param1}
+	</select>
+	
+</mapper>

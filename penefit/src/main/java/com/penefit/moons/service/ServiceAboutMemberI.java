@@ -1,5 +1,7 @@
 package com.penefit.moons.service;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,4 +25,20 @@ public interface ServiceAboutMemberI {
 	public MemberVO selectOne(String id);
 	//회원탈퇴
 	public String DeleteMem(HttpSession session, String id);
+	
+	//관리자 회원목록
+	public ArrayList<MemberVO> selectAll();
+	//관리자 회원 찾기(아이디)
+	public ArrayList<MemberVO> selectid(String id);
+	//관리자 회원 찾기(이름)
+	public ArrayList<MemberVO> seletname(String name);
+	//관리자 회원 찾기(등급)
+	public ArrayList<MemberVO> selectgrade(String grade);
+	//관리자 등급변경
+	public String updateGrade(String id, String grade);
+	//관리자 회원정보수정
+	public String updateMemberManager(MemberVO member);
+	//관리자 회원탈퇴
+	public String deleteMemberManager(String id);
+		
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,26 +37,42 @@
 							</p>
 						</div>
 					</li>
-					<li class="aside_menu"><a href="#">베스트 클래스</a></li>
-					<li class="aside_menu"><a href="classList-new">신규 클래스</a></li>
+			<li class="aside_menu"><a href="classList-new">신규 클래스</a></li>
+					<li class="aside_menu"><a href="classList-expired">지난클래스</a></li>
 				</ul>
 
 			</aside>
 			<div class="content" id="listBox">
 				<c:forEach var="c" items="${list }">
 					<div class="class_one">
-						<a href="class-detail?class_code=${c.class_code }"><img src="../images/${c.suggest_photo }"></a>
+						<a href="class-detail?class_code=${c.class_code }"><img src="../images/${fn:split(c.suggest_photo,'-')[0]}"></a>
+						<br><hr><br>
 						<p>
 							<a href="class-detail?class_code=${c.class_code }">${c.class_subject }</a>
 						</p>
+						<p>${c.class_price }</p>
 						<p>${c.class_teacher }</p>
 					</div>	
 				</c:forEach>
 			</div>
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
 	<script>
+	$("#blackloupe_img2").click(()=> {
+  	  if ($("#divsearch").css("display") == "none") { 
+  	        $("#divsearch").css("display", "block");//display :none 일떄
+  	    } else {
+  	    	 $("#divsearch").css("display", "none"); //display :block 일떄
+  	    } 
+  });
+    $(".title").click(function(){
+  	//  alert("click");
+  	  if ($(".subtitle").css("display") == "none"){
+  		  $(".subtitle").css("display", "block");
+  	  }else{
+  		  $(".subtitle").css("display", "none");
+  	  }
+    });
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
 			$("#aside_submenu").css("display", "block");

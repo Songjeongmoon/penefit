@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.penefit.moons.mapper.MapperAboutDashBoard">
+	
+	<select id ="teacherSelectALL" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT * FROM member WHERE member_grade = 'B'
+	</select>
+	
+	<select id="selectClassToday" resultType="com.penefit.moons.domain.ClassVO">
+		 SELECT * FROM class WHERE class_date LIKE CONCAT('%',#{class_date},'%')
+	</select>
+	
+	<select id="SuggestionList" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT * FROM suggest 
+	</select>
+	
+</mapper>

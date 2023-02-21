@@ -6,6 +6,4 @@
 <insert id="noticeReg">
 INSERT INTO notice(notice_title,notice_content,member_id,notice_regdate,notice_viewcnt) VALUES (#{notice_title},#{notice_content},#{member_id}, now(),0)
 </insert>
-
-
 </mapper>

@@ -62,10 +62,9 @@
 
 				<button type="button" id="check_city" onclick="one_City()">선택</button>
 				&nbsp;&nbsp;&nbsp; <input type="text" name="keyword" id="keyword"
-					placeholder="제목을 입력하세요..."> <input type="button" value="검색"
-					id="searchBtn" onclick="search_city()">
-
-				<div align="right">
+					placeholder="검색어를 입력하세요..."> <input type="button"
+					value="검색" id="searchBtn" onclick="search_city()">
+				<div>
 					<button type="button" onclick="location.href='city_regView'">글쓰기</button>
 				</div>
 
@@ -102,10 +101,8 @@
 			$("#aside_submenu").css("display", "none");
 		});
 		
-
-		<!-- 2. 이동버튼을 클릭했을때, 선택된 값을 받아와야해 -->
-		all_City();
 		
+		all_City();
 		
 		function all_City(){
 			
@@ -142,7 +139,7 @@
 				return false;
 			}
 			const tbody = document.querySelector("#tbody1");
-			 tbody.replaceChildren();
+			$("tbody").empty();
 	         const xhttp = new XMLHttpRequest();
 	         xhttp.onload = function() {
 
@@ -152,21 +149,18 @@
 
 	            for (let i = 0; i < obj.length; i++) {
 	               tbody.innerHTML += "<tr><td>" + obj[i].board_num
-	               					+ "</td><td>"+ obj[i].city_code
+	               					+ "</td><td>"+ obj[i].city_name
 	               				 	+ "</td><td><a href='city_detail?board_num="+obj[i].board_num+"'>"+ obj[i].board_title
 	                     			+ "</a></td><td>" + obj[i].member_id  
 	                   	 		 	+ "</td><td>" + obj[i].board_viewcnt
 	                     			+ "</td><td>" + obj[i].board_regdate + "</td><tr>";     
-	             
 	            }
 	         }
 	         xhttp.open("GET","/api/oneCityBoard?check_city=" +check_city);
 	         xhttp.send();
 	    }
 		
-		//const obj = document.querySelector().val;
-		
-  function search_city(){
+  		function search_city(){
             
             $("#tbody1").empty();         
             const citysel= $("select[name='sel']").val();
@@ -182,10 +176,8 @@
                        success:function(data){
                               for(let i=0 ; i<data.length ; i++){
                                   $("#tbody1").append("<tr><td>" + data[i].board_num +
-                                                 "</td><td>" + data[i].city_code +
-                                                 "</td><td>" + data[i].board_title +
-                                                 "</td><td>" + data[i].member_tel +
-                                                 "</td><td>" + data[i].board_content +
+                                                 "</td><td>" + data[i].city_name +
+                                                 "</td><td><a href='city_detail?board_num="+data[i].board_num+"'>" + data[i].board_title +
                                                  "</td><td>" + data[i].member_id +
                                                  "</td><td>" + data[i].board_viewcnt +
                                                  "</td><td>" +data[i].board_regdate + 

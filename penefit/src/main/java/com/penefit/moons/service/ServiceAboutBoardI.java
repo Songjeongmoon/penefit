@@ -20,6 +20,9 @@ public interface ServiceAboutBoardI {
 	//공지사항 삭제
 	public int delNotice(int notice_num);
 	
+//	//공지사항 페이징
+//	public int getPaging(int page_num);
+	
 	//---------------------------------------
 
 	//지역전체 게시판
@@ -58,9 +61,5 @@ public interface ServiceAboutBoardI {
 
 	
 	//---------------------------------------
-	
-	
-
-
 
 }

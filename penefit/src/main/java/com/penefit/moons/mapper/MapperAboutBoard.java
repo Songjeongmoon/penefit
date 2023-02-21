@@ -26,6 +26,10 @@ public interface MapperAboutBoard {
 
 	// 공지사항 삭제
 	public int delNotice(@Param("notice_num") int notice_num);
+	
+//	//공지사항 페이징
+//	public int getPaging(int page_num);
+//		
 
 	// -----------------------------------
 	// 지역별 게시판 등록

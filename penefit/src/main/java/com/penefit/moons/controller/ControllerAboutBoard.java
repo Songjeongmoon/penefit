@@ -27,7 +27,10 @@ public class ControllerAboutBoard {
 	@GetMapping("/notice")
 	public void getNoticeList(Model model) {  
 		List<NoticeVO> nlist = bservice.getNoticeList() ;
+		//int plist = bservice.getPaging(page_num);
 		model.addAttribute("nlist", nlist);
+		//model.addAttribute("plist", plist);
+		
 		//System.out.println("컨트롤러 : " + nlist);
 	}
 	
@@ -65,14 +68,13 @@ public class ControllerAboutBoard {
 		return "redirect:notice";
 	}
 	
-	
 	//FAQ 게시판
 	@GetMapping("/FAQ")
 	public void faqList(Model model) {
 		List<BoardVO> flist = bservice.getFaQList();
 		model.addAttribute("flist",flist);	
 	}
-	
+	 
 	//FAQ 게시판 상세
 	@GetMapping("/faq_detail")
 	public void faqSelectOne(@RequestParam("board_num") int board_num, Model model) {
@@ -93,18 +95,7 @@ public class ControllerAboutBoard {
 		return "board/city_regView";
 	}
 	
-	//지역 게시판 글등록
-	
-	
-	//@PostMapping("/cityReg.do")
-	public String cityBoardRegDo2(BoardVO bvo) {
-		bservice.cityReg(bvo);
-		System.out.println("bvo:"+bvo);
-		
-		return "redirect:citycity";
-	}
-	
-	
+
 	//지역 게시판 상세보기
 	@GetMapping("/city_detail")
 	public void citySelectOne(@RequestParam("board_num") int board_num, Model model) {
@@ -123,16 +114,11 @@ public class ControllerAboutBoard {
 	//지역게시판 검색
 	@GetMapping("/citySearch")
 	public @ResponseBody List<BoardVO> getSearchCity(Model model, String keyword, String citysel) {
-		System.out.println(keyword);
-		System.out.println("=======================");
-		System.out.println(citysel);
+	
 		List<BoardVO> list = bservice.searchCity(keyword, citysel);
-		
-		
 		return list;
 	}
 
-	
 	//공지사항 수정 view로
 	@GetMapping("/city_modiView")
 	public String modiCity(@RequestParam int board_num, Model model) {

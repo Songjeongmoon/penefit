@@ -35,7 +35,7 @@
 						</tr>
 						<tr>
 							<th>작성자</th>
-							<td id="writer">${cvo.member_id }</td>
+							<td>${cvo.member_id }</td>
 						</tr>
 						<tr>
 							<th>제목</th>
@@ -47,7 +47,7 @@
 						</tr>
 						<tr>
 							<th>작성일</th>
-							<td id="date">${cvo.board_regdate }</td>
+							<td>${cvo.board_regdate }</td>
 						</tr>
 
 						<tr>
@@ -68,18 +68,17 @@
 					<button type="button" onclick="location.href='cityBoardview'">목록</button>
 				</table>
 
-
 				<br>
 				<hr>
 
 				<div class="reply_container">
 					<div class="reply_reg">
-						<input type="text" name="board_num" value="${cvo.board_num }">
+						<input type="hidden" name="board_num" value="${cvo.board_num }">
 						<input type="hidden" name="reply_num" value="${reply_num}">
 						<input type="hidden" name="reply_type" value="C"><br>
-						<input type="text" name="member_id" value="${member_id }"
-							readonly="readonly"><br>
-						<textarea name="reply_content" id="rReply"></textarea>
+						<input type="hidden" name="member_id" value="${member_id }"
+						 id="writer"	readonly="readonly"><br>
+						<textarea name="reply_content" id="rReply" placeholder="댓글 내용을 입력해주세요."></textarea>
 						<br> <input type="button" value="등록" onclick="regReply()">
 					</div>
 				</div>
@@ -104,6 +103,8 @@
 	</div>
 	<%@ include file="../footer.jsp"%>
 	<script>
+	
+	alert($("#writer").val());
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
 			$("#aside_submenu").css("display", "block");
@@ -131,6 +132,10 @@
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
 				this.responseText;
+				window.location.reload();
+				
+			
+				
 			}
 			xhttp.open("POST", "/api/city/reply", true);
 			xhttp.setRequestHeader("Content-type", "application/json");
@@ -138,7 +143,7 @@
 		}
 
 		//댓글 리스트
-
+		
 		getReplyList();
 		
 		function getReplyList() {
@@ -150,30 +155,27 @@
 				let data = this.responseText;
 				let obj = JSON.parse(data);
 				
-				
 				for (let i = 0; i < obj.length; i++) {
-					tbody.innerHTML += "<tr><td><input type='hidden' name='board_num' value='" + obj[i].reply_num + "'>"
+					let msg = "";
+					if("${sessionScope.member_id }" == obj[i].member_id){
+						msg = "<td><button type='button' class ='delBtn'>삭제</button></td></tr>";
+            		} else{
+            			msg = "</tr>";
+            		}
+					
+					tbody.innerHTML += "<tr><td><input type='hidden' name='reply_num' value='" + obj[i].reply_num + "'>"
 									+ obj[i].reply_content
 									+ "</td><td>"
-									+ obj[i].member_id +"</td></tr>";
-					if("${member_id }" == $("#writer").text()){
-                		tbody.innerHTML += "<td><button type='button' class ='delBtn'>삭제</button></td></tr>";
-            		} else{
-						tbody.innerHTML += "</tr>";                  
-    				}
+									+ obj[i].member_id +"</td>" + msg;
 				}
 			}
 			xhttp.open("GET", "/api/city/replyList/board_num/" + board_num, true);
 			xhttp.send();
 		}
 		
-		
 		$(document).on("click",".delBtn", function(evt){
-			//document에 로드 된것 중 class이름이 delBtn인것을 클릭하면 실행하겠다. 
 			
-			//버튼(evt가 발생한 타겟)을 기준으로 부모 : td --> 부모 --> tr --> 0번째 자식 -->첫번째 td --> 내용물
 			let reply_num = evt.target.parentElement.parentElement.children[0].children[0].value;
-			alert(reply_num);
 			delReply(reply_num);
 		
 		})
@@ -181,22 +183,14 @@
 		function delReply(reply_num) {
   			const xhttp = new XMLHttpRequest();
  			 xhttp.onload = function() {
-  			  alert(this.responseText);
+  			  //alert(this.responseText);
  				getReplyList();
   			  }
  			 xhttp.open("DELETE", "/api/city/delReply/reply_num/"+ reply_num, true);
  			 xhttp.setRequestHeader("Content-type", "application/json");
  			 xhttp.send();
 		}
-		//1. url를 넣는다.
-		//2. get/put/post/delete를 넣는다.
-		//3. 들어가는 변수값이 있는지 확인한다.
 		
-		//만약에 조회이면 ?
-		//this.responseText를 신경써야해!
-		//1. let data = this.responseText; 데이터에 담는다. 
-		//2. let obj = JSON.parse(data) 제이슨 형태로 변환해 준다.
-		//3. list이면 반복문에, 아니면 obj.변수명 으로 뽑아서 원하는 위치에 출력한다. 
 		
 		
 	</script>

@@ -36,7 +36,7 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 	
 	@Override		//공지사항 수정
 	public void modiNotice(NoticeVO nvo) {
-		System.out.println(nvo);
+		
 		bmapper.modiNotice(nvo);
 	}
 
@@ -46,6 +46,13 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		
 		return result;
 	}
+	
+//	//공지사항 페이징처리
+//	@Override
+//	public int getPaging(int page_num) {
+//		int result = bmapper.getPaging();
+//		return result;
+//	}
 	
 	//전체 지역 게시판 리스트
 	@Override
@@ -115,9 +122,6 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		return result;
 	}
 
-
-	
-
 	@Override
 	public List<BoardVO> getFaQList() {
 		List<BoardVO> flist = bmapper.getFaQList();
@@ -128,6 +132,8 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		BoardVO faq = bmapper.getFaQselectOne(board_num);
 		return faq;
 	}
+
+	
 
 
 

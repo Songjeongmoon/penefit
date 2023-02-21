@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-session.setAttribute("member_id", "eseo");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,7 +86,7 @@ session.setAttribute("member_id", "eseo");
 		})
 		
 		
-			$("#cityreg").click(function(evt){
+		$("#cityreg").click(function(evt){
 				evt.preventDefault();
 			
 		   const member_id="${member_id}";
