@@ -106,25 +106,25 @@ public interface MapperAboutClass {
 	public void delClassList(@Param(value = "buy_history_num")String buy_history_num, @Param(value = "member_id")String member_id);
 
 	//리뷰등록
-	public void addReview(@Param(value = "class_code")String class_code,@Param(value = "review_content") String review_content,@Param(value = "member_id") String member_id,@Param(value = "score") int score);
+	public void addReview(@Param(value = "buy_history_num") int buy_history_num, @Param(value = "review_photo") String review_photo,@Param(value = "class_code")String class_code, @Param(value = "review_content") String review_content,@Param(value = "member_id") String member_id,@Param(value = "score") Double class_score);
 
 	// 스코어가 있는지 확인하기 
-	public int getScore(@Param("member_id") String member_id);
+	public Double getScore(@Param("member_id") String member_id);
 	
 	//스코어가 있다면 업데이트
-	public void updateScore(@Param(value = "score")int score, @Param("member_id") String member_id);
+	public void updateScore(@Param(value = "score")Double score, @Param("member_id") String member_id);
 	
 	//스코어가 없다면 등록
-	public void addScore(@Param(value = "score")int score, @Param("member_id") String member_id);
+	public void addScore(@Param(value = "score")Double score, @Param("member_id") String member_id);
 
 	//선생님 id받아오기
 	public String getTeacherId(String class_code);
 
 	//상세보기에 출력할 리뷰
-	public ReviewVO getReview(String class_code);
+	public List<ReviewVO> getReview(String class_code);
 
 	//중복리뷰 방지
-	public List<String> getReviewCheck(@Param(value = "class_code")String class_code,@Param(value = "member_id") String member_id);
+	public int getReviewCheck(@Param(value = "class_code")String class_code,@Param(value = "member_id") String member_id,@Param(value = "buy_history_num") int buy_history_num);
 
 	//마감기한이 지나지 않은 것
 	public ArrayList<ClassVO> getClassList1();
@@ -134,6 +134,9 @@ public interface MapperAboutClass {
 
 	//마감된 목록
 	public ArrayList<ClassVO> getExpiredClassList();
+
+	//리뷰목록받아오기
+	public ArrayList<ReviewVO> getReviewList(@Param(value = "member_id") String member_id);
 
 	
 }
