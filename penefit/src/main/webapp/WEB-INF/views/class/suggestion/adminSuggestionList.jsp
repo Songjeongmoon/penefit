@@ -30,7 +30,6 @@
 
 
 
-<%@ include file="../../footer.jsp" %>
 
 
 <script>

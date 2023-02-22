@@ -1,11 +1,15 @@
 package com.penefit.moons.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.penefit.moons.domain.ClassListDTO;
+import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.QnAVO;
+import com.penefit.moons.domain.SuggestDTO;
 
 @Mapper
 public interface AdminMapperChaeng {
@@ -27,5 +31,6 @@ public interface AdminMapperChaeng {
 
 	//상세보기에 답변표시
 	public String replyofQna(@Param("qnaNum") int param1);
+	
 	
 }

@@ -33,4 +33,20 @@
 		select reply_content from reply where qna_num = #{param1}
 	</select>
 	
+	<!--검토가 필요한 제안  -->
+	<select id="SuggestionList" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		WHERE status = '검토'
+		ORDER BY suggest_regdate ASC
+	</select>
+	
+	<!-- 전체제안	 -->
+	<select id="SuggestionAll" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		ORDER BY suggest_regdate ASC
+	</select>
+	
+	
 </mapper>

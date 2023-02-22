@@ -1,5 +1,6 @@
 package com.penefit.moons.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.penefit.moons.domain.QnAVO;
+import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.service.AdminServiceChaeng;
 
 @Controller
@@ -19,6 +21,11 @@ public class AdminChaengController {
 
 	@Autowired
 	AdminServiceChaeng service;
+	
+	
+	@GetMapping("/adminpage")
+	public void adminpage() {
+	}
 	
 	//관리자 화면 qna 리스트
 	@GetMapping("/adminQnaList")
@@ -48,4 +55,5 @@ public class AdminChaengController {
 		service.changeQnaStatus(qnanum);
 		return "redirect:adminQnaList";
 	}
+	
 }
