@@ -73,7 +73,7 @@ input[id="checkAll"] {
 			<h2>장바구니</h2>
 			<div id="cartbox">
 				<div id="checkbar">
-					<input type="checkbox" id="checkAll" checked><label for="checkAll" checked>전체선택</label>
+					<input type="checkbox" id="checkAll" ><label for="checkAll" checked>전체선택</label>
 					| <label for="deleteAll" id="deleteAll">전체삭제</label> | <label
 						for="deleteSome" id="deleteSome">선택삭제</label> | <label
 						for="deleteExpired" id="deleteExpired">구매불가능 강의삭제</label>
@@ -121,9 +121,10 @@ input[id="checkAll"] {
 		if ($('#checkAll').is(':checked')) {
 			$('.checking').prop('checked', true);
 			calcPrice();
+			alert("amount : " + amount);
 		} else {
 			$('.checking').prop('checked', false);
-			sum=0;
+			amount=0;
 			$("#price").text(0);
 			
 
@@ -191,7 +192,7 @@ input[id="checkAll"] {
 								"<tr><td><input type='hidden' value='"
 								+ list[i].shopping_cart_num
 								+ "'></td><td>"
-										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox' checked class='checking'></td><td>"
+										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox' class='checking'></td><td>"
 										+ "<a href='class/class-detail?class_code="
 										+ list[i].class_code
 										+ "'><img class='list_img' src='images/"+suggest_photo+"' class='cart_img' style='width:100px; height:100px;'></a></td><td>"
@@ -320,10 +321,12 @@ input[id="checkAll"] {
 		}
 
 		//1차 금액계산
-		let sum;
+		let amount;
 		calcPrice();
+		
+		alert("amount : " + amount);
 		function calcPrice() {
-			sum = 0;
+			amount = 0;
 			$("input[class='checking']")
 					.each(
 							function() {
@@ -331,8 +334,8 @@ input[id="checkAll"] {
 									//금액을 계산한다.
 									let pricee = this.parentElement.parentElement.children[6].innerText;
 									let price = parseInt(pricee);
-									sum += price;
-									$("#price").text(sum + " 원");
+									amount += price;
+									$("#price").text(amount + " 원");
 								}
 							});
 		}
@@ -340,15 +343,19 @@ input[id="checkAll"] {
 		//체크 변경시 금액계산
 		$(document).on("click", ".checking", function() {
 			calcPrice();
+			alert("amount : " + amount);
 		});
 
 		//아임포트  결제 API
 		//1. 객체 초기화하기 : 	주문 페이지에서 가맹점 식별코드를 이용하여 IMP 객체를 초기화 합니다.
 		const IMP = window.IMP; // 생략 가능
 		IMP.init("imp13816725"); // 예: imp00000000a
-
+		
 		//2. 결제요청하기
 		function requestPay() {
+			
+			alert("amount : " + amount);
+			
 			let today = new Date();
 			let date = "ORD";
 			let randomStr = Math.random().toString(36).substring(2, 9)
@@ -360,7 +367,7 @@ input[id="checkAll"] {
 				pay_method : "card",
 				merchant_uid : order_num, // 주문번호
 				name : "Penefit 클래스 결제의 건",
-				amount : sum, // 숫자 타입
+				amount : amount, // 숫자 타입
 				buyer_email : "",
 				buyer_name : "${memberinfo.member_name}",
 				buyer_tel : "${memberinfo.member_tel}",
@@ -370,7 +377,7 @@ input[id="checkAll"] {
 				if (rsp.success) {
 					// 결제 성공 시 로직
 					var msg = '결제가 완료되었습니다.';
-					sendParam(sum,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
+					sendParam(amount,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
 					
 
 				} else {
@@ -384,12 +391,12 @@ input[id="checkAll"] {
 			}
 		
 		
-		function sendParam(sum,imp_uid,merchant_uid,pay_method,pg_provider,pg_tid,bank_name,card_name,card_quota,card_number,name,currency,buyer_name,buyer_email,buyer_tel,buyer_addr ){
+		function sendParam(amount,imp_uid,merchant_uid,pay_method,pg_provider,pg_tid,bank_name,card_name,card_quota,card_number,name,currency,buyer_name,buyer_email,buyer_tel,buyer_addr ){
 			class_arr=[];
 			classCode_arr=[];
 			$("input[class='checking']").each(function() {
 						if ($(this).is(":checked") == true) {
-							cartNum = this.parentElement.parentElement.children[0].innerText;
+							cartNum = this.parentElement.parentElement.children[0].children[0].value;
 							class_arr.push(cartNum);
 							let cl_code = this.parentElement.parentElement.children[1].children[0].value;
 							classCode_arr.push(cl_code);
@@ -398,7 +405,7 @@ input[id="checkAll"] {
 			
 			const his_obj = {
 					class_arr : class_arr,
-			    	sum : sum,
+			    	amount : amount,
 			    	imp_uid:imp_uid,
 			    	merchant_uid:merchant_uid,
 			    	pay_method:pay_method,

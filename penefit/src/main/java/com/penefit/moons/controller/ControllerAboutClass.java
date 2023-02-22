@@ -1,21 +1,26 @@
 package com.penefit.moons.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.PageContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 //github.com/eseo99/penefit.git
 
@@ -69,7 +74,7 @@ public class ControllerAboutClass {
 
 	// 검색된 클래스 목록
 	@GetMapping("/classList-search")
-	public String getSearchClassList(Model model,@RequestParam("keyword") String keyword) {
+	public String getSearchClassList(Model model, @RequestParam("keyword") String keyword) {
 		System.out.println("keyword : " + keyword);
 		ArrayList<ClassVO> list = service.getSearchClassList(keyword);
 		model.addAttribute("list", list);
@@ -83,19 +88,21 @@ public class ControllerAboutClass {
 	@GetMapping("/class-detail")
 	public void selectClassOne(Model model, String class_code, HttpSession session) throws Exception {
 		ClassVO cvo = service.selectClassOne(class_code);
-		ReviewVO rvo = service.getReview(class_code);
-		 LocalDateTime now = LocalDateTime.now();
-		 String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		List<ReviewVO> rvo = service.getReview(class_code);
+		
+		
+		LocalDateTime now = LocalDateTime.now();
+		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date1 = dateFormat.parse(cvo.getClass_date());
 		Date date2 = dateFormat.parse(formatedNow);
-		//System.out.println("Date-1: " + dateFormat.format(date1));
-		//System.out.println("Date-2: " + dateFormat.format(date2));
-		if(date1.before(date2)){
+		// System.out.println("Date-1: " + dateFormat.format(date1));
+		// System.out.println("Date-2: " + dateFormat.format(date2));
+		if (date1.before(date2)) {
 			model.addAttribute("status", "마감");
-        } else {
-        	model.addAttribute("status", "진행");
-        }
+		} else {
+			model.addAttribute("status", "진행");
+		}
 		model.addAttribute("rvo", rvo);
 		model.addAttribute("cvo", cvo);
 	}
@@ -106,7 +113,7 @@ public class ControllerAboutClass {
 		String member_id = (String) session.getAttribute("member_id");
 		int result = service.checkCcodeInCart(class_code, member_id);
 		int cntResult = service.checkCntInCart(member_id);
-		
+
 		if (result == 1 || cntResult > 3) {
 			// alert필요!
 		} else {
@@ -117,21 +124,36 @@ public class ControllerAboutClass {
 
 	// 리뷰 등록하기 페이지로
 	@GetMapping("/reviewForm")
-	public void regFormView(Model model, HttpSession session, String class_code) {
+	public void regFormView(Model model, HttpSession session, String class_code, int buy_history_num) {
 		String member_id = (String) session.getAttribute("member_id");
 		ClassVO classinfo = service.selectClassOne(class_code);
 		model.addAttribute("m", member_id);
+		model.addAttribute("buy_history_num", buy_history_num);
 		model.addAttribute("classinfo", classinfo);
 	}
 
 	// 리뷰등록
-	@GetMapping("/reviewList")
-	public String regReview(String class_code, String review_content, String score, HttpSession session) {
+	@PostMapping("/reviewList")
+	public String regReview(ReviewVO review, MultipartFile file, HttpServletRequest request, HttpSession session) {
+		// 필요한 정보받기
 		String member_id = (String) session.getAttribute("member_id");
-		int class_score = Integer.parseInt(score);
-		service.addReview(class_code, review_content, member_id, class_score);
-		String teacher_id = service.getTeacherId(class_code);
-		int member_score = service.getScore(teacher_id);
+		Double class_score = review.getScore();
+		String teacher_id = service.getTeacherId(review.getClass_code());
+		Double member_score = service.getScore(teacher_id);
+		String path = System.getProperty("user.dir") + "\\src\\main\\webapp\\images";
+		// 사진을 저장하기
+		File saveFile = new File(path, file.getOriginalFilename());
+		try {
+			file.transferTo(saveFile);
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+
+		review.setReview_photo(file.getOriginalFilename());
+		// 리뷰를 등록하기
+		service.addReview(review.getBuy_history_num(), review.getReview_photo(), review.getClass_code(), review.getReview_content(), member_id,
+				class_score);
+		// 선생님 평점을 바꾸기
 		if (member_score == 0) {
 			service.addScore(class_score, teacher_id);
 		} else {
