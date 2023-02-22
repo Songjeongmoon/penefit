@@ -8,10 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.3.js"
-	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-	crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <style>
 @font-face {
@@ -78,12 +76,6 @@ animation : slide 2s;
 
 	<div class="box">
 		<section>
-			<div class="searchbox">
-				<input type="text" name="search_keyword" id="search_bar">
-				<button id="search_btn">
-					<img src="../images/loupe.png" id="loupe_img">
-				</button>
-			</div>
 			<div class="banner">
 				<img src="../images/mainbanner1.png">
 				<button class="infomore">자세히보기</button>
@@ -126,16 +118,6 @@ animation : slide 2s;
 	<br>
 	<br>
 	<br>
-	<%@include file = "footer.jsp" %>
-<script>
-	$("#blackloupe_img2").click(()=> {
-		  if ($("#divsearch").css("display") == "none") { 
-		        $("#divsearch").css("display", "block");//display :none 일떄
-		    } else {
-		    	 $("#divsearch").css("display", "none"); //display :block 일떄
-		    } 
-	});
-</script>
+		
 </body>
-
 </html>

@@ -6,12 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.3.js"
+	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+	crossorigin="anonymous"></script>
 <style>
-h2{
-	text-align: center;
-	font-size: 35px;
-	margin-bottom: 20px;
-}
         .layout{
     max-width: 600px;
     margin: 0 auto;
@@ -82,8 +80,8 @@ h2{
 				</ul>
 			</aside>
 			<div class="content">
-				<h2>? FAQ _ 자주묻는 질문 ¿</h2>
-			
+				<h2>? FAQ _ 자주묻는 질문 ¿(임시)</h2>
+				
 		<ul class="qna">
         <li>
             <input type="checkbox" id="qna-1">
@@ -124,8 +122,10 @@ h2{
             </div>
         </li>
     </ul>
-
     </div>
+		</section>
+			
+	</div>
     <script>
 
         $("#question").click(function(){
@@ -136,19 +136,5 @@ h2{
         });
         
     </script>
-			
-		</section>
-	</div>
-	<script>
-		$("#aside_menu_btn").mouseover(function() {
-			//alert('dd');
-			$("#aside_submenu").css("display", "block");
-		})
-		$("#aside_menu_btn").mouseout(function() {
-			//alert('dd');
-			$("#aside_submenu").css("display", "none");
-		})
-	</script>
-	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

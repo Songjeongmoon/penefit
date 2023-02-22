@@ -29,7 +29,6 @@ public class ControllerAboutDashBoard {
 		System.out.println(now.toString());
 		ArrayList<MemberVO>list = serviceDash.teacherSelectALL(); 
 		ArrayList<ClassVO>clist = serviceDash.selectClassToday(now.toString());
-		ArrayList<SuggestDTO>slist=serviceDash.SuggestionList();
 		int classTodayCount = serviceDash.getClassTodayCount();
 		int classEndCount = serviceDash.getClassEndCount();
 		int classActiveCount = serviceDash.getClassActiveCount();
@@ -41,8 +40,14 @@ public class ControllerAboutDashBoard {
 		System.out.println("클래스리스트: "+clist);
 		model.addAttribute("tlist", list);
 		model.addAttribute("clist", clist);
-		model.addAttribute("slist", slist);
-		
+		model.addAttribute("slist", ss);
+		model.addAttribute("classTodayCount", classTodayCount);
+		model.addAttribute("classEndCount", classEndCount);
+		model.addAttribute("classActiveCount", classActiveCount);
+		model.addAttribute("qnaCount", qnaCount);
+		model.addAttribute("qlist", qnalist);
+		model.addAttribute("suggestCunt", suggestCunt);
+	
 		return "/dashboard/dashboard";
 	}
 	

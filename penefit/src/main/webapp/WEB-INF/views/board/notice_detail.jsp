@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/style.css">
 <style>
 h1 {
 text-align: center;
@@ -57,7 +58,6 @@ text-align: center;
 				<c:if test ="${sessionScope.member_id == nvo.member_id }">
 					<button type="button" onclick="location.href='notice_modiView?notice_num=${nvo.notice_num }'">수정</button>
 					<button type="button" onclick="location.href='delNotice?notice_num=${nvo.notice_num }'">삭제</button>
-
 				</c:if>
 					<button type="button" onclick="location.href='notice'">목록</button>
 			</form>
@@ -75,5 +75,6 @@ text-align: center;
 			$("#aside_submenu").css("display", "none");
 		})
 	</script>
+	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

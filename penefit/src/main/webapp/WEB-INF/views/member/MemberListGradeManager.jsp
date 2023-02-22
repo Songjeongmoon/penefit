@@ -141,8 +141,7 @@ $("#tbody").click((e) => {
 	}
 
 })
-<script type="text/javascript" src="js/javascript.js"></script>
-
 </script>
+
 </body>
 </html>

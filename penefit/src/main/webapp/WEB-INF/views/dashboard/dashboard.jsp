@@ -25,6 +25,7 @@
     width:900px;
     height: 1450px;
     border : 1px solid red;
+    display: inline-block;
    
 }
 .dashboard_right{
@@ -53,7 +54,7 @@
     border : 1px solid black;
     display: inline-block;
 }
-#dashboard_classinfo{
+.dashboard_class{
     width:440px;
     height: 500px;
     border : 1px solid black;
@@ -67,7 +68,7 @@
 }
 #daxhboard_suggest{
 	width:900px;
-    height: 190px;
+    height: 220px;
     border : 1px solid black;
     display: inline-block;
 }
@@ -86,6 +87,9 @@
 ol,li{
  list-style: none;
  font-size: 25px;
+}
+#dashboard_todayclasslist{
+margin-top: 10px;
 }
 </style>
 </head>
@@ -112,10 +116,12 @@ ol,li{
                 </div>
                 <div class="dashboard_class">
                 	<div id="dashboard_classlist">
-                	
+                	오늘의 클래스 <%=request.getAttribute("classTodayCount") %>건<br>
+                	예정된 클래스 <%=request.getAttribute("classActiveCount") %>건<br>
+                	지난 클래스 <%=request.getAttribute("classEndCount") %>건<br>
                 	</div>
 	                <div id="dashboard_todayclasslist">
-	                    오늘의 클래스
+	                    오늘의 클래스 리스트
 	                <table border="1">
 	                <tr>
 	                <th>과목명</th><th>강사명</th><th>날짜</th><th>도시코드</th>
@@ -129,15 +135,31 @@ ol,li{
 	                </tr>
 	                </c:forEach>
 	                </table>
+	                <button onclick="location.href='' ">클래스리스트로가기></button>
+
+	                
 	                </div>
 	                
                 </div>
                 <div id="dashboard_qna">
-                    문의내역
-           
+                   QNA미답변 건수 <%=request.getAttribute("qnaCount") %>건<br>
+                     <table border="1">
+	                <tr>
+	                <th>문의아이디</th><th>제목</th><th>내용</th><th>등록일</th>
+	                </tr>
+	                <c:forEach var="qlist" items="${qlist }">
+	                <tr>
+	                <td>${qlist.member_id }</td>
+	                <td>${qlist.qna_title }</td>
+	                <td>${qlist.qna_content }</td>
+	                <td>${qlist.qna_regdate }</td>
+	                </tr>
+	                </c:forEach>
+	                </table><br>
+           			<button onclick="location.href='' ">QNA리스트로가기></button>
                 </div>
                 <div id ="daxhboard_suggest">
-                	제안내역
+                	승인대기중인 제안 <%=request.getAttribute("suggestCunt") %>건<br>
                 <table border="1">
                 <tr>
                 <th>제안아이디</th><th>제안서제목</th><th>제안서등록일</th>
@@ -150,6 +172,7 @@ ol,li{
                 </tr>
                 </c:forEach> 
                 </table>   
+                <button onclick="location.href='' ">제안서 승인페이지로가기></button>
                 </div>
             </div>
             <div class="dashboard_right">
