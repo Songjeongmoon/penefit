@@ -82,26 +82,23 @@ public interface ServiceAboutClassI {
 	void cancelClass(String buy_history_num, String member_id);
 
 	// 리뷰등록
-	public void addReview(String class_code, String review_content, String member_id, int class_score);
+	public void addReview(int buy_history_num, String review_photo, String class_code, String review_content, String member_id,  Double class_score);
 
 	// 스코어가 있는지 확인하기
-	public int getScore(String member_id);
+	public Double getScore(String member_id);
 
 	// 스코어가 있다면 업데이트
-	public void updateScore(int score, String member_id);
+	public void updateScore(Double class_score, String member_id);
 
 	// 스코어가 없다면 등록
-	public void addScore(int score, String member_id);
+	public void addScore(Double class_score, String member_id);
 
 	//선생님 정보
 	public String getTeacherId(String class_code);
 
 	//상세보기에 출력할 후기 목록
-	public ReviewVO getReview(String class_code);
+	public List<ReviewVO> getReview(String class_code);
 
-	//리뷰 중복방지
-	List<String> getReviewCheck(String class_code, String member_id);
-	
 	//마감기간이 지나지 않은 목록
 	public ArrayList<ClassVO> getClassList1();
 
@@ -109,5 +106,10 @@ public interface ServiceAboutClassI {
 	public ArrayList<ClassVO> getOngoingClassList();
 	//마감된 목록
 	public ArrayList<ClassVO> getExpiredClassList();
+	
+	public List<ReviewVO> getReviewList(String member_id);
+
+	public int getReviewCheck(String class_code, String member_id, int buy_history_num);
+
 
 }

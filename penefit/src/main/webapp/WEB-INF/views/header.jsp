@@ -119,7 +119,7 @@
 	$("#search_btn").click(function() {
 		let keyword = $("#search_bar1").val();
 		alert(keyword);
-		let url1 = "classList-search?keyword=" + keyword;
+		let url1 = "/class/classList-search?keyword=" + keyword;
 		alert(url1);
 		location.href = url1;
 	});
@@ -127,7 +127,7 @@
 	$("#search_bar1").keyup(function(evt) {
 		if (evt.keyCode == 13) {
 			let keyword = $("#search_bar1").val();
-			let url2 = "classList-search?keyword=" + keyword;
+			let url2 = "/class/classList-search?keyword=" + keyword;
 			alert(url2);
 			location.href = url2;
 		}

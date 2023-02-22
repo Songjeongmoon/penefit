@@ -132,6 +132,12 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		BoardVO faq = bmapper.getFaQselectOne(board_num);
 		return faq;
 	}
+
+	@Override
+	public int getPaging(int page_num) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 
 

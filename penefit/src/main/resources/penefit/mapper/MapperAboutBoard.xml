@@ -92,8 +92,8 @@
 </select>
 
 
-<select id="paging" resultType="com.penefit.moons.domain.BoardVO">
-	SELECT * FROM board order by board_num limit #{page_num}, #{content_num}
+<select id="paging" resultType="com.penefit.moons.domain.NoticeVO">
+	SELECT * FROM notice order by notice_num limit #{page_num}, #{content_num}
 </select>
 <select id="testcount" resultType="int">
 	select count(*) from test
