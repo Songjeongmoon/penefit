@@ -129,10 +129,53 @@ position: absolute;
 	top: 500px;
 }
 #detailview{
-	width: 100%;
+	width: 800px;
 	height: 100%;
 	margin-bottom: 200px;
 }
+.oneDetail{
+	width: 200px;
+	border : 1px solid red;
+	height: 200px;
+	display: flex;
+	flex-wrap : wrap;
+	margin : 10px 5px;
+	margin-right : 10px;
+	align-items: flex-start;
+}
+#class_detail_img{
+	margin: 0 auto;
+	}
+#detail_box2{
+display: none;
+position : absolute;
+top : 520px;
+overflow: hidden;
+border: 1px solid green;
+left : 220px;
+
+}
+ #class_detail_info{
+ 	width: 400px;
+ } 
+ .oneDetail div{
+  font-size: 15px;
+ }
+  .oneDetail span:nth-of-type(3){
+  font-size: 15px;
+ }
+  .oneDetail span:nth-of-type(4){
+  font-size: 15px;
+ }
+   .oneDetail span:nth-of-type(5){
+  font-size: 15px;
+ }
+ #detail_box2 .arrow{
+ 	width: 30px;
+ 	height: 35px;
+ 	position: relative;
+ 	top: 60px;
+ }
 </style>
 </head>
 <body>
@@ -186,8 +229,21 @@ position: absolute;
 			<div class="detail_box" id="detail_box1">
 				<img src="../images/01.jpg" id="detailview">
 			</div>
-			<div class="detail_box" id="detail_box2">${rvo.review_content }
-				${rvo.member_id } ${rvo.review_regdate } ${rvo.score }</div>
+			
+			<div class="detail_box" id="detail_box2" >
+				<img src="../images/leftarrow.png" class="arrow">
+					<c:forEach var="r" items="${rvo }">
+						<div class="oneDetail">
+							<div><img src="../images/${r.review_photo }" class="review_img" style="width: 90px;height: 90px;"></div>
+							<div style="align-items: flex-start;">${r.review_content }</div>
+							<div>${r.member_id }</div> 
+							<div>${r.review_regdate }</div>
+							<div>${r.score }</div>
+						</div>
+					</c:forEach>
+				<img src="../images/rightarrow.png" class="arrow">
+			</div>
+				
 			<div class="detail_box" id="detail_box3"></div>
 			</div>
 		</section>
@@ -280,7 +336,7 @@ position: absolute;
 		});
 		$("#detail_box2_btn").click(function() {
 			$(".detail_box:not(#detail_box2)").css("display", "none");
-			$("#detail_box2").css("display", "block");
+			$("#detail_box2").css("display", "flex");
 		});
 		$("#detail_box3_btn").click(function() {
 			$(".detail_box:not(#detail_box3)").css("display", "none");

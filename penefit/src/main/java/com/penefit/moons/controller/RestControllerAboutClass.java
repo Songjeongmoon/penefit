@@ -1,6 +1,5 @@
 package com.penefit.moons.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +9,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.penefit.moons.domain.CartVO;
 import com.penefit.moons.domain.HistoryDTO;
 import com.penefit.moons.domain.HistoryVO;
+import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.domain.WishlistVO;
 import com.penefit.moons.service.ServiceAboutClass;
 
@@ -117,6 +116,7 @@ public class RestControllerAboutClass {
 	public void addHistory(@RequestBody HistoryDTO history, HttpSession session ) {
 		//history에 넣기
 		String member_id = (String) session.getAttribute("member_id");
+		System.out.println("========service : " + history.getAmount());
 		service.addHistory(history, member_id);
 	}
 	
@@ -146,11 +146,22 @@ public class RestControllerAboutClass {
 	
 	//중복된 리뷰인지 확인하기 위해 클래스 리뷰받기
 	@GetMapping("/classAndReviewList")
-	public List<String> classAndReviewList(HttpSession session, String class_code) {
-		log.info("================class_code =========" + class_code);
+	public int classAndReviewList(HttpSession session, String class_code, int buy_history_num) {
 		String member_id = (String) session.getAttribute("member_id");
-		List<String> result = service.getReviewCheck(class_code, member_id);
-		log.info("================result =========" + result);
+		int result = service.getReviewCheck(class_code, member_id, buy_history_num);
+		System.out.println(("Rest class_code : " + class_code));
+		System.out.println(("Rest member_id : " + member_id));
+		System.out.println(("Rest buy_history_num : " + buy_history_num));
+		System.out.println(("Rest 결과 : " + result));
 		return result;
 	}
+	
+	//리뷰목록
+	@GetMapping("/myReviewList")
+	public List<ReviewVO> reviewList(HttpSession session){
+		String member_id = (String) session.getAttribute("member_id");
+		List<ReviewVO> list = service.getReviewList(member_id);
+		return list;
+	}
+	
 }

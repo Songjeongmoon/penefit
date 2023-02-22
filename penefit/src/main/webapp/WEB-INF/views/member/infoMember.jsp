@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -9,9 +10,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/style.css" type="text/css">
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.3.js"
-	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
 <style>
 .mypageTitle {
@@ -45,19 +44,40 @@ input[type=text] {
 #modal_history {
 	position: absolute;
 	width: 450px;
-	height: 500px;
+	height: 600px;
 	border: 2px solid black;
 	background-color: white;
 	z-index: 300;
 	border-radius: 10px;
 	display: inline-block;
 	padding: 20px;
-	top: 170px;
-	left: 700px;
+	top: 20px;
+	left: 490px;
 }
 
 .selectBox {
 	display: none;
+	text-align: center;
+	margin-top: 10px;
+	position: absolute;
+	left: 100px;
+}
+
+#selectClass {
+	height: 40px;
+	display: none;
+	position: absolute;
+}
+
+#gotoReviewForm {
+	height: 40px;
+	background-color: #75BD43;
+	border-radius: 7px;
+	border: none;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
+	width: 90px;
+	position: absolute;
+	left: 200px;
 }
 
 #modal_history_case {
@@ -90,7 +110,7 @@ input[type=text] {
 #history_content {
 	margin: 0 auto;
 	text-align: center;
-	width: 900px;
+	width: 1000px;
 }
 
 #history_content tr {
@@ -107,8 +127,8 @@ input[type=text] {
 	border-radius: 10px;
 	display: inline-block;
 	padding: 20px;
-	top: 170px;
-	left: 700px;
+	top: 20px;
+	left: 490px;
 }
 
 input[type='button'] {
@@ -150,7 +170,7 @@ h4 {
 	background-color: rgba(0, 0, 0, 0);
 	border: none;
 	left: 450px;
-	bottom: 490px;
+	bottom: 590px;
 	font-size: 40px;
 }
 
@@ -162,12 +182,13 @@ h4 {
 	border: none;
 	box-shadow: 2px 2px 2px 2px #DBD5CB;
 }
- #closebtn{
- 	position: absolute;
- 	left: 160px;
- 	bottom: 30px;
- 
- }
+
+#closebtn {
+	position: absolute;
+	left: 160px;
+	bottom: 30px;
+}
+
 #history_detail tr {
 	height: 35px;
 }
@@ -197,44 +218,53 @@ h4 {
 	margin-bottom: 30px;
 }
 
-
 #myclasstbl {
-	width: 900px;
 	text-align: center;
 }
-#myclasstbl th {
+
+#reviewTbl th {
 	background-color: #DBD5CB;
 	height: 35px;
 	margin-top: 20px;
 }
+
+#reviewTbl {
+	text-align: center;
+}
+
 
 #qnatbl {
 	width: 900px;
 	text-align: center;
 }
+
 #qnatbl th {
 	background-color: #DBD5CB;
 	height: 35px;
 	margin-top: 20px;
 }
-#qna_reply, #qna_detail{
+
+#qna_reply, #qna_detail {
 	width: 400px;
 }
-#qna_reply th{
-text-align: center;}
 
+#qna_reply th {
+	text-align: center;
+}
 
 #qna_detail th {
 	text-align: center;
-	}
-	#qna_reply{
-		text-align: left;
-	}
-		#qna_reply tr:nth-of-type(2){
-		text-align: left;
-		height: 150px;
-		overflow: scroll;
-	}
+}
+
+#qna_reply {
+	text-align: left;
+}
+
+#qna_reply tr:nth-of-type(2) {
+	text-align: left;
+	height: 150px;
+	overflow: scroll;
+}
 </style>
 </head>
 <body>
@@ -247,6 +277,7 @@ text-align: center;}
 					<li class="aside_title">마이페이지</li>
 					<li class="aside_menu" id="myinfoLabel">내 정보</li>
 					<li class="aside_menu" id="myHistoryLabel"><a href="#">구매내역</a></li>
+					<li class="aside_menu" id="myReviewLabel"><a href="#">나의후기</a></li>
 					<li class="aside_menu" id="aside_menu_btn">나의 클래스
 						<div id="aside_submenu">
 							<p id="mySuggestLabel">&nbsp;&nbsp;제안내역</p>
@@ -268,34 +299,42 @@ text-align: center;}
 
 
 						<div id="mem_id">
-							아이디<br> <input type="text" name="member_id"
-								value="${member_id }">
+							아이디<br>
+							<input type="text" name="member_id" value="${member_id }">
 						</div>
 						<div id="mem_pw">
-							비밀번호<br> <input type="text" name="member_pw"
-								value="${memberinfo.member_pw }">
+							비밀번호<br>
+							<input type="text" name="member_pw" value="${memberinfo.member_pw }">
 						</div>
 						<div id="mem_name">
-							이름<br> <input type="text" name="member_name"
-								value="${memberinfo.member_name }">
+							이름<br>
+							<input type="text" name="member_name" value="${memberinfo.member_name }">
 						</div>
 						<div id="mem_tel">
-							전화번호<br> <input type="text" name="member_tel"
-								value="${memberinfo.member_tel }">
+							전화번호<br>
+							<input type="text" name="member_tel" value="${memberinfo.member_tel }">
+						</div>
+						<div id="postnum">
+							우편번호<br> <input type="text"  name="postnum" value="${memberinfo.postnum }"/>
+						</div>
+						<div id="address_button" >
+							<input type="button" onclick="execution_daum_address()" value="주소찾기"/>
 						</div>
 						<div id="mem_address">
-							주소<br> <input type="text" name="member_address"
-								value="${memberinfo.member_address }">
+							주소<br>
+							<input type="text" name="member_address" value="${memberinfo.member_address }">
+						</div>
+						<div id="mem_addressdetail">
+							상세주소<br> <input type="text" name="member_addressdetail" value="${memberinfo.member_addressdetail }" />
 						</div>
 						<div id="mem_grade">
-							<br> <input type="hidden" name="member_grade"
-								value="${memberinfo.member_grade }">
+							<br>
+							<input type="hidden" name="member_grade" value="${memberinfo.member_grade }">
 						</div>
 
 						<div id="mem_buttons">
-							<input type="button" name="mem_update" value="정보수정"
-								onclick="UpdateMem()"> <input type="button"
-								name="mem_delete" value="회원탈퇴" id="delMemBtn" onclick="delMem()">
+							<input type="button" name="mem_update" value="정보수정" onclick="UpdateMem()">
+							<input type="button" name="mem_delete" value="회원탈퇴" id="delMemBtn" onclick="delMem()">
 						</div>
 					</div>
 				</div>
@@ -320,7 +359,7 @@ text-align: center;}
 							<select id="selectClass">
 
 							</select>
-							<button type="button" id="gotoReviewForm">리뷰작성하러가기</button>
+							<button type="button" id="gotoReviewForm">작성</button>
 						</div>
 					</div>
 				</div>
@@ -341,6 +380,25 @@ text-align: center;}
 					</tbody>
 				</table>
 			</div>
+
+			<div class="content" id="myReview">
+				<h2>나의 후기</h2>
+				<table id="reviewTbl">
+					<thead>
+						<tr>
+							<th>작성일</th>
+							<th colspan="2">클래스정보</th>
+							<th>내용</th>
+						</tr>
+					</thead>
+
+					<tbody id="reviewBody"></tbody>
+
+				</table>
+
+
+			</div>
+
 			<div class="content" id="myClassSuggest">
 				<h2 class="mypageTitle">클래스제안내역</h2>
 				<table id="sugTbl">
@@ -405,7 +463,7 @@ text-align: center;}
 								<th>답변 내용</th>
 							</tr>
 							<tr>
-								<td id="qna_reply_content" style="height: 200px; "> </td>
+								<td id="qna_reply_content" style="height: 200px;"></td>
 							</tr>
 						</table>
 						<button type="button" id="closebtn">뒤로 돌아가기</button>
@@ -416,7 +474,60 @@ text-align: center;}
 			</div>
 		</section>
 	</div>
+		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+	/* 다음 주소 연동 */
+	function execution_daum_address(){
+	 
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	        	// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+ 
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+ 
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 주소변수 문자열과 참고항목 문자열 합치기
+                    addr += extraAddr;
+                
+                } else {
+                	addr += ' ';
+                }
+ 
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.querySelector("input[name='postnum']").value = data.zonecode;
+                document.querySelector("input[name='member_address']").value = addr;
+                
+                $("input[name='member_addressdetail']").attr("readonly",false);
+                $("input[name='member_addressdetail']").focus();
+              
+             }
+          }).open();
+ }
+	
+	
       $("#aside_menu_btn").mouseover(function() {
          $("#aside_submenu").css("display", "block");
       });
@@ -444,10 +555,16 @@ text-align: center;}
          $("#myInquiry").css("display", "block");
          qnaList();
       });
-      $("#mySuggestLabel").click(function() {
-         $(".content:not(#myClassSuggest)").css("display", "none");
-         $("#myClassSuggest").css("display", "block");
+      $("#myReviewLabel").click(function() {
+         $(".content:not(#myReview)").css("display", "none");
+         $("#myReview").css("display", "block");
+         reviewList();
       });
+      $("#mySuggestLabel").click(function() {
+          $(".content:not(#myClassSuggest)").css("display", "none");
+          $("#myClassSuggest").css("display", "block");
+       
+       });
       $("#myClassLabel").click(function() {
          $(".content:not(#myClassList)").css("display", "none");
          $("#myClassList").css("display", "block");
@@ -460,7 +577,9 @@ text-align: center;}
            const updatepw= $("input[name='member_pw']").val();
            const updatename= $("input[name='member_name']").val();
            const updatetel= $("input[name='member_tel']").val();
+           const updatepostnum= $("input[name='postnum']").val();
            const updateaddress= $("input[name='member_address']").val();
+           const updateaddressdetail= $("input[name='member_addressdetail']").val();
            const updategrade= $("input[name='member_grade']").val();
            
            let member={
@@ -468,7 +587,9 @@ text-align: center;}
              "member_pw" : updatepw,
              "member_name" : updatename,
              "member_tel" : updatetel,
+             "postnum" : updatepostnum,
              "member_address" : updateaddress,
+             "member_addressdetail" : updateaddressdetail,
              "member_grade" : updategrade
            }
            $.ajax({
@@ -537,6 +658,8 @@ text-align: center;}
       $("#modalClose").click(function(){
          $("#modal_history_case").css("display","none");
          $(".content").css("z-index", "50");
+         $(".selectBox").css("display", "none");
+         $("#selectClass").css("display", "none");
       });
       //구매취소-1
          $("#cancelbtn").click(function(){
@@ -579,6 +702,7 @@ text-align: center;}
                    + "<input type ='hidden' class = 'buy_history_num' value=" + json.buy_history_num +">"
                    + "<input type ='hidden' class = 'class_arr' value=" + json.class_arr +">"
                    + "<tr><th>결제방법</th><td>" + json.pay_method +"</td></tr>"
+                   + "<tr><th>결제금액</th><td>" + json.amount +" 원</td></tr>"
                    + "<tr><th>구매일자</th><td>" + json.buy_history_date +"</td></tr>"
                    + "<tr><th>구매자명</th><td>" + json.buyer_name +"</td></tr>"
                    + "<tr><th>이메일</th><td>" + json.buyer_email +"</td></tr>"
@@ -595,6 +719,36 @@ text-align: center;}
            
       }
       
+      //리뷰목록
+      
+      function reviewList() {
+          $("#reviewBody").empty();
+          const xhttp = new XMLHttpRequest();
+          xhttp.onload = function() {
+             let data = this.responseText;
+             let json = JSON.parse(data);
+             for(let i = 0;i<json.length;i++){
+                $("#reviewBody").append("<tr>"
+                					+"<td style='width : 100px;'>" + json[i].review_regdate+ "</td>"
+                					+"<td><a href='/class/class-detail?class_code=" +json[i].class_code+ "'><img src='../images/" + json[i].review_photo + "' style='width:100px; height:100px;'></a></td>"
+                					+"<td><a href='/class/class-detail?class_code="+json[i].class_code+"'>" + json[i].class_subject + "</a></td>"
+                					+"<td>" +   json[i].review_content+ "</td><tr>");
+             }
+                $("td").css({
+                	"border-bottom":"thin solid #BBB09F",
+                	"height":"40px"
+                });
+                $("td:nth-of-type(4)").css({
+                	"width":"300px",
+                	"height":"100px",
+                });
+ 	            $("a").css("color","black");
+ 	            $("a").css("text-decoration","none");
+          }
+          xhttp.open("GET", "/myReviewList", true);
+          xhttp.send();
+       }
+       
       //취소하기
       function cancelClass(buy_history_num) {
          const xhttp = new XMLHttpRequest();
@@ -604,23 +758,56 @@ text-align: center;}
          xhttp.open("DELETE", "/noClass/buy_history_num/" + buy_history_num, true);
          xhttp.send();
       }
-      
+      let result;
       //리뷰쓸 코드 선택
       $("#writebtn").click(function(){
+    	 $("#selectClass").empty();
          $(".selectBox").css("display", "block");
+         $("#selectClass").css("display", "block");
+         let buy_history_num = $(".buy_history_num").val();
          let class_arr = $(".class_arr").val();
          let class_buy = class_arr.split("-");
-         
+        
          for(let i = 0;i<class_buy.length-1;i++){
-             $("#selectClass").append("<option value='" + class_buy[i]+"'> "+class_buy[i]+"</option>");
+        	 if(reviewCheck(buy_history_num, class_buy[i])==0){
+	             $("#selectClass").append("<option value='" + class_buy[i]+"'> "+class_buy[i]+"</option>");
+        	 }
          }
       });
+      
+      
+      //리뷰중복방지
+      
+      
+      function reviewCheck(buy_history_num, class_code){
+    	  
+			$.ajax({
+				
+				method : "Get",
+				url : "/classAndReviewList",
+				async: false,
+				data : {
+					"buy_history_num" : buy_history_num,
+					"class_code" : class_code
+				},
+				success: function(data){
+					result = data;
+				},
+				error : function(){
+					alert("실패");
+				}
+				
+			});
+    	  
+			return result ;
+      }
       
       //리뷰쓰러가기
       
       $("#gotoReviewForm").click(function(){
          let class_code = $(".selectBox option:selected").val();
-         location.href="/class/reviewForm?class_code=" + class_code;         
+         let buy_history_num = $(".buy_history_num").val();
+         location.href="/class/reviewForm?class_code=" + class_code + "&buy_history_num=" + buy_history_num;         
          
       });
       

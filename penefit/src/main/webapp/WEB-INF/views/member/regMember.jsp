@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -156,7 +154,9 @@ span::after {
 			</div>
 		</div>
 		<%@ include file="../footer.jsp"%>
+
 	</div>
+
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 	$("#blackloupe_img2").click(()=> {

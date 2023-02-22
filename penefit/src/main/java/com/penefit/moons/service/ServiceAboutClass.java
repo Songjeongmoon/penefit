@@ -55,6 +55,7 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	@Override
 	public ClassVO selectClassOne(String class_code) {
 		ClassVO cvo = mapper.selectClassOne(class_code);
+		System.out.println(("service.cvo==========" + cvo.toString()));
 		return cvo;
 	}
 
@@ -182,26 +183,26 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 
 	// 리뷰등록
 	@Override
-	public void addReview(String class_code, String review_content, String member_id, int class_score) {
-		mapper.addReview(class_code, review_content, member_id, class_score);
+	public void addReview(int buy_history_num, String review_photo, String class_code, String review_content, String member_id, Double class_score) {
+		mapper.addReview(buy_history_num, review_photo, class_code, review_content, member_id, class_score);
 	}
 
 	// 점수를 찾아서
 	@Override
-	public int getScore(String member_id) {
-		int result = mapper.getScore(member_id);
+	public Double getScore(String member_id) {
+		Double result = mapper.getScore(member_id);
 		return result;
 	}
 
 	// 점수가 있으면 업데이트
 	@Override
-	public void updateScore(int score, String member_id) {
+	public void updateScore(Double score, String member_id) {
 		mapper.updateScore(score, member_id);
 	}
 
 	// 없으면 채워넣기
 	@Override
-	public void addScore(int score, String member_id) {
+	public void addScore(Double score, String member_id) {
 		mapper.addScore(score, member_id);
 	}
 
@@ -214,15 +215,20 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 
 	// 리뷰 보기
 	@Override
-	public ReviewVO getReview(String class_code) {
-		ReviewVO rvo = mapper.getReview(class_code);
-		return rvo;
+	public List<ReviewVO> getReview(String class_code) {
+		List<ReviewVO> list = mapper.getReview(class_code);
+		System.out.println("REVIEW =====================" + list);
+		return list;
 	}
 
 	// w리뷰 중복방지 확인
 	@Override
-	public List<String> getReviewCheck(String class_code, String member_id) {
-		List<String> result = mapper.getReviewCheck(class_code, member_id);
+	public int getReviewCheck(String class_code, String member_id, int buy_history_num) {
+		int result = mapper.getReviewCheck(class_code, member_id, buy_history_num);
+		System.out.println(("service class_code : " + class_code));
+		System.out.println(("service member_id : " + member_id));
+		System.out.println(("service buy_history_num : " + buy_history_num));
+		System.out.println(("service 결과 : " + result));
 		return result;
 	}
 
@@ -253,4 +259,11 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 		ArrayList<ClassVO> list = mapper.getExpiredClassList();
 		return list;
 	}
+	//리뷰목록
+	@Override
+	public List<ReviewVO> getReviewList(String member_id) {
+		ArrayList<ReviewVO> list = mapper.getReviewList(member_id);
+		return list;
+	}
+
 }

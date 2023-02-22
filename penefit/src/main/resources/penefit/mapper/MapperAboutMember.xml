@@ -19,7 +19,7 @@
 	</select>
 	
    <update id="updateMember" >
-      UPDATE member SET member_pw = #{member_pw}, member_tel = #{member_tel}, member_address =#{member_address} WHERE member_id = #{member_id}
+      UPDATE member SET member_pw = #{member_pw}, member_tel = #{member_tel}, member_address =#{member_address},member_addressdetail =#{member_addressdetail}, postnum = #{postnum} WHERE member_id = #{member_id}
    </update>
    
    <delete id="deleteMember">
