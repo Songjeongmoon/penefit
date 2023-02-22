@@ -10,4 +10,5 @@ public class ReplyVO {
 	private String member_id;
 	private int qna_num;
 	private String reply_type;
+	private int reply_num;
 }
