@@ -9,7 +9,7 @@ import com.penefit.moons.domain.SuggestDTO;
 
 public interface ServiceAboutClassInfoIm {
 	
-	public String insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files);
+	public int insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files);
 	
 	public ArrayList<SuggestDTO> getMySuggestionList(String member_id);
 

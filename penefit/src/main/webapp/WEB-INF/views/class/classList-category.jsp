@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
 
 </style>
@@ -18,9 +18,10 @@
 	<div class="box">
 		<section>
 			<aside>
-				<ul>
+								<ul>
 					<li class="aside_title">클래스</li>
-					<li class="aside_menu"><a href="classList">클래스 전체보기</a></li>
+					<li class="aside_menu"><a href="/class/classList">클래스 전체보기</a></li>
+					<li class="aside_menu"><a href="/class/classList-ongoing">진행중인클래스</a></li>
 					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
 						<div id="aside_submenu">
 							<p>
@@ -37,8 +38,9 @@
 							</p>
 						</div>
 					</li>
-			<li class="aside_menu"><a href="classList-new">신규 클래스</a></li>
-					<li class="aside_menu"><a href="classList-expired">지난클래스</a></li>
+					<li class="aside_menu"><a href="/class/classList-new">신규 클래스</a></li>
+					<li class="aside_menu"><a href="/class/classList-expired">지난클래스</a></li>
+					<li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
 				</ul>
 
 			</aside>
@@ -58,21 +60,6 @@
 		</section>
 	</div>
 	<script>
-	$("#blackloupe_img2").click(()=> {
-  	  if ($("#divsearch").css("display") == "none") { 
-  	        $("#divsearch").css("display", "block");//display :none 일떄
-  	    } else {
-  	    	 $("#divsearch").css("display", "none"); //display :block 일떄
-  	    } 
-  });
-    $(".title").click(function(){
-  	//  alert("click");
-  	  if ($(".subtitle").css("display") == "none"){
-  		  $(".subtitle").css("display", "block");
-  	  }else{
-  		  $(".subtitle").css("display", "none");
-  	  }
-    });
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
 			$("#aside_submenu").css("display", "block");

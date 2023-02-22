@@ -2,13 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/style.css">
+
 <style>
 #aside_submenu {
 	display: none;
@@ -20,28 +23,20 @@ h2 {
 }
 
 #notice_tbl {
-	margin: 0 auto;
-	border: 1px solid black;
-	border-collapse: collapse;
-	width: 700px;
-	text-align: center;
-}
-
-#notice_tbl {
 	text-align: center;
 	width: 950px;
 	margin: 0 auto;
 	border-collapse: collapse;
-	border-bottom: 2px solid black;
+	border-bottom: 2px solid #BBB09F;
 }
 
 #notice_tbl th {
-	background-color: black;
-	color: white;
+	background-color: #DBD5CB;
+	height: 35px;
 }
 
 #notice_tbl tr {
-	border-bottom: thin solid black;
+	border-bottom: thin solid #BBB09F;
 }
 </style>
 </head>
@@ -52,11 +47,12 @@ h2 {
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
-					<li class="aside_menu"><a href="notice">공지사항</a></li>
+					<li class="aside_menu"><a href="/board/notice">공지사항</a></li>
 					<li class="aside_menu"><a href="#">수강후기</a></li>
-					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
-					<li class="aside_menu"><a href="classList_new">클래스별게시판</a></li>
+					<li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
+					<li class="aside_menu"><a href="#">클래스별게시판</a></li>
 				</ul>
+
 			</aside>
 			<div class="content">
 				<h2>공지사항</h2>
@@ -82,22 +78,50 @@ h2 {
 						</c:forEach>
 					</tbody>
 				</table>
-				<!-- 페이징징징 -->
+
 				<div class="container mt-3">
 					<h2>Pagination</h2>
 
-					<ul class="pagination justify-content-center">
-						<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-						<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-						<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-						<li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
-						<li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
-						<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-					</ul>
+<!-- 					<ul class="pagination justify-content-center"> -->
+<!-- 						<li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li> -->
+<!-- 						<li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li> -->
+<!-- 						<li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li> -->
+<!-- 						<li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li> -->
+<!-- 						<li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li> -->
+<!-- 						<li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li> -->
+<!-- 						<li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li> -->
+<!-- 					</ul> -->
+
+
+					<div class="page-num"
+						th:with="start=${(pages.number/maxPage)*maxPage + 1},
+                	  end=(${(pages.totalPages == 0) ? 1 : (start + (maxPage - 1) < pages.totalPages ? start + (maxPage - 1) : pages.totalPages)})">
+						<ul>
+							<li th:if="${start > 1}"><a th:href="@{/list?(page=0)}"
+								th:text="'<<'"></a></li>
+							</li>
+
+							<li th:if="${start > 1}"><a
+								th:href="@{/list?(page=${start - maxPage})}" th:text="'<'"></a>
+							</li>
+
+
+							<li th:each="page: ${#numbers.sequence(start, end)}"><a
+								th:href="@{/list?(page=${page-1})}" th:text="${page}"></a></li>
+							</li>
+
+							<li th:if="${end < pages.totalPages}"><a
+								th:href="@{/list?(page=${start + maxPage})}" th:text="'>'"></a>
+							</li>
+
+							<li th:if="${end < pages.totalPages}"><a
+								th:href="@{/list?(page=${pages.totalPages-1})}" th:text="'>>'"></a></li>
+							</li>
+						</ul>
+
+					</div>
 
 				</div>
-
 			</div>
 		</section>
 	</div>
@@ -110,47 +134,18 @@ h2 {
 			//alert('dd');
 			$("#aside_submenu").css("display", "none");
 		})
-		
-		
-		
-		$(".page-item").on("click", function(e){
-			alert("누름!");
-			alert($(".page-item").val());
-			
-		function getPagingList() {
-			const xhttp = new XMLHttpRequest();
-			xhttp.onload = function() {
-				let data = this.responseText;
-				let obj = JSON.parse(data);
-				
-				for (let i = 0; i < 5; i++) {
-					
-					+="<tr><td>" + notice_num
-					+"</td><td>" + notice_title 
-					+"</td><td>" + notice	
-					
-				}
-			}
-			xhttp.open("GET", " ", true);
-			xhttp.send();
-		}
-		
-		$(".page-item").on("click", function(e){
-			
-			let reply_num = evt.target.parentElement.parentElement.children[0].children[0].value;
-			delReply(reply_num);
-		
-		})	
-		
-			
-			
-			
 
-			
-			
+		$(".page-link").click(function() {
+			alert("aaaa");
 		});
+
+		for (let i = 0; i < 5; i++) {
+			notice_num[i]
+			notice_title[i]
+			member_id[i]
+			notice_regdate[i]
+		}
 	</script>
 
-	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

@@ -41,5 +41,4 @@ public class ControllerAboutAdmin {
 	public String errorView() {
 		return "errorWindow";
 	}
-
 }

@@ -22,8 +22,9 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 	MapperAboutClassInfo mapper;
 	
 	@Override
-	public String insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files) {
+	public int insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files) {
 		
+		suggest.setSuggest_content(suggest.getTime() + "시간짜리 수업입니다 -" + suggest.getSuggest_content());
 		String fileNames = "";
 		List<MultipartFile> list = files.getFiles("files");
 		String[] uuids = UUID.randomUUID().toString().split("-");
@@ -57,7 +58,8 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 		}
 		suggest.setSuggest_photo(fileNames);
 		int result = mapper.insertSuggestion(suggest);
-		return "";
+		
+		return result;
 	}
 
 	@Override

@@ -132,47 +132,7 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		BoardVO faq = bmapper.getFaQselectOne(board_num);
 		return faq;
 	}
-
 	
 
-
-
-
-
-
-
-	
-
-	
-	
-
-
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-
-	
-	
-
-		
-	
-
-
-	
 
 }

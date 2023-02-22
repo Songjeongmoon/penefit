@@ -49,7 +49,7 @@ public class ControllerAboutMember {
 	
 	@GetMapping("/home")
 	public String home() {
-		return "/home";
+		return "redirect:/";
 		
 	}
 	

@@ -3,15 +3,77 @@
 <mapper namespace="com.penefit.moons.mapper.MapperAboutDashBoard">
 	
 	<select id ="teacherSelectALL" resultType="com.penefit.moons.domain.MemberVO">
-		SELECT * FROM member WHERE member_grade = 'B'
+		SELECT *
+		FROM member
+		WHERE member_grade = 'B'
 	</select>
 	
 	<select id="selectClassToday" resultType="com.penefit.moons.domain.ClassVO">
-		 SELECT * FROM class WHERE class_date LIKE CONCAT('%',#{class_date},'%')
+		 SELECT *
+		 FROM class
+		 WHERE class_date LIKE CONCAT('%',#{class_date},'%')
 	</select>
 	
 	<select id="SuggestionList" resultType="com.penefit.moons.domain.SuggestDTO">
-		SELECT * FROM suggest 
+		SELECT *
+		FROM suggest
+		WHERE status = '검토'
+		ORDER BY suggest_regdate ASC
+		LIMIT 5
+	</select>
+	
+	<select id="getClassTodayCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE class_date LIKE CONCAT('%',DATE(NOW()),'%')
+	</select>
+	
+	<select id="getClassActiveCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE class_date > NOW()
+	</select>
+	
+	<select id="getClassEndCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE NOW() > class_date
+	</select>
+	
+	<select id="getClassListToday" resultType="com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		WHERE class_date LIKE CONCAT('%',DATE(NOW()),'%')
+		ORDER BY class_date ASC
+		LIMIT 5
+	</select>
+	
+	<select id="getSuggestList" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		WHERE status = '검토'
+		ORDER BY suggest_regdate ASC
+		LIMIT 5
+	</select>
+	
+	<select id="getSuggestCount" resultType="_int">
+		SELECT Count(*)
+		FROM suggest
+		WHERE status = '검토'
+	</select>
+	
+	<select id = "getQnACount" resultType = "_int">
+		SELECT Count(*)
+		FROM qna
+		WHERE qna_status = '답변대기'
+	</select>
+	
+	<select id = "getQnAList" resultType = "com.penefit.moons.domain.QnAVO">
+		SELECT *
+		FROM qna
+		WHERE qna_status = '답변대기'
+		ORDER BY qna_regdate ASC
+		LIMIT 5
 	</select>
 	
 </mapper>

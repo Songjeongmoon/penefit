@@ -15,6 +15,33 @@
 		ORDER BY class_regdate DESC
 	</select>
 	
+	<!--  클래스 리스트 시간역 -->
+	<select id = "getClassListASC" resultType= "com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		ORDER BY class_regdate ASC
+	</select>
+	
+	<select id = "getClassOne" resultType= "com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		WHERE class_code = #{class_code}
+	</select>
+	
+	<select id = "getClassListActive" resultType= "com.penefit.moons.domain.ClassVO">
+		SELECt *
+		FROM class
+		WHERE class_date > NOW()
+		ORDER BY class_regdate DESC
+	</select>
+	
+	<select id = "getClassListEnd" resultType= "com.penefit.moons.domain.ClassVO">
+		SELECt *
+		FROM class
+		WHERE NOW() > class_date
+		ORDER BY class_regdate DESC
+	</select>
+	
 	<!-- 클래스 검색 -->
 	<select id = "searchClass" resultType = "com.penefit.moons.domain.ClassVO">
 		SELECT *
@@ -27,6 +54,7 @@
 	<select id = "getSuggestionList" resultType = "com.penefit.moons.domain.SuggestDTO">
 		SELECT *
 		FROM suggest
+		WHERE status = '검토'
 	</select>
 	
 	<insert id="createClass">
@@ -41,6 +69,12 @@
 		SELECT class_code
 		FROM class
 	</select>
+	
+	<update id = "rejectSuggestion">
+		Update suggest
+		SET status = '반려', reject_reason = #{reject_reason}
+		WHERE suggest_num = #{suggest_num}
+	</update>
 	
 	<update id = "updateClass">
 		UPDATE class

@@ -6,11 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
-*{
-/* border :1px solid pink; */
-}
 section{
 text-align: center;
 }
@@ -84,7 +81,6 @@ p{
 			</form>
 		</section>
 		</div>
-		<%@ include file="../footer.jsp"%>
 <script>
 
 /*$("#frm_login").ready(function() {
@@ -111,6 +107,7 @@ function submit_check(){
 		submit();
 	}
 };
+
 </script>
 </body>
 </html>

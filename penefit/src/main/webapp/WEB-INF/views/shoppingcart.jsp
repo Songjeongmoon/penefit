@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
-
 <!-- jQuery -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -18,13 +16,13 @@
 
 
 <style>
-
 table {
-text-align : center;
+	text-align: center;
 	width: 1100px;
 	margin: 0 auto;
 	border-collapse: collapse;
 }
+
 .cart_img {
 	width: 100px;
 	height: 100px;
@@ -48,12 +46,15 @@ text-align : center;
 #payZone {
 	float: right;
 }
-.price, .sub{
+
+.price, .sub {
 	display: inline;
 }
-.price{
+
+.price {
 	float: right;
 }
+
 input[id="checkAll"] {
 	display: inline-block;
 	width: 20px;
@@ -72,14 +73,14 @@ input[id="checkAll"] {
 			<h2>장바구니</h2>
 			<div id="cartbox">
 				<div id="checkbar">
-					<input type="checkbox" id="checkAll"><label for="checkAll">전체선택</label>
+					<input type="checkbox" id="checkAll" checked><label for="checkAll" checked>전체선택</label>
 					| <label for="deleteAll" id="deleteAll">전체삭제</label> | <label
 						for="deleteSome" id="deleteSome">선택삭제</label> | <label
 						for="deleteExpired" id="deleteExpired">구매불가능 강의삭제</label>
 				</div>
 				<table>
-					<thead >
-						<tr style="background-color: #DBD5CB; ">
+					<thead>
+						<tr style="background-color: #DBD5CB;">
 							<th colspan="2"></th>
 							<th>클래스사진</th>
 							<th>클래스명</th>
@@ -115,47 +116,32 @@ input[id="checkAll"] {
 
 	<script>
 	
-	$("#blackloupe_img2").click(()=> {
-  	  if ($("#divsearch").css("display") == "none") { 
-  	        $("#divsearch").css("display", "block");//display :none 일떄
-  	    } else {
-  	    	 $("#divsearch").css("display", "none"); //display :block 일떄
-  	    } 
-  });
-    $(".title").click(function(){
-  	//  alert("click");
-  	  if ($(".subtitle").css("display") == "none"){
-  		  $(".subtitle").css("display", "block");
-  	  }else{
-  		  $(".subtitle").css("display", "none");
-  	  }
-    });
-		//체크박스로 전체 선택
-		$(document).on('click', '#checkAll', function() {
-			if ($('#checkAll').is(':checked')) {
-				$('.checking').prop('checked', true);
-				calcPrice();
-			} else {
-				$('.checking').prop('checked', false);
-				sum=0;
-				$("#price").text(0);
-				
-
-			}
+	//체크박스로 전체 선택
+	$(document).on('click', '#checkAll', function() {
+		if ($('#checkAll').is(':checked')) {
+			$('.checking').prop('checked', true);
+			calcPrice();
+		} else {
+			$('.checking').prop('checked', false);
+			sum=0;
+			$("#price").text(0);
 			
-		});
-		//전부 클릭이면 -->전체선택에 체크 / 아니면 -->전체선택에 체크해제
-		$(document)
-				.on(
-						"click",
-						".checking",
-						function(evt) {
-							if ($("input:checkbox[class='checking']:checked").length == $("input:checkbox[class='checking']").length) {
-								$('#checkAll').prop('checked', true);
-							} else {
-								$('#checkAll').prop('checked', false);
-							}
-						});
+
+		}
+		
+	});
+	//전부 클릭이면 -->전체선택에 체크 / 아니면 -->전체선택에 체크해제
+	$(document)
+			.on(
+					"click",
+					".checking",
+					function(evt) {
+						if ($("input:checkbox[class='checking']:checked").length == $("input:checkbox[class='checking']").length) {
+							$('#checkAll').prop('checked', true);
+						} else {
+							$('#checkAll').prop('checked', false);
+						}
+					});
 
 		//목록가져오기
 		getList();
@@ -174,7 +160,7 @@ input[id="checkAll"] {
 								"<tr><td><input type='hidden' value='"
 										+ list[i].shopping_cart_num
 										+ "'></td><td>"
-										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox'  disabled='disabled'></td><td>"
+										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox'   disabled='disabled'></td><td>"
 										+ "<a href='class/class-detail?class_code="
 										+ list[i].class_code
 										+ "'><img class='list_img' src='images/"+suggest_photo+"' class='cart_img' style='width:100px; height:100px;'></a></td><td>"
@@ -205,7 +191,7 @@ input[id="checkAll"] {
 								"<tr><td><input type='hidden' value='"
 								+ list[i].shopping_cart_num
 								+ "'></td><td>"
-										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox' class='checking'></td><td>"
+										+ "<input type='hidden' class='classC' value='"+list[i].class_code+ "'><input type='checkbox' checked class='checking'></td><td>"
 										+ "<a href='class/class-detail?class_code="
 										+ list[i].class_code
 										+ "'><img class='list_img' src='images/"+suggest_photo+"' class='cart_img' style='width:100px; height:100px;'></a></td><td>"
@@ -241,6 +227,8 @@ input[id="checkAll"] {
 						"position": "relative",
 						"top": "4px"
 				});
+				$("a").css("text-decoration","none");
+				$("a").css("color","black");
 				calcPrice();
 
 			}
@@ -447,6 +435,5 @@ input[id="checkAll"] {
 		
 		
 	</script>
-
 </body>
 </html>

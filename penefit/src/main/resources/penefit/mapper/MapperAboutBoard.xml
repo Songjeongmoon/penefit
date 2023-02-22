@@ -33,7 +33,8 @@
 <!-- 각 지역별 게시판 -->
 <select id="getOneCityList" resultType="com.penefit.moons.domain.BoardVO">
 	
-	SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND c.city_code = #{city_code}
+	<!--  SELECT FROM board WHERE board_type= 'CC' AND city_code=#{city_code}--> 
+	SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND c.city_code = b.city_code AND c.city_code = #{city_code}
 </select>
 
 <!-- 지역상세 게시판 -->
@@ -88,6 +89,14 @@
 
 <select id="getFaQList" resultType="com.penefit.moons.domain.BoardVO">
 	SELECT * FROM board WHERE board_type= 'FF'  
+</select>
+
+
+<select id="paging" resultType="com.penefit.moons.domain.BoardVO">
+	SELECT * FROM board order by board_num limit #{page_num}, #{content_num}
+</select>
+<select id="testcount" resultType="int">
+	select count(*) from test
 </select>
 
 

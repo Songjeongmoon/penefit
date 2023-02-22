@@ -10,6 +10,8 @@
 	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 	crossorigin="anonymous"></script>
 </head>
+
+<link rel="stylesheet" href="/css/">
 <body>
 	<%@ include file="../header.jsp"%>
 	<div class="box">
@@ -24,10 +26,8 @@
 				</ul>
 			</aside>
 			<div class="content">
+				<h1>city 상세목록</h1>
 				<table border="1">
-					<h1>city 상세목록</h1>
-
-					<table border="1">
 
 						<tr>
 							<th>번호</th>
@@ -54,9 +54,9 @@
 							<th>조회수</th>
 							<td>${cvo.board_viewcnt }</td>
 						</tr>
-					</table>
-
-					<input type="hidden" name="board_num" value="${cvo.board_num}">
+						<tr>
+							<td colspan="2">
+													<input type="hidden" name="board_num" value="${cvo.board_num}">
 
 					<c:if test="${sessionScope.member_id == cvo.member_id }">
 						<button type="button"
@@ -66,7 +66,9 @@
 
 					</c:if>
 					<button type="button" onclick="location.href='cityBoardview'">목록</button>
-				</table>
+							</td>
+						</tr>
+					</table>
 
 				<br>
 				<hr>
@@ -101,7 +103,6 @@
 			</div>
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
 	<script>
 	
 	alert($("#writer").val());
@@ -133,9 +134,6 @@
 			xhttp.onload = function() {
 				this.responseText;
 				window.location.reload();
-				
-			
-				
 			}
 			xhttp.open("POST", "/api/city/reply", true);
 			xhttp.setRequestHeader("Content-type", "application/json");
@@ -163,11 +161,13 @@
             			msg = "</tr>";
             		}
 					
-					tbody.innerHTML += "<tr><td><input type='hidden' name='reply_num' value='" + obj[i].reply_num + "'>"
+					tbody.innerHTML += "<tr><td><input type='text' name='reply_num' value='" + obj[i].reply_num + "'>"
 									+ obj[i].reply_content
 									+ "</td><td>"
 									+ obj[i].member_id +"</td>" + msg;
 				}
+				
+				
 			}
 			xhttp.open("GET", "/api/city/replyList/board_num/" + board_num, true);
 			xhttp.send();
@@ -176,14 +176,16 @@
 		$(document).on("click",".delBtn", function(evt){
 			
 			let reply_num = evt.target.parentElement.parentElement.children[0].children[0].value;
+			
 			delReply(reply_num);
+			alert(reply_num);
 		
 		})
 		
 		function delReply(reply_num) {
   			const xhttp = new XMLHttpRequest();
  			 xhttp.onload = function() {
-  			  //alert(this.responseText);
+  			  alert(this.responseText);
  				getReplyList();
   			  }
  			 xhttp.open("DELETE", "/api/city/delReply/reply_num/"+ reply_num, true);
@@ -191,8 +193,8 @@
  			 xhttp.send();
 		}
 		
-		
-		
+	
 	</script>
+	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

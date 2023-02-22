@@ -20,8 +20,8 @@ public interface ServiceAboutBoardI {
 	//공지사항 삭제
 	public int delNotice(int notice_num);
 	
-//	//공지사항 페이징
-//	public int getPaging(int page_num);
+//	공지사항 페이징
+	public int getPaging(int page_num);
 	
 	//---------------------------------------
 

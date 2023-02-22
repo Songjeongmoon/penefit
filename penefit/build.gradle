@@ -36,6 +36,11 @@ dependencies {
 	implementation 'org.webjars.bower:jquery:3.6.2'
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	
+	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
+	implementation 'org.thymeleaf:thymeleaf'
+	
+	
 }
 
 tasks.named('test') {
