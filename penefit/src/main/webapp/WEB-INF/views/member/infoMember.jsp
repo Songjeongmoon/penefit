@@ -598,6 +598,7 @@ h4 {
               contentType: "application/json",
               data : JSON.stringify(member),
               success: (data) => {
+            	  alert(data);
               },
               error : () => {
                  alert("error");
@@ -615,7 +616,11 @@ h4 {
               method: "DELETE",
               data : {     
                     "member_id" : memberid  
-                 }
+                 },
+             success: (data) => {
+               	  alert(data);
+               	  location.href="/";
+                 },
 
            });
            
