@@ -43,7 +43,7 @@ public class ControllerAboutDashBoard {
 		model.addAttribute("clist", clist);
 		model.addAttribute("slist", slist);
 		
-		return "/dashboard/dashboard";
+		return "/admin/dashboard";
 	}
 	
 	
