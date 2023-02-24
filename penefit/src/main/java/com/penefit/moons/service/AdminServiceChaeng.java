@@ -5,13 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
+import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.mapper.AdminMapperChaeng;
 
 @Service
-public class AdminServiceChaeng  implements AdimnServiceChaengIm{
+public class AdminServiceChaeng  implements AdminServiceChaengIm{
 
 	@Autowired
 	AdminMapperChaeng mapper;
@@ -79,5 +81,39 @@ public class AdminServiceChaeng  implements AdimnServiceChaengIm{
 		return mapper.getQnaType();
 	}
 
-	
+	@Override
+	public ReviewVO reviewDetail(int review_num) {
+		return mapper.reviewDetail(review_num);
+	}
+	@Override
+	public void deleteReview(int review_num) {
+		mapper.deleteReview(review_num);
+	}
+	@Override
+	public ReviewScore bestClass() {
+		return mapper.bestClass();
+	}
+	@Override
+	public ReviewScore worstClass() {
+		return mapper.worstClass();
+	}
+	@Override
+	public int getReviewCount() {
+		return mapper.getReviewCount();
+	}
+
+	@Override
+	public List<NoticeVO> getNotice() {
+		return mapper.getNotice();
+	}
+
+	@Override
+	public List<NoticeVO> getNoticeNew() {
+		return mapper.getNoticeNew();
+	}
+	@Override
+	public List<NoticeVO> getsearchNotice(String keyword) {
+		return mapper.getsearchNotice(keyword);
+	}
+
 }

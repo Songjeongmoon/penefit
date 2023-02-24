@@ -10,7 +10,7 @@
 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 	crossorigin="anonymous"></script>
 <style>
-        .layout{
+.layout{
     max-width: 600px;
     margin: 0 auto;
 }
@@ -47,6 +47,7 @@
   margin: 2px 0 0 8px;
   float: left;
 }
+
 .qna input:checked + label::before { /* 내용 펼침 상태 제목 앞 화살표 */
   border: 8px solid transparent;
   border-top: 8px solid green;
@@ -54,7 +55,7 @@
   margin: 8px 4px 0;
 }
 
-.qna div { /* 내용 영역 - 기본 감춤 상태 */
+.qna div { 						/* 내용 영역 - 기본 감춤 상태 */
   display: none;
   color: #666;
   font-size: 0.9375em;
@@ -102,7 +103,7 @@
             <label for="qna-3">수업장소와 시간은 어떻게 되나요?</label>
             <div>
                 <p>수업소개에 수업장소와 시간이 명시되어 있습니다. 자세히 명시 되어있지 않은 수업의 경우 튜터와 조율하여 유동적으로 결정할 수 있습니다.
-				<p>튜터에게 문의하여 시간을 조율해보세요. 개개인의 스케줄에 딱 맞는 시간을 조율할 수 있다는 것이 탈잉의 가장 큰 장점이니까요.</p>
+				<p>튜터에게 문의하여 시간을 조율해보세요. 개개인의 스케줄에 딱 맞는 시간을 조율할 수 있다는 것이 페네핏의 가장 큰 장점이니까요.</p>
                 <p>반품철회 후 택배사에서 상품 수거가 된 것으로 확인될 경우 해당 주문은 반품처리한 것으로 재 변경됩니다.</p>
             </div>
         </li>

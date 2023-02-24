@@ -47,16 +47,19 @@
 		SELECT *
 		FROM review
 		ORDER BY review_regdate ASC
+		LIMIT 0,5
+
 	</select>
 	<!-- 리뷰목록 신규 -->
 	<select id="getReviewListNew"
 		resultType="com.penefit.moons.domain.ReviewVO">
 		SELECT *
 		FROM review
-		WHERE review_regdate NOT BETWEEN
-		(CURRENT_TIMESTAMP()-7) AND ( CURRENT_TIMESTAMP())
+		WHERE review_regdate > DATE_ADD(now(),
+		INTERVAL -6 HOUR)
 		ORDER BY
 		review_regdate asc
+		LIMIT 0,5
 	</select>
 	<!-- qna목록 신규 -->
 	<select id="qnaListToConfirm"
@@ -90,8 +93,83 @@
 		resultType="com.penefit.moons.domain.QnAtype">
 		SELECT qna_type, count(qna_type) AS qty
 		FROM qna
-		GROUP BY qna_type;
+		GROUP BY
+		qna_type;
 
 	</select>
 
+	<select id="reviewDetail"
+		resultType="com.penefit.moons.domain.ReviewVO">
+		select * from review where review_num = #{review_num}
+	</select>
+
+	<delete id="deleteReview">
+		delete from review where review_num = #{review_num}
+	</delete>
+
+	<select id="bestClass"
+		resultType="com.penefit.moons.domain.ReviewScore">
+		SELECT class_code, AVG(score) as score
+		FROM review
+		GROUP BY
+		class_code
+		ORDER BY score DESC
+		LIMIT 1;
+	</select>
+
+
+	<select id="worstClass"
+		resultType="com.penefit.moons.domain.ReviewScore">
+		SELECT class_code, AVG(score) as score
+		FROM review
+		GROUP BY
+		class_code
+		ORDER BY score ASC
+		LIMIT 1;
+	</select>
+	<select id="getReviewCount" resultType="_int">
+		SELECT Count(*) FROM
+		review
+	</select>
+	
+	<select id="getNoticeCnt" resultType="_int">
+		SELECT Count(*) FROM
+		notice
+	</select>
+	<select id="getNotice" resultType="com.penefit.moons.domain.NoticeVO">
+		SELECT * FROM 
+		notice
+	</select>
+	<select id="getNoticeNew"
+		resultType="com.penefit.moons.domain.NoticeVO">
+		SELECT *
+		FROM notice
+		WHERE notice_regdate > DATE_ADD(now(),
+		INTERVAL -6 HOUR)
+		ORDER BY
+		notice_regdate asc LIMIT 0,5
+	</select>
+	<select id="getNoticeNewCnt"
+		resultType="_int">
+		SELECT Count(*)
+		FROM notice
+		WHERE notice_regdate > DATE_ADD(now(),
+		INTERVAL -6 HOUR)
+		ORDER BY
+		notice_regdate asc
+	</select>
+	
+	<select id="getsearchNotice"
+		resultType="com.penefit.moons.domain.NoticeVO">
+		select * from notice where 
+		notice_title like CONCAT('%', #{keyword},'%') or
+		notice_content like CONCAT('%', #{keyword},'%') or
+		member_id like CONCAT('%', #{keyword},'%')
+	</select>
+	
+	
+	
+	
+	
+	
 </mapper>

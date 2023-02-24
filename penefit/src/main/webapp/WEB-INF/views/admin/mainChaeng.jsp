@@ -54,8 +54,9 @@ a {
 }
 
 #logo {
+	font-family: 'SBAggroB';
 	font-weight: bold;
-	font-size: 50px;
+	font-size: 40px;
 	text-align: center;
 	height: 125px;
 	width: 100%;
@@ -206,6 +207,10 @@ a {
 	height: 30px;
 }
 
+#reviewDetailTbl tr {
+	height: 30px;
+}
+
 #qnabox1 {
 	grid-column: 1/3;
 }
@@ -223,6 +228,7 @@ a {
 #qnabox3 {
 	grid-column: 1/3;
 }
+
 #reviewbox1 {
 	grid-column: 1/3;
 }
@@ -235,8 +241,6 @@ a {
 #reviewbox3 {
 	grid-column: 1/3;
 }
-
-
 
 .outer {
 	position: absolute;
@@ -269,12 +273,51 @@ a {
 
 .pie-chart1 {
 	position: absolute;
-	left: 70%; display : inline-block;
+	left: 70%;
+	display: inline-block;
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
 	transition: 0.3s;
 	display: inline-block;
+}
+
+#noticebox1 {
+	grid-row: 1/3;
+	grid-column: 1/3;
+}
+
+#noticebox2 {
+	grid-row: 1/4;
+	grid-column: 3/4;
+}
+
+#noticebox3 {
+	grid-row: 3/4;
+	grid-column: 1/3;
+}
+#newNoticeForm{
+	float: right;
+	margin: 4px;
+}
+#noticeWritingTbl{
+width: 380px;;
+margin: 0 auto;
+
+}
+#noticeWritingTbl tr{
+	height: 50px;
+}
+#noticeWritingTbl input[type='text'], textarea{
+	height : 30px;
+	width: 90%;
+}
+#noticeWritingTbl  textarea{
+height: 200px;
+}
+#noticeSearchBar{
+	width: 80%;
+	height: 25px;
 }
 </style>
 </head>
@@ -402,12 +445,76 @@ a {
 		</div>
 
 		<div id="noticeArticle" class="article">
-			<div id="box1" class="box">1</div>
-			<div class="box">2</div>
-			<div class="box">3</div>
-			<div class="box">4</div>
-			<div class="box">5</div>
-			<div class="box">6</div>
+			<div class="box" id="noticebox1">
+				<div class="subtitle">&nbsp;&nbsp;공지사항</div>
+				<div class="content">
+				<input type="text" name="noticeKeyword" id="noticeSearchBar" >
+					<input type="button" value="검색" id="noticeSearchbtn" >
+					<table id="noticeTbl">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>등록일</th>
+							</tr>
+						</thead>
+						<tbody id="noticeTbody"></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="box" id="noticebox2">
+				<div class="subtitle">
+					&nbsp;&nbsp;작성
+					<button type="button" id="newNoticeForm">신규</button>
+				</div>
+				<div class="content">
+				<div>
+					
+				</div>
+					<form  method="post">
+						<table id="noticeWritingTbl">
+							<tbody id="noticeWritingTbody">
+								<tr>
+									<th>번호</th>
+									<td><input type="text" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td><input type="text" name="notice_title" ></td>
+								</tr>
+								<tr>
+									<th >내용</th>
+									<td><textarea name="notice_content" id="notice_content"></textarea></td>
+								</tr>
+								<tr>
+									<th>작성자</th>
+									<td ><input style="text-align: center;" type="text" name="member_id" value="${member_id }" ></td>
+								</tr>
+								<tr style="text-align: center;">
+									<td colspan="2"><input type="button"  value="등록" id="regNoticeBtn"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+			<div class="box" id="noticebox3">
+				<div class="subtitle">&nbsp;&nbsp;신규공지</div>
+				<div class="content">
+					<table id="noticeNewTbl">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>등록일</th>
+							</tr>
+						</thead>
+						<tbody id="noticeNewtbody"></tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 
 		<div id="suggestionArticle" class="article">
@@ -432,7 +539,7 @@ a {
 			<div class="box" id="reviewbox1">
 				<div class="subtitle">&nbsp;&nbsp;신규리뷰</div>
 				<div class="content">
-					<table>
+					<table style="width: 600px; text-align: center; padding-left: 20px;">
 						<thead>
 							<tr>
 								<th>번호</th>
@@ -444,21 +551,34 @@ a {
 						</thead>
 						<tbody id="reviewNewTbl"></tbody>
 					</table>
-				
-				
+
+
 				</div>
 			</div>
 			<div class="box" id="reviewbox2">
 				<div class="subtitle">&nbsp;&nbsp;리뷰상세보기</div>
-				<div class="content">
-
+				<div class="content" style="margin: 0 auto;">
+					<table id="reviewDetailTbl">
+						<tbody id="reviewDetailTbody"></tbody>
+					</table>
 
 				</div>
 			</div>
 			<div class="box" id="reviewbox3">
 				<div class="subtitle">&nbsp;&nbsp;전체리뷰</div>
 				<div class="content">
-
+					<table style="width: 600px; text-align: center; padding-left: 20px;">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>작성자</th>
+								<th>내용</th>
+								<th>점수</th>
+								<th>작성일</th>
+							</tr>
+						</thead>
+						<tbody id="reviewAllTbl"></tbody>
+					</table>
 
 				</div>
 
@@ -467,23 +587,23 @@ a {
 			<div class="box" id="reviewbox4">
 				<div class="subtitle">&nbsp;&nbsp;금주의 최고평점강의</div>
 				<div class="content" id="chartContent">
-
+					<h3 id="bestClass"></h3>
+					<div id="bestClassinfo"></div>
 				</div>
 
 			</div>
 			<div class="box" id="reviewbox5">
 				<div class="subtitle">&nbsp;&nbsp;금주의 최저평점강의</div>
-				<div class="content"">
-				
-				
+				<div class="content">
+					<h3 id="worstClass"></h3>
+					<div id="worstClassinfo"></div>
 				</div>
 
 			</div>
 			<div class="box" id="reviewbox6">
-				<div class="subtitle">&nbsp;&nbsp;리뷰등록률</div>
+				<div class="subtitle">&nbsp;&nbsp;전체리뷰수</div>
 				<div class="content">
-				
-				
+					<h3 id="reviewCnt"></h3>
 				</div>
 
 			</div>
@@ -558,6 +678,8 @@ a {
         $("#suggestionArticle").css("display", "none");
         $("#classArticle").css("display", "none");
         $("#reviewArticle").css("display", "none");
+        getNotice();
+        getNoticeNew();
       });
       $("#suggestion").click(() => {
         $("#memberArticle").css("display", "none");
@@ -585,6 +707,11 @@ a {
         $("#suggestionArticle").css("display", "none");
         $("#classArticle").css("display", "none");
         $("#reviewArticle").css("display", "grid");
+        reviewLoadNew();
+        reviewLoadAll();
+        bestClass();
+		worstClass();
+		getReviewCount();
       });
       
       $(document).on("click","#qnaReplyBtn",function(evt){
@@ -697,7 +824,7 @@ a {
     	    	+"<tr><th>내용</th><td>"+obj.qna_content+"</td></tr>"
     	    	+"<tr><th>작성자</th><td>"+obj.member_id+"</td></tr>"
     	    	+"<tr><th>등록일</th><td>"+obj.qna_regdate+"</td></tr>"
-    	    	+"<tr><th id='th'>답변</th><td><textarea name='adminReply'>"+replyMsg+"</textarea></td></tr>"
+    	    	+"<tr><th id='th'>답변</th><td><textarea name='adminReply' id='notice_content'>"+replyMsg+"</textarea></td></tr>"
     	    	+"<tr><td  id='btn' colspan='2'>"+msg+"</td></tr>");
     	    
     	    $("#qnaReplyBtn").css({
@@ -802,10 +929,8 @@ a {
 	     
 	}
 
-	
 	//=============================리뷰=================================
-		//신규리뷰
-		//신규 qna 리스트
+		//신규리뷰 리스트
       function reviewLoadNew(){
     	  $("#reviewNewTbl").empty();
     	  $.ajax({
@@ -816,7 +941,7 @@ a {
       			for(let i = 0; i < data.length; i++) {
       				$("#reviewNewTbl").append(
       						"<tr><td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].review_num+"</a></td>"
-							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].member_id"</a></td>"
+							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].member_id +"</a></td>"
 							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].review_content+"</a></td>"
 							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].score+"</a></td>"
 							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].review_regdate+"</a></td>"
@@ -827,9 +952,309 @@ a {
       		error : function(){
       			alert("error");
       		}
-      	  })
+      	  });
+      }
+		//전체리뷰 리스트
+      function reviewLoadAll(){
+    	  $("#reviewAllTbl").empty();
+    	  $.ajax({
+      		method : "get",
+      		url : "/admin/reviewLoadAll", 
+      		dataType: 'JSON',
+      		success:function(data){
+      			for(let i = 0; i < data.length; i++) {
+      				$("#reviewAllTbl").append(
+      						"<tr><td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].review_num+"</a></td>"
+							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].member_id +"</a></td>"
+							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].review_content+"</a></td>"
+							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].score+"</a></td>"
+							+"<td><a onclick='reviewDetail("+data[i].review_num+")'>"+data[i].review_regdate+"</a></td>"
+						+"</tr>");
+      				
+      			}
+      		},
+      		error : function(){
+      			alert("error");
+      		}
+      	  });
       }
 		
+    //상세보기
+    function reviewDetail(review_num) {
+    	$("#reviewDetailTbody").empty();
+    	$.ajax({
+    			method : "get",
+    			datatype : "JSON",
+    			url:"/admin/reviewDetail",
+    			data : {
+    				"review_num" : review_num
+    			},	
+    			success:function(data){
+    				 $("#reviewDetailTbody").html(
+    			    	    	"<tr><td colspan='2' style='width: 30%; text-align : center;' ><img src='../images/"+data.review_photo+"' style ='width :150px; height:150px; '></td></tr>"
+    			    	    	+"<tr><input type='hidden' name='review_num' value='"+data.review_num+"'><th style='width: 30%;'>내용</th><td>"+data.review_content+"</td></tr>"
+    			    	    	+"<tr><th>작성자</th><td>"+data.member_id+"</td></tr>"
+    			    	    	+"<tr><th>평점</th><td>"+data.score+"</td></tr>"
+    			    	    	+"<tr><th>과목코드</th><td><a href='#'>"+data.class_code+"</a></td></tr>"
+    			    	    	+"<tr><th>등록일</th><td>"+data.review_regdate+"</td></tr>"
+    			    	    	+"<tr><td colspan='2' style='text-align : center;'><input type='button' class='reviewDelbtn' value='삭제'></td></tr>"
+    			    	    	)
+    			    	    
+    			},
+    			error : function(){
+    				alert("error");
+    			}
+    			
+    			
+    		});
+    	}
+    
+    	$(document).on("click",".reviewDelbtn",function(evt){
+    		let review_num = evt.target.parentElement.parentElement.parentElement.children[1].children[0].value;
+    		alert(review_num);
+    		$.ajax({
+    			method : "Delete",
+    			data : {
+    				"review_num" : review_num
+    			},
+    			url : "/admin/deleteReview",
+    			sucess:function(data){
+    				alert("삭제완료!");
+    			},
+    			error : function(){
+    				alert("error");
+    			},
+    			complete : function(){
+    				reviewLoadNew();
+    				reviewLoadAll();
+    			}
+    			
+    		});
+    		
+    	})
+    	//금주 최고의 강의
+    	function bestClass(){
+	    	$.ajax({
+	    		method : "Get",
+	    		datatype : "json",
+	    		url : "/admin/bestClass",
+	    		success:function(data){
+	    			const temp1 = data * 10;
+	        	    const temp2 = Math.ceil(temp1)/10;
+	    			$("#bestClass").text(data.score +" 점\n" +data.class_code);
+	    			let obj = whatClass(data.class_code);
+	    			$("#bestClassinfo").text(obj.class_subject);
+				},
+				error : function(){
+					alert("error");
+				},
+				complete : function(){
+	    			
+				}
+	    	});
+    	}
+    	//금주 최악의 강의
+    	function worstClass(){
+	    	$.ajax({
+	    		method : "Get",
+	    		url : "/admin/worstClass",
+	    		datatype : "json",
+	    		success:function(data){
+	    			const temp1 = data * 10;
+	        	    const temp2 = Math.ceil(temp1)/10;
+	    			$("#worstClass").text(data.score +" 점\n" +data.class_code);
+	    			let obj = whatClass(data.class_code);
+	    			$("#worstClassinfo").text(obj.class_subject);
+	    			
+				},
+				error : function(){
+					alert("error");
+				},
+				complete:function(){
+					
+					
+				}
+			
+				
+	    	});
+    	}
+    	//강의정보 가져오기
+    	function whatClass(class_code){
+    		let classinfo;
+    		$.ajax({
+	    		method : "Get",
+	    		url : "/admin/class.what",
+	    		datatype : "json",
+	    		async: false,
+	    		data : {
+	    			"class_code" : class_code
+	    		},
+	    		success:function(data){
+	    			classinfo = data;
+	    		},
+				error : function(){
+					alert("error");
+				}
+	    	});
+    		return classinfo;
+    	}
+
+    	//전체 리뷰 갯수
+    	function getReviewCount(){
+    		  $.ajax({
+    			 	
+    				method : "Get",
+    	    		url : "/admin/getReviewCount",
+    	    		success : function(data){
+    	    			alert("dddd");
+    	    			 $("#reviewCnt").text(data);
+    	    		},
+    				error : function(){
+    					alert("error");
+    				}
+    		  });
+    		
+    	}
+    	//=============공지 NOTICE======================
+    	//공지목록
+    	function getNotice(){
+    		$("#noticeTbody").empty();
+    		$.ajax({
+    			method : "GET",
+    			url : "/admin/getNotice",
+    			datatype : "json",
+    			success : function(data){
+	    			for(let i =0 ;i<data.length;i++){
+	    				$("#noticeTbody").append(
+	    							"<tr><td>"+ data[i].notice_num+"</td>"
+	    							+"<td>"+ data[i].notice_title+"</td>"
+	    							+"<td>"+ data[i].member_id+"</td>"
+	    							+"<td>"+ data[i].notice_regdate+"</td><tr>"
+	    				);
+	    				
+	    			}
+	    			
+	    			
+	    		},
+				error : function(){
+					alert("error");
+				}
+    			
+    			
+    		});
+    	}
+    	
+    	$("#noticeSearchbtn").click(function(){
+    		let keyword = $("#noticeSearchBar").val();
+    		if (keyword == "") {
+    			getNotice();
+    		}else{
+    			getsearchNotice(keyword);
+    			
+    		}
+    	});
+    	$("#noticeSearchBar").keydown(function(evt){
+    		let keyword = $("#noticeSearchBar").val();
+    		if (evt.keyCode == 13) {
+    			
+    			if (keyword == "") {
+        			getNotice();
+        		}else{
+        			getsearchNotice(keyword);
+        		}
+    		}
+    	});
+    	//공지 검색목록
+    	function getsearchNotice(keyword){
+    		$("#noticeTbody").empty();
+    		$.ajax({
+    			method : "GET",
+    			url : "/admin/getsearchNotice",
+    			datatype : "json",
+    			data:{
+    				"keyword" : keyword
+    			},
+    			success : function(data){
+    				alert(data);
+	    			for(let i =0 ;i<data.length;i++){
+	    				$("#noticeTbody").append(
+	    							"<tr><td>"+ data[i].notice_num+"</td>"
+	    							+"<td>"+ data[i].notice_title+"</td>"
+	    							+"<td>"+ data[i].member_id+"</td>"
+	    							+"<td>"+ data[i].notice_regdate+"</td><tr>"
+	    				);
+	    				
+	    			}
+	    			
+	    			
+	    		},
+				error : function(){
+					alert("error");
+				}
+    			
+    			
+    		});
+    	}
+    	//신규공지
+    	function getNoticeNew(){
+    		$("#noticeNewtbody").empty();
+    		$.ajax({
+    			method : "GET",
+    			url : "/admin/getNoticeNew",
+    			datatype : "json",
+    			success : function(data){
+    				
+	    			for(let i =0 ;i<data.length;i++){
+	    				$("#noticeNewtbody").append(
+	    							"<tr><td>"+ data[i].notice_num+"</td>"
+	    							+"<td>"+ data[i].notice_title+"</td>"
+	    							+"<td>"+ data[i].member_id+"</td>"
+	    							+"<td>"+ data[i].notice_regdate+"</td><tr>"
+	    				);
+	    				
+	    			}
+	    			
+	    			
+	    		},
+				error : function(){
+					alert("error");
+				}
+    			
+    			
+    		});
+    	}
+    	
+    	//공지등록
+    	$("#regNoticeBtn").click(function(){
+    		regNotice();
+    	})
+    	function regNotice(){
+    		
+    		let notice_title = $("input[name='notice_title']").val();
+    		let member_id = "${member_id}";
+    		let notice_content = $("#notice_content").val();
+    		
+    		$.ajax({
+    			method : "post",
+    			url : "/admin/regNotice",
+    			data : {
+    				"notice_title" : notice_title,
+    				"member_id" : member_id,
+    				"notice_content" : notice_content
+    			},
+    			success : function(data){
+    				getNotice();
+    				getNoticeNew();
+    			},
+				error : function(){
+					alert("error");
+				}
+    			
+    		})
+    	}
+    	
+    	//공지수정삭제
+    	
      </script>
 </body>
 

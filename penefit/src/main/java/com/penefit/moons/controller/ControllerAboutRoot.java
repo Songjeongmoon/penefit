@@ -1,11 +1,17 @@
 package com.penefit.moons.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.service.ServiceAboutClass;
@@ -20,7 +26,7 @@ public class ControllerAboutRoot {
 
 	@GetMapping("/")
 	public String root() {
-
+		service.insertVisits();
 		return "home";
 	}
 

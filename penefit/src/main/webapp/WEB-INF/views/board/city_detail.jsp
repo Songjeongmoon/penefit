@@ -10,6 +10,7 @@
 	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 	crossorigin="anonymous"></script>
 </head>
+
 <link rel="stylesheet" href="/css/">
 <body>
 	<%@ include file="../header.jsp"%>
@@ -160,7 +161,7 @@
             			msg = "</tr>";
             		}
 					
-					tbody.innerHTML += "<tr><td><input type='hidden' name='reply_num' value='" + obj[i].reply_num + "'>"
+					tbody.innerHTML += "<tr><td><input type='text' name='reply_num' value='" + obj[i].reply_num + "'>"
 									+ obj[i].reply_content
 									+ "</td><td>"
 									+ obj[i].member_id +"</td>" + msg;
@@ -173,17 +174,18 @@
 		}
 		
 		$(document).on("click",".delBtn", function(evt){
-			//버튼(evt가 발생한 타겟)을 기준으로 부모 : td --> 부모 --> tr --> 0번째 자식 -->첫번째 td --> 내용물
 			
 			let reply_num = evt.target.parentElement.parentElement.children[0].children[0].value;
+			
 			delReply(reply_num);
+			alert(reply_num);
 		
 		})
 		
 		function delReply(reply_num) {
   			const xhttp = new XMLHttpRequest();
  			 xhttp.onload = function() {
-  			  //alert(this.responseText);
+  			  alert(this.responseText);
  				getReplyList();
   			  }
  			 xhttp.open("DELETE", "/api/city/delReply/reply_num/"+ reply_num, true);
@@ -191,8 +193,7 @@
  			 xhttp.send();
 		}
 		
-		
-		
+	
 	</script>
 	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>

@@ -110,6 +110,8 @@ public interface ServiceAboutClassI {
 	public List<ReviewVO> getReviewList(String member_id);
 
 	public int getReviewCheck(String class_code, String member_id, int buy_history_num);
+	
+	public void insertVisits();
 
 
 }

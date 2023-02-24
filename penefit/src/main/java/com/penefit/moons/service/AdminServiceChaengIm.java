@@ -2,11 +2,13 @@ package com.penefit.moons.service;
 
 import java.util.List;
 
+import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
+import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
 
-public interface AdimnServiceChaengIm {
+public interface AdminServiceChaengIm {
 
 	// 관리자 화면 qna 리스트
 	public List<QnAVO> getAdminQnaList();
@@ -39,6 +41,22 @@ public interface AdimnServiceChaengIm {
 	public double spendtime();
 
 	public List<QnAtype> getQnaType();
+
+	public ReviewVO reviewDetail(int review_num);
+
+	public void deleteReview(int review_num);
+
+	public ReviewScore bestClass();
+
+	public ReviewScore worstClass();
+
+	public int getReviewCount();
+
+	public List<NoticeVO> getNotice();
+
+	public List<NoticeVO> getNoticeNew();
+
+	public List<NoticeVO> getsearchNotice(String keyword);
 
 
 

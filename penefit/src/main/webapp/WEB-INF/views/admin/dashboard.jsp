@@ -2,12 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>대시보드</title>
      <script
       src="https://code.jquery.com/jquery-3.6.3.min.js"
@@ -53,7 +50,7 @@
         margin: 0 auto;
         margin-top: 20px;
         line-height: 6vh;
-        transition: all 0.1s ease-in;
+        transition: all 0.15s ease-in;
         cursor: pointer;
         font-size: 1.2em;
         font-weight: bold;
@@ -106,16 +103,22 @@
       }
 
       .box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        position: relative;
         background-color: rgb(57, 57, 57);
         border-radius: 30px;
         margin-top: 30px;
       }
-      #box1 {
-        grid-column: 1 / 6;
-        grid-row: 1/ 4;
+      #mainBox1 {
+        grid-column: 1 / 3;
+      }
+      #mainBox4 {
+      	grid-row: 2 / 4;
+      }
+      #mainBox5 {
+      	grid-row: 2 / 4;
+      }
+      #mainBox6 {
+      	grid-row: 2 / 4;
       }
       #ul2 {
         display: none;
@@ -128,6 +131,7 @@
       }
       #memberArticle {
         background-color: red;
+      	display: none;
       }
       #managerArticle {
         background-color: orange;
@@ -153,6 +157,85 @@
         background-color: purple;
         display: none;
       }
+      #home {
+      	display: inline-block;
+      	position: absolute;
+      	width: 150px;
+      	height: 50px;
+      	right: 15px;
+      	top: 13px;
+      	cursor: pointer;
+      	z-index: 1;
+      }
+      .mainTop {
+      	color: black;
+      	width: 100%;
+      	height: 70px;
+      	background-color: white;;
+      	border-radius: 30px 30px 0 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .mainTitle{
+        display: inline-block;
+        margin: 40px;
+        font-size: 30px;
+        color: skyblue
+      }
+      .mainTable {
+     	text-align: center;
+      	color: skyblue;
+      	font-size: 20px;
+      }
+      td {
+      	border-right: 1px solid white;
+      	border-left: 1px solid white;
+      }
+      .footer{
+      	position: absolute;
+      	bottom: 0;
+      	border-radius: 0 0 30px 30px;
+      	width: 100%;
+      	height: 50px;
+      	background-color: black;
+      	color: white;
+      	display: flex;
+      	flex-direction: row;
+      	justify-content: center;
+      	align-items: center;
+      }
+      .mainDate{
+      	margin: 0 20px 0 20px;
+      }
+      .stick {
+      	position: relative;
+      	top: 50%;
+      	background-color: orange;
+      	width: 20px;
+      	transform: translateY(-50%);
+      	margin: 0 30px 0 30px;
+      	color: white;
+      }
+      #stickBox {
+      	display: flex;
+      	position: absolute;
+      	width: 100%;
+      	height: 200px;
+      	top: 0;
+      	border-radius: 30px 30px 0 0;
+      	flex-direction: row;
+      	justify-content: center;
+      	align-items: center;
+      	
+      }
+      th {
+      	border-right: 1px solid white;
+      }
+      .visit {
+      	position: absolute;
+      	top: -20px;
+      }
     </style>
   </head>
 
@@ -160,7 +243,6 @@
     oncontextmenu="return false"
     onselectstart="return false"
     ondragstart="return false"
-    onkeydown="return false"
   >
     <div id="container">
       <div id="sideBar">
@@ -197,73 +279,236 @@
           <li class="subMenu">Null</li>
           <li class="subMenu">Null</li>
         </ul>
+        <img id="home" src="../../images/logo.png"></img>
       </div>
-
+      
+      <!-- Article start -->
+      
+      <div id="mainArticle" class="article">
+      
+        <div id="mainBox1" class="box">
+        
+        	<div id = "stickBox">
+	        	<c:forEach var = "visit" items = "${visits }">
+	       			<div style = "height: ${visit.visit}px" class = "stick"><span class = "visit">${visit.visit }</span></div>
+	       		</c:forEach>
+	        </div>
+	        
+	       	<div class="footer" id="mainFooter">
+	       		<c:forEach var = "visit" items = "${visits }">
+	       			<div class = "mainDate">${visit.day}</div>
+	       		</c:forEach>
+	       	</div>
+        
+     	 </div>
+        
+        
+        <div id="mainBox2" class="box">
+        	<div class="mainTop">
+        		<span class = "mainTitle">강사 리스트</span>
+        	</div>
+        	
+       		<table class = "mainTable">
+       			<thead>        		
+        			<tr>
+        				<th>ID</th>
+        			</tr>
+        		</thead>
+        		
+        		<tbody>
+	        		<c:forEach var="member" items="${memberList }">
+        				<tr>
+	        				<td>${member.member_id }</td>
+ 	      	 			</tr>
+	        		</c:forEach>
+        		</tbody>
+       			
+       		</table>
+       		<div class="footer"></div>
+        </div>
+        
+        
+        <div id="mainBox4" class="box">
+        	<div class="mainTop">
+        		<span class = "mainTitle">총 ${suggestionCount }개의 제안서가 있음</span>
+        	</div>
+        	
+       		<table class = "mainTable">
+       			<thead>        		
+        			<tr>
+        				<th>NO</th><th>ID</th>
+        				<th>Title</th><th>regDate</th>
+        			</tr>
+        		</thead>
+        		
+        		<tbody>
+	        		<c:forEach var="suggestion" items="${suggestionList }">
+        				<tr>
+	        				<td>${suggestion.suggest_num }</td>
+	        				<td>${suggestion.member_id }</td>
+	        				<td>${suggestion.suggest_title }</td>
+	        				<td>${suggestion.suggest_regdate }</td>
+ 	      	 			</tr>
+	        		</c:forEach>
+        		</tbody>
+       			
+       		</table>
+       		<div class="footer"></div>
+        </div>
+        
+        
+        <div id="mainBox5" class="box">
+        
+	        <div class="mainTop">
+	        		<span class = "mainTitle">오늘의 클래스 </span>
+	        </div>
+	        	
+       		<table class = "mainTable">
+       			<thead>        		
+        			<tr>
+        				<th>Title</th><th>teacher</th>
+        				<th>time</th><th>min/max</th>
+        			</tr>
+        		</thead>
+        		
+        		<tbody>
+	        		<c:forEach var="vo" items="${classTodayList }">
+        				<tr>
+	        				<td>${vo.class_subject }</td>
+	        				<td>${vo.class_teacher }</td>
+	        				<td>${vo.class_date }</td>
+	        				<td>${vo.class_memcnt }/${vo.class_memlit }</td>
+ 	      	 			</tr>
+	        		</c:forEach>
+        		</tbody>
+       			
+       		</table>
+	        <div class="footer">
+	        	<span>today: ${classTodayCount }&nbsp; </span>
+	        	<span>end: ${classEndCount }&nbsp; </span>
+	        	<span>active: ${classActiveCount }</span>
+	        </div>
+	    </div>
+	        
+        <div id="mainBox6" class="box">
+        		        <div class="mainTop">
+	        		<span class = "mainTitle"> QnA List </span>
+	        </div>
+	        	
+       		<table class = "mainTable">
+       			<thead>        		
+        			<tr>
+        				<th>No</th><th>Id</th>
+        				<th>Title</th><th>regDate</th>
+        			</tr>
+        		</thead>
+        		
+        		<tbody>
+	        		<c:forEach var="qna" items="${qnaList }">
+        				<tr>
+	        				<td>${qna.qna_num }</td>
+	        				<td>${qna.member_id }</td>
+	        				<td>${qna.qna_title }</td>
+	        				<td>${qna.qna_regdate }</td>
+ 	      	 			</tr>
+	        		</c:forEach>
+        		</tbody>
+       			
+       		</table>
+	        <div class="footer">
+	        	<span>totla: ${qnaCount }</span>
+	        </div>
+        </div>
+      </div>
+      
       <div id="memberArticle" class="article">
-        <div id="box1" class="box">1</div>
+        <div id="memberBox1" class="box">1</div>
         <div class="box">2</div>
         <div class="box">3</div>
         <div class="box">4</div>
         <div class="box">5</div>
         <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
       </div>
 
       <div id="managerArticle" class="article">
-        <div id="box1" class="box">1</div>
+        <div id="managerBox1" class="box">1</div>
         <div class="box">2</div>
         <div class="box">3</div>
         <div class="box">4</div>
         <div class="box">5</div>
         <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
       </div>
 
       <div id="qnaArticle" class="article">
-        <div id="box1" class="box">1</div>
+        <div id="qnaBox1" class="box">1</div>
         <div class="box">2</div>
         <div class="box">3</div>
         <div class="box">4</div>
         <div class="box">5</div>
         <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
       </div>
 
       <div id="noticeArticle" class="article">
-        <div id="box1" class="box">1</div>
+        <div id="noticeBox1" class="box">1</div>
         <div class="box">2</div>
         <div class="box">3</div>
         <div class="box">4</div>
         <div class="box">5</div>
         <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
       </div>
 
       <div id="suggestionArticle" class="article">
-        <div id="box1" class="box">1</div>
+        <div id="suggestionBox1" class="box">1</div>
         <div class="box">2</div>
         <div class="box">3</div>
         <div class="box">4</div>
         <div class="box">5</div>
         <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
       </div>
 
       <div id="classArticle" class="article">
-        <div id="box1" class="box">1</div>
+        <div id="classBox1" class="box">1</div>
         <div class="box">2</div>
         <div class="box">3</div>
         <div class="box">4</div>
         <div class="box">5</div>
         <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
       </div>
 
       <div id="reviewArticle" class="article">
-        <div id="box1" class="box">1</div>
+        <div id="reviewBox1" class="box">1</div>
         <div class="box">2</div>
         <div class="box">3</div>
         <div class="box">4</div>
         <div class="box">5</div>
         <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
       </div>
     </div>
 
     <script>
+    
+    
       // SubMenu Display
       $("#sideMenu1").click(() => {
         $("#ul1").css("display", "block");
@@ -291,7 +536,21 @@
       });
 
       // Article Display
+      $("#home").click((event) => {
+    	$(".subMenu").css("backgroundColor", "transparent");
+    	$("#mainArticle").css("display", "grid");
+        $("#memberArticle").css("display", "none");
+        $("#managerArticle").css("display", "none");
+        $("#qnaArticle").css("display", "none");
+        $("#noticeArticle").css("display", "none");
+        $("#suggestionArticle").css("display", "none");
+        $("#classArticle").css("display", "none");
+        $("#reviewArticle").css("display", "none");
+      });
       $("#member").click(() => {
+    	$(".subMenu").css("backgroundColor", "transparent");
+      	$(event.target).css("backgroundColor", "white");
+    	$("#mainArticle").css("display", "none");
         $("#memberArticle").css("display", "grid");
         $("#managerArticle").css("display", "none");
         $("#qnaArticle").css("display", "none");
@@ -301,6 +560,9 @@
         $("#reviewArticle").css("display", "none");
       });
       $("#manager").click(() => {
+    	$(".subMenu").css("backgroundColor", "transparent");
+      	$(event.target).css("backgroundColor", "white");  
+    	$("#mainArticle").css("display", "none");
         $("#memberArticle").css("display", "none");
         $("#managerArticle").css("display", "grid");
         $("#qnaArticle").css("display", "none");
@@ -310,6 +572,9 @@
         $("#reviewArticle").css("display", "none");
       });
       $("#qna").click(() => {
+    	$(".subMenu").css("backgroundColor", "transparent");
+      	$(event.target).css("backgroundColor", "white");
+    	$("#mainArticle").css("display", "none");
         $("#memberArticle").css("display", "none");
         $("#managerArticle").css("display", "none");
         $("#qnaArticle").css("display", "grid");
@@ -319,6 +584,9 @@
         $("#reviewArticle").css("display", "none");
       });
       $("#notice").click(() => {
+    	$(".subMenu").css("backgroundColor", "transparent");
+      	$(event.target).css("backgroundColor", "white");
+    	$("#mainArticle").css("display", "none");
         $("#memberArticle").css("display", "none");
         $("#managerArticle").css("display", "none");
         $("#qnaArticle").css("display", "none");
@@ -328,6 +596,9 @@
         $("#reviewArticle").css("display", "none");
       });
       $("#suggestion").click(() => {
+    	$(".subMenu").css("backgroundColor", "transparent");
+      	$(event.target).css("backgroundColor", "white");
+    	$("#mainArticle").css("display", "none");
         $("#memberArticle").css("display", "none");
         $("#managerArticle").css("display", "none");
         $("#qnaArticle").css("display", "none");
@@ -337,6 +608,9 @@
         $("#reviewArticle").css("display", "none");
       });
       $("#class").click(() => {
+    	$(".subMenu").css("backgroundColor", "transparent");
+      	$(event.target).css("backgroundColor", "white");
+    	$("#mainArticle").css("display", "none");  
         $("#memberArticle").css("display", "none");
         $("#managerArticle").css("display", "none");
         $("#qnaArticle").css("display", "none");
@@ -346,6 +620,9 @@
         $("#reviewArticle").css("display", "none");
       });
       $("#review").click(() => {
+    	$(".subMenu").css("backgroundColor", "transparent");
+      	$(event.target).css("backgroundColor", "white");
+    	$("#mainArticle").css("display", "none");
         $("#memberArticle").css("display", "none");
         $("#managerArticle").css("display", "none");
         $("#qnaArticle").css("display", "none");

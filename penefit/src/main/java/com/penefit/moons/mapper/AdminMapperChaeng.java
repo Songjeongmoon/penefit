@@ -5,8 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
+import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
 
 @Mapper
@@ -44,6 +46,23 @@ public interface AdminMapperChaeng {
 	public double spendtime();
 
 	public List<QnAtype> getQnaType();
+
+	public ReviewVO reviewDetail(@Param("review_num") int review_num);
+
+	public void deleteReview(@Param("review_num") int review_num);
+
+	public ReviewScore bestClass();
+
+	public ReviewScore worstClass();
+
+	public int getReviewCount();
+
+	public List<NoticeVO> getNotice();
+
+	public List<NoticeVO> getNoticeNew();
+
+	public List<NoticeVO> getsearchNotice(String keyword);
+
 
 	
 	

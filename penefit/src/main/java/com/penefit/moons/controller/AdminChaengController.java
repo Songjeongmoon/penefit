@@ -5,16 +5,23 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
+import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.service.AdminServiceChaeng;
+import com.penefit.moons.service.ServiceAboutAdminI;
+import com.penefit.moons.service.ServiceAboutBoard;
+import com.penefit.moons.service.ServiceAboutClassI;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,27 +32,34 @@ public class AdminChaengController {
 
 	@Autowired
 	AdminServiceChaeng service;
+	@Autowired
+	ServiceAboutClassI cservice;
 
-
+	@Autowired
+	ServiceAboutBoard bservice;
+	
+	@Autowired
+	ServiceAboutAdminI aservice;
+	
 	@GetMapping("/")
 	public String String(Model model) {
 		return "admin/mainChaeng";
 	}
 	
 	//전체리뷰
-	@GetMapping("/reviewList")
-	public @ResponseBody List<QnAVO> reviewList() {
-		// qna리스트
-		List<QnAVO> qnaList = service.getAdminQnaList();
-		return qnaList;
+	@GetMapping("/reviewLoadAll")
+	public @ResponseBody List<ReviewVO> reviewList() {
+		// 리뷰리스트
+		List<ReviewVO> list = service.getReviewList();
+		return list;
 	}
 	
 	//신규리뷰
 	@GetMapping("/reviewLoadNew")
-	public @ResponseBody List<QnAVO> reviewLoadNew() {
-		// qna리스트 - 신규
-		List<QnAVO> qnaListToConfirm = service.qnaListToConfirm();
-		return qnaListToConfirm;
+	public @ResponseBody List<ReviewVO> reviewLoadNew() {
+		// 리뷰리스트 - 신규
+		List<ReviewVO> list = service.getReviewListNew();
+		return list;
 	}
 	
 	@GetMapping("/qnaLoadAll")
@@ -53,6 +67,12 @@ public class AdminChaengController {
 		// qna리스트
 		List<QnAVO> qnaList = service.getAdminQnaList();
 		return qnaList;
+	}
+	
+	@GetMapping("/reviewDetail")
+	public @ResponseBody ReviewVO reviewDetail(int review_num) {
+		return service.reviewDetail(review_num);
+		
 	}
 
 	@GetMapping("/qnaLoadNew")
@@ -117,8 +137,63 @@ public class AdminChaengController {
 	@ResponseBody
 	public List<QnAtype> getQnaType() {
 		List<QnAtype> qnaResult = service.getQnaType();
-		System.out.println(qnaResult.toString());
 		return qnaResult;
 	}
-
+	//리뷰 삭제하기
+	@DeleteMapping("/deleteReview")
+	@ResponseBody
+	public void deleteReview(int review_num) {
+		service.deleteReview(review_num);
+	}
+	
+	//금주최고의 강의
+	@GetMapping("/bestClass")
+	@ResponseBody
+	public ReviewScore bestClass () {
+		
+		return service.bestClass();
+	}
+	//금주최악의 강의
+	@GetMapping("/worstClass")
+	@ResponseBody
+	public ReviewScore worstClass () {
+		return service.worstClass();
+	}
+	
+	@GetMapping("/class.what")
+	@ResponseBody
+	public ClassVO classinfo (String class_code) {
+		return cservice.selectClassOne(class_code);
+	}
+	
+	@GetMapping("/getReviewCount")
+	@ResponseBody
+	public int getReviewCount() {
+		return service.getReviewCount();
+	}
+	
+	@GetMapping("/getNotice")
+	@ResponseBody
+	public List<NoticeVO> getNotice(){
+		return service.getNotice();
+	}
+	@GetMapping("/getNoticeNew")
+	@ResponseBody
+	public List<NoticeVO> getNoticeNew(){
+		return service.getNoticeNew();
+	}
+	
+	@PostMapping("/regNotice")
+	@ResponseBody
+	public void regNotice(NoticeVO notice) {
+		aservice.noticeReg(notice);
+	}
+	@GetMapping("/getsearchNotice")
+	@ResponseBody
+	public List<NoticeVO> getsearchNotice(String keyword){
+		System.out.println(service.getsearchNotice(keyword));
+		return service.getsearchNotice(keyword);
+	}
+	
+	
 }
