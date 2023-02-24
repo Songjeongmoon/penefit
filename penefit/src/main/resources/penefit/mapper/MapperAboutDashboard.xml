@@ -14,12 +14,11 @@
 		 WHERE class_date LIKE CONCAT('%',#{class_date},'%')
 	</select>
 	
-	<select id="SuggestionList" resultType="com.penefit.moons.domain.SuggestDTO">
-		SELECT *
-		FROM suggest
-		WHERE status = '검토'
-		ORDER BY suggest_regdate ASC
-		LIMIT 5
+	<select id="getVisits" resultType="com.penefit.moons.domain.VisitsDTO">
+		SELECT visit, date_format(day, '%m-%d') as day
+		FROM visits
+		ORDER BY day DESC
+		LIMIT 10
 	</select>
 	
 	<select id="getClassTodayCount" resultType="_int">

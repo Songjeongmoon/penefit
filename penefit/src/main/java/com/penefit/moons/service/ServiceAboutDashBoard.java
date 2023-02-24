@@ -10,6 +10,7 @@ import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.SuggestDTO;
+import com.penefit.moons.domain.VisitsDTO;
 import com.penefit.moons.mapper.MapperAboutDashBoard;
 
 @Service
@@ -33,11 +34,6 @@ public class ServiceAboutDashBoard implements ServiceAboutDashBoardI{
 	}
 
 
-	@Override
-	public ArrayList<SuggestDTO> SuggestionList() {
-		ArrayList<SuggestDTO>list = mapper.SuggestionList();
-		return list;
-	}
 
 
 	@Override
@@ -85,6 +81,12 @@ public class ServiceAboutDashBoard implements ServiceAboutDashBoardI{
 	@Override
 	public List<QnAVO> getQnAList() {
 		return mapper.getQnAList();
+	}
+
+
+	@Override
+	public List<VisitsDTO> getVisits() {
+		return mapper.getVisits();
 	}
 
 }

@@ -137,6 +137,9 @@ public interface MapperAboutClass {
 
 	//리뷰목록받아오기
 	public ArrayList<ReviewVO> getReviewList(@Param(value = "member_id") String member_id);
+	
+	//방문자 추가하기
+	public void insertVisits();
 
 	
 }
