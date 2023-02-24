@@ -70,7 +70,7 @@
 							<div class="title">커뮤니티</div>
 							<div class="subtitle">
 								<div class="subtitle_li">
-									<a href="/board/notice">공지사항</a>
+									<a href="/board/notice?pageNum=1&start=1">공지사항</a>
 								</div>
 								<div class="subtitle_li">
 									<a href="/board/cityBoardview">지역별게시판</a>

@@ -2,6 +2,7 @@ package com.penefit.moons.domain;
 
 import lombok.Data;
 
+
 @Data
 public class BoardVO {
 	private int	board_num;
@@ -15,4 +16,9 @@ public class BoardVO {
 	private String city_code;
 	private String city_name;
 	private String board_type;
+	private String page_num;
+	private String content_num;
+	private int limit;
+	private int offset;
+	
 }

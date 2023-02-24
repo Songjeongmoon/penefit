@@ -277,4 +277,11 @@
 		FROM review r, class c
 		WHERE c.class_code = r.class_code
 	</select>
+	
+	<!-- 방문자수 추 -->
+	<insert id="insertVisits">
+		INSERT INTO visits (visit, day)
+		VALUES (visit + 1, now())
+		ON DUPLICATE KEY UPDATE visit = visit + 1
+	</insert>
 </mapper>

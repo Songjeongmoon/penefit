@@ -266,4 +266,9 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 		return list;
 	}
 
+	@Override
+	public void insertVisits() {
+		mapper.insertVisits();
+	}
+
 }
