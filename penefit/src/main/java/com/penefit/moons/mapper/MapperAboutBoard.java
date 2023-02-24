@@ -12,8 +12,8 @@ import com.penefit.moons.domain.ReplyVO;
 @Mapper
 public interface MapperAboutBoard {
 
-	// 공지사항 리스트
-	public List<NoticeVO> getNoticeList();
+	// 공지사항 리스트(feat. 페이징)
+	public List<NoticeVO> getpages(int startnum);
 
 	// 공지사항 상세
 	public NoticeVO noticeSelectOne(int notice_num);
@@ -27,8 +27,7 @@ public interface MapperAboutBoard {
 	// 공지사항 삭제
 	public int delNotice(@Param("notice_num") int notice_num);
 
-//	//공지사항 페이징
-//	public int getPaging(int page_num);
+
 	
 
 	// -----------------------------------
@@ -76,5 +75,23 @@ public interface MapperAboutBoard {
 
 	// FAQ 상세
 	public BoardVO getFaQselectOne(int board_num);
+	
+	//공지사항 글 개수 세기
+	public int countNotice();
+		
+	//지역게시판 글 개수 세기
+	public int countCity();
+	
+	//지역게시판 글&페이징 리스트
+	//public List<BoardVO> getCityList(int startnum);
+	
+	
 
+	
+	
+	
+	
+	
+	
+					
 }

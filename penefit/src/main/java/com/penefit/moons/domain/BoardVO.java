@@ -18,4 +18,7 @@ public class BoardVO {
 	private String board_type;
 	private String page_num;
 	private String content_num;
+	private int limit;
+	private int offset;
+	
 }

@@ -2,9 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="com.penefit.moons.mapper.MapperAboutBoard">
 
-<select id="getNoticeList" resultType="com.penefit.moons.domain.NoticeVO">				
-	SELECT * FROM notice
-</select>
+
 
 <!-- 공지사항 상세 -->
 <select id="noticeSelectOne" resultType="com.penefit.moons.domain.NoticeVO">
@@ -26,13 +24,12 @@
 </delete>
 
 <!-- 지역 전체 게시판 -->
-<select id="getCityList" resultType="com.penefit.moons.domain.BoardVO">
+<select id="getCityList" resultType="com.penefit.moons.domain.BoardVO"> 
 	SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND c.city_code = b.city_code	
 </select>
 
 <!-- 각 지역별 게시판 -->
-<select id="getOneCityList" resultType="com.penefit.moons.domain.BoardVO">
-	
+<select id="getOneCityList" resultType="com.penefit.moons.domain.BoardVO">	
 	<!--  SELECT FROM board WHERE board_type= 'CC' AND city_code=#{city_code}--> 
 	SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND c.city_code = b.city_code AND c.city_code = #{city_code}
 </select>
@@ -41,13 +38,6 @@
 <select id="citySelectOne" resultType="com.penefit.moons.domain.BoardVO">
 	SELECT * FROM board WHERE board_num=#{board_num}
 </select>
-
-
-<!-- 페이지  -->
-<!-- <select id="getPaging" resultType="int"> -->
-<!-- 	SELECT * FROM board LIMIT (0,10)  -->
-<!-- </select> -->
-
 
 <update id="cityViewCnt">
 	UPDATE board SET board_viewcnt = board_viewcnt + 1 WHERE board_num=#{board_num}
@@ -68,8 +58,9 @@
 
 <!-- 지역게시판 검색 -->
 <select id="search_city" resultType="com.penefit.moons.domain.BoardVO">
-	SELECT * FROM board WHERE board_title LIKE CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%', #{keyword},'%') AND city_code=#{city_code}
-	<!-- SELECT b.*, c.* FROM board b, city c WHERE board_title LIKE CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%', #{keyword},'%') AND c.city_code=#{city_code} -->
+<!-- 	SELECT * FROM board WHERE board_title LIKE CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%', #{keyword},'%') AND city_code=#{city_code} -->
+	SELECT b.*, c.* FROM board b, city c WHERE board_title LIKE CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%', #{keyword},'%') AND c.city_code=#{city_code}
+	
 </select>
 
 <!-- 댓글 -->
@@ -92,12 +83,28 @@
 </select>
 
 
-<select id="paging" resultType="com.penefit.moons.domain.NoticeVO">
-	SELECT * FROM notice order by notice_num limit #{page_num}, #{content_num}
+<!-- 공지사항 글 개수 세기 -->
+<select id="countNotice" resultType="_int">
+	SELECT COUNT(*) FROM notice
 </select>
-<select id="testcount" resultType="int">
-	select count(*) from test
+
+<!-- 공지사항 리스트 & 페이징  -->
+<select id="getpages" resultType="com.penefit.moons.domain.NoticeVO">
+    SELECT * FROM notice LIMIT #{startnum}, 10
 </select>
+
+<!-- 지역게시판 글 개수 세기  -->
+<select id="countCity" resultType="_int">
+	SELECT COUNT(*) FROM board 
+</select>
+
+<!-- 지역게시판 리스트&페이징 -->
+<!-- <select id="getCityList" resultType="com.penefit.moons.domain.BoardVO"> -->
+<!-- 	SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND c.city_code = b.city_code  LIMIT #{startnum}, 10 -->
+<!-- </select> -->
+
+
+
 
 
 

@@ -35,6 +35,6 @@ public interface MapperAboutDashBoard {
 	
 	public int getQnACount();
 	
-	public List<QnAVO> getQnaList();
+	public List<QnAVO> getQnAList();
 
 }

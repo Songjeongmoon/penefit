@@ -33,6 +33,6 @@ public interface ServiceAboutDashBoardI {
 	
 	public int getQnACount();
 	
-	public List<QnAVO> getQnaList();
+	public List<QnAVO> getQnAList();
 
 }

@@ -37,7 +37,7 @@ public class ControllerAboutDashBoard {
 		List<SuggestDTO> ss  = serviceDash.getSuggestList();
 		int suggestCunt = serviceDash.getSuggestCount();
 		int qnaCount = serviceDash.getQnACount();
-		List<QnAVO> qnalist = serviceDash.getQnaList();
+		List<QnAVO> qnalist = serviceDash.getQnAList();
 		System.out.println("클래스리스트: "+clist);
 		model.addAttribute("tlist", list);
 		model.addAttribute("clist", clist);

@@ -9,7 +9,7 @@ import com.penefit.moons.domain.ReplyVO;
 public interface ServiceAboutBoardI {
 	
 	//공지사항 리스트 
-	public List<NoticeVO> getNoticeList();
+	public List<NoticeVO> getpages(int startnum);
 	
 	//공지사항 상세
 	public NoticeVO noticeSelectOne(int notice_num);
@@ -20,8 +20,6 @@ public interface ServiceAboutBoardI {
 	//공지사항 삭제
 	public int delNotice(int notice_num);
 	
-//	공지사항 페이징
-	public int getPaging(int page_num);
 	
 	//---------------------------------------
 
@@ -62,4 +60,18 @@ public interface ServiceAboutBoardI {
 	
 	//---------------------------------------
 
+	//공지사항 게시글 개수 
+	public int countNotice();
+	
+	//지역 게시판 게시글 개수
+	public int countCity();
+	
+	//지역게시판 리스트 & 페이징
+	//public List<BoardVO> getAllCityList(int startnum);
+	
+	
+	
+	
+	
+	
 }

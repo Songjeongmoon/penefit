@@ -23,17 +23,26 @@ public class ControllerAboutBoard {
 	@Autowired
 	ServiceAboutBoard bservice;
 	
-	//공지사항리스트
+	//공지사항리스
 	@GetMapping("/notice")
-	public void getNoticeList(Model model) {  
-		List<NoticeVO> nlist = bservice.getNoticeList() ;
-		//int plist = bservice.getPaging(page_num);
-		model.addAttribute("nlist", nlist);
-		//model.addAttribute("plist", plist);
+	public void getNoticeList(Model model, int pageNum, int start) {
+		if(start < 1) {
+			start=1;
+		}else if(start < 1 || pageNum < 1) {
+			start = 1;
+			pageNum = 1;
+		}
+		int param = pageNum * 10 - 10;
+		List<NoticeVO> nlist = bservice.getpages(param);
+		int notice_count = bservice.countNotice();
 		
-		//System.out.println("컨트롤러 : " + nlist);
+		model.addAttribute("notice_count", notice_count);			//공지사항 게시물 건수 보낸다~~~
+		model.addAttribute("nlist", nlist);							//공지사항 리스트 보낸다~~~
+		model.addAttribute("pstart", start);
+	
 	}
 	
+
 	//공지사항 상세
 	@GetMapping("/notice_detail")
 	public void getNoticeOne(@RequestParam int notice_num, Model model) {
@@ -75,18 +84,27 @@ public class ControllerAboutBoard {
 		model.addAttribute("flist",flist);	
 	}
 	 
-	//FAQ 게시판 상세
-	@GetMapping("/faq_detail")
-	public void faqSelectOne(@RequestParam("board_num") int board_num, Model model) {
-		BoardVO faq = bservice.faqSelectOne(board_num);
-		model.addAttribute("faq",faq);
-	}
 	
 	//지역 게시판 
 	@GetMapping("/cityBoardview")
 	public String cityBoard1() {
 		return "/board/cityBoard";
 	}
+	
+	
+	/*@GetMapping("/cityBoardView")
+	public void cityBoard1 (int pageNum, Model model, int start) {
+		int param = pageNum * 10 - 10;
+		List<BoardVO> list = bservice.getAllCityList(param);
+		int notice_count = bservice.countCity();
+		
+		model.addAttribute("notice_count", notice_count);
+		model.addAttribute("list", list);
+		model.addAttribute("pstart", start);
+	}*/
+
+	
+	
 	
 	// 지역별게시판 등록뷰
 	@GetMapping("/city_regView")
@@ -136,9 +154,6 @@ public class ControllerAboutBoard {
 		
 		return "redirect:cityBoardview";
 	}
-	
-	
-
 	
 	
 	
