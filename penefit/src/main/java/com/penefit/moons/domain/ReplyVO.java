@@ -2,6 +2,8 @@ package com.penefit.moons.domain;
 
 import lombok.Data;
 
+
+
 @Data
 public class ReplyVO {
 	private int reply_num;

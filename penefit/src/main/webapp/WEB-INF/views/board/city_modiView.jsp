@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -73,6 +74,7 @@
 		})
 	</script>
 	<script type="text/javascript" src="/js/javascript.js"></script>
+>>>>>>> branch 'master' of https://github.com/eseo99/penefit.git
 </body>
 </body>
 </html>

@@ -101,15 +101,14 @@ h2{
 						<option value="Z">온라인</option>
 					</select>
 
-					<button type="button" id="check_city" onclick="one_City()">선택</button>
-					&nbsp;&nbsp;&nbsp; <input type="text" name="keyword" id="keyword"
-						placeholder="검색어를 입력하세요..."> <input type="button"
-						value="검색" id="searchBtn" onclick="search_city()">
+					<button type="button" id="check_city" onclick="one_City()">선택</button>&nbsp;&nbsp;&nbsp; 
+					<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요..."> 
+					<input type="button" value="검색" id="searchBtn" onclick="search_city()">
 					<div style="text-align: right;">
 						<button type="button" onclick="location.href='city_regView'" id="write">글쓰기</button>
 					</div>
 				</div>
-
+				
 				<div id="citybox1">
 					<table id="city_tbl">
 						<thead>
@@ -142,8 +141,7 @@ h2{
 			$("#aside_submenu").css("display", "none");
 		});
 		
-
-		<!-- 2. 이동버튼을 클릭했을때, 선택된 값을 받아와야해 -->
+		
 		all_City();
 		
 		
@@ -230,7 +228,7 @@ h2{
                                                  "</td><td>" +data[i].board_regdate + 
                                                  "</td></tr>"
                                                  )
-                                alert(data);
+                               
                              }
                        },
                        error : () => {
