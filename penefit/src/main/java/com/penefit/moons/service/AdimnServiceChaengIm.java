@@ -1,14 +1,10 @@
 package com.penefit.moons.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.penefit.moons.domain.ClassVO;
-import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.QnAVO;
-import com.penefit.moons.domain.SuggestDTO;
+import com.penefit.moons.domain.QnAtype;
+import com.penefit.moons.domain.ReviewVO;
 
 public interface AdimnServiceChaengIm {
 
@@ -29,6 +25,21 @@ public interface AdimnServiceChaengIm {
 
 	// 상세보기에 답변표시
 	public String replyofQna(int qnaNum);
+
+	public List<ReviewVO> getReviewList();
+
+	public  List<ReviewVO> getReviewListNew();
+
+	public List<QnAVO> qnaListToConfirm();
+
+	public int getQnACountAll();
+
+	public int getQnACount();
+
+	public double spendtime();
+
+	public List<QnAtype> getQnaType();
+
 
 
 }

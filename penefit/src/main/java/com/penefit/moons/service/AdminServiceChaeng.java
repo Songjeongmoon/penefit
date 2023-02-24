@@ -1,19 +1,13 @@
 package com.penefit.moons.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.QnAVO;
-import com.penefit.moons.domain.SuggestDTO;
+import com.penefit.moons.domain.QnAtype;
+import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.mapper.AdminMapperChaeng;
 
 @Service
@@ -54,5 +48,36 @@ public class AdminServiceChaeng  implements AdimnServiceChaengIm{
 	public String replyofQna(int qnaNum) {
 		return mapper.replyofQna(qnaNum);
 	}
+
+	@Override
+	public List<ReviewVO> getReviewList() {
+		return mapper.getReviewList();
+	}
+	@Override
+	public List<ReviewVO> getReviewListNew() {
+		return mapper.getReviewListNew();
+	}
+	@Override
+	public List<QnAVO> qnaListToConfirm() {
+		return mapper.qnaListToConfirm();
+	}
+	@Override
+	public int getQnACountAll() {
+		return mapper.getQnACountAll();
+	}
+	@Override
+	public int getQnACount() {
+		return mapper.getQnACount();
+	}
+
+	@Override
+	public double spendtime() {
+		return mapper.spendtime();
+	}
+	@Override
+	public List<QnAtype> getQnaType() {
+		return mapper.getQnaType();
+	}
+
 	
 }

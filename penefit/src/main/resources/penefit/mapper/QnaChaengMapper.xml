@@ -3,8 +3,8 @@
 <mapper namespace="com.penefit.moons.mapper.QnaChaengMapper">
 
 <insert id="regQna">
-insert into qna (member_id, qna_title, qna_content, qna_status, qna_regdate) 
-values(#{member_id}, #{qna_title}, #{qna_content},'답변대기', now())
+insert into qna (member_id, qna_title, qna_content, qna_status, qna_regdate,qna_type) 
+values(#{member_id}, #{qna_title}, #{qna_content},'답변대기', now(), #{qna_type})
 </insert>
 	
 	
@@ -19,4 +19,5 @@ values(#{member_id}, #{qna_title}, #{qna_content},'답변대기', now())
 	<select id="getQnaReply" resultType="string">
 	SELECT reply_content FROM reply WHERE qna_num=#{qna_num} and reply_type ='Q'
 </select>
+
 </mapper>
