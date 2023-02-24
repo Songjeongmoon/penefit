@@ -26,7 +26,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		int result = mapper.regMember(member);
 
 		if (result == 1) {
-			return "home";
+			return "/member/regComplete";
 		} else {
 			return "/member/regMember";
 		}

@@ -6,8 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- jQuery -->
-<script type="text/javascript"
-   src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script type="text/javascript" -->
+<!--    src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+   
 <!-- iamport.payment.js -->
 <script type="text/javascript"
    src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -110,14 +112,15 @@ span::after {
 					<form name="form" action="regMember" method="post">
 
 						<div id="mem_id">
-							<span>아이디</span><br> <input type="text" placeholder="아이디 입력(6~20자)"
-								name="member_id" /> <input type="button" value="중복확인"
+							<span >아이디</span><br> <input type="text"  id="idcheck"	 placeholder="아이디 입력(6~11자),영문,숫자로 이루어진 아이디를 입력해주세요"
+								name="member_id" /> <input type="button"  value="중복확인"
 								onclick="idCheck()"> <br>
 							<div id="demo"></div>
 						</div>
 						<div id="mem_pw">
-							<span>비밀번호</span><br> <input type="password"
-								placeholder="비밀번호 입력(문자,숫자,특수문자 포함 8-20자)" name="member_pw" />
+							<span>비밀번호</span><br> <input type="password" id="pwCheck"
+								placeholder="비밀번호 입력(문자,숫자,특수문자 포함 6-20자)" name="member_pw" />
+								<div id="demopw"></div>
 						</div>
 						<div id="mem_pw2">
 							<span>비밀번호 확인</span><br> <input type="password" placeholder="비밀번호 재입력"
@@ -139,14 +142,14 @@ span::after {
 							<input type="button" onclick="execution_daum_address()" value="주소찾기"/>
 						</div>
 						<div id="mem_address">
-							<span>주소</span><br> <input type="text"  name="member_address" />
+							<span>주소</span><br> <input type="text" placeholder="주소입력" name="member_address" />
 						</div>
 						<div id="mem_addressdetail">
-							<span>상세주소</span><br> <input type="text" placeholder="주소입력(시, 도, 구까지)" name="member_addressdetail" />
+							<span>상세주소</span><br> <input type="text" placeholder="상세주소입력" name="member_addressdetail" />
 						</div>
 						<input type="hidden" name="member_grade" value="A">
 						<div id="mem_regbutton">
-							<input type="submit" value="회원가입">
+							<input type="submit" value="회원가입" onclick="return legcheck()">
 						</div>
 					</form>
 				</div>
@@ -174,8 +177,35 @@ span::after {
   		  $(".subtitle").css("display", "none");
   	  }
     });
+    
+
+    
+//         $('#idcheck').focusout(function (){ // 아이디입력 후 중복확인 메서드 실행
+//         const id = document.form.member_id.value;
+//         if (id == "") {
+//             $('#demo').text("");
+//         }else if (id.length < 6) {
+//             $('#demo').text("아이디는 6글자 이상이어야 합니다.");
+//         }else if (id.length > 11) {
+//             $('#demo').text("아이디는 11글자를 초과할 수 없습니다.");
+//         }else if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/.test(id)) {
+//             $('#demo').text("아이디는 특수문자를 포함할 수 없고 영문과 숫자를 모두 포함해야 합니다.");
+//         }
+//     })
+    
+
 		function idCheck() {
 			let id = document.form.member_id.value;
+			if(id.length < 6){
+				$('#demo').text("아이디는 6글자 이상이어야 합니다.");
+				return false;
+			}else if (id.length > 11) {
+	            $('#demo').text("아이디는 11글자를 초과할 수 없습니다.");
+	            return false;
+			}else if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/.test(id)) {
+	            $('#demo').text("아이디는 특수문자를 포함할 수 없고 영문과 숫자를 모두 포함해야 합니다.");
+	            return false;
+	        }
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
 
@@ -193,10 +223,27 @@ span::after {
 			xhttp.send();
 
 		}
-
+	    $('#pwCheck').focusout(function (){ // 비밀번호입력하고 6-20자리 
+	        const pw = document.form.member_pw.value;
+	        var passRule = /^.*(?=^.{6,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+	        if (pw == "") {
+	            $('#demopw').text("");
+	        }else if (pw.length < 6) {
+	            $('#demopw').text("비밀번호는 6글자 이상이어야 합니다.");
+	        }else if (pw.length > 20) {
+	            $('#demopw').text("비밀번호는 20글자를 초과할 수 없습니다.");
+	        }else if (!passRule.test(pw)) {
+            $('#demopw').text("비밀번호는 특수문자,영문,숫자 모두 포함해야 합니다.");
+    		}
+	        else {
+	        	 $('#demopw').text("");
+	        }
+	    })
+	    
 		function checkPwd() {
 			var pw1 = document.form.member_pw.value;
 			var pw2 = document.form.member_pw2.value;
+			
 			if (pw1 != pw2) {
 				document.getElementById('checkPw').style.fontSize = "15px";
 				document.getElementById('checkPw').style.color = "red";
@@ -209,42 +256,50 @@ span::after {
 			}
 		}
 
+
+		
 		function legcheck() {
 			const member_id = $("input[name='member_id']").val();
 			const member_pw = $("input[name='member_pw']").val();
 			const member_pw2 = $("input[name='member_pw2']").val();
 			const member_name = $("input[name='member_name']").val();
 			const member_tel = $("input[name='member_tel']").val();
-			const member_address = $("input[name='member_address']").val();
+			const postnum = $("input[name='postnum']").val();
+			const member_addressdetail = $("input[name='member_addressdetail']").val();
 
 			if (member_id == '') {
 				alert("아이디를 입력하세요");
-				member_id.focus();
+				document.form.member_id.focus();
 				return false;
 			} else if (member_pw == '') {
 				alert("비밀번호를 입력하세요");
-				member_pw.focus();
+				document.form.member_pw.focus();
 				return false;
 			} else if (member_pw2 == '') {
 				alert("비밀번호를 확인하세요");
-				member_pw2.focus();
+				document.form.member_pw2.focus();
 				return false;
 			} else if (member_name == '') {
 				alert("이름을 입력하세요");
-				member_name.focus();
+				document.form.member_name.focus();
 				return false;
 			} else if (member_tel == '') {
 				alert("전화번호를 입력하세요");
-				member_tel.focus();
+				document.form.member_tel.focus();
 				return false;
-			} else if (member_address == '') {
-				alert("주소를 입력하세요");
-				member_address.focus();
+			} else if (postnum == '') {
+				alert("주소찾기를 하세요");
+				document.form.postnum.focus();
+				return false;
+			} else if (member_addressdetail == '') {
+				alert("상세주소를 입력하세요");
+				document.form.member_addressdetail.focus();
 				return false;
 			} else {
 				submit();
 			}
 		};
+
 
 		/* 다음 주소 연동 */
 		function execution_daum_address(){
