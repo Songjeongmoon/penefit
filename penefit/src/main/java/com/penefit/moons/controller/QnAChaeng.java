@@ -29,12 +29,19 @@ public class QnAChaeng {
 	
 	@PostMapping("/qnaForm")
 	public String qnaForm(Model model, QnAVO qna, HttpSession session) {
+		System.out.println("==========================");
+		System.out.println("==========================");
+		System.out.println("==========================");
+		System.out.println("==========================");
+		System.out.println("==========================");
+		System.out.println(qna);
 		String member_id = (String) session.getAttribute("member_id");
 		service.regQna(qna);
 		MemberVO member = serviceMember.selectOne(member_id);
 		model.addAttribute("memberinfo",member);
-		return "redirect:/infoMember";
+		return "redirect:/member/infoMember";
 	}
+	
 	@GetMapping("/QnA")
 	public String QnA() {
 		return "board/QnA";

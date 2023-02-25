@@ -19,10 +19,10 @@
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
-					<li class="aside_menu"><a href="notice">공지사항</a></li>
+					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
 					<li class="aside_menu"><a href="#">수강후기</a></li>
-					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
-					<li class="aside_menu"><a href="classList_new">클래스별게시판</a></li>
+					<li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
+					<li class="aside_menu"><a href="#">클래스별게시판</a></li>
 				</ul>
 			</aside>
 			<div class="content">
@@ -96,6 +96,17 @@
 		   const board_content= $("textarea[name='board_content']").val();
 		   const board_type = $("input[name='board_type']").val();
            const citysel= $("select[name='sel']").val();
+           
+           if(citysel == "All"){
+        	   alert("지역을 지정해주세요");
+        	   return false;
+		   }else if(board_title == ""){
+        	   alert("제목을 입력해주세요");
+        	   return false;
+           } else if(board_content == ""){
+        	   alert("본문을 입력해주세요.");
+           	   return false;
+           }
           // alert(citysel);
            let bvo={
                    "board_title" : board_title,

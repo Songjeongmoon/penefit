@@ -48,7 +48,7 @@ h2 {
          <aside>
             <ul>
                <li class="aside_title">커뮤니티</li>
-               <li class="aside_menu"><a href="/board/notice">공지사항</a></li>
+               <li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
                <li class="aside_menu"><a href="#">수강후기</a></li>
                <li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
                <li class="aside_menu"><a href="#">클래스별게시판</a></li>

@@ -10,7 +10,7 @@
 <body>
 	<h1>관리자 공지사항 등록페이지 도착</h1>
 	${member_id }님
-	<form action="notice_reg.do" method="post">
+	<form action="/notice_reg.do" method="post">
 		<table border="1">
 			<tr>
 				<th>제목</th>

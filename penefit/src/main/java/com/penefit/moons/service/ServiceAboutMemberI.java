@@ -16,7 +16,7 @@ public interface ServiceAboutMemberI {
 	//아이디체크
 	public int idCheck(String id);
 	//로그인
-	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession Session);
+	public int loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession Session);
 	//로그아웃
 	public String logout(HttpSession session);
 	//회원정보수정

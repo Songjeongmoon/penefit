@@ -11,4 +11,5 @@ public class QnAVO {
 	private String qna_status;
 	private String qna_regdate;
 	private int reply_num;
+	private String qna_type;
 }

@@ -24,7 +24,7 @@ public interface ServiceAboutBoardI {
 	//---------------------------------------
 
 	//지역전체 게시판
-	public List<BoardVO> getCitylist();
+	public List<BoardVO> getAllCityList(int pageNum);
 	
 	//각 지역별 리스트
 	public List<BoardVO> getCityListOne(String check_city);

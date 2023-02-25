@@ -1,7 +1,10 @@
 package com.penefit.moons.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,10 +70,31 @@ public class ControllerAboutMember {
 
 	
 	@PostMapping("login.do")
-	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session,Model model) {
-		String path=serviceMember.loginCheck(member_id, member_pw,Session);
-		 model.addAttribute("msg","로그인 실패하였습니다!");
-		return "redirect:"+path;
+	public void loginCheck(HttpServletResponse res, @ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw,HttpSession Session,Model model) {
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		
+		try {
+			out = res.getWriter();
+			
+			if(member_id.equals("") || member_pw.equals("")) {
+				
+				out.print("<script> alert('입력값 확인해주세요.'); location.href= '/member/login';</script>");
+				out.close();
+			} else {
+				int result=serviceMember.loginCheck(member_id, member_pw,Session);
+				
+				if(result == 1) {
+					out.print("<script>location.href= '/';</script>");
+				}else {
+					out.print("<script>alert('아이디 혹은 비밀번호가 틀렸습니다.'); location.href= '/';</script>");
+				}
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@GetMapping("logout")
@@ -80,6 +104,11 @@ public class ControllerAboutMember {
 	}
 	@GetMapping("/infoMember")
 	public String goinfoMember(HttpSession Session, Model model) {
+		System.out.println("==========================");
+		System.out.println("==========================");
+		System.out.println("==========================");
+		System.out.println("==========================");
+		System.out.println("==========================");
 		String member_id = (String) Session.getAttribute("member_id");
 		MemberVO member = serviceMember.selectOne(member_id);
 		model.addAttribute("memberinfo",member);

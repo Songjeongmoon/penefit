@@ -35,7 +35,7 @@ public interface MapperAboutBoard {
 	public int cityReg(BoardVO bvo);
 
 	// 전체 지역 게시판
-	public List<BoardVO> getCityList();
+	public List<BoardVO> getCityList(int startNum);
 
 	// 각 지역별 게시판
 	public List<BoardVO> getOneCityList(String check_city);

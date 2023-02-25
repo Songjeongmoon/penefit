@@ -19,10 +19,10 @@
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
-					<li class="aside_menu"><a href="notice">공지사항</a></li>
+					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
 					<li class="aside_menu"><a href="#">수강후기</a></li>
-					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
-					<li class="aside_menu"><a href="classList_new">클래스별게시판</a></li>
+					<li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
+					<li class="aside_menu"><a href="#">클래스별게시판</a></li>
 				</ul>
 			</aside>
 			<div class="content">
@@ -121,7 +121,10 @@
 			const reply_type = document.querySelector("input[name='reply_type']").value;
 			const member_id = document.querySelector("input[name='member_id']").value;
 			const reply_content = document.querySelector("textarea[name='reply_content']").value;
-			
+			if(reply_content == ""){
+				alert("내용을 입력해주세요.");
+				return false;
+			}
 			const obj = {
 				board_num : board_num,
 				reply_num : reply_num,

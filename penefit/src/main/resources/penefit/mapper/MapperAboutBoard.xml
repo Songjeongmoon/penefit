@@ -25,7 +25,7 @@
 
 <!-- 지역 전체 게시판 -->
 <select id="getCityList" resultType="com.penefit.moons.domain.BoardVO"> 
-	SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND c.city_code = b.city_code	
+	SELECT b.*, c.* FROM board b, city c WHERE b.board_type= 'cc' AND c.city_code = b.city_code ORDER BY b.board_num LIMIT #{startnum}, 10
 </select>
 
 <!-- 각 지역별 게시판 -->
@@ -59,7 +59,7 @@
 <!-- 지역게시판 검색 -->
 <select id="search_city" resultType="com.penefit.moons.domain.BoardVO">
 <!-- 	SELECT * FROM board WHERE board_title LIKE CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%', #{keyword},'%') AND city_code=#{city_code} -->
-	SELECT b.*, c.* FROM board b, city c WHERE board_title LIKE CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%', #{keyword},'%') AND c.city_code=#{city_code}
+	SELECT b.*, c.* FROM board b, city c WHERE (board_title LIKE CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%', #{keyword},'%') AND c.city_code=#{city_code}
 	
 </select>
 
@@ -95,7 +95,7 @@
 
 <!-- 지역게시판 글 개수 세기  -->
 <select id="countCity" resultType="_int">
-	SELECT COUNT(*) FROM board 
+	SELECT COUNT(*) FROM board WHERE board_type = 'CC'
 </select>
 
 <!-- 지역게시판 리스트&페이징 -->
