@@ -10,6 +10,8 @@ import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
 import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
+import com.penefit.moons.domain.SuggestDTO;
+import com.penefit.moons.domain.SuggestType;
 import com.penefit.moons.mapper.AdminMapperChaeng;
 
 @Service
@@ -114,6 +116,36 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 	@Override
 	public List<NoticeVO> getsearchNotice(String keyword) {
 		return mapper.getsearchNotice(keyword);
+	}
+
+	@Override
+	public NoticeVO noticeDetail(int notice_num) {
+		return mapper.noticeDetail(notice_num);
+	}
+
+	@Override
+	public void modiNotice(NoticeVO notice) {
+		mapper.modiNotice(notice);
+	}
+	@Override
+	public void delNotice(int notice_num) {
+		mapper.delNotice(notice_num);
+	}
+	@Override
+	public List<SuggestDTO> suggestNew() {
+		return mapper.suggestNew();
+	}
+	@Override
+	public List<SuggestDTO> suggestAll() {
+		return mapper.suggestAll();
+	}
+	@Override
+	public List<SuggestDTO> getsearchSuggestion(String keyword) {
+		return mapper.getsearchSuggestion(keyword);
+	}
+	@Override
+	public List<SuggestType> suggestType() {
+		return mapper.suggestType();
 	}
 
 }

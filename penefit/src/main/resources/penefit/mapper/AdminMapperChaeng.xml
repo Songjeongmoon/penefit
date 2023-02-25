@@ -56,7 +56,7 @@
 		SELECT *
 		FROM review
 		WHERE review_regdate > DATE_ADD(now(),
-		INTERVAL -6 HOUR)
+		INTERVAL -24 HOUR)
 		ORDER BY
 		review_regdate asc
 		LIMIT 0,5
@@ -145,7 +145,7 @@
 		SELECT *
 		FROM notice
 		WHERE notice_regdate > DATE_ADD(now(),
-		INTERVAL -6 HOUR)
+		INTERVAL -24 HOUR)
 		ORDER BY
 		notice_regdate asc LIMIT 0,5
 	</select>
@@ -154,7 +154,7 @@
 		SELECT Count(*)
 		FROM notice
 		WHERE notice_regdate > DATE_ADD(now(),
-		INTERVAL -6 HOUR)
+		INTERVAL -24 HOUR)
 		ORDER BY
 		notice_regdate asc
 	</select>
@@ -168,8 +168,56 @@
 	</select>
 	
 	
+	<select id="noticeDetail"
+		resultType="com.penefit.moons.domain.NoticeVO">
+		select * from notice 
+		where notice_num=#{notice_num}
+		
+	</select>
 	
+	<update id="modiNotice">
+		update notice
+		set notice_title=#{notice_title}, member_id=#{member_id}, notice_content=#{notice_content}
+		where notice_num=#{notice_num}
+	</update>
 	
+	<delete id="delNotice">
+		delete from notice where notice_num = #{notice_num}
+	</delete>
 	
+	<select id="suggestNew" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		WHERE status = '검토'
+		ORDER BY
+		suggest_regdate ASC
+		LIMIT 5
 	
+	</select>
+	
+	<select id="suggestAll" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		ORDER BY
+		suggest_regdate ASC
+	
+	</select>
+	
+	<select id="getsearchSuggestion"
+		resultType="com.penefit.moons.domain.SuggestDTO">
+		select * from suggest where 
+		suggest_title like CONCAT('%', #{keyword},'%') or
+		member_id like CONCAT('%', #{keyword},'%') or
+		type like CONCAT('%', #{keyword},'%') or
+		status like CONCAT('%', #{keyword},'%')
+	</select>
+	
+		<select id="suggestType"
+		resultType="com.penefit.moons.domain.SuggestType">
+		SELECT type, count(type) AS qty
+		FROM suggest
+		GROUP BY
+		type;
+
+	</select>
 </mapper>

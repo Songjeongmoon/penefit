@@ -16,7 +16,7 @@ public interface AdminMapperSong {
 	
 	public int createClassList(ClassListDTO classListDTO);
 
-	public SuggestDTO getSuggestInfo(String suggest_num);
+	public SuggestDTO getSuggestInfo(int suggest_num);
 	
 	public String[] getTypeCnt();
 	
@@ -38,6 +38,6 @@ public interface AdminMapperSong {
 
 	public ClassVO getClassOne(String class_code);
 	
-	public int rejectSuggestion(@Param("suggest_num") String suggest_num, @Param("reject_reason") String reject_reason);
+	public int rejectSuggestion(@Param("suggest_num") int suggest_num, @Param("reject_reason") String reject_reason);
 	
 }

@@ -9,6 +9,68 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>대시보드</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart1);
+      function drawChart() {
+    	  const xhttp = new XMLHttpRequest();
+    	  let obj ;
+       	  xhttp.onload = function() {
+       	    let data1 = this.responseText;
+       	    obj = JSON.parse(data1);
+    	  	
+	        var data = google.visualization.arrayToDataTable([
+	          ['', ''],
+	          [obj[0].type +" : 미용", obj[0].qty],
+	          [obj[1].type+" : 요리", obj[1].qty],
+	          [obj[2].type+" : 의류", obj[2].qty],
+	          [obj[3].type+" : 기타", obj[3].qty]
+	        ]);
+       	 
+        var options = {
+          pieHole: 0.3,
+          backgroundColor : ""
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+       	xhttp.open("GET", "/admin/suggestType", true);
+     	  xhttp.send();
+      }
+      
+      function drawChart1() {
+    	  const xhttp = new XMLHttpRequest();
+    	  let obj ;
+       	  xhttp.onload = function() {
+       	    let data1 = this.responseText;
+       	    obj = JSON.parse(data1);
+    	  
+          var data = google.visualization.arrayToDataTable([
+            ['', ''],
+            [obj[0].qna_type, obj[0].qty],
+            [obj[1].qna_type, obj[1].qty],
+            [obj[2].qna_type, obj[2].qty],
+            [obj[3].qna_type, obj[3].qty],
+            [obj[4].qna_type, obj[4].qty]
+          ]);
+
+          var options = {
+            pieHole: 0.4,
+            backgroundColor : "",
+            color: 'black'
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('piechart_3d_1'));
+          chart.draw(data, options);
+       	 }
+       	  xhttp.open("GET", "/admin/qnaType", true);
+       	  xhttp.send();
+        }
+    </script>
+
 <link rel="stylesheet" href="/css/reset.css" />
 <style>
 @font-face {
@@ -296,28 +358,47 @@ a {
 	grid-row: 3/4;
 	grid-column: 1/3;
 }
-#newNoticeForm{
+
+#newNoticeForm {
 	float: right;
 	margin: 4px;
 }
-#noticeWritingTbl{
-width: 380px;;
-margin: 0 auto;
 
+#noticeWritingTbl {
+	width: 380px;;
+	margin: 0 auto;
 }
-#noticeWritingTbl tr{
+
+#noticeWritingTbl tr {
 	height: 50px;
 }
-#noticeWritingTbl input[type='text'], textarea{
-	height : 30px;
+
+#noticeWritingTbl input[type='text'], textarea {
+	height: 30px;
 	width: 90%;
 }
-#noticeWritingTbl  textarea{
-height: 200px;
+
+#noticeWritingTbl  textarea {
+	height: 200px;
 }
-#noticeSearchBar{
+
+#noticeSearchBar {
 	width: 80%;
 	height: 25px;
+}
+
+#suggestbox1 {
+	grid-column: 1/3;
+	grid-row: 1/2;
+}
+
+#suggestbox3 {
+	grid-column: 1/3;
+	grid-row: 2/4;
+}
+
+#suggestbox4 {
+	grid-row: 2/4;
 }
 </style>
 </head>
@@ -438,7 +519,7 @@ height: 200px;
 				<div class="subtitle">&nbsp;&nbsp;문의타입</div>
 				<div class="content">
 					<h2 id="qnaType"></h2>
-					<div class="pie-chart1"></div>
+					<div id="piechart_3d_1" style="width: 800px; height: 500px; position: relative; top: -20px; left: 10px;"></div>
 				</div>
 
 			</div>
@@ -448,8 +529,7 @@ height: 200px;
 			<div class="box" id="noticebox1">
 				<div class="subtitle">&nbsp;&nbsp;공지사항</div>
 				<div class="content">
-				<input type="text" name="noticeKeyword" id="noticeSearchBar" >
-					<input type="button" value="검색" id="noticeSearchbtn" >
+					<input type="text" name="noticeKeyword" id="noticeSearchBar"> <input type="button" value="검색" id="noticeSearchbtn">
 					<table id="noticeTbl">
 						<thead>
 							<tr>
@@ -469,31 +549,11 @@ height: 200px;
 					<button type="button" id="newNoticeForm">신규</button>
 				</div>
 				<div class="content">
-				<div>
-					
-				</div>
-					<form  method="post">
+					<div></div>
+					<form method="post">
 						<table id="noticeWritingTbl">
 							<tbody id="noticeWritingTbody">
-								<tr>
-									<th>번호</th>
-									<td><input type="text" readonly="readonly"></td>
-								</tr>
-								<tr>
-									<th>제목</th>
-									<td><input type="text" name="notice_title" ></td>
-								</tr>
-								<tr>
-									<th >내용</th>
-									<td><textarea name="notice_content" id="notice_content"></textarea></td>
-								</tr>
-								<tr>
-									<th>작성자</th>
-									<td ><input style="text-align: center;" type="text" name="member_id" value="${member_id }" ></td>
-								</tr>
-								<tr style="text-align: center;">
-									<td colspan="2"><input type="button"  value="등록" id="regNoticeBtn"></td>
-								</tr>
+								<!--  -->
 							</tbody>
 						</table>
 					</form>
@@ -506,6 +566,7 @@ height: 200px;
 						<thead>
 							<tr>
 								<th>번호</th>
+								<th>구분</th>
 								<th>제목</th>
 								<th>작성자</th>
 								<th>등록일</th>
@@ -518,12 +579,62 @@ height: 200px;
 		</div>
 
 		<div id="suggestionArticle" class="article">
-			<div id="box1" class="box">1</div>
-			<div class="box">2</div>
-			<div class="box">3</div>
-			<div class="box">4</div>
-			<div class="box">5</div>
-			<div class="box">6</div>
+			<div class="box" id="suggestbox1">
+				<div class="subtitle">&nbsp;&nbsp;신규제안</div>
+				<div class="content">
+					<table id="suggestNewTbl" style="margin: 10px;">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>구분</th>
+								<th>제안명</th>
+								<th>작성자</th>
+								<th>일시</th>
+							</tr>
+						</thead>
+						<tbody id="suggestNewTbody">
+							<!--  -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="box" id="suggestbox2">
+				<div class="subtitle">&nbsp;&nbsp;제안별비율</div>
+				<div class="content">
+					<div id="piechart_3d" style="width: 800px; height: 500px; position: relative; top: -20px; left: 10px;"></div>
+				</div>
+			</div>
+			<div class="box" id="suggestbox3">
+				<div class="subtitle">&nbsp;&nbsp;전체제안</div>
+				<div class="content">
+					<input type="text" name="suggestKeyword" id="suggestSearchBar" style="margin: 10px;"> <input type="button" value="검색" id="suggestSearchbtn">
+					<table id="suggestAllTbl" style="margin: 10px;">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>구분</th>
+								<th>제안명</th>
+								<th>작성자</th>
+								<th>일시</th>
+							</tr>
+						</thead>
+						<tbody id="suggestAllTbody"></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="box" id="suggestbox4">
+				<div class="subtitle">&nbsp;&nbsp;상세보기</div>
+				<div class="content">
+					<table id="suggestDetailTbl" style="margin: 10px;">
+						<tbody id="suggestDetailTbody">
+							<!--  -->
+						</tbody>
+					</table>
+				
+				
+				
+				</div>
+			</div>
 		</div>
 
 		<div id="classArticle" class="article">
@@ -668,7 +779,6 @@ height: 200px;
         qnaLoadAll()
         qnaLoadNew()
         spendtime();
-        qnaType();
       });
       $("#notice").click(() => {
         $("#memberArticle").css("display", "none");
@@ -689,6 +799,8 @@ height: 200px;
         $("#suggestionArticle").css("display", "grid");
         $("#classArticle").css("display", "none");
         $("#reviewArticle").css("display", "none");
+        newsuggestion();
+        suggestAll();
       });
       $("#class").click(() => {
         $("#memberArticle").css("display", "none");
@@ -713,7 +825,9 @@ height: 200px;
 		worstClass();
 		getReviewCount();
       });
-      
+      </script>
+	<!-- 답변 -->
+	<script>
       $(document).on("click","#qnaReplyBtn",function(evt){
     	  let qnaNum = evt.target.parentElement.parentElement.parentElement.children[0].children[1].innerText;
     	  let content = evt.target.parentElement.parentElement.parentElement.children[5].children[1].children[0].value;
@@ -872,63 +986,9 @@ height: 200px;
     	  xhttp.send();
     	}
      
-     //문의타입 종류
-     function qnaType() {
-   	  const xhttp = new XMLHttpRequest();
-   	  xhttp.onload = function() {
-   	    let data = this.responseText;
-   	    let obj = JSON.parse(data);
-		alert(data);
-		let sum=0;
-		for(let i =0;i<obj.length;i++){
-			sum = sum + parseInt(obj[i].qty);
-		}		
-		alert(sum)
-   	  }
-   	  xhttp.open("GET", "/admin/qnaType", true);
-   	  xhttp.send();
-   	}
-     
-     
-     //차트만들기
-	$(window).ready(function(){
-    	var i=1;
-    	var func1 = setInterval(function(){
-    	    if(i<26){
-	            color1(i);
-	            i++;
-    	    } else if(i<70){
-	            color2(i);
-	            i++;
-	        } else if(i<101){
-	            color3(i);
-	            i++;
-	        } else {
-	            clearInterval(func1);
-	        }
-  	  },10);
-	});
 
-	
-	function color1(i){
-	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#8b22ff 0% "+i+"%, #ffffff "+i+"% 100%)"
-	        });
-	    
-	}
-	function color2(i){
-	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#8b22ff 0% 25%, #ffc33b 25% "+i+"%, #ffffff "+i+"% 100%)"
-	        });
-	     
-	}
-	function color3(i){
-	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#8b22ff 0% 25%, #ffc33b 25% 70%, #21f3d6 70% "+i+"%, #ffffff "+i+"% 100%)"
-	        });
-	     
-	}
-
+	</script>
+	<script>
 	//=============================리뷰=================================
 		//신규리뷰 리스트
       function reviewLoadNew(){
@@ -1115,6 +1175,9 @@ height: 200px;
     		  });
     		
     	}
+    	
+    	</script>
+	<script>
     	//=============공지 NOTICE======================
     	//공지목록
     	function getNotice(){
@@ -1126,10 +1189,10 @@ height: 200px;
     			success : function(data){
 	    			for(let i =0 ;i<data.length;i++){
 	    				$("#noticeTbody").append(
-	    							"<tr><td>"+ data[i].notice_num+"</td>"
-	    							+"<td>"+ data[i].notice_title+"</td>"
-	    							+"<td>"+ data[i].member_id+"</td>"
-	    							+"<td>"+ data[i].notice_regdate+"</td><tr>"
+	    							"<tr ><td class='godetail'>"+ data[i].notice_num+"</td>"
+	    							+"<td class='godetail'>"+ data[i].notice_title+"</td>"
+	    							+"<td class='godetail'>"+ data[i].member_id+"</td>"
+	    							+"< td class='godetail'>"+ data[i].notice_regdate+"</td><tr>"
 	    				);
 	    				
 	    			}
@@ -1175,13 +1238,12 @@ height: 200px;
     				"keyword" : keyword
     			},
     			success : function(data){
-    				alert(data);
 	    			for(let i =0 ;i<data.length;i++){
 	    				$("#noticeTbody").append(
-	    							"<tr><td>"+ data[i].notice_num+"</td>"
-	    							+"<td>"+ data[i].notice_title+"</td>"
-	    							+"<td>"+ data[i].member_id+"</td>"
-	    							+"<td>"+ data[i].notice_regdate+"</td><tr>"
+	    							"<tr><td  class='godetail'>"+ data[i].notice_num+"</td>"
+	    							+"<td  class='godetail'>"+ data[i].notice_title+"</td>"
+	    							+"<td class='godetail'>"+ data[i].member_id+"</td>"
+	    							+"<td class='godetail'>"+ data[i].notice_regdate+"</td><tr>"
 	    				);
 	    				
 	    			}
@@ -1206,10 +1268,10 @@ height: 200px;
     				
 	    			for(let i =0 ;i<data.length;i++){
 	    				$("#noticeNewtbody").append(
-	    							"<tr><td>"+ data[i].notice_num+"</td>"
-	    							+"<td>"+ data[i].notice_title+"</td>"
-	    							+"<td>"+ data[i].member_id+"</td>"
-	    							+"<td>"+ data[i].notice_regdate+"</td><tr>"
+	    							"<tr ><td class='godetail'>"+ data[i].notice_num+"</td>"
+	    							+"<td class='godetail'>"+ data[i].notice_title+"</td>"
+	    							+"<td class='godetail'>"+ data[i].member_id+"</td>"
+	    							+"<td class='godetail'>"+ data[i].notice_regdate+"</td><tr>"
 	    				);
 	    				
 	    			}
@@ -1225,7 +1287,7 @@ height: 200px;
     	}
     	
     	//공지등록
-    	$("#regNoticeBtn").click(function(){
+    	$(document).on("click", "#regNoticeBtn",function(){
     		regNotice();
     	})
     	function regNotice(){
@@ -1233,7 +1295,7 @@ height: 200px;
     		let notice_title = $("input[name='notice_title']").val();
     		let member_id = "${member_id}";
     		let notice_content = $("#notice_content").val();
-    		
+    	
     		$.ajax({
     			method : "post",
     			url : "/admin/regNotice",
@@ -1253,9 +1315,317 @@ height: 200px;
     		})
     	}
     	
-    	//공지수정삭제
+    	//공지등록폼
+    	$("#newNoticeForm").click(function(){
+    		regNotice();
+    	})
+    	function regNotice(){
+    		$("#noticeWritingTbody").empty();
+    		$("#noticeWritingTbody").html(
+    				"<tr>"
+    				+"<th>번호</th>"
+					+"<td><input type='text' readonly='readonly'></td>"
+					+"</tr>"
+					+"<tr>"
+					+"<th>제목</th>"
+					+"<td><input type='text' name='notice_title' ></td>"
+					+"</tr>"
+					+"<tr>"
+					+"<th >내용</th>"
+					+"<td><textarea name='notice_content' id='notice_content'></textarea></td>"
+					+"</tr>"
+					+"<tr>"
+					+"<th>작성자</th>"
+					+"<td ><input style='text-align: center;' type='text' name='member_id' value='${member_id }' ></td>"
+					+"</tr>"
+					+"<tr style='text-align: center;'>"
+					+"<td colspan='2'><input type='button'  value='등록' id='regNoticeBtn'></td>"
+					+"</tr>");
+    		
+    	}
     	
+    
+    	
+    	//공지상세보기
+    	$(document).on("click",".godetail",function(evt){
+    		let notice_num = evt.target.parentElement.children[0].innerText;
+    		noticeDetail(notice_num);
+    	})
+    	
+    	function noticeDetail(notice_num){
+    		$("#noticeWritingTbody").empty();
+    		$.ajax({
+    			method : "get",
+    			url : "/admin/noticeDetail",
+    			data : {
+    				"notice_num" : notice_num
+    			}, 
+    			datatype : "json",
+    			success : function(data){
+    	    		$("#noticeWritingTbody").html(
+    	    				"<tr>"
+    	    				+"<th>번호</th>"
+    						+"<td><input type='text' readonly='readonly' value='"+data.notice_num+"'></td>"
+    						+"</tr>"
+    						+"<tr>"
+    						+"<th>제목</th>"
+    						+"<td><input type='text' name='notice_title' value='"+data.notice_title+"'></td>"
+    						+"</tr>"
+    						+"<tr>"
+    						+"<th >내용</th>"
+    						+"<td><textarea name='notice_content' id='notice_content'>"+data.notice_content+"</textarea></td>"
+    						+"</tr>"
+    						+"<tr>"
+    						+"<th>작성자</th>"
+    						+"<td ><input style='text-align: center;' type='text' name='member_id'  readonly='readonly' value='"+data.member_id+"' ></td>"
+    						+"</tr>"
+    						+"<tr style='text-align: center;'>"
+    						+"<td colspan='2'><input type='button'  value='수정' class='modiNoticeBtn'>"
+    						+"<input type='button'  value='삭제' class='delNoticeBtn'></td>"
+    						+"</tr>");
+    			},
+				error : function(){
+					alert("error");
+				}
+    			
+    		})
+    		
+    	}
+    	
+    	//공지수정
+    	$(document).on("click", ".modiNoticeBtn",function(evt){
+    		let notice_num = evt.target.parentElement.parentElement.parentElement.childNodes[0].children[1].children[0].value;
+    		modiNotice(notice_num);
+    	})
+    	function modiNotice(notice_num){
+    		
+    		let notice_title = $("input[name='notice_title']").val();
+    		let member_id = $("input[name='member_id']").val();
+    		let notice_content = $("#notice_content").val();
+    		
+    		$.ajax({
+    			method : "put",
+    			url : "/admin/modiNotice",
+    			data : {
+    				"notice_title" : notice_title,
+    				"member_id" : member_id,
+    				"notice_content" : notice_content,
+    				"notice_num" : notice_num
+    			},
+    			success : function(data){
+    				getNotice();
+    				getNoticeNew();
+    			},
+				error : function(){
+					alert("error");
+				}
+    			
+    		})
+    	}
+    	
+    	//공지삭제
+    	$(document).on("click", ".delNoticeBtn",function(evt){
+    		let notice_num = evt.target.parentElement.parentElement.parentElement.childNodes[0].children[1].children[0].value;
+    		delNotice(notice_num);
+    	})
+    	function delNotice(notice_num){
+    		
+    		
+    		$.ajax({
+    			method : "delete",
+    			url : "/admin/delNotice",
+    			data : {
+    				"notice_num" : notice_num,
+    			},
+    			success : function(data){
+    				getNotice();
+    				getNoticeNew();
+    			},
+				error : function(){
+					alert("error");
+				}
+    			
+    		})
+    	}
      </script>
+
+	<!-- 제안서 -->
+	<script>
+		//신규제안서
+			function newsuggestion(){
+				$("#suggestNewTbody").empty();
+		    	  $.ajax({
+		      		method : "get",
+		      		url : "/admin/suggestNew", 
+		      		dataType: 'json',
+		      		success:function(data){
+		      			for(let i = 0; i < data.length; i++) {
+		      				let type;
+		      				if(data[i].type=='A'){
+		      					type = '미용';
+		      				}else if(data[i].type=='B'){
+		      					type = '의류';
+		      				}else if(data[i].type=='C'){
+		      					type = '요리';
+		      				}else if(data[i].type=='D'){
+		      					type = '기타';
+		      				}
+			      			$("#suggestNewTbody").append(
+										"<tr><td class='goSuggestDetail'>"+data[i].suggest_num+"</td>"
+										+"<td class='goSuggestDetail'>"+type+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].suggest_title+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].member_id+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].suggest_regdate+"</td>"
+									+"</tr>");
+		      			}
+		      		},
+		      		error : function(){
+		      			alert("error");
+		      		}
+		})
+		}
+			
+			
+			
+		//전체제안서
+			function suggestAll(){
+				$("#suggestAllTbody").empty();
+		    	  $.ajax({
+		      		method : "get",
+		      		url : "/admin/suggestAll", 
+		      		dataType: 'json',
+		      		success:function(data){
+		      			for(let i = 0; i < data.length; i++) {
+		      				let type;
+		      				if(data[i].type=='A'){
+		      					type = '미용';
+		      				}else if(data[i].type=='B'){
+		      					type = '의류';
+		      				}else if(data[i].type=='C'){
+		      					type = '요리';
+		      				}else if(data[i].type=='D'){
+		      					type = '기타';
+		      				}
+			      			$("#suggestAllTbody").append(
+										"<tr><td class='goSuggestDetail'>"+data[i].suggest_num+"</td>"
+										+"<td class='goSuggestDetail'>"+type+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].suggest_title+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].member_id+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].suggest_regdate+"</td>"
+									+"</tr>");
+		      			}
+		      		},
+		      		error : function(){
+		      			alert("error");
+		      		}
+		})
+		}
+			$("#suggestSearchbtn").click(function(){
+	    		let keyword = $("#suggestSearchBar").val();
+	    		if (keyword == "") {
+	    			suggestAll();
+	    		}else{
+	    			getsearchSuggestion(keyword);
+	    			
+	    		}
+	    	});
+	    	$("#suggestSearchBar").keydown(function(evt){
+	    		let keyword = $("#suggestSearchBar").val();
+	    		if (evt.keyCode == 13) {
+	    			
+	    			if (keyword == "") {
+	    				suggestAll();
+	        		}else{
+	        			getsearchSuggestion(keyword);
+	        		}
+	    		}
+	    	});
+	    	//공지 검색목록
+	    	function getsearchSuggestion(keyword){
+	    		$("#suggestAllTbody").empty();
+	    		$.ajax({
+	    			method : "GET",
+	    			url : "/admin/getsearchSuggestion",
+	    			datatype : "json",
+	    			data:{
+	    				"keyword" : keyword
+	    			},
+	    			success : function(data){
+	    				for(let i = 0; i < data.length; i++) {
+		      				let type;
+		      				if(data[i].type=='A'){
+		      					type = '미용';
+		      				}else if(data[i].type=='B'){
+		      					type = '의류';
+		      				}else if(data[i].type=='C'){
+		      					type = '요리';
+		      				}else if(data[i].type=='D'){
+		      					type = '기타';
+		      				}
+			      			$("#suggestAllTbody").append(
+										"<tr><td class='goSuggestDetail' >"+data[i].suggest_num+"</td>"
+										+"<td class='goSuggestDetail'>"+type+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].suggest_title+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].member_id+"</td>"
+										+"<td class='goSuggestDetail'>"+data[i].suggest_regdate+"</td>"
+									+"</tr>");
+		      			}
+		    			
+		    			
+		    		},
+					error : function(){
+						alert("error");
+					}
+	    			
+	    			
+	    		});
+	    	}
+	    	
+	    	//제안상세보기
+	    	$(document).on("click",".goSuggestDetail",function(evt){
+	    		let suggest_num = evt.target.parentElement.children[0].innerText;
+	    		alert(suggest_num);
+	    		suggestDetail(suggest_num);
+	    	})
+	    	
+	    	function suggestDetail(suggest_num){
+    		$("#suggestDetailTbody").empty();
+    		$.ajax({
+    			method : "get",
+    			url : "/admin/suggestDetail",
+    			data : {
+    				"suggest_num" : suggest_num
+    			}, 
+    			datatype : "json",
+    			success : function(data){
+    	    		$("#suggestDetailTbody").html(
+    	    			"<tr><th>번호</th><td>"+ data.suggest_num+"</td></tr>"		
+    	    			+"<tr><th>구분</th><td>"+ data.type +"</td></tr>"		
+    	    			+"<tr><th>제안명</th><td>"+data.suggest_title +"</td></tr>"		
+    	    			+"<tr><th>제안내용</th><td>"+ data.suggest_content+"</td></tr>"		
+    	    			+"<tr><th>강의시간</th><td>"+ data.class_time+"</td></tr>"		
+    	    			+"<tr><th>인원수</th><td>"+data.maxCnt +"</td></tr>"		
+    	    			+"<tr><th>지역</th><td>"+data.city_code +"</td></tr>"		
+    	    			+"<tr><th>제안일자</th><td>"+data.suggest_regdate +"</td></tr>"		
+    	    			+"<tr><th>상태</th><td>"+data.status +"</td></tr>"		
+    	    			+"<tr><th>반려사유</th><td><textarea name='reject_reason' value='"+ data.reject_reason+"'></textarea></td></tr>"		
+    	    			+"<tr><td  colspan='2'><input type='button' value='승인' id='approval'>"
+    	    			+"<input type='button' value='반려' id='reject'></td></tr>"		
+    	    		
+    	    		
+    	    		
+    	    		);
+    	    		
+    			},
+				error : function(){
+					alert("error");
+				}
+    			
+    		})
+    		
+    	}
+	    	
+	</script>
 </body>
 
 </html>

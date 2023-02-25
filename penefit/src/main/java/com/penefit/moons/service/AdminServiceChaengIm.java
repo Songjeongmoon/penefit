@@ -7,6 +7,8 @@ import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
 import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
+import com.penefit.moons.domain.SuggestDTO;
+import com.penefit.moons.domain.SuggestType;
 
 public interface AdminServiceChaengIm {
 
@@ -57,6 +59,20 @@ public interface AdminServiceChaengIm {
 	public List<NoticeVO> getNoticeNew();
 
 	public List<NoticeVO> getsearchNotice(String keyword);
+
+	public NoticeVO noticeDetail(int notice_num);
+
+	public void modiNotice(NoticeVO notice);
+
+	public void delNotice(int notice_num);
+
+	public List<SuggestDTO> suggestNew();
+
+	public List<SuggestDTO> suggestAll();
+
+	public List<SuggestDTO> getsearchSuggestion(String keyword);
+
+	public List<SuggestType> suggestType();
 
 
 
