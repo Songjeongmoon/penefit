@@ -236,6 +236,11 @@
       	position: absolute;
       	top: -20px;
       }
+      #memberBox1{
+      grid-column: 1 / 4;
+      grid-row:1/4;
+      background-color: white;
+      }
     </style>
   </head>
 
@@ -422,15 +427,36 @@
       </div>
       
       <div id="memberArticle" class="article">
-        <div id="memberBox1" class="box">1</div>
-        <div class="box">2</div>
-        <div class="box">3</div>
-        <div class="box">4</div>
-        <div class="box">5</div>
-        <div class="box">6</div>
-        <div class="box">7</div>
-        <div class="box">8</div>
-        <div class="box">9</div>
+        <div id="memberBox1" class="box">
+			<div class = memberlistgrade>
+				<div id = "memberlistgradeTitle">
+					<h2>[회원목록]</h2>
+				</div>
+					<div id="memberSearch">
+						<select name='memberOption'>
+						  	<option value='' selected>-- 선택 --</option>
+						  	<option value='member_id'>아이디</option>
+						  	<option value='member_name'>이름</option>
+						  	<option value='member_grade'>등급</option>
+						</select>
+						<input type="text" name="searchMem" id="searchMem">
+						<input type="button" value="검색" id="searchMemBtn" onclick="serchMem()">
+					</div>
+					<div id="memberlistTable">
+					<table border ="1">
+						<thead>
+							<tr>
+								<th>회원아이디</th><th>회원비밀번호</th><th>회원이름</th><th>회원전화번호</th><th>우편번호</th><th>회원주소</th><th>회원상세주소</th><th>회원등급</th><th colspan ="2">관리자지정</th>
+							</tr>
+						</thead>
+						<tbody id = "membertbody">
+					
+						</tbody>
+					</table>
+					</div>
+			</div>
+
+		</div>
       </div>
 
       <div id="managerArticle" class="article">
@@ -631,6 +657,118 @@
         $("#classArticle").css("display", "none");
         $("#reviewArticle").css("display", "grid");
       });
+      
+      //(문지현)회원목록
+      getlist();
+
+	  function getlist() {
+		 let tbody = document.querySelector("#membertbody");
+		 const xhttp = new XMLHttpRequest();
+		 xhttp.onload = function() {
+		 let data = this.responseText;
+		 let obj = JSON.parse(data);
+		 alert(obj[0].member_address);
+		
+		 for(i = 0;i<obj.length;i++ ){
+			tbody.innerHTML +="<tr><td class='objid''>" +obj[i].member_id +"</td><td><input type='text' value="+obj[i].member_pw+"></td><td>" 
+			+ "<input type='text' value="+obj[i].member_name+"></td><td><input type='text' value=" + obj[i].member_tel+"></td><td>"
+			+ "<input type='text' value="+obj[i].postnum+"></td><td><input  type='text' value="+obj[i].member_address+"></td><td>"
+			+ "<input  type='text' value="+obj[i].member_addressdetail+"></td><td>"+obj[i].member_grade+"</td>"
+			+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+			+ "<td><input type='button' class = 'memDel' value='삭제'></td></tr>";
+			 }
+		  }
+			  xhttp.open("GET", "/member/selectall", true);
+			  xhttp.send();
+			}
+		
+		
+		function serchMem() {
+			
+			$("#membertbody").empty();
+		    let memberOption = $("select[name='memberOption']").val();
+		    let search = $("#searchMem").val();
+		    alert(memberOption);
+		
+		    urldata = "";
+		    data ="";
+		    if(memberOption=="member_id"){
+		       urldata = "/member/selectOneid";
+		       data = "id";
+		    }else if(memberOption=="member_name"){
+		       urldata = "/member/selectOnename";
+		       data = "name";
+		    }else if(memberOption=="member_grade"){
+		       urldata = "/member/selectOnegrade";
+		       data = "grade";
+		    }
+		    $.ajax({
+		       url: urldata+"?"+data+"="+search,
+		       method: "GET",
+		       dataType: "json",
+		       success: (data) => {
+		    	   for(let i=0 ; i<data.length;i++){
+		    		   $("#membertbody").append("<tr><td>" +data[i].member_id +"</td><td><input type='text' value=" + data[i].member_pw +"></td><td>"
+		    				    + "<input type='text' value="+data[i].member_name+"></td><td><input type='text' value=" + data[i].member_tel+"></td><td>"
+		    					+ "<input type='text' value="+data[i].postnum+"></td><td><input  type='text' value="+data[i].member_address+"></td><td>"
+		    					+ "<input  type='text' value="+data[i].member_addressdetail+"></td><td>"+data[i].member_grade+"</td>"
+		    				  	+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+		    				  	+ "<td><input type='button' class = 'memDel'  value='삭제'></td></tr>")
+		    	          
+		    	   }
+		         
+		       }
+		       
+		    })
+		}	
+		
+		
+		$("#membertbody").click((e) => {
+			if(e.target.value == "수정"){
+				let id = e.target.parentElement.parentElement.children[0].innerText;
+				let pw = e.target.parentElement.parentElement.children[1].firstChild.value;
+				let name = e.target.parentElement.parentElement.children[2].firstChild.value;
+				let tel = e.target.parentElement.parentElement.children[3].firstChild.value;
+				let address = e.target.parentElement.parentElement.children[4].firstChild.value;
+				let grade = e.target.parentElement.parentElement.children[5].innerText;
+				
+				   let obj_member = {
+			               "member_id" : id,
+			               "member_pw" : pw,
+			               "member_name" : name,
+			               "member_tel" : tel,
+			               "member_address" : address,
+			               "member_grade" :grade
+			            }
+				   alert(JSON.stringify(obj_member));
+				      $.ajax({
+				             url: "/member/UpdateMemManager",
+				             method: "POST",
+				             contentType: "application/json",
+				             data: JSON.stringify(obj_member),
+				             success: function(data){
+				                 alert(data);
+				         	}
+				      })  
+		
+			} else if(e.target.value == "삭제"){
+				let id = e.target.parentElement.parentElement.children[0].innerText;
+				
+				 $.ajax({
+		             url: "/member/deleteMemManager",
+		             method: "DELETE",
+		             data: {
+		            	 "id" : id
+		             },
+		             success: function(data){
+		                 alert(data);
+		         	}
+		      })  
+				
+			}
+		
+		})
+      
     </script>
   </body>
 
