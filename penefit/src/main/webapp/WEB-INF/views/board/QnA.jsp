@@ -51,6 +51,10 @@ input[type='submit']{
 	box-shadow: 3px 3px 3px 3px #DBD5CB;
 	margin: 10px 0;
 }
+#selectBox{
+	width: 400px;
+	height: 30px;
+}
 </style>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -68,6 +72,17 @@ input[type='submit']{
 				<h2>Q&A 게시판</h2>
 				<form action="/board/qnaForm" method="post">
 					<table id="table">
+					<tr>
+							<th>구분</th>
+							<td><select id="selectBox" name="qna_type">
+								<option value=""></option>
+								<option value="수강">수강</option>
+								<option value="환불">환불</option>
+								<option value="제안">제안</option>
+								<option value="회원">회원</option>
+								<option value="기타">기타</option>
+							</select></td>
+						</tr>
 						<tr>
 							<th>제목</th>
 							<td><input type="text" name="qna_title"></td>
