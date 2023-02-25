@@ -84,7 +84,7 @@ h2{
 				<div id="selectbox">
 					<!-- 1. 이동 버튼이 있어야함 -->
 					<select id="sel" name="sel">
-						<option value="All">전체</option>
+						<option value="">전체</option>
 						<option value="A">서울</option>
 						<option value="B">경기</option>
 						<option value="C">인천</option>
@@ -106,14 +106,14 @@ h2{
 
 					<button type="button" id="check_city" onclick="one_City()">선택</button>&nbsp;&nbsp;&nbsp; 
 					<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요..."> 
-					<input type="button" value="검색" id="searchBtn" onclick="search_city()">
+					<input type="button" value="검색" id="searchBtn">
 					<div style="text-align: right;">
 						<button type="button" onclick="location.href='city_regView'" id="write">글쓰기</button>
 					</div>
 				</div>
 				
-				<input type = "hidden" name = "startNum" value = "${start }">
-				<input type = "hidden" name = "maxPage" value = "${count }">
+				<input type = "text" name = "startNum" value = "${start }">
+				<input type = "text" name = "maxPage" value = "${count }">
 				
 				<div id="citybox1">
 					<table id="city_tbl">
@@ -162,15 +162,23 @@ h2{
 	<script>
 	
 	
-		$("#page").on("click", (event) => {
-			if(event.target.className == "pageBtn"){
+		$(".content").on("click", (event) => {
+			let e = event.target.className;
+			if(e == "pageBtn" || event.target.id == "searchBtn"){
 				let pageNum = event.target.textContent;
+				if(pageNum == ""){
+					pageNum = 1;
+				}
+				let sel = $("#sel").val();
+				let search = $("#keyword").val();
 				$.ajax({
 					url: "/board/cityBoards",
 					method: "get",
 					dataType: "json",
 					data: {
-						pageNum: pageNum
+						pageNum: pageNum,
+						sel: sel,
+						keyword: search
 					},
 					success: (data) => {
 						$("#tbody1").empty();
@@ -187,7 +195,41 @@ h2{
 					},
 					error: () => {
 						alert("Error [실패]");
+					},
+					complete: () => {
+						if(event.target.id == "searchBtn"){
+							$.ajax({
+								url: "/board/citySearchCount",
+								method: "get",
+								data: {
+									pageNum: pageNum,
+									sel: sel,
+									keyword: search
+								},
+								success: (data) => {
+									$("#page").empty();
+									$("input[name='maxPage']").val(data);
+									$("input[name=startNum]").val(1);
+									let start = $("input[name=startNum]").val();
+									for(let i = start; i < start + 5; i++){
+										
+										if(i <= $("input[name='maxPage']").val()){
+											$("#page").append(
+												"<button type = 'button' class = pageBtn style = 'width: 20px'>" + i + "</button>"		
+											);
+										} else{
+											$("#frontBtn").css("display", "none");
+										}
+									}
+								},
+								error: () => {
+									alert("Error [실패]");
+								}
+							})
+						}
+						
 					}
+					
 				})
 			}
 		})
@@ -206,10 +248,10 @@ h2{
 			for(let i = start; i < start + 5; i++){
 				if(i <= $("input[name='maxPage']").val()){
 					$("#frontBtn").css("display", "inline-block");
+					$("#page").append("<button type = 'button' class = pageBtn style = 'width: 20px'>" + i + "</button>");
+				} else {
+					$("#frontBtn").css("display", "none");
 				}
-				$("#page").append(
-					"<button type = 'button' class = pageBtn style = 'width: 20px'>" + i + "</button>"		
-				);
 			}
 		});
 		

@@ -93,14 +93,12 @@ public class ControllerAboutBoard {
 	@GetMapping("/cityBoardview")
 	public String cityBoard1(Model model, int pageNum, int start) {
 		
-		System.out.println("pageNum : " + pageNum + " start : " + start);
-		System.out.println("pageNum : " + pageNum + " start : " + start);
-		System.out.println("pageNum : " + pageNum + " start : " + start);
-		System.out.println("pageNum : " + pageNum + " start : " + start);
-		
 		pageNum = pageNum * 10 - 10;
 		
-		List<BoardVO> list = bservice.getAllCityList(pageNum);
+		String sel = "";
+		String keyword = "";
+				
+		List<BoardVO> list = bservice.getAllCityList(pageNum, sel, keyword);
 		int count = bservice.countCity();
 		
 		if(count % 10 == 0) {
@@ -109,18 +107,30 @@ public class ControllerAboutBoard {
 			count = count / 10 + 1;
 		}
 		
+		model.addAttribute("count", count);
 		model.addAttribute("list", list);
 		model.addAttribute("start", start);
-		model.addAttribute("count", count);
 		
 		return "/board/cityBoard";
 	}
 	
-	@GetMapping("cityBoards")
+	@GetMapping("/cityBoards")
 	@ResponseBody
-	public List<BoardVO> getBoardList(int pageNum){
+	public List<BoardVO> getBoardList(int pageNum, String sel, String keyword){
 		pageNum = pageNum * 10 - 10;
-		return bservice.getAllCityList(pageNum);
+		return bservice.getAllCityList(pageNum, sel, keyword);
+	}
+	
+	@GetMapping("/citySearchCount")
+	@ResponseBody
+	public int getBoardCount(int pageNum, String sel, String keyword) {
+		int result = bservice.getSearchCount(pageNum, sel, keyword);
+		if(result % 10 == 0) {
+			result = result / 10;
+		} else {
+			result = result / 10 + 1;
+		}
+		return result;
 	}
 	
 	

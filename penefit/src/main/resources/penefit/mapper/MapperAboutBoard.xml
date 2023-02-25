@@ -25,7 +25,12 @@
 
 <!-- 지역 전체 게시판 -->
 <select id="getCityList" resultType="com.penefit.moons.domain.BoardVO"> 
-	SELECT b.*, c.* FROM board b, city c WHERE b.board_type= 'cc' AND c.city_code = b.city_code ORDER BY b.board_num LIMIT #{startnum}, 10
+	SELECT b.*, c.* FROM board b, city c WHERE b.board_type= 'cc' AND c.city_code = b.city_code AND b.city_code like CONCAT('%',#{param2},'%') AND (b.board_title like CONCAT('%',#{param3},'%') OR b.member_id like CONCAT('%',#{param3},'%')) ORDER BY b.board_num LIMIT #{param1}, 10
+</select>
+
+<!-- 각 게시판 갯수 -->
+<select id="getSearchCount" resultType="_int"> 
+	SELECT COUNT(*) FROM board b, city c WHERE b.board_type= 'cc' AND c.city_code = b.city_code AND b.city_code like CONCAT('%',#{param2},'%') AND (b.board_title like CONCAT('%',#{param3},'%') OR b.member_id like CONCAT('%',#{param3},'%'))
 </select>
 
 <!-- 각 지역별 게시판 -->

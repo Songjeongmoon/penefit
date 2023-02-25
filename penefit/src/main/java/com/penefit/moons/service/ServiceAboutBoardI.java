@@ -24,10 +24,13 @@ public interface ServiceAboutBoardI {
 	//---------------------------------------
 
 	//지역전체 게시판
-	public List<BoardVO> getAllCityList(int pageNum);
+	public List<BoardVO> getAllCityList(int pageNum, String sel, String keyword);
 	
 	//각 지역별 리스트
 	public List<BoardVO> getCityListOne(String check_city);
+	
+	//각 게시판 갯수
+	public int getSearchCount(int pageNum, String sel, String keyword);
 	
 	//지역 상세조회
 	public BoardVO citySelectOne(int board_num);

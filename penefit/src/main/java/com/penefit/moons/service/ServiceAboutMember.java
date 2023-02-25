@@ -26,7 +26,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		int result = mapper.regMember(member);
 
 		if (result == 1) {
-			return "home";
+			return "/member/regComplete";
 		} else {
 			return "/member/regMember";
 		}
@@ -45,14 +45,11 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		ArrayList<MemberVO>list = mapper.loginCheck();
 		for(int i = 0 ; i<list.size();i++) {
 			if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
-				Session.setAttribute("member_id", member_id);
-				
+				Session.setAttribute("member_id", member_id);				
 				return 1;
 			}
-			
 		}
 		return 0;
-		
 	}
 
 	@Override
