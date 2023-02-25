@@ -26,7 +26,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		int result = mapper.regMember(member);
 
 		if (result == 1) {
-			return "home";
+			return "/member/regComplete";
 		} else {
 			return "/member/regMember";
 		}
@@ -46,7 +46,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 			if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
 				Session.setAttribute("member_id", member_id);
 				
-				return "/member/home";
+				return "/";
 			}
 			
 		}

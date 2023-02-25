@@ -47,6 +47,12 @@ public class ControllerAboutMember {
 		
 	}
 	
+
+	@GetMapping("/regComplete")
+	public void regComplete() {
+		
+	}
+	
 	@GetMapping("/home")
 	public String home() {
 		return "redirect:/";
