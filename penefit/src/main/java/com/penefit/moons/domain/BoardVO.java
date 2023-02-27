@@ -16,9 +16,7 @@ public class BoardVO {
 	private String city_code;
 	private String city_name;
 	private String board_type;
-	private String page_num;
 	private String content_num;
-	private int limit;
-	private int offset;
+	
 	
 }

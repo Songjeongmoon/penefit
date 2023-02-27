@@ -58,7 +58,7 @@
 							<div class="title">클래스</div>
 							<div class="subtitle">
 								<div class="subtitle_li">
-									<a href="/class/classList-ongoing">클래스과정</a>
+									<a href="/class/classList-ongoing?pageNum=1">클래스과정</a>
 								</div>
 								<div class="subtitle_li">
 									<a href="/class/suggestion">클래스제안</a>
@@ -73,7 +73,7 @@
 									<a href="/board/notice?pageNum=1&start=1">공지사항</a>
 								</div>
 								<div class="subtitle_li">
-									<a href="/board/cityBoardview">지역별게시판</a>
+									<a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a>
 								</div>
 
 							</div>

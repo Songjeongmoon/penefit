@@ -48,9 +48,9 @@ h2 {
          <aside>
             <ul>
                <li class="aside_title">커뮤니티</li>
-               <li class="aside_menu"><a href="/board/notice">공지사항</a></li>
+               <li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
                <li class="aside_menu"><a href="#">수강후기</a></li>
-               <li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
+               <li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
                <li class="aside_menu"><a href="#">클래스별게시판</a></li>
             </ul>
 
@@ -97,11 +97,11 @@ h2 {
             
             <a href="/board/notice?pageNum=${start - 5}&start=${start - 5}">[이전]</a>
             <c:forEach var="pageNum" begin="${start }" end="${end }">
-               <c:if test="${pageNum lt count  }">
+               <c:if test="${pageNum le count  }">
                   <a href="/board/notice?pageNum=${pageNum }&start=${start}">${pageNum }</a>&nbsp;&nbsp;
                </c:if>
             </c:forEach>
-            <c:if test="${start + 5 lt count }">
+            <c:if test="${start + 5 le count }">
                <a href="/board/notice?pageNum=${start + 5}&start=${start + 5}">[다음]</a>
             </c:if>
          </div>
@@ -117,44 +117,7 @@ h2 {
          $("#aside_submenu").css("display", "none");
       })
 
-      function getNotice(page) {
-         $.ajax({
-            url : "/notice/page" + page,
-            type : "GET",
-            success: function (data){
-               $.each(data, function (index, notice){
-                  var item = "<li>" + notice_num   ""
-               })
-            }
-            data : {
-               page : page
-            },
-            success : function(data) {
-               $("#notice-list").html(data);
-            },
-         });
-      }
 
-      $(document).ready(function() {
-         // 페이지 로드 시 첫 페이지 로드
-         getProducts(1);
-
-         // 이전 버튼 클릭 시 이전 페이지 로드
-         $("#prev-btn").click(function() {
-            var page = parseInt($("#page").val()) - 1;
-            if (page >= 1) {
-               $("#page").val(page);
-               getNotice(page);
-            }
-         });
-
-         // 다음 버튼 클릭 시 다음 페이지 로드
-         $("#next-btn").click(function() {
-            var page = parseInt($("#page").val()) + 1;
-            $("#page").val(page);
-            getNotice(page);
-         });
-      });
    </script>
 
 </body>

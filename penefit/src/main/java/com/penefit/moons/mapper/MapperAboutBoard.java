@@ -28,18 +28,21 @@ public interface MapperAboutBoard {
 	public int delNotice(@Param("notice_num") int notice_num);
 
 
-	
-
 	// -----------------------------------
 	// 지역별 게시판 등록
 	public int cityReg(BoardVO bvo);
 
-	// 전체 지역 게시판
-	public List<BoardVO> getCityList();
+	//지역게시판 글 개수 세기
+	public int countCity();
+	
+	// 전체 지역 게시판							//param1					//param2 					//param3
+	public List<BoardVO> getCityList(@Param("startNum") int startNum, @Param("sel")String sel, @Param("keyword")String keyword);
 
 	// 각 지역별 게시판
 	public List<BoardVO> getOneCityList(String check_city);
 	
+	// 각 게시판 개수
+	public int getSearchCount(int pageNum, String sel, String keyword);
 	
 	//지역 게시판 검색
 	public List<BoardVO> search_city(@Param("keyword") String keyword, @Param("city_code") String city_code);
@@ -79,8 +82,7 @@ public interface MapperAboutBoard {
 	//공지사항 글 개수 세기
 	public int countNotice();
 		
-	//지역게시판 글 개수 세기
-	public int countCity();
+	
 	
 	//지역게시판 글&페이징 리스트
 	//public List<BoardVO> getCityList(int startnum);

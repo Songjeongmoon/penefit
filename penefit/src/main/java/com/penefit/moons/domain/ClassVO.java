@@ -9,4 +9,5 @@ public class ClassVO {
 	private int class_memlit, class_memcnt, class_price, Suggest_num;
 	private String city_code;
 	private String class_regdate, class_modidate;
+	
 }

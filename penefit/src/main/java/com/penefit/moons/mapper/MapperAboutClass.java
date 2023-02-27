@@ -16,12 +16,17 @@ import com.penefit.moons.domain.WishlistVO;
 
 @Mapper
 public interface MapperAboutClass {
-
-	// 클래스목록조회
-	public ArrayList<ClassVO> getClassList();
+	//전체 클래스 count ---
+	public int countClass();
+	
+	// 클래스목록조회	---
+	public ArrayList<ClassVO> getClassList(@Param("pageNum") int pageNum);
+	
+	//카테고리별 클래스 count
+	public int ctgClassCount();
 
 	// 카테고리별 클래스 목록 조회
-	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key);
+	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum);
 
 	// 신규클래스 조회
 	public ArrayList<ClassVO> getNewClassList();
@@ -36,8 +41,7 @@ public interface MapperAboutClass {
 	public ClassVO selectClassOne(@Param(value = "class_code") String class_code);
 
 	// 위시리스트 확인
-	public int checkWishlist(@Param(value = "class_code") String class_code,
-			@Param(value = "member_id") String member_id);
+	public int checkWishlist(@Param(value = "class_code") String class_code, @Param(value = "member_id") String member_id);
 
 	// 위시리스트 추가
 	public void addWishlist(WishlistVO wish);
@@ -129,11 +133,17 @@ public interface MapperAboutClass {
 	//마감기한이 지나지 않은 것
 	public ArrayList<ClassVO> getClassList1();
 
-	//진행중인 목록
-	public ArrayList<ClassVO> getOngoingClassList();
+	//진행중인 클래스 count ---
+	public int countOngingClass();
+	
+	//진행중인 목록 ---
+	public ArrayList<ClassVO> getOngoingClassList(int pageNum);
 
-	//마감된 목록
-	public ArrayList<ClassVO> getExpiredClassList();
+	//마감된 강의 count ---
+	public int expiredClassCount();
+	
+	//마감된 목록 ---
+	public ArrayList<ClassVO> getExpiredClassList(int startNum);
 
 	//리뷰목록받아오기
 	public ArrayList<ReviewVO> getReviewList(@Param(value = "member_id") String member_id);

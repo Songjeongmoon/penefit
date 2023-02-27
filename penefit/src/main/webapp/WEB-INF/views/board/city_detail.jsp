@@ -29,46 +29,45 @@
 				<h1>city 상세목록</h1>
 				<table border="1">
 
-						<tr>
-							<th>번호</th>
-							<td>${cvo.board_num }</td>
-						</tr>
-						<tr>
-							<th>작성자</th>
-							<td>${cvo.member_id }</td>
-						</tr>
-						<tr>
-							<th>제목</th>
-							<td>${cvo.board_title }</td>
-						</tr>
-						<tr>
-							<th>내용</th>
-							<td>${cvo.board_content }</td>
-						</tr>
-						<tr>
-							<th>작성일</th>
-							<td>${cvo.board_regdate }</td>
-						</tr>
+					<tr>
+						<th>번호</th>
+						<td>${cvo.board_num }</td>
+					</tr>
+					<tr>
+						<th>작성자</th>
+						<td>${cvo.member_id }</td>
+					</tr>
+					<tr>
+						<th>제목</th>
+						<td>${cvo.board_title }</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td>${cvo.board_content }</td>
+					</tr>
+					<tr>
+						<th>작성일</th>
+						<td>${cvo.board_regdate }</td>
+					</tr>
 
-						<tr>
-							<th>조회수</th>
-							<td>${cvo.board_viewcnt }</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-													<input type="hidden" name="board_num" value="${cvo.board_num}">
+					<tr>
+						<th>조회수</th>
+						<td>${cvo.board_viewcnt }</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="hidden" name="board_num"
+							value="${cvo.board_num}"> <c:if
+								test="${sessionScope.member_id == cvo.member_id }">
+								<button type="button"
+									onclick="location.href='city_modiView?board_num=${cvo.board_num }'">수정</button>
+								<button type="button"
+									onclick="location.href='delCity?board_num=${cvo.board_num }'">삭제</button>
 
-					<c:if test="${sessionScope.member_id == cvo.member_id }">
-						<button type="button"
-							onclick="location.href='city_modiView?board_num=${cvo.board_num }'">수정</button>
-						<button type="button"
-							onclick="location.href='delCity?board_num=${cvo.board_num }'">삭제</button>
-
-					</c:if>
-					<button type="button" onclick="location.href='cityBoardview'">목록</button>
-							</td>
-						</tr>
-					</table>
+							</c:if>
+							<button type="button" onclick="location.href='cityBoardview'">목록</button>
+						</td>
+					</tr>
+				</table>
 
 				<br>
 				<hr>
@@ -79,8 +78,9 @@
 						<input type="hidden" name="reply_num" value="${reply_num}">
 						<input type="hidden" name="reply_type" value="C"><br>
 						<input type="hidden" name="member_id" value="${member_id }"
-						 id="writer"	readonly="readonly"><br>
-						<textarea name="reply_content" id="rReply" placeholder="댓글 내용을 입력해주세요."></textarea>
+							id="writer" readonly="readonly"><br>
+						<textarea name="reply_content" id="rReply"
+							placeholder="댓글 내용을 입력해주세요."></textarea>
 						<br> <input type="button" value="등록" onclick="regReply()">
 					</div>
 				</div>
@@ -104,8 +104,7 @@
 		</section>
 	</div>
 	<script>
-	
-	alert($("#writer").val());
+		alert($("#writer").val());
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
 			$("#aside_submenu").css("display", "block");
@@ -114,14 +113,16 @@
 			//alert('dd');
 			$("#aside_submenu").css("display", "none");
 		})
-		
+
 		function regReply() { //댓글 등록
 			const board_num = document.querySelector("input[name='board_num']").value;
 			const reply_num = document.querySelector("input[name='reply_num']").value;
-			const reply_type = document.querySelector("input[name='reply_type']").value;
+			const reply_type = document
+					.querySelector("input[name='reply_type']").value;
 			const member_id = document.querySelector("input[name='member_id']").value;
-			const reply_content = document.querySelector("textarea[name='reply_content']").value;
-			
+			const reply_content = document
+					.querySelector("textarea[name='reply_content']").value;
+
 			const obj = {
 				board_num : board_num,
 				reply_num : reply_num,
@@ -141,9 +142,9 @@
 		}
 
 		//댓글 리스트
-		
+
 		getReplyList();
-		
+
 		function getReplyList() {
 			const board_num = document.querySelector("input[name='board_num']").value;
 			const tbody = document.querySelector("#tbody");
@@ -152,48 +153,51 @@
 			xhttp.onload = function() {
 				let data = this.responseText;
 				let obj = JSON.parse(data);
-				
+
 				for (let i = 0; i < obj.length; i++) {
 					let msg = "";
-					if("${sessionScope.member_id }" == obj[i].member_id){
+					if ("${sessionScope.member_id }" == obj[i].member_id) {
 						msg = "<td><button type='button' class ='delBtn'>삭제</button></td></tr>";
-            		} else{
-            			msg = "</tr>";
-            		}
-					
-					tbody.innerHTML += "<tr><td><input type='text' name='reply_num' value='" + obj[i].reply_num + "'>"
-									+ obj[i].reply_content
-									+ "</td><td>"
-									+ obj[i].member_id +"</td>" + msg;
+					} else {
+						msg = "</tr>";
+					}
+
+					tbody.innerHTML += "<tr><td><input type='hidden' name='reply_num' value='" + obj[i].reply_num + "'>"
+							+ obj[i].reply_content
+							+ "</td><td>"
+							+ obj[i].member_id + "</td>" + msg;
 				}
-				
-				
+
 			}
-			xhttp.open("GET", "/api/city/replyList/board_num/" + board_num, true);
+			xhttp.open("GET", "/api/city/replyList/board_num/" + board_num,
+					true);
 			xhttp.send();
 		}
-		
-		$(document).on("click",".delBtn", function(evt){
-			
-			let reply_num = evt.target.parentElement.parentElement.children[0].children[0].value;
-			
-			delReply(reply_num);
-			alert(reply_num);
-		
-		})
-		
+
+		$(document)
+				.on(
+						"click",
+						".delBtn",
+						function(evt) {
+
+							let reply_num = evt.target.parentElement.parentElement.children[0].children[0].value;
+
+							delReply(reply_num);
+							alert(reply_num);
+
+						})
+
 		function delReply(reply_num) {
-  			const xhttp = new XMLHttpRequest();
- 			 xhttp.onload = function() {
-  			  alert(this.responseText);
- 				getReplyList();
-  			  }
- 			 xhttp.open("DELETE", "/api/city/delReply/reply_num/"+ reply_num, true);
- 			 xhttp.setRequestHeader("Content-type", "application/json");
- 			 xhttp.send();
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				alert(this.responseText);
+				getReplyList();
+			}
+			xhttp.open("DELETE", "/api/city/delReply/reply_num/" + reply_num,
+					true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send();
 		}
-		
-	
 	</script>
 	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>

@@ -3,6 +3,7 @@ package com.penefit.moons.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +23,18 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	MapperAboutClass mapper;
 
 	@Override
-	public ArrayList<ClassVO> getClassList() {
-		ArrayList<ClassVO> list = mapper.getClassList();
+	public ArrayList<ClassVO> getClassList(int pageNum) {
+		ArrayList<ClassVO> list = mapper.getClassList(pageNum);
+		System.out.println("getClassList" + pageNum);
 		return list;
-
 	}
+	
 
 	@Override
-	public ArrayList<ClassVO> getCtgClassList(String key) {
-		ArrayList<ClassVO> list = mapper.getCtgClassList(key);
+	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum) {
+		System.out.println("key : " + key + "그리고" + "pageNum : " + pageNum);
+		ArrayList<ClassVO> list = mapper.getCtgClassList(key, pageNum);
+		System.out.println(list);
 		return list;
 	}
 
@@ -232,7 +236,7 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 		return result;
 	}
 
-	// 장자구니 갯수세기
+	// 장바구니 갯수세기
 	@Override
 	public int checkCntInCart(String member_id) {
 		int result = mapper.checkCntInCart(member_id);
@@ -245,18 +249,18 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 		ArrayList<ClassVO> list = mapper.getClassList1();
 		return list;
 	}
-
-	// 진행중인 목록
+	
+	// 진행중인 목록 페페이징	---
 	@Override
-	public ArrayList<ClassVO> getOngoingClassList() {
-		ArrayList<ClassVO> list = mapper.getOngoingClassList();
+	public ArrayList<ClassVO> getOngoingClassList(int pageNum) {
+		ArrayList<ClassVO> list = mapper.getOngoingClassList(pageNum);
 		return list;
 	}
 
 	// 마감된 목록
 	@Override
-	public ArrayList<ClassVO> getExpiredClassList() {
-		ArrayList<ClassVO> list = mapper.getExpiredClassList();
+	public ArrayList<ClassVO> getExpiredClassList(int startNum) {
+		ArrayList<ClassVO> list = mapper.getExpiredClassList(startNum);
 		return list;
 	}
 	//리뷰목록
@@ -270,5 +274,43 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	public void insertVisits() {
 		mapper.insertVisits();
 	}
+
+	//진행중인 class count ---
+	@Override
+	public int countOngingClass() {
+		int result = mapper.countOngingClass();
+		return result;
+	}
+	
+	//전체 class count ---
+	@Override
+	public int countClass() {
+		int result = mapper.countClass();
+		return result;
+	}
+
+	//마감된 강의 count ----
+	@Override
+	public int expiredClassCount() {
+		int result = mapper.expiredClassCount();
+		return result;
+	}
+
+	
+	//카테고리별 class count
+	@Override
+	public int ctgClassCount() {
+		int result = mapper.ctgClassCount();
+		return result;
+	}
+
+	
+	
+	
+	
+
+	
+
+
 
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.penefit.moons.domain.CartVO;
+import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.HistoryDTO;
 import com.penefit.moons.domain.HistoryVO;
 import com.penefit.moons.domain.ReviewVO;
@@ -35,6 +36,12 @@ public class RestControllerAboutClass {
 
 	@Autowired
 	ServiceAboutClass service;
+	
+	@GetMapping("/classPages")
+	public List<ClassVO> classPages(int startNum){
+		startNum = startNum * 8 - 8;
+		return service.getClassList(startNum);
+	}
 
 	
 	//class-detail페이지에 찜목록 확인
