@@ -105,6 +105,7 @@ input[type='submit']{
 			</div>
 		</section>
 	</div>
+	<%@ include file="../footer.jsp"%>
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
 			$("#aside_submenu").css("display", "block");
@@ -113,5 +114,6 @@ input[type='submit']{
 			$("#aside_submenu").css("display", "none");
 		})
 	</script>
+	
 </body>
 </html>

@@ -264,9 +264,11 @@ aside li {
 
 .content {
 	width: 1050px;
+	height : 1800px;
 	position: absolute;
 	left :230px;
 	z-index: 100;
+	margin-bottom: 200px;
 	
 }
 
