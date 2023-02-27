@@ -91,14 +91,14 @@ public class ControllerAboutBoard {
 	
 	//지역 게시판 
 	@GetMapping("/cityBoardview")
-	public String cityBoard1(Model model, int pageNum, int start) {
+	public String cityBoard1(Model model) {
 		
-		pageNum = pageNum * 10 - 10;
+		
 		
 		String sel = "";
 		String keyword = "";
 				
-		List<BoardVO> list = bservice.getAllCityList(pageNum, sel, keyword);
+		List<BoardVO> list = bservice.getAllCityList(0, sel, keyword);
 		int count = bservice.countCity();
 		
 		if(count % 10 == 0) {
@@ -109,7 +109,7 @@ public class ControllerAboutBoard {
 		
 		model.addAttribute("count", count);
 		model.addAttribute("list", list);
-		model.addAttribute("start", start);
+		model.addAttribute("start", 1);
 		
 		return "/board/cityBoard";
 	}

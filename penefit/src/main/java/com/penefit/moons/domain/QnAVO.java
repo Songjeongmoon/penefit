@@ -4,12 +4,12 @@ import lombok.Data;
 
 @Data
 public class QnAVO {
-	private int qna_num;
-	private String member_id;
-	private String qna_title;
-	private String qna_content;
-	private String qna_status;
-	private String qna_regdate;
-	private int reply_num;
-	private String qna_type;
+   private int qna_num;
+   private String member_id;
+   private String qna_title;
+   private String qna_content;
+   private String qna_status;
+   private String qna_regdate;
+   private String reply;
+   private String qna_type;
 }

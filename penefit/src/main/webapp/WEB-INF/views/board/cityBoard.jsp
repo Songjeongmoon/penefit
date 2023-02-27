@@ -112,8 +112,8 @@ h2{
 					</div>
 				</div>
 				
-				<input type = "text" name = "startNum" value = "${start }">
-				<input type = "text" name = "maxPage" value = "${count }">
+				<input type = "hidden" name = "startNum" value = "${start }">
+				<input type = "hidden" name = "maxPage" value = "${count }">
 				
 				<div id="citybox1">
 					<table id="city_tbl">

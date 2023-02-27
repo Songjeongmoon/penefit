@@ -110,11 +110,6 @@ public class ControllerAboutMember {
 	}
 	@GetMapping("/infoMember")
 	public String goinfoMember(HttpSession Session, Model model) {
-		System.out.println("==========================");
-		System.out.println("==========================");
-		System.out.println("==========================");
-		System.out.println("==========================");
-		System.out.println("==========================");
 		String member_id = (String) Session.getAttribute("member_id");
 		MemberVO member = serviceMember.selectOne(member_id);
 		model.addAttribute("memberinfo",member);

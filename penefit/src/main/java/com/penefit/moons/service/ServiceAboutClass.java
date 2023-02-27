@@ -217,7 +217,6 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	@Override
 	public List<ReviewVO> getReview(String class_code) {
 		List<ReviewVO> list = mapper.getReview(class_code);
-		System.out.println("REVIEW =====================" + list);
 		return list;
 	}
 

@@ -27,30 +27,23 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 		suggest.setSuggest_content(suggest.getTime() + "시간짜리 수업입니다 -" + suggest.getSuggest_content());
 		String fileNames = "";
 		List<MultipartFile> list = files.getFiles("files");
-		String[] uuids = UUID.randomUUID().toString().split("-");
-		
 		String savePath = System.getProperty("user.dir") + "/src/main/webapp/images";
-		String uuid = "";
-		for(int i = 0; i < uuids.length; i++) {
-			uuid += uuids[i];
-		}
+		
+		
 		
 		for(int i = 0; i < list.size(); i++) {
-			String[] fileName = list.get(i).getOriginalFilename().split("-");
-			String name = "";
-			for(int j = 0; j < fileName.length; j++) {
-				name += fileName[j];
-			}
+			String[] uuids = UUID.randomUUID().toString().split("-");
 			
-			
+			String uuid = "";
+				uuid += uuids[0];
 			if(i == 0) {
-				fileNames += uuid + name;				
+				fileNames += uuid;				
 			}else {
-				fileNames += "-" + uuid + name;				
+				fileNames += "-" + uuid;				
 			}
 			
 			try {
-				File saveFile = new File(savePath, uuid + name);
+				File saveFile = new File(savePath, uuid);
 				list.get(i).transferTo(saveFile);
 			} catch (IllegalStateException | IOException e) {
 					e.printStackTrace();

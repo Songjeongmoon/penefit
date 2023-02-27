@@ -232,6 +232,7 @@ input[id="checkAll"] {
             $("a").css("color","black");
             calcPrice();
 
+<<<<<<< HEAD
          }
          xhttp.open("GET", "shoppingcartList", true);
          xhttp.send();
@@ -245,7 +246,23 @@ input[id="checkAll"] {
                      alert(shopping_cart_num);
                      deleteCart(shopping_cart_num);
                   })
+=======
+			}
+			xhttp.open("GET", "shoppingcartList", true);
+			xhttp.send();
+		}
+		$(document)
+				.on(
+						"click",
+						".delete_img",
+						function(evt) {
+							let shopping_cart_num = evt.target.parentElement.parentElement.parentElement.children[0].firstChild.value;
+							alert(shopping_cart_num);
+							deleteCart(shopping_cart_num);
+						})
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
+<<<<<<< HEAD
       //1개 삭제하기
       function deleteCart(shopping_cart_num) {
          const xhttp = new XMLHttpRequest();
@@ -259,12 +276,28 @@ input[id="checkAll"] {
                true);
          xhttp.send();
       }
+=======
+		//1개 삭제하기
+		function deleteCart(shopping_cart_num) {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				this.responseText;
+				getList();
+				calcPrice();
+				alert("삭제되었습니다.");
+			}
+			xhttp.open("DELETE", "deleteCart/shopping-cart-num/" + shopping_cart_num,
+					true);
+			xhttp.send();
+		}
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
       //전체 삭제
       $("#deleteAll").click(function() {
          deleteAllCart();
       })
 
+<<<<<<< HEAD
       function deleteAllCart() {
          const xhttp = new XMLHttpRequest();
          xhttp.onload = function() {
@@ -319,6 +352,62 @@ input[id="checkAll"] {
                true);
          xhttp.send();
       }
+=======
+		function deleteAllCart() {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				this.responseText;
+				getList();
+				calcPrice();
+				alert("삭제되었습니다.");
+			}
+			xhttp.open("DELETE", "allCart", true);
+			xhttp.send();
+		}
+		
+		
+		//구매 불가능 품목
+		$("#deleteExpired").click( ()=>{
+							$("input[ disabled='disabled']").each(
+								function() {
+									if($(this).is(":disabled") == true) {
+										shopping_cart_num = this.parentElement.parentElement.children[0].firstChild.value;
+										deleteSomeCart(shopping_cart_num);
+									}
+								}
+							)
+							location.reload();
+							alert("삭제되었습니다.");
+							});
+		
+		
+		//선택 삭제
+		let checkArr = [];
+		//체크박스를 전체 확인하면서 체크된것을 삭제
+		$("#deleteSome")
+				.click(
+						function() {
+							$("input[class='checking']")
+									.each(
+											function() {
+												if ($(this).is(":checked") == true) {
+													shopping_cart_num = this.parentElement.parentElement.children[0].firstChild.value;
+													deleteSomeCart(shopping_cart_num);
+												}
+											});
+							location.reload();
+							alert("삭제되었습니다.");
+						});
+		function deleteSomeCart(shopping_cart_num) {
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				this.responseText;
+			}
+			xhttp.open("DELETE", "deleteCart/shopping-cart-num/" + shopping_cart_num,
+					true);
+			xhttp.send();
+		}
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
       //1차 금액계산
       let amount;
@@ -380,6 +469,7 @@ input[id="checkAll"] {
                sendParam(amount,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
                
 
+<<<<<<< HEAD
             } else {
                // 결제 실패 시 로직
                var msg = '결제에 실패하였습니다.';
@@ -425,6 +515,53 @@ input[id="checkAll"] {
          } 
          
          const json_obj = JSON.stringify(his_obj);
+=======
+				} else {
+					// 결제 실패 시 로직
+					var msg = '결제에 실패하였습니다.';
+			         msg += '에러내용 : ' + rsp.error_msg;
+				}
+				 alert(msg);
+			});
+			
+			}
+		
+		
+		function sendParam(amount,imp_uid,merchant_uid,pay_method,pg_provider,pg_tid,bank_name,card_name,card_quota,card_number,name,currency,buyer_name,buyer_email,buyer_tel,buyer_addr ){
+			class_arr=[];
+			classCode_arr=[];
+			$("input[class='checking']").each(function() {
+						if ($(this).is(":checked") == true) {
+							shopping_cart_num = this.parentElement.parentElement.children[0].children[0].value;
+							class_arr.push(shopping_cart_num);
+							let cl_code = this.parentElement.parentElement.children[1].children[0].value;
+							classCode_arr.push(cl_code);
+						}
+					});
+			
+			const his_obj = {
+					class_arr : class_arr,
+			    	amount : amount,
+			    	imp_uid:imp_uid,
+			    	merchant_uid:merchant_uid,
+			    	pay_method:pay_method,
+			    	pg_provider:pg_provider,
+			    	pg_tid:pg_tid,
+			    	bank_name:bank_name,
+			    	card_name:card_name,
+			    	card_quota:card_quota,
+			    	card_number:card_number,
+			    	name:name,
+			    	currency:currency,
+			    	buyer_name:buyer_name,
+			    	buyer_email:buyer_email,
+			    	buyer_tel:buyer_tel,
+			    	buyer_addr:buyer_addr,
+			    	classCode_arr:classCode_arr
+			} 
+			
+			const json_obj = JSON.stringify(his_obj);
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
          
          $.ajax({

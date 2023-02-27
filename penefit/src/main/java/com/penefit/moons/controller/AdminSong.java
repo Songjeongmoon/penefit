@@ -31,7 +31,7 @@ class AdminSong {
 	
 	@GetMapping("/suggestionlist")
 	public String SuggestionListWindow() {
-		return "class/suggestion/adminSuggestionList";
+		return "admin/adminSuggestList";
 	}
 	
 	@GetMapping("suggestion/list")
@@ -77,30 +77,28 @@ class AdminSong {
 	@GetMapping("/class/one")
 	@ResponseBody
 	public ClassVO getClassOne(String class_code) {
-		System.out.println(class_code);
 		return service.getClassOne(class_code);
 	}
 	
 	@PostMapping("/class")
 	@ResponseBody
-	public int regClass(String suggest_num) {
+	public int regClass(int suggest_num) {
 		int result = service.createClass(suggest_num);
 		
 		return result;
 		
 	}
 	
-	@PutMapping("/class")
+	@PutMapping("/class/update")
 	@ResponseBody
 	public String updateClass(ClassVO classvo, MultipartHttpServletRequest files) {
 		String result = service.updateClass(classvo, files);
-		
 		return result;
 	}
 	
 	@PutMapping("/suggestion")
 	@ResponseBody
-	public int rejectSuggestion(String suggest_num, String reject_reason) {
+	public int rejectSuggestion(int suggest_num, String reject_reason) {
 	    int result = service.rejectSuggestion(suggest_num, reject_reason);
 		
 		return result;
@@ -125,7 +123,7 @@ class AdminSong {
 	
 	@GetMapping("/suggestion/one")
 	@ResponseBody
-	public SuggestDTO getSuggestionOne(String suggest_num) {
+	public SuggestDTO getSuggestionOne(int suggest_num) {
 		
 		return service.getSuggestionInfo(suggest_num);
 	}

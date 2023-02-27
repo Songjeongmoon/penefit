@@ -107,8 +107,8 @@ public class RestControllerAboutClass {
 	
 	//장바구니에서 삭제
 	@DeleteMapping("/deleteCart/shopping-cart-num/{shopping_cart_num}")
-	public void deleteCart(@PathVariable(value = "shopping_cart_num") int cartNum) {
-		service.deleteFromCart(cartNum);
+	public void deleteCart(@PathVariable(value = "shopping_cart_num") int shopping_cart_num) {
+		service.deleteFromCart(shopping_cart_num);
 	}
 	
 	//구매내역에 추가
@@ -149,10 +149,6 @@ public class RestControllerAboutClass {
 	public int classAndReviewList(HttpSession session, String class_code, int buy_history_num) {
 		String member_id = (String) session.getAttribute("member_id");
 		int result = service.getReviewCheck(class_code, member_id, buy_history_num);
-		System.out.println(("Rest class_code : " + class_code));
-		System.out.println(("Rest member_id : " + member_id));
-		System.out.println(("Rest buy_history_num : " + buy_history_num));
-		System.out.println(("Rest 결과 : " + result));
 		return result;
 	}
 	

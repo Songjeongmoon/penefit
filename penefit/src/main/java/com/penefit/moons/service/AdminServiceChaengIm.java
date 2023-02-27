@@ -1,9 +1,6 @@
-package com.penefit.moons.mapper;
+package com.penefit.moons.service;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
@@ -13,31 +10,29 @@ import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.domain.SuggestType;
 
-@Mapper
-public interface AdminMapperChaeng {
+public interface AdminServiceChaengIm {
 
-	//관리자 화면의 qna 목록
+	// 관리자 화면 qna 리스트
 	public List<QnAVO> getAdminQnaList();
 
-	//관리자 화면 필터링 qna
+	// 관리자 화면 필터링 qna
 	public List<QnAVO> getAdminQnaWithFilter(String filterKey);
 
-	//관리자 화면 qna 상세보기
+	// 관리자 화면 qna 상세보기
 	public QnAVO adminQnaDetail(int qnaNum);
-	
-	//답변 등록하기
-	public void regReplyforQna(@Param("content") String param1 ,@Param("adminid") String param2,@Param("qnanum") int param3);
 
-	//qna 상태변경
-	public void changeQnaStatus(@Param("qnanum") int param1);
+	// 답변 등록하기
+	public void regReplyforQna(String content, String adminid, int qnanum);
 
-	//상세보기에 답변표시
-	public String replyofQna(@Param("qnaNum") int param1);
+	// qna 상태변경
+	public void changeQnaStatus(int param1);
 
-	//리뷰목록
+	// 상세보기에 답변표시
+	public String replyofQna(int qnaNum);
+
 	public List<ReviewVO> getReviewList();
 
-	public List<ReviewVO> getReviewListNew();
+	public  List<ReviewVO> getReviewListNew();
 
 	public List<QnAVO> qnaListToConfirm();
 
@@ -49,9 +44,9 @@ public interface AdminMapperChaeng {
 
 	public List<QnAtype> getQnaType();
 
-	public ReviewVO reviewDetail(@Param("review_num") int review_num);
+	public ReviewVO reviewDetail(int review_num);
 
-	public void deleteReview(@Param("review_num") int review_num);
+	public void deleteReview(int review_num);
 
 	public ReviewScore bestClass();
 
@@ -81,6 +76,4 @@ public interface AdminMapperChaeng {
 
 
 
-	
-	
 }
