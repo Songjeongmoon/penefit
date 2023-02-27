@@ -39,5 +39,9 @@ public interface AdminMapperSong {
 	public ClassVO getClassOne(String class_code);
 	
 	public int rejectSuggestion(@Param("suggest_num") int suggest_num, @Param("reject_reason") String reject_reason);
+
+	public List<ClassVO> classListSearch(String keyword);
+
+	public void approveSuggestion(int suggest_num);
 	
 }

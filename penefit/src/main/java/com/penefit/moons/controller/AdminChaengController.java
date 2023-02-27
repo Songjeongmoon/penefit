@@ -1,9 +1,8 @@
 package com.penefit.moons.controller;
 
-import static org.hamcrest.CoreMatchers.not;
-
 import java.util.List;
 
+import org.apache.ibatis.javassist.bytecode.SignatureAttribute.ClassType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.penefit.moons.domain.ClassRate;
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
@@ -24,9 +25,12 @@ import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.domain.SuggestType;
 import com.penefit.moons.service.AdminServiceChaeng;
+import com.penefit.moons.service.AdminServiceChaengIm;
 import com.penefit.moons.service.AdminServiceSong;
+import com.penefit.moons.service.AdminServiceSongIm;
 import com.penefit.moons.service.ServiceAboutAdminI;
 import com.penefit.moons.service.ServiceAboutBoard;
+import com.penefit.moons.service.ServiceAboutBoardI;
 import com.penefit.moons.service.ServiceAboutClassI;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,18 +41,19 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminChaengController {
 
 	@Autowired
-	AdminServiceChaeng service;
+	AdminServiceChaengIm service;
+	
 	@Autowired
 	ServiceAboutClassI cservice;
 
 	@Autowired
-	ServiceAboutBoard bservice;
+	ServiceAboutBoardI bservice;
 
 	@Autowired
 	ServiceAboutAdminI aservice;
 
 	@Autowired
-	AdminServiceSong asservice;
+	AdminServiceSongIm asservice;
 	
 	
 	@GetMapping("/")
@@ -254,5 +259,126 @@ public class AdminChaengController {
 	public SuggestDTO suggestDetail(int suggest_num) {
 		return asservice.getSuggestionInfo(suggest_num);
 	}
+	@GetMapping("/classListAll")
+	@ResponseBody
+	public List<ClassVO> classListAll(){
+		return asservice.getClassList();
+	}
+	@GetMapping("/classListSearch")
+	@ResponseBody
+	public List<ClassVO> classListSearch(String keyword){
+		return service.classListSearch(keyword);
+	}
+	@GetMapping("/classRate")
+	@ResponseBody
+	public ClassRate classRate() {
+		return service.classRate();
+	}
+	@GetMapping("/classDetail")
+	@ResponseBody
+	public ClassVO classDetail(String class_code) {
+		return asservice.getClassOne(class_code);
+	}
+	@PostMapping("/classUpdate")
+	@ResponseBody
+	public void classUpdate(ClassVO classinfo, MultipartHttpServletRequest files) {
+		 asservice.updateClass(classinfo, files);
+	}
 	
+	@DeleteMapping("/delClass")
+	@ResponseBody
+	public void delClass(ClassVO classVO) {
+		//종료된 클래스로 옮기기, 
+		service.moveCloseTbl(classVO);
+		//클래스 삭제
+		asservice.deleteClass(classVO.getClass_code());
+	}
+	@PostMapping("/classreg")
+	@ResponseBody
+	public int classreg(int suggest_num) {
+		int result = asservice.createClass(suggest_num);
+		asservice.approveSuggestion(suggest_num);
+		return result;
+	}
+	@PutMapping("/rejectSuggest")
+	@ResponseBody
+	public int rejectSuggest(int suggest_num, String reject_reason) {
+		int result = asservice.rejectSuggestion(suggest_num, reject_reason);
+		return result;
+	}
+	
+	@GetMapping("/currentClassStatus")
+	@ResponseBody
+	public String currentClassStatus() {
+		int openClass= service.openClass();
+		int allClass= service.allClass();
+		String result = openClass + " / " + allClass ;
+		return result;
+	}
+	
+	@GetMapping("/classType")
+	@ResponseBody
+	public List<ClassType> classType(){
+		return service.classType();
+	}
+	
+	@GetMapping("/todaysSales")
+	@ResponseBody
+	public int todaysSales() {
+		int result = service.todaysSales();
+		return result;
+	}
+	@GetMapping("/weeklySales")
+	@ResponseBody
+	public int weeklySales() {
+		int result = service.weeklySales();
+		return result;
+	}
+	
+	@GetMapping("/monthlySales")
+	@ResponseBody
+	public int monthlySales() {
+		int result = service.monthlySales();
+		return result;
+	}
+	@GetMapping("/yearlySales")
+	@ResponseBody
+	public int yearlySales() {
+		int result = service.yearlySales();
+		return result;
+	}
+	
+	@GetMapping("/dayChange")
+	@ResponseBody
+	public int dayChange() {
+		int result = service.dayChange();
+		return result;
+	}
+	
+	@GetMapping("/weekChange")
+	@ResponseBody
+	public int weekChange() {
+		int result = service.weekChange();
+		return result;
+	}
+	@GetMapping("/monthChange")
+	@ResponseBody
+	public int monthChange() {
+		int result = service.monthChange();
+		return result;
+	}
+	
+	@GetMapping("/buyaverage")
+	@ResponseBody
+	public int buyaverage() {
+		int result = service.buyaverage();
+		return result;
+	}
+	
+	@GetMapping("/averagePurchase")
+	@ResponseBody
+	public double averagePurchase() {
+		double result = service.averagePurchase();
+		return result;
+	}
 }
