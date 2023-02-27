@@ -183,6 +183,16 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	public int rejectSuggestion(int suggest_num, String reject_reason) {
 		return mapper.rejectSuggestion(suggest_num, reject_reason);
 	}
+
+	@Override
+	public List<ClassVO> classListSearch(String keyword) {
+		return mapper.classListSearch(keyword);
+	}
+
+	@Override
+	public void approveSuggestion(int suggest_num) {
+		 mapper.approveSuggestion(suggest_num);		
+	}
 	
 	
 	

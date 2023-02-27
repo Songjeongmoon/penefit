@@ -118,8 +118,6 @@
 	$("#dayBtn").click((event) => {
 		if(event.target.value == "desc"){
 			event.target.value = "asc";
-<<<<<<< HEAD
-			alert(event.target.value);
 			$.ajax({
 				url: "/admin/class/ASC",
 				method: "GET",
@@ -144,33 +142,6 @@
 			})
 		} else{
 			event.target.value = "desc";
-			alert(event.target.value);
-=======
-			$.ajax({
-				url: "/admin/class/ASC",
-				method: "GET",
-				dataType: "json",
-				success: (data) => {
-					$("#classListBody").empty();
-					for(let i = 0; i < data.length; i++){
-						$("#classListBody").append("<tr>"
-						+ "<td>" + data[i].class_code + "</td><td class = classDetail>" + data[i].class_subject + "</td>"
-						+ "<td>" + data[i].class_memcnt + "/" + data[i].class_memlit + "</td><td>" + data[i].class_teacher + "</td>"
-						+ "<td>" + data[i].class_date + "</td><td>" + data[i].class_price + "</td>"
-						+ "<td>" + data[i].city_code + "</td><td>" + data[i].class_regdate + "</td>"
-						+ "<td>" + data[i].class_modidate + "</td>"
-						+ "<td><button class='deleteBtn' value = '" + data[i].class_code + "'>삭제</button></td>"
-						+ "</tr>");
-					}
-				},
-				error: () => {
-					alert("error");
-				}
-				
-			})
-		} else{
-			event.target.value = "desc";
->>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 			$.ajax({
 				url: "/admin/class/DESC",
 				method: "GET",

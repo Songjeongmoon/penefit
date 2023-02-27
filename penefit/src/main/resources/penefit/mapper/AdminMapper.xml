@@ -64,7 +64,11 @@
 		VALUES (#{class_code}, #{class_subject}, #{suggest_photo}, #{class_teacher},
 		#{class_date}, #{class_info}, #{class_memlit}, #{class_price},  #{city_code}, NOW(), #{suggest_num})
 	</insert>
-	
+	<update id = "approveSuggestion">
+		Update suggest
+		SET status = '승인'
+		WHERE suggest_num = #{suggest_num}
+	</update>
 	<select id="getTypeCnt" resultType="string">
 		SELECT class_code
 		FROM class
