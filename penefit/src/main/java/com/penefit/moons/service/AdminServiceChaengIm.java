@@ -2,6 +2,10 @@ package com.penefit.moons.service;
 
 import java.util.List;
 
+import org.apache.ibatis.javassist.bytecode.SignatureAttribute.ClassType;
+
+import com.penefit.moons.domain.ClassRate;
+import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
@@ -73,6 +77,36 @@ public interface AdminServiceChaengIm {
 	public List<SuggestDTO> getsearchSuggestion(String keyword);
 
 	public List<SuggestType> suggestType();
+
+	public List<ClassVO> classListSearch(String keyword);
+
+	public ClassRate classRate();
+
+	public void moveCloseTbl(ClassVO classVO);
+
+	public int openClass();
+
+	public int allClass();
+
+	public List<ClassType> classType();
+
+	public int todaysSales();
+
+	public int monthlySales();
+
+	public int yearlySales();
+
+	public int weeklySales();
+
+	public int dayChange();
+
+	public int weekChange();
+
+	public int monthChange();
+
+	public int buyaverage();
+
+	public double averagePurchase();
 
 
 

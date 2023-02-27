@@ -121,7 +121,6 @@ input[id="checkAll"] {
 		if ($('#checkAll').is(':checked')) {
 			$('.checking').prop('checked', true);
 			calcPrice();
-			alert("amount : " + amount);
 		} else {
 			$('.checking').prop('checked', false);
 			amount=0;
@@ -242,7 +241,6 @@ input[id="checkAll"] {
 						".delete_img",
 						function(evt) {
 							let shopping_cart_num = evt.target.parentElement.parentElement.parentElement.children[0].firstChild.value;
-							alert(shopping_cart_num);
 							deleteCart(shopping_cart_num);
 						})
 
@@ -324,7 +322,6 @@ input[id="checkAll"] {
 		let amount;
 		calcPrice();
 		
-		alert("amount : " + amount);
 		function calcPrice() {
 			amount = 0;
 			$("input[class='checking']")
@@ -343,7 +340,6 @@ input[id="checkAll"] {
 		//체크 변경시 금액계산
 		$(document).on("click", ".checking", function() {
 			calcPrice();
-			alert("amount : " + amount);
 		});
 
 		//아임포트  결제 API

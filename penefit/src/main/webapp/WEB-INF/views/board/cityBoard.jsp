@@ -55,7 +55,7 @@ select{
 #keyword{
 	width: 300px;
 }
-h2{
+h2 {
 	text-align: center;
 	font-size: 35px;
 	margin-bottom: 20px;
@@ -70,14 +70,13 @@ h2{
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
-					<li class="aside_menu"><a href="/board/notice">공지사항</a></li>
-					<li class="aside_menu"><a href="#">수강후기</a></li>
-					<li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
-					<li class="aside_menu"><a href="#">클래스별게시판</a></li>
+					<li class="aside_menu"><a href="notice">공지사항</a></li>
+					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
 				</ul>
+
 			</aside>
 			<div class="content">
-					<h2>지역별 게시판</h2>
+					<h2 style="font-weight: bold;">지역별 게시판</h2>
 				<div id="selectbox">
 					<!-- 1. 이동 버튼이 있어야함 -->
 					<select id="sel" name="sel">

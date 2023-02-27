@@ -33,5 +33,9 @@ public interface AdminServiceSongIm {
 	
 	public int rejectSuggestion(int suggest_num, String reject_reason);
 
+	public List<ClassVO> classListSearch(String keyword);
+
+	public void approveSuggestion(int suggest_num);
+
  	
 }
