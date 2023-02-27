@@ -46,7 +46,7 @@
 							<div class="title">센터소개</div>
 							<div class="subtitle">
 								<div class="subtitle_li">
-									<a href="#">센터소개</a>
+									<a href="/centerinfo/centerinfo">센터소개</a>
 								</div>
 								<div class="subtitle_li">
 									<a href="#">연혁</a>

@@ -8,6 +8,7 @@
 		resultType="com.penefit.moons.domain.ClassVO">
 		select * from class
 	</select>
+	
 
 	<!--진행중인 클래스 목록 조회 -->
 	<select id="getOngoingClassList"

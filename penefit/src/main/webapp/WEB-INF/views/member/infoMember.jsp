@@ -19,8 +19,8 @@
 }
 
 .meminfo {
-	width: 500px;
-	height: 700px;
+	width: 550px;
+	height: 800px;
 	margin: 0 auto;
 	margin-top: 30px;
 	border-radius: 7px;
@@ -136,7 +136,7 @@ input[type='button'] {
 	border-radius: 7px;
 	border: none;
 	box-shadow: 2px 2px 2px 2px #DBD5CB;
-	width: 148px;
+	width: 130px;
 	height: 40px;
 	line-height: 40px;
 	font-weight: bold;
@@ -300,7 +300,7 @@ h4 {
 
 						<div id="mem_id">
 							아이디<br>
-							<input type="text" name="member_id" value="${member_id }">
+							<input type="text" name="member_id" value="${member_id }" readonly>
 						</div>
 						<div id="mem_pw">
 							비밀번호<br>
@@ -308,7 +308,7 @@ h4 {
 						</div>
 						<div id="mem_name">
 							이름<br>
-							<input type="text" name="member_name" value="${memberinfo.member_name }">
+							<input type="text" name="member_name" value="${memberinfo.member_name }" readonly>
 						</div>
 						<div id="mem_tel">
 							전화번호<br>
@@ -316,8 +316,6 @@ h4 {
 						</div>
 						<div id="postnum">
 							우편번호<br> <input type="text"  name="postnum" value="${memberinfo.postnum }"/>
-						</div>
-						<div id="address_button" >
 							<input type="button" onclick="execution_daum_address()" value="주소찾기"/>
 						</div>
 						<div id="mem_address">
@@ -383,7 +381,7 @@ h4 {
 
 			<div class="content" id="myReview">
 				<h2>나의 후기</h2>
-				<table id="reviewTbl">
+				<table id="reviewTbl" style="width : 800px;">
 					<thead>
 						<tr>
 							<th>작성일</th>

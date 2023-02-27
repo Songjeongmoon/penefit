@@ -156,7 +156,7 @@ h2, h4{
 		    </div>
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
+
 	<script>
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');

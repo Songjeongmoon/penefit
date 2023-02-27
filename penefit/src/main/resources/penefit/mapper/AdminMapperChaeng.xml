@@ -2,35 +2,222 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.penefit.moons.mapper.AdminMapperChaeng">
 
-	<!-- 전체 qna리스트  -->
-	<select id="getAdminQnaList" resultType="com.penefit.moons.domain.QnAVO">
+	<!-- 전체 qna리스트 -->
+	<select id="getAdminQnaList"
+		resultType="com.penefit.moons.domain.QnAVO">
 		select * from qna
 	</select>
-	
+
 	<!-- qna리스트 필터 -->
-	<select id="getAdminQnaWithFilter" resultType="com.penefit.moons.domain.QnAVO">
+	<select id="getAdminQnaWithFilter"
+		resultType="com.penefit.moons.domain.QnAVO">
 		select * from qna where #{filterKey}
 	</select>
-	
+
 	<!-- qna상세보기 -->
-	<select id="adminQnaDetail" resultType="com.penefit.moons.domain.QnAVO">
+	<select id="adminQnaDetail"
+		resultType="com.penefit.moons.domain.QnAVO">
 		select * from qna where qna_num = #{qnaNum}
 	</select>
-	
+
 	<!-- qna 답변등록하기 -->
 	<insert id="regReplyforQna">
-		insert into reply (reply_content, reply_regdate, member_id, qna_num, reply_type) 
-		values(#{param1 }, now(), #{param2},#{param3}, 'Q')
+		insert into reply (reply_content, reply_regdate,
+		member_id, qna_num, reply_type)
+		values(#{param1 }, now(),
+		#{param2},#{param3}, 'Q')
 	</insert>
-	
-	<!--답변시 상태변경 -->
+
+	<!-- 답변시 상태변경 -->
 	<update id="changeQnaStatus">
-		update qna set qna_status = '답변완료' where qna_num = #{param1}
+		update qna set qna_status = '답변완료' where qna_num =
+		#{param1}
 	</update>
-	
-	<!--답변 내용표시-->
+
+	<!-- 답변내용을 표시 -->
 	<select id="replyofQna" resultType="string">
-		select reply_content from reply where qna_num = #{param1}
+		select reply_content from
+		reply where qna_num = #{param1}
+	</select>
+
+
+	<!-- 리뷰목록 -->
+	<select id="getReviewList"
+		resultType="com.penefit.moons.domain.ReviewVO">
+		SELECT *
+		FROM review
+		ORDER BY review_regdate ASC
+		LIMIT 0,5
+
+	</select>
+	<!-- 리뷰목록 신규 -->
+	<select id="getReviewListNew"
+		resultType="com.penefit.moons.domain.ReviewVO">
+		SELECT *
+		FROM review
+		WHERE review_regdate > DATE_ADD(now(),
+		INTERVAL -24 HOUR)
+		ORDER BY
+		review_regdate asc
+		LIMIT 0,5
+	</select>
+	<!-- qna목록 신규 -->
+	<select id="qnaListToConfirm"
+		resultType="com.penefit.moons.domain.QnAVO">
+		SELECT *
+		FROM qna
+		WHERE qna_status = '답변대기'
+		ORDER BY
+		qna_regdate ASC
+	</select>
+
+	<select id="getQnACount" resultType="_int">
+		SELECT Count(*)
+		FROM qna
+		WHERE qna_status = '답변대기'
+	</select>
+
+	<select id="getQnACountAll" resultType="_int">
+		SELECT Count(*) FROM qna
+	</select>
+
+	<select id="spendtime" resultType="_double">
+		SELECT
+		AVG(TIMESTAMPDIFF(MINUTE, q.qna_regdate, r.reply_regdate))/3600 AS
+		TIME
+		FROM qna q, reply r
+		WHERE r.qna_num = q.qna_num;
+	</select>
+
+	<select id="getQnaType"
+		resultType="com.penefit.moons.domain.QnAtype">
+		SELECT qna_type, count(qna_type) AS qty
+		FROM qna
+		GROUP BY
+		qna_type;
+
+	</select>
+
+	<select id="reviewDetail"
+		resultType="com.penefit.moons.domain.ReviewVO">
+		select * from review where review_num = #{review_num}
+	</select>
+
+	<delete id="deleteReview">
+		delete from review where review_num = #{review_num}
+	</delete>
+
+	<select id="bestClass"
+		resultType="com.penefit.moons.domain.ReviewScore">
+		SELECT class_code, AVG(score) as score
+		FROM review
+		GROUP BY
+		class_code
+		ORDER BY score DESC
+		LIMIT 1;
+	</select>
+
+
+	<select id="worstClass"
+		resultType="com.penefit.moons.domain.ReviewScore">
+		SELECT class_code, AVG(score) as score
+		FROM review
+		GROUP BY
+		class_code
+		ORDER BY score ASC
+		LIMIT 1;
+	</select>
+	<select id="getReviewCount" resultType="_int">
+		SELECT Count(*) FROM
+		review
 	</select>
 	
+	<select id="getNoticeCnt" resultType="_int">
+		SELECT Count(*) FROM
+		notice
+	</select>
+	<select id="getNotice" resultType="com.penefit.moons.domain.NoticeVO">
+		SELECT * FROM 
+		notice
+	</select>
+	<select id="getNoticeNew"
+		resultType="com.penefit.moons.domain.NoticeVO">
+		SELECT *
+		FROM notice
+		WHERE notice_regdate > DATE_ADD(now(),
+		INTERVAL -24 HOUR)
+		ORDER BY
+		notice_regdate asc LIMIT 0,5
+	</select>
+	<select id="getNoticeNewCnt"
+		resultType="_int">
+		SELECT Count(*)
+		FROM notice
+		WHERE notice_regdate > DATE_ADD(now(),
+		INTERVAL -24 HOUR)
+		ORDER BY
+		notice_regdate asc
+	</select>
+	
+	<select id="getsearchNotice"
+		resultType="com.penefit.moons.domain.NoticeVO">
+		select * from notice where 
+		notice_title like CONCAT('%', #{keyword},'%') or
+		notice_content like CONCAT('%', #{keyword},'%') or
+		member_id like CONCAT('%', #{keyword},'%')
+	</select>
+	
+	
+	<select id="noticeDetail"
+		resultType="com.penefit.moons.domain.NoticeVO">
+		select * from notice 
+		where notice_num=#{notice_num}
+		
+	</select>
+	
+	<update id="modiNotice">
+		update notice
+		set notice_title=#{notice_title}, member_id=#{member_id}, notice_content=#{notice_content}
+		where notice_num=#{notice_num}
+	</update>
+	
+	<delete id="delNotice">
+		delete from notice where notice_num = #{notice_num}
+	</delete>
+	
+	<select id="suggestNew" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		WHERE status = '검토'
+		ORDER BY
+		suggest_regdate ASC
+		LIMIT 5
+	
+	</select>
+	
+	<select id="suggestAll" resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
+		FROM suggest
+		ORDER BY
+		suggest_regdate ASC
+	
+	</select>
+	
+	<select id="getsearchSuggestion"
+		resultType="com.penefit.moons.domain.SuggestDTO">
+		select * from suggest where 
+		suggest_title like CONCAT('%', #{keyword},'%') or
+		member_id like CONCAT('%', #{keyword},'%') or
+		type like CONCAT('%', #{keyword},'%') or
+		status like CONCAT('%', #{keyword},'%')
+	</select>
+	
+		<select id="suggestType"
+		resultType="com.penefit.moons.domain.SuggestType">
+		SELECT type, count(type) AS qty
+		FROM suggest
+		GROUP BY
+		type;
+
+	</select>
 </mapper>
