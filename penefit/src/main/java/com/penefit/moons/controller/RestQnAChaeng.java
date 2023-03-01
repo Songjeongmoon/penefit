@@ -21,9 +21,9 @@ public class RestQnAChaeng {
 	QnaChaengI service;
 	
 	@GetMapping("/qnaList")
-	public List<QnAVO> getQnaList(HttpSession session){
+	public List<QnAVO> getQnaList(HttpSession session, int pageNum){
 		String member_id = (String) session.getAttribute("member_id");
-		List<QnAVO> list = service.getQnaList(member_id);
+		List<QnAVO> list = service.getQnaList(member_id, pageNum);
 		return list;
 	}
 	

@@ -12,6 +12,8 @@
 	<select id="getQnaList"
 		resultType="com.penefit.moons.domain.QnAVO">
 		select * from qna where member_id=#{member_id}
+		order by qna_regdate desc
+		limit #{pageNum}, 5
 	</select>
 
 	<select id="qnaOneList"

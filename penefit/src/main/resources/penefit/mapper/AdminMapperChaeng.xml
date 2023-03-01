@@ -289,10 +289,13 @@
 		COALESCE(SUM(amount),
 		0) as weekly_total
 		FROM buy_history
-		WHERE buy_history_date >=
+		WHERE
+		buy_history_date >=
 		DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
 		GROUP BY
-		DATE_FORMAT(buy_history_date, '%Y-%U');
+		DATE_FORMAT(buy_history_date, '%Y-%U')
+		ORDER BY buy_history_date desc
+		limit 1
 	</select>
 	<select id="monthlySales" resultType="_int">
 		SELECT
@@ -366,12 +369,15 @@
 	</select>
 
 	<select id="averagePurchase" resultType="_double">
-		SELECT AVG(cnt) as average_purchase
+		SELECT AVG(cnt) as
+		average_purchase
 		FROM (
 		SELECT COUNT(*) as cnt
 		FROM buy_history
-		WHERE YEAR(buy_history_date) = YEAR(CURDATE()) AND MONTH(buy_history_date)
-		= MONTH(CURDATE())
+		WHERE
+		YEAR(buy_history_date) = YEAR(CURDATE()) AND MONTH(buy_history_date)
+		=
+		MONTH(CURDATE())
 		GROUP BY member_id
 		HAVING COUNT(*) > 1
 		) t;

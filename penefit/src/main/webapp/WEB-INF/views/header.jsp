@@ -48,9 +48,6 @@
 								<div class="subtitle_li">
 									<a href="/centerinfo/centerinfo">센터소개</a>
 								</div>
-								<div class="subtitle_li">
-									<a href="#">연혁</a>
-								</div>
 
 							</div>
 						</li>
@@ -118,9 +115,7 @@
 	
 	$("#search_btn").click(function() {
 		let keyword = $("#search_bar1").val();
-		alert(keyword);
 		let url1 = "/class/classList-search?keyword=" + keyword;
-		alert(url1);
 		location.href = url1;
 	});
 	//검색창에서 엔터시 검색창으로 이동
@@ -128,7 +123,6 @@
 		if (evt.keyCode == 13) {
 			let keyword = $("#search_bar1").val();
 			let url2 = "/class/classList-search?keyword=" + keyword;
-			alert(url2);
 			location.href = url2;
 		}
 	})
