@@ -582,6 +582,12 @@ h4 {
            const updateaddressdetail= $("input[name='member_addressdetail']").val();
            const updategrade= $("input[name='member_grade']").val();
            
+           if(updateid == "" || updatepw == "" || updatename == "" || 
+        		   updatetel == "" || updatepostnum == "" || updateaddress == "" || 
+        		   updateaddressdetail == "" || updategrade == ""){
+        	   alert("공백이 존재합니다.");
+        	   return false;
+           }
            let member={
              "member_id" : updateid,
              "member_pw" : updatepw,
@@ -594,13 +600,13 @@ h4 {
            }
            $.ajax({
               url: "/member/updateMember",
-              method: "POST",
+              method: "PUT",
               contentType: "application/json",
               data : JSON.stringify(member),
               success: (data) => {
             	  alert(data);
               },
-              error : () => {
+              error: () => {
                  alert("error");
               }
            });

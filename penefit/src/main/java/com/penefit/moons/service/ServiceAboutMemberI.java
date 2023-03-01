@@ -20,7 +20,7 @@ public interface ServiceAboutMemberI {
 	//로그아웃
 	public String logout(HttpSession session);
 	//회원정보수정
-	public String UpdateMember(MemberVO member);
+	public int UpdateMember(MemberVO member);
 	//회원정보조회
 	public MemberVO selectOne(String id);
 	//회원탈퇴

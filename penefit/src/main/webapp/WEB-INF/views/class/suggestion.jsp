@@ -160,7 +160,7 @@
 							<td><input type="file" multiple="multiple" name="files"></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="text-align: center;"><input
+							<td colspan="2" style="text-align: center"><input
 								type="submit" value="신청" id="submitbtn"></td>
 						</tr>
 					</table>

@@ -38,9 +38,6 @@
         line-height: 130px;
         color: aqua;
       }
-      #sideBox {
-        border-top: 1px solid red;
-      }
       .sideMenu {
         background-color: #232428;
         border-radius: 15px;
@@ -104,21 +101,11 @@
 
       .box {
         position: relative;
-        background-color: rgb(57, 57, 57);
-        border-radius: 30px;
+        border-radius: 7px;
         margin-top: 30px;
-      }
-      #mainBox1 {
-        grid-column: 1 / 3;
-      }
-      #mainBox4 {
-      	grid-row: 2 / 4;
-      }
-      #mainBox5 {
-      	grid-row: 2 / 4;
-      }
-      #mainBox6 {
-      	grid-row: 2 / 4;
+        color: black;
+        background-color: white;
+        box-shadow: 2px 2px 2px 2px gray;
       }
       #ul2 {
         display: none;
@@ -156,6 +143,18 @@
       #reviewArticle {
         background-color: purple;
         display: none;
+      }
+      #mainBox1 {
+        grid-column: 1 / 3;
+      }
+      #mainBox4 {
+      	grid-row: 2 / 4;
+      }
+      #mainBox5 {
+      	grid-row: 2 / 4;
+      }
+      #mainBox6 {
+      	grid-row: 2 / 4;
       }
       #home {
       	display: inline-block;
@@ -416,7 +415,7 @@
        			
        		</table>
 	        <div class="footer">
-	        	<span>totla: ${qnaCount }</span>
+	        	<span>total: ${qnaCount }</span>
 	        </div>
         </div>
       </div>

@@ -2,9 +2,12 @@ package com.penefit.moons.service;
 
 import java.util.List;
 
+import org.apache.ibatis.javassist.bytecode.SignatureAttribute.ClassType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.penefit.moons.domain.ClassRate;
+import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
@@ -148,4 +151,76 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 		return mapper.suggestType();
 	}
 
+	@Override
+	public List<ClassVO> classListSearch(String keyword) {
+		return mapper.classListSearch(keyword);
+	}
+
+	@Override
+	public ClassRate classRate() {
+		return mapper.classRate();
+	}
+
+	@Override
+	public void moveCloseTbl(ClassVO classVO) {
+		mapper.moveCloseTbl(classVO);
+	}
+
+	@Override
+	public int openClass() {
+		return mapper.openClass();
+	}
+
+	@Override
+	public int allClass() {
+		return mapper.allClass();
+	}
+
+	@Override
+	public List<ClassType> classType() {
+		return mapper.classType();
+	}
+
+	@Override
+	public int todaysSales() {
+		return mapper.todaysSales();
+	}
+
+	@Override
+	public int monthlySales() {
+		return mapper.monthlySales();
+	}
+
+	@Override
+	public int yearlySales() {
+		return mapper.yearlySales();
+	}
+	
+	@Override
+	public int weeklySales() {
+		return mapper.weeklySales();
+	}
+
+	@Override
+	public int dayChange() {
+		return mapper.dayChange();
+	}
+
+	@Override
+	public int weekChange() {
+		return mapper.weekChange();
+	}
+
+	@Override
+	public int monthChange() {
+		return mapper.monthChange();
+	}
+	@Override
+	public int buyaverage() {
+		return mapper.buyaverage();
+	}
+	@Override
+	public double averagePurchase() {
+		return mapper.averagePurchase();
+	}
 }

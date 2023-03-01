@@ -75,4 +75,10 @@
 		LIMIT 5
 	</select>
 	
+	<select id="getGrade" resultType="string">
+	SELECT member_grade
+	FROM member
+	WHERE member_id = #{member_id}
+	</select>
+	
 </mapper>

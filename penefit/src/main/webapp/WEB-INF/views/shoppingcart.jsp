@@ -114,6 +114,7 @@ input[id="checkAll"] {
    </div>
    <%@ include file="footer.jsp"%>
 
+<<<<<<< HEAD
    <script>
    
    //체크박스로 전체 선택
@@ -127,6 +128,20 @@ input[id="checkAll"] {
          amount=0;
          $("#price").text(0);
          
+=======
+	<script>
+	
+	//체크박스로 전체 선택
+	$(document).on('click', '#checkAll', function() {
+		if ($('#checkAll').is(':checked')) {
+			$('.checking').prop('checked', true);
+			calcPrice();
+		} else {
+			$('.checking').prop('checked', false);
+			amount=0;
+			$("#price").text(0);
+			
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
       }
       
@@ -257,7 +272,6 @@ input[id="checkAll"] {
 						".delete_img",
 						function(evt) {
 							let shopping_cart_num = evt.target.parentElement.parentElement.parentElement.children[0].firstChild.value;
-							alert(shopping_cart_num);
 							deleteCart(shopping_cart_num);
 						})
 >>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
@@ -409,6 +423,7 @@ input[id="checkAll"] {
 		}
 >>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
+<<<<<<< HEAD
       //1차 금액계산
       let amount;
       calcPrice();
@@ -428,12 +443,39 @@ input[id="checkAll"] {
                         }
                      });
       }
+=======
+		//1차 금액계산
+		let amount;
+		calcPrice();
+		
+		function calcPrice() {
+			amount = 0;
+			$("input[class='checking']")
+					.each(
+							function() {
+								if ($(this).is(":checked") == true) {
+									//금액을 계산한다.
+									let pricee = this.parentElement.parentElement.children[6].innerText;
+									let price = parseInt(pricee);
+									amount += price;
+									$("#price").text(amount + " 원");
+								}
+							});
+		}
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
+<<<<<<< HEAD
       //체크 변경시 금액계산
       $(document).on("click", ".checking", function() {
          calcPrice();
          alert("amount : " + amount);
       });
+=======
+		//체크 변경시 금액계산
+		$(document).on("click", ".checking", function() {
+			calcPrice();
+		});
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
       //아임포트  결제 API
       //1. 객체 초기화하기 :    주문 페이지에서 가맹점 식별코드를 이용하여 IMP 객체를 초기화 합니다.

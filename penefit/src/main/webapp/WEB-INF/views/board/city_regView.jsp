@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -8,9 +7,7 @@
 <title>Insert title here</title>
 
 <link rel="stylesheet" href="/css/style.css">
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -19,11 +16,17 @@
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
+<<<<<<< HEAD
 					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
 					<li class="aside_menu"><a href="#">수강후기</a></li>
 					<li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
 					<li class="aside_menu"><a href="#">클래스별게시판</a></li>
+=======
+					<li class="aside_menu"><a href="notice">공지사항</a></li>
+					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 				</ul>
+
 			</aside>
 			<div class="content">
 				<h3>지역게시판 글등록 뷰뷰뷰뷰</h3>
@@ -53,8 +56,7 @@
 							</select>
 						</div>
 						<div>
-							<input type="hidden" name="member_id" value="${member_id }">
-							<input type="hidden" name="board_type" value=CC>
+							<input type="hidden" name="member_id" value="${member_id }"> <input type="hidden" name="board_type" value=CC>
 						</div>
 						<div>
 							<strong>제목</strong> <input type="text" name="board_title">
@@ -135,6 +137,6 @@
 
 
 
-<script type="text/javascript" src="/js/javascript.js"></script>
+	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

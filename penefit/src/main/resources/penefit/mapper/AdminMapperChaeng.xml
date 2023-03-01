@@ -5,7 +5,7 @@
 	<!-- 전체 qna리스트 -->
 	<select id="getAdminQnaList"
 		resultType="com.penefit.moons.domain.QnAVO">
-		select * from qna
+		select * from qna ORDER BY qna_regdate DESC
 	</select>
 
 	<!-- qna리스트 필터 -->
@@ -46,7 +46,7 @@
 		resultType="com.penefit.moons.domain.ReviewVO">
 		SELECT *
 		FROM review
-		ORDER BY review_regdate ASC
+		ORDER BY review_regdate DESC
 		LIMIT 0,5
 
 	</select>
@@ -68,7 +68,7 @@
 		FROM qna
 		WHERE qna_status = '답변대기'
 		ORDER BY
-		qna_regdate ASC
+		qna_regdate DESC
 	</select>
 
 	<select id="getQnACount" resultType="_int">
@@ -131,13 +131,14 @@
 		SELECT Count(*) FROM
 		review
 	</select>
-	
+
 	<select id="getNoticeCnt" resultType="_int">
 		SELECT Count(*) FROM
 		notice
 	</select>
-	<select id="getNotice" resultType="com.penefit.moons.domain.NoticeVO">
-		SELECT * FROM 
+	<select id="getNotice"
+		resultType="com.penefit.moons.domain.NoticeVO">
+		SELECT * FROM
 		notice
 	</select>
 	<select id="getNoticeNew"
@@ -149,75 +150,230 @@
 		ORDER BY
 		notice_regdate asc LIMIT 0,5
 	</select>
-	<select id="getNoticeNewCnt"
-		resultType="_int">
+	<select id="getNoticeNewCnt" resultType="_int">
 		SELECT Count(*)
-		FROM notice
+		FROM
+		notice
 		WHERE notice_regdate > DATE_ADD(now(),
 		INTERVAL -24 HOUR)
 		ORDER BY
 		notice_regdate asc
 	</select>
-	
+
 	<select id="getsearchNotice"
 		resultType="com.penefit.moons.domain.NoticeVO">
-		select * from notice where 
-		notice_title like CONCAT('%', #{keyword},'%') or
-		notice_content like CONCAT('%', #{keyword},'%') or
+		select * from notice where
+		notice_title like CONCAT('%',
+		#{keyword},'%') or
+		notice_content like CONCAT('%',
+		#{keyword},'%') or
 		member_id like CONCAT('%', #{keyword},'%')
+
 	</select>
-	
-	
+
+
 	<select id="noticeDetail"
 		resultType="com.penefit.moons.domain.NoticeVO">
-		select * from notice 
+		select * from notice
 		where notice_num=#{notice_num}
-		
+
 	</select>
-	
+
 	<update id="modiNotice">
 		update notice
-		set notice_title=#{notice_title}, member_id=#{member_id}, notice_content=#{notice_content}
-		where notice_num=#{notice_num}
+		set notice_title=#{notice_title},
+		member_id=#{member_id}, notice_content=#{notice_content}
+		where
+		notice_num=#{notice_num}
 	</update>
-	
+
 	<delete id="delNotice">
 		delete from notice where notice_num = #{notice_num}
 	</delete>
-	
-	<select id="suggestNew" resultType="com.penefit.moons.domain.SuggestDTO">
+
+	<select id="suggestNew"
+		resultType="com.penefit.moons.domain.SuggestDTO">
 		SELECT *
 		FROM suggest
 		WHERE status = '검토'
 		ORDER BY
 		suggest_regdate ASC
 		LIMIT 5
-	
+
 	</select>
-	
-	<select id="suggestAll" resultType="com.penefit.moons.domain.SuggestDTO">
+
+	<select id="suggestAll"
+		resultType="com.penefit.moons.domain.SuggestDTO">
 		SELECT *
 		FROM suggest
 		ORDER BY
-		suggest_regdate ASC
-	
+		suggest_regdate DESC
+
 	</select>
-	
+	<!-- 제안서 검색 -->
 	<select id="getsearchSuggestion"
 		resultType="com.penefit.moons.domain.SuggestDTO">
-		select * from suggest where 
-		suggest_title like CONCAT('%', #{keyword},'%') or
-		member_id like CONCAT('%', #{keyword},'%') or
-		type like CONCAT('%', #{keyword},'%') or
-		status like CONCAT('%', #{keyword},'%')
+		select * from suggest where
+		suggest_title like CONCAT('%',
+		#{keyword},'%') or
+		member_id like CONCAT('%',
+		#{keyword},'%') or
+		type
+		like CONCAT('%', #{keyword},'%') or
+		status like
+		CONCAT('%',
+		#{keyword},'%')
+		ORDER BY suggest_regdate DESC
 	</select>
-	
-		<select id="suggestType"
+	<!-- 제안서 타입 for 그래프 -->
+	<select id="suggestType"
 		resultType="com.penefit.moons.domain.SuggestType">
 		SELECT type, count(type) AS qty
 		FROM suggest
 		GROUP BY
 		type;
 
+	</select>
+	<!-- 클래스 검색 -->
+	<select id="classListSearch"
+		resultType="com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		WHERE
+		class_subject LIKE
+		CONCAT('%',#{keyword},'%') or
+		class_teacher LIKE
+		CONCAT('%',#{keyword},'%') or
+		class_code LIKE
+		CONCAT('%',#{keyword},'%')
+		ORDER BY class_regdate DESC
+	</select>
+
+	<select id="classRate"
+		resultType="com.penefit.moons.domain.ClassRate">
+		SELECT SUM(class_memcnt) AS memcnt,SUM(class_memlit) AS
+		memlit, ROUND(SUM(class_memcnt)/SUM(class_memlit)*100) AS rate
+		FROM
+		class
+	</select>
+
+	<insert id="moveCloseTbl">
+		INSERT INTO closeclass
+		(class_code, class_subject,
+		suggest_photo, class_teacher, class_date,
+		class_info, class_memlit,
+		class_price, city_code, class_regdate, suggest_num, closedate)
+		VALUES
+		(#{class_code}, #{class_subject}, #{suggest_photo}, #{class_teacher},
+		#{class_date}, #{class_info}, #{class_memlit}, #{class_price},
+		#{city_code}, #{class_regdate}, #{suggest_num}, NOW())
+	</insert>
+
+	<select id="openClass" resultType="_int">
+		SELECT count(*) FROM class
+		WHERE class_date NOT BETWEEN
+		'2000-07-01 00:00:00' AND (select
+		CURRENT_TIMESTAMP());
+	</select>
+
+	<select id="allClass" resultType="_int">
+		SELECT count(*) FROM class
+	</select>
+
+	<select id="todaysSales" resultType="_int">
+		SELECT COALESCE(SUM(amount),
+		0) AS todays_total FROM buy_history WHERE buy_history_date = CURDATE()
+	</select>
+	<select id="weeklySales" resultType="_int">
+		SELECT
+		COALESCE(SUM(amount),
+		0) as weekly_total
+		FROM buy_history
+		WHERE buy_history_date >=
+		DATE_SUB(CURDATE(), INTERVAL 1 WEEK)
+		GROUP BY
+		DATE_FORMAT(buy_history_date, '%Y-%U');
+	</select>
+	<select id="monthlySales" resultType="_int">
+		SELECT
+		COALESCE(SUM(amount),
+		0) as monthly_total
+		FROM buy_history
+		WHERE
+		buy_history_date >=
+		DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+		GROUP BY
+		DATE_FORMAT(buy_history_date, '%Y-%m');
+	</select>
+	<select id="yearlySales" resultType="_int">
+		SELECT
+		COALESCE(SUM(amount),
+		0)
+		as yearly_total
+		FROM buy_history
+		WHERE buy_history_date >=
+		DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+		GROUP BY
+		DATE_FORMAT(buy_history_date, '%Y');
+	</select>
+
+	<select id="dayChange" resultType="_int">
+		SELECT COALESCE((SUM(CASE WHEN
+		buy_history_date = CURDATE() THEN amount ELSE
+		0 END) - SUM(CASE WHEN
+		buy_history_date = DATE_SUB(CURDATE(), INTERVAL
+		1 DAY) THEN amount ELSE
+		0 END)) / SUM(CASE WHEN buy_history_date =
+		DATE_SUB(CURDATE(), INTERVAL
+		1 DAY) THEN amount ELSE 0 END) * 100,0)
+		as growth_rate
+		FROM buy_history;
+	</select>
+	<select id="weekChange" resultType="_int">
+		SELECT COALESCE((SUM(CASE
+		WHEN YEARWEEK(buy_history_date) = YEARWEEK(CURDATE()) THEN amount ELSE
+		0 END) - SUM(CASE WHEN YEARWEEK(buy_history_date) =
+		YEARWEEK(DATE_SUB(CURDATE(), INTERVAL 1 WEEK)) THEN amount ELSE 0
+		END)) / SUM(CASE WHEN YEARWEEK(buy_history_date) =
+		YEARWEEK(DATE_SUB(CURDATE(), INTERVAL 1 WEEK)) THEN amount ELSE 0 END)
+		* 100,0) as growth_rate
+		FROM buy_history;
+	</select>
+	<select id="monthChange" resultType="_int">
+		SELECT COALESCE((SUM(CASE
+		WHEN YEAR(buy_history_date) = YEAR(CURDATE())
+		AND
+		MONTH(buy_history_date) = MONTH(CURDATE()) THEN amount ELSE 0 END) -
+		SUM(CASE WHEN YEAR(buy_history_date) = YEAR(DATE_SUB(CURDATE(),
+		INTERVAL 1 MONTH))
+		AND MONTH(buy_history_date) =
+		MONTH(DATE_SUB(CURDATE(), INTERVAL 1
+		MONTH)) THEN amount ELSE 0 END)) /
+		SUM(CASE WHEN
+		YEAR(buy_history_date) = YEAR(DATE_SUB(CURDATE(),
+		INTERVAL 1 MONTH))
+		AND MONTH(buy_history_date) =
+		MONTH(DATE_SUB(CURDATE(), INTERVAL 1
+		MONTH)) THEN amount ELSE 0 END) *
+		100,0) as growth_rate
+		FROM
+		buy_history;
+	</select>
+
+	<select id="buyaverage" resultType="_int">
+		SELECT AVG(amount) FROM
+		buy_history
+	</select>
+
+	<select id="averagePurchase" resultType="_double">
+		SELECT AVG(cnt) as average_purchase
+		FROM (
+		SELECT COUNT(*) as cnt
+		FROM buy_history
+		WHERE YEAR(buy_history_date) = YEAR(CURDATE()) AND MONTH(buy_history_date)
+		= MONTH(CURDATE())
+		GROUP BY member_id
+		HAVING COUNT(*) > 1
+		) t;
 	</select>
 </mapper>

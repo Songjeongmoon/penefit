@@ -172,7 +172,7 @@ left : 220px;
  }
  #detail_box2 .arrow{
  	width: 30px;
- 	height: 35px;
+ 	height: 35px;	
  	position: relative;
  	top: 60px;
  }
