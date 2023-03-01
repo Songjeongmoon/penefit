@@ -148,8 +148,8 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 
 	// 히스토리 목록조회
 	@Override
-	public ArrayList<HistoryVO> getHistory(String member_id) {
-		ArrayList<HistoryVO> list = mapper.getHistory(member_id);
+	public ArrayList<HistoryVO> getHistory(int pageNum, String member_id) {
+		ArrayList<HistoryVO> list = mapper.getHistory(pageNum, member_id);
 		return list;
 	}
 
@@ -260,8 +260,8 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	}
 	//리뷰목록
 	@Override
-	public List<ReviewVO> getReviewList(String member_id) {
-		ArrayList<ReviewVO> list = mapper.getReviewList(member_id);
+	public List<ReviewVO> getReviewList(String member_id, int pageNum) {
+		ArrayList<ReviewVO> list = mapper.getReviewList(member_id,pageNum);
 		return list;
 	}
 
@@ -269,5 +269,31 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	public void insertVisits() {
 		mapper.insertVisits();
 	}
+	@Override
+	public int historymaxPage(String member_id) {
+		return mapper.historymaxPage(member_id);
+	}
+	@Override
+	public int reviewmaxPage(String member_id) {
+		return mapper.reviewmaxPage(member_id);
+	}
+	@Override
+	public int suggestmaxPage(String member_id) {
+		return mapper.suggestmaxPage(member_id);
+	}
+	@Override
+	public int qnamaxPage(String member_id) {
+		return mapper.qnamaxPage(member_id);
+	}
+
+	@Override
+	public List<ClassVO> homenewlist() {
+		return mapper.homenewlist();
+	}
+	@Override
+	public List<ClassVO> homerecolist() {
+		return mapper.homerecolist();
+	}
+
 
 }

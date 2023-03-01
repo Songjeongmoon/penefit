@@ -8,7 +8,7 @@
 		resultType="com.penefit.moons.domain.ClassVO">
 		select * from class
 	</select>
-	
+
 
 	<!--진행중인 클래스 목록 조회 -->
 	<select id="getOngoingClassList"
@@ -16,7 +16,14 @@
 		SELECT * FROM class WHERE class_date NOT BETWEEN
 		'2000-07-01 00:00:00' AND (select CURRENT_TIMESTAMP());
 	</select>
-
+	
+	
+	<select id="homerecolist"
+		resultType="com.penefit.moons.domain.ClassVO">
+		SELECT * FROM class WHERE class_date NOT BETWEEN
+		'2000-07-01 00:00:00' AND (select CURRENT_TIMESTAMP()) 
+		ORDER BY class_memcnt ASC limit 5
+	</select>
 	<!-- 마감된 강의 -->
 	<select id="getExpiredClassList"
 		resultType="com.penefit.moons.domain.ClassVO">
@@ -24,6 +31,17 @@
 		00:00:00' AND (select CURRENT_TIMESTAMP());
 	</select>
 
+	<!-- 메인의 클래스 -->
+	
+	
+	<select id="homenewlist"
+		resultType="com.penefit.moons.domain.ClassVO">
+		SELECT * FROM class
+		WHERE class_date NOT BETWEEN '2022-07-01
+		00:00:00' AND (select
+		CURRENT_TIMESTAMP()) order by class_regdate desc
+		limit 5
+	</select>
 	<!--카테고리 별 클래스 목록 조회 -->
 	<select id="getCtgClassList"
 		resultType="com.penefit.moons.domain.ClassVO">
@@ -37,8 +55,10 @@
 	<select id="getNewClassList"
 		resultType="com.penefit.moons.domain.ClassVO">
 		SELECT * FROM class
-		WHERE class_date NOT BETWEEN '2022-07-01 00:00:00' AND (select
-		CURRENT_TIMESTAMP()) order by class_regdate desc limit 8
+		WHERE class_date NOT BETWEEN '2022-07-01
+		00:00:00' AND (select
+		CURRENT_TIMESTAMP()) order by class_regdate desc
+		limit 8
 	</select>
 
 	<!--클래스 검색 -->
@@ -153,12 +173,16 @@
 		pay_method,bank_name, card_name, card_quota, amount, buy_history_date,
 		member_id, buyer_name, buyer_email, buyer_tel, buyer_addr,
 		buy_history_current, name, class_arr)
-		values ( #{history.merchant_uid},#{history.imp_uid},
+		values (
+		#{history.merchant_uid},#{history.imp_uid},
 		#{history.pay_method},#{history.bank_name , jdbcType=VARCHAR},
 		#{history.card_name, jdbcType=VARCHAR},
-		#{history.card_quota, jdbcType=VARCHAR}, #{history.amount },  NOW(), #{member_id }, #{history.buyer_name},
+		#{history.card_quota,
+		jdbcType=VARCHAR}, #{history.amount }, NOW(), #{member_id },
+		#{history.buyer_name},
 		#{history.buyer_email, jdbcType=VARCHAR},
-		#{history.buyer_tel, jdbcType=VARCHAR}, #{history.buyer_addr, jdbcType=VARCHAR}, '결제완료',
+		#{history.buyer_tel, jdbcType=VARCHAR}, #{history.buyer_addr,
+		jdbcType=VARCHAR}, '결제완료',
 		#{history.name}, #{str})
 	</insert>
 
@@ -184,8 +208,13 @@
 	<select id="getHistory"
 		resultType="com.penefit.moons.domain.HistoryVO">
 		select * from buy_history where member_id = #{member_id}
+		order by buy_history_date desc
+		limit #{pageNum}, 10
 	</select>
 
+	<select id="historymaxPage" resultType="_int">
+		SELECT CEILING(COUNT(*)/10) from buy_history where member_id = #{member_id}
+	</select>
 	<!-- 히스토리 상세보기 -->
 	<select id="getOneHistory"
 		resultType="com.penefit.moons.domain.HistoryVO">
@@ -203,13 +232,15 @@
 	<!-- buy_history_num 받아오기 -->
 	<select id="getOneHistory2" resultType="_int">
 		select
-		buy_history_num from buy_history where merchant_uid = #{merchant_uid}
+		buy_history_num
+		from buy_history where merchant_uid = #{merchant_uid}
 	</select>
 
 	<!-- 클래슼 코드 배열 받아오기 -->
 	<select id="getClassArr" resultType="string">
 		select class_arr
-		from buy_history where buy_history_num = #{buy_history_num}
+		from
+		buy_history where buy_history_num = #{buy_history_num}
 	</select>
 
 	<!-- 취소시 수강인원 감소 -->
@@ -227,8 +258,10 @@
 	<!-- 리뷰등록 -->
 	<insert id="addReview">
 		insert into review (class_code, review_content,
-		member_id, review_regdate, score, review_photo, buy_history_num) values (#{class_code},
-		#{review_content},#{member_id}, now(), #{score}, #{review_photo},#{buy_history_num})
+		member_id, review_regdate, score, review_photo, buy_history_num)
+		values (#{class_code},
+		#{review_content},#{member_id}, now(), #{score},
+		#{review_photo},#{buy_history_num})
 	</insert>
 
 	<!-- 선생님 확인하기 -->
@@ -259,30 +292,53 @@
 	<select id="getReview"
 		resultType="com.penefit.moons.domain.ReviewVO">
 		SELECT c.class_code, c.class_subject, c.city_code, r.*
-		FROM review r, class c WHERE r.class_code=#{class_code}
-		AND c.class_code=#{class_code}
+		FROM
+		review r, class c WHERE r.class_code=#{class_code}
+		AND
+		c.class_code=#{class_code}
+		
 	</select>
 
 	<!-- 중복리뷰 방지 -->
 	<select id="getReviewCheck" resultType="_int">
-		select COUNT(*) 
-		from review 
-		WHERE class_code = #{class_code} 
-		and member_id=#{member_id} 
+		select COUNT(*)
+		from review
+		WHERE class_code = #{class_code}
+		and member_id=#{member_id}
 		and buy_history_num=#{buy_history_num}
 	</select>
-	
+
 	<!-- 리뷰목록 받기 -->
-	<select id="getReviewList" resultType="com.penefit.moons.domain.ReviewVO">
+	<select id="getReviewList"
+		resultType="com.penefit.moons.domain.ReviewVO">
 		SELECT c.class_code, c.class_subject, c.city_code, r.*
-		FROM review r, class c
-		WHERE c.class_code = r.class_code
+		FROM
+		review r, class c
+		WHERE c.class_code = r.class_code and
+		member_id=#{member_id}
+		order by review_regdate desc
+		limit #{pageNum}, 5
+	</select>
+
+	<!-- 리뷰수  -->
+	<select id="reviewmaxPage" resultType="_int">
+	SELECT CEILING(COUNT(*)/5) from review where member_id=#{member_id}
+	</select>
+	
+	<!-- 제안수  -->
+	<select id="suggestmaxPage" resultType="_int">
+	SELECT CEILING(COUNT(*)/5) from suggest where member_id=#{member_id}
+	</select>
+	<!-- 문의수  -->
+	<select id="qnamaxPage" resultType="_int">
+	SELECT CEILING(COUNT(*)/5) from qna where member_id=#{member_id}
 	</select>
 	
 	<!-- 방문자수 추 -->
 	<insert id="insertVisits">
 		INSERT INTO visits (visit, day)
-		VALUES (visit + 1, now())
+		VALUES (visit + 1,
+		now())
 		ON DUPLICATE KEY UPDATE visit = visit + 1
 	</insert>
 </mapper>

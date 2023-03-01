@@ -31,7 +31,7 @@ hr {
 	border-bottom: thin solid #DBD5CB;
 }
 
-button, input[type='button'] {
+.content button, input[type='button'] {
 	background-color: #75BD43;
 	border: none;
 	color: white;

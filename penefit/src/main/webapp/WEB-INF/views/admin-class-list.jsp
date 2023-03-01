@@ -62,7 +62,6 @@
 <button id = "dayBtn" value = "desc">날짜순</button>
 <button id = "endBtn">완료된 클래스</button>
 <button id = "activeBtn">진행중 클래스</button>
-<%@ include file = "./footer.jsp" %>
 
 
 <script>

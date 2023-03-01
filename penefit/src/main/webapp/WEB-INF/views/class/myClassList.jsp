@@ -26,7 +26,6 @@
 
 </table>
 
-<%@ include file="../footer.jsp" %>
 
 
 <script>

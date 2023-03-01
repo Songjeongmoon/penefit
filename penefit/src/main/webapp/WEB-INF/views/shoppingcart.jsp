@@ -112,7 +112,6 @@ input[id="checkAll"] {
 		</section>
 
 	</div>
-	<%@ include file="footer.jsp"%>
 
 	<script>
 	
@@ -350,7 +349,6 @@ input[id="checkAll"] {
 		//2. 결제요청하기
 		function requestPay() {
 			
-			alert("amount : " + amount);
 			
 			let today = new Date();
 			let date = "ORD";

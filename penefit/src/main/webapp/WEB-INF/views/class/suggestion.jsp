@@ -99,6 +99,7 @@
 									<option value="B">간식</option>
 									<option value="C">훈련</option>
 									<option value="D">의류</option>
+									<option value="E">기타</option>
 							</select></td>
 						</tr>
 

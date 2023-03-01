@@ -157,7 +157,6 @@ span::after {
 
 			</div>
 		</div>
-		<%@ include file="../footer.jsp"%>
 
 	</div>
 
