@@ -89,4 +89,18 @@ public class ServiceAboutDashBoard implements ServiceAboutDashBoardI{
 		return mapper.getVisits();
 	}
 
+
+	@Override
+	public int getMemberToday() {
+		
+		return mapper.getMemberToday();
+	}
+
+
+	@Override
+	public int getMember7days(int day) {
+		
+		return mapper.getMember7days(day);
+	}
+
 }

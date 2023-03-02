@@ -35,4 +35,7 @@ public interface ServiceAboutDashBoardI {
 	
 	public List<VisitsDTO> getVisits();
 
+	public int getMemberToday();
+	
+	public int getMember7days(int day);
 }

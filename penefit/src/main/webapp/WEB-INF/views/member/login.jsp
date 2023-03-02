@@ -116,8 +116,6 @@ function submit_check(){
 
 </script>
 
- <script type="text/javascript" src="/js/javascript.js"></script>
-
 
 </body>
 

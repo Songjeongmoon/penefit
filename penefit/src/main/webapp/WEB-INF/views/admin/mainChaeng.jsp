@@ -1471,32 +1471,31 @@ a {
 
         //공지등록
         $(document).on("click", "#regNoticeBtn", function () {
-          regNotice();
+           alert("dddd");
+           let notice_title = $("input[name='notice_title']").val();
+            let member_id = "${member_id}";
+            let notice_content = $("#notice_content").val();
+            alert(notice_title);
+            alert(member_id);
+            alert(notice_content);
+            $.ajax({
+              method: "post",
+              url: "/admin/regNotice",
+              data: {
+                "notice_title": notice_title,
+                "member_id": member_id,
+                "notice_content": notice_content
+              },
+              success: function (data) {
+                getNotice();
+                getNoticeNew();
+              },
+              error: function () {
+                alert("error");
+              }
+
+            })
         })
-        function regNotice() {
-
-          let notice_title = $("input[name='notice_title']").val();
-          let member_id = "${member_id}";
-          let notice_content = $("#notice_content").val();
-
-          $.ajax({
-            method: "post",
-            url: "/admin/regNotice",
-            data: {
-              "notice_title": notice_title,
-              "member_id": member_id,
-              "notice_content": notice_content
-            },
-            success: function (data) {
-              getNotice();
-              getNoticeNew();
-            },
-            error: function () {
-              alert("error");
-            }
-
-          })
-        }
 
         //공지등록폼
         $("#newNoticeForm").click(function () {
