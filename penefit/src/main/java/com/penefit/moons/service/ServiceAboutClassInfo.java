@@ -56,8 +56,8 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 	}
 
 	@Override
-	public ArrayList<SuggestDTO> getMySuggestionList(String member_id) {
-		ArrayList<SuggestDTO> list = mapper.getMySuggestionList(member_id);
+	public ArrayList<SuggestDTO> getMySuggestionList(String member_id, int pageNum) {
+		ArrayList<SuggestDTO> list = mapper.getMySuggestionList(member_id, pageNum);
 		return list;
 	}
 	

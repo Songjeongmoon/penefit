@@ -13,6 +13,8 @@
 		SELECT *
 		FROM suggest
 		where member_id = #{member_id}
+		order by suggest_regdate desc
+		limit #{pageNum}, 5
 	</select>
 	
 	<select id="getMyClassList" resultType="com.penefit.moons.domain.ClassListDTO">

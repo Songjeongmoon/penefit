@@ -32,7 +32,7 @@ h6 {
 	margin-left: 400px;
 	margin-top: 30px;
 	width: 600px;
-	height: 800px;
+	height: 1000px;
 	border: solid 1px #BBB09F;
 	border-radius: 7px;
 	box-shadow: 7px 7px 7px  7px #DBD5CB;
@@ -137,10 +137,11 @@ span::after {
 						</div>
 						<div id="postnum">
 							<span>우편번호</span><br> <input type="text" placeholder="우편번호" name="postnum" />
+								<input type="button" onclick="execution_daum_address()" value="주소찾기"/>
 						</div>
-						<div id="address_button" >
-							<input type="button" onclick="execution_daum_address()" value="주소찾기"/>
-						</div>
+						
+						
+						
 						<div id="mem_address">
 							<span>주소</span><br> <input type="text" placeholder="주소입력" name="member_address" />
 						</div>
@@ -156,7 +157,6 @@ span::after {
 
 			</div>
 		</div>
-		<%@ include file="../footer.jsp"%>
 
 	</div>
 

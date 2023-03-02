@@ -111,8 +111,12 @@ input[id="checkAll"] {
          </div>
       </section>
 
+<<<<<<< HEAD
    </div>
    <%@ include file="footer.jsp"%>
+=======
+	</div>
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
 <<<<<<< HEAD
    <script>
@@ -477,6 +481,7 @@ input[id="checkAll"] {
 		});
 >>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
+<<<<<<< HEAD
       //아임포트  결제 API
       //1. 객체 초기화하기 :    주문 페이지에서 가맹점 식별코드를 이용하여 IMP 객체를 초기화 합니다.
       const IMP = window.IMP; // 생략 가능
@@ -510,6 +515,40 @@ input[id="checkAll"] {
                var msg = '결제가 완료되었습니다.';
                sendParam(amount,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
                
+=======
+		//아임포트  결제 API
+		//1. 객체 초기화하기 : 	주문 페이지에서 가맹점 식별코드를 이용하여 IMP 객체를 초기화 합니다.
+		const IMP = window.IMP; // 생략 가능
+		IMP.init("imp13816725"); // 예: imp00000000a
+		
+		//2. 결제요청하기
+		function requestPay() {
+			
+			
+			let today = new Date();
+			let date = "ORD";
+			let randomStr = Math.random().toString(36).substring(2, 9)
+					.toUpperCase();
+			let order_num = date.concat(today.getFullYear(),
+					today.getMonth() + 1, today.getDate(), '-', randomStr);
+			IMP.request_pay({
+				pg : "html5_inicis",
+				pay_method : "card",
+				merchant_uid : order_num, // 주문번호
+				name : "Penefit 클래스 결제의 건",
+				amount : amount, // 숫자 타입
+				buyer_email : "",
+				buyer_name : "${memberinfo.member_name}",
+				buyer_tel : "${memberinfo.member_tel}",
+				buyer_addr : "${memberinfo.member_address}",
+				buyer_postcode : ""
+			}, function(rsp) { // callback
+				if (rsp.success) {
+					// 결제 성공 시 로직
+					var msg = '결제가 완료되었습니다.';
+					sendParam(amount,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
+					
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
 <<<<<<< HEAD
             } else {

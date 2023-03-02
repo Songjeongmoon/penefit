@@ -53,7 +53,6 @@
 
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
 <script>
 
 
@@ -69,7 +68,7 @@ function getlist() {
 
 			for(i = 0;i<obj.length;i++ ){
 				tbody.innerHTML +="<tr><td class='objid''>" +obj[i].member_id +"</td><td>" + obj[i].member_pw +"</td><td>" + obj[i].member_name+"</td><td>" + obj[i].member_tel+"</td><td>"
-				+ obj[i].member_address+"</td><td>"+obj[i].member_grade+"</td><td><select name='memberOptionChange'>"
+				+ obj[i].member_grade+"</td><td><select name='memberOptionChange'>"
 			  	+ "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
 			  	+ "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
 			  	+ "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>";
@@ -106,7 +105,7 @@ function serchMem() {
        success: (data) => {
     	   for(let i=0 ; i<data.length;i++){
     		   $("#tbody").append("<tr><td>" +data[i].member_id +"</td><td>" + data[i].member_pw +"</td><td>" + data[i].member_name+"</td><td>" + data[i].member_tel+"</td><td>"
-    	  				+ data[i].member_address+"</td><td>"+data[i].member_grade+"</td><td><select name='memberOptionChange'>"
+    	  				+data[i].member_grade+"</td><td><select name='memberOptionChange'>"
     				  	+ "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
     				  	+ "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
     				  	+ "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>")

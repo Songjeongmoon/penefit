@@ -40,13 +40,19 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 	}
 
 	@Override
-	public int loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession Session) {
+	public int loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession session) {
 	
 		ArrayList<MemberVO>list = mapper.loginCheck();
+		
 		for(int i = 0 ; i<list.size();i++) {
 			if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
-				Session.setAttribute("member_id", member_id);				
-				return 1;
+				session.setAttribute("member_id", member_id);
+				MemberVO member = mapper.selectOne(member_id);
+				if(member.getMember_grade().equals("C")) {
+					return 2;
+				}else {
+					return 1;
+				}
 			}
 		}
 		return 0;

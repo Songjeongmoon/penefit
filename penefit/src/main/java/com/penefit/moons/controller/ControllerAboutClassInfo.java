@@ -172,9 +172,10 @@ public class ControllerAboutClassInfo {
 	
 	@PostMapping("/suggestion-list")
 	@ResponseBody
-	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id, Model model) {
-		ArrayList<SuggestDTO> list = service.getMySuggestionList(member_id);
-		model.addAttribute("list", list);
+	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id, int pageNum) {
+		int pageNumF = pageNum *5 -5;
+		System.out.println("pageNumF : " + pageNumF);
+		ArrayList<SuggestDTO> list = service.getMySuggestionList(member_id, pageNumF);
 		return list;
 	}
 	

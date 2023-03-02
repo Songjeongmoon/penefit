@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -8,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
 .class_detail img {
 	width: 400px;
@@ -85,10 +84,12 @@
 	position: absolute;
 	top: 350px;
 }
-#expired{
+
+#expired {
 	background-color: gray;
 	cursor: default;
 }
+
 #detailMenu {
 	margin: 0 auto;
 	width: 800px;
@@ -116,66 +117,108 @@
 }
 
 #detailMenu li:hover {
-	border: none; 
-	background-color : #BBB09F;
+	border: none;
+	background-color: #BBB09F;
 	line-height: 32px;
 	color: white;
 	width: 192px;
 	height: 32px;
 }
-#detail_box1{
-position: absolute;
+
+#detail_box1 {
+	position: absolute;
 	margin-top: 20px;
 	top: 500px;
 }
-#detailview{
+
+#detailview {
 	width: 800px;
 	height: 100%;
 	margin-bottom: 200px;
 }
-.oneDetail{
-	width: 200px;
-	border : 1px solid red;
-	height: 200px;
+
+.oneDetail {
+	width: 400px;
+	border: 1px solid red;
+	height: 400px;
 	display: flex;
-	flex-wrap : wrap;
-	margin : 10px 5px;
-	margin-right : 10px;
+	flex-wrap: wrap;
+	margin: 5px 5px;
+	margin-right: 10px;
 	align-items: flex-start;
 }
-#class_detail_img{
-	margin: 0 auto;
-	}
-#detail_box2{
-display: none;
-position : absolute;
-top : 520px;
-overflow: hidden;
-border: 1px solid green;
-left : 220px;
 
+#class_detail_img {
+	margin: 0 auto;
 }
- #class_detail_info{
- 	width: 400px;
- } 
- .oneDetail div{
-  font-size: 15px;
- }
-  .oneDetail span:nth-of-type(3){
-  font-size: 15px;
- }
-  .oneDetail span:nth-of-type(4){
-  font-size: 15px;
- }
-   .oneDetail span:nth-of-type(5){
-  font-size: 15px;
- }
- #detail_box2 .arrow{
- 	width: 30px;
- 	height: 35px;	
- 	position: relative;
- 	top: 60px;
- }
+
+#detail_box2 {
+	display: none;
+	position: relative;
+	top: 480px;
+	overflow: hidden;
+	border: 1px solid green;
+	left:250px;
+}
+
+#class_detail_info {
+	width: 400px;
+}
+
+.oneDetail div {
+	font-size: 15px;
+}
+
+.oneDetail span:nth-of-type(3) {
+	font-size: 15px;
+}
+
+.oneDetail span:nth-of-type(4) {
+	font-size: 15px;
+}
+
+.oneDetail span:nth-of-type(5) {
+	font-size: 15px;
+}
+
+#detail_box2 .arrow {
+	width: 30px;
+	height: 35px;
+	position: relative;
+	top: 60px;
+}
+
+/*swiper*/
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.swiper-wrapper {
+	border: 1px solid blue;
+	padding : 30px;
+	width: 700px;
+	overflow: hidden;
+	position: relative;
+	left : 40px;
+	
+}
 </style>
 </head>
 <body>
@@ -190,7 +233,9 @@ left : 220px;
 				<div id="class_detail_info">
 					<div id="class_subject">${cvo.class_subject }</div>
 					<div id="class_teacher">${cvo.class_teacher }</div>
-					<br><hr><br>
+					<br>
+					<hr>
+					<br>
 					<div id="class_day">일 자 : ${cvo.class_date }</div>
 					<br>
 					<div id="class_memcnt">인 원 : ${cvo.class_memcnt } /</div>
@@ -200,56 +245,76 @@ left : 220px;
 						<img src="../images/blankHeart.png" class="heart_img">
 					</div>
 					<div style="display: inline;">
-						<a id="kakaotalk-sharing-btn" href="javascript:;"><img
-							id="kakao"
-							src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-							alt="카카오톡 공유 보내기 버튼" /> </a>
+						<a id="kakaotalk-sharing-btn" href="javascript:;"><img id="kakao" src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png" alt="카카오톡 공유 보내기 버튼" /> </a>
 					</div>
 					<div>
-						<c:if
-							test="${cvo.class_memlit<=cvo.class_memcnt || status =='마감'}">
+						<c:if test="${cvo.class_memlit<=cvo.class_memcnt || status =='마감'}">
 							<button type="button" id="expired">마감된 클래스입니다</button>
 						</c:if>
-						<c:if
-							test="${cvo.class_memlit>cvo.class_memcnt  && status =='진행'}">
+						<c:if test="${cvo.class_memlit>cvo.class_memcnt  && status =='진행'}">
 							<button type="button" id="addCart">장바구니에 담기</button>
 						</c:if>
 					</div>
 				</div>
 
 
-			<div id="detailMenu">
-				<ul>
-					<li id="detail_box1_btn"><label for="detail_box1_btn">상세설명</label></li>
-					<li id="detail_box2_btn"><label for="detail_box2_btn">클래스후기</label></li>
-					<li id="detail_box3_btn"><label for="detail_box3_btn">위치설명</label></li>
-					<li id="detail_box4_btn"><label for="detail_box4_btn">취소약관</label></li>
-				</ul>
+				<div id="detailMenu">
+					<ul>
+						<li id="detail_box1_btn"><label for="detail_box1_btn">상세설명</label></li>
+						<li id="detail_box2_btn"><label for="detail_box2_btn">클래스후기</label></li>
+						<li id="detail_box3_btn"><label for="detail_box3_btn">위치설명</label></li>
+						<li id="detail_box4_btn"><label for="detail_box4_btn">취소약관</label></li>
+					</ul>
+				</div>
+				<div class="detail_box" id="detail_box1">
+					<img src="../images/${fn:split(cvo.suggest_photo,'-')[1]}" style="width: 800px; height: 5000px;"> <img src="../images/${fn:split(cvo.suggest_photo,'-')[2]}" style="width: 800px; height: 5000px;">
+				</div>
+
+				<!--      <div class="detail_box" id="detail_box2" >
+            <img src="../images/leftarrow.png" class="arrow">
+               <c:forEach var="r" items="${rvo }">
+                  <div class="oneDetail">
+                     <div><img src="../images/${r.review_photo }" class="review_img" style="width: 90px;height: 90px;"></div>
+                     <div style="align-items: flex-start;">${r.review_content }</div>
+                     <div>${r.member_id }</div> 
+                     <div>${r.review_regdate }</div>
+                     <div>${r.score }</div>
+                  </div>
+               </c:forEach>
+            <img src="../images/rightarrow.png" class="arrow">
+         </div> -->
+
+				<div class="detail_box" id="detail_box3"></div>
 			</div>
-			<div class="detail_box" id="detail_box1">
-				<img src="../images/01.jpg" id="detailview">
-			</div>
-			
-			<div class="detail_box" id="detail_box2" >
-				<img src="../images/leftarrow.png" class="arrow">
+		</section>
+
+		<div class="detail_box" id="detail_box2">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
 					<c:forEach var="r" items="${rvo }">
 						<div class="oneDetail">
-							<div><img src="../images/${r.review_photo }" class="review_img" style="width: 90px;height: 90px;"></div>
+							<img src="../images/${r.review_photo }" class="review_img" style="width: 200px; height: 200px;">
 							<div style="align-items: flex-start;">${r.review_content }</div>
-							<div>${r.member_id }</div> 
+							<div>${r.member_id }</div>
 							<div>${r.review_regdate }</div>
 							<div>${r.score }</div>
 						</div>
 					</c:forEach>
-				<img src="../images/rightarrow.png" class="arrow">
+				</div>
 			</div>
-				
-			<div class="detail_box" id="detail_box3"></div>
-			</div>
-		</section>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+		</div>
 	</div>
+	<!-- Swiper JS -->
+	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
 	<%-- <%@ include file="../footer.jsp"%> --%>
+
 	<script>
+		$("swiper-button-next").click(function(){
+			$(".swiper-wrapper").css("left","-100%");
+		})
 		//세션에서 로그인 아이디 받아오기
 		let member_id = "${member_id}";
 		let class_code = "${class_code}";
@@ -341,6 +406,13 @@ left : 220px;
 		$("#detail_box3_btn").click(function() {
 			$(".detail_box:not(#detail_box3)").css("display", "none");
 			$("#detail_box3").css("display", "block");
+		});
+
+		var swiper = new Swiper(".detail_box2", {
+			navigation : {
+				nextEl : ".swiper-button-next",
+				prevEl : ".swiper-button-prev",
+			},
 		});
 	</script>
 </body>

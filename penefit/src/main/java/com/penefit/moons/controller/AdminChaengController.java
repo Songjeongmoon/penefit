@@ -393,3 +393,4 @@ public class AdminChaengController {
 		return result;
 	}
 }
+

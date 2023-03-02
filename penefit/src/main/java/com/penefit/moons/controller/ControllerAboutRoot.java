@@ -1,5 +1,7 @@
 package com.penefit.moons.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
@@ -13,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.service.ServiceAboutClass;
 
@@ -25,8 +28,12 @@ public class ControllerAboutRoot {
 	ServiceAboutClass service;
 
 	@GetMapping("/")
-	public String root() {
+	public String root(Model model) {
 		service.insertVisits();
+		List<ClassVO> newlist = service.homenewlist();
+		model.addAttribute("newlist", newlist);
+		List<ClassVO> recolist = service.homerecolist();
+		model.addAttribute("recolist", recolist);
 		return "home";
 	}
 

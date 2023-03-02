@@ -56,7 +56,7 @@ th {
  
 		//장바구니에 담기
 		$(document).on("click",".addCart", function(evt) {
-							let class_code = evt.target.parentElement.parentElement.children[1].innerText;
+							let class_code = evt.target.parentElement.parentElement.children[1].children[0].value;
 							location.href = "class/shoppingcart?class_code="
 									+ class_code;
 						});
@@ -92,8 +92,8 @@ th {
 							+ "<a href='class/class-detail?class_code=" + list[i].class_code + "' style='text-align : left;'>" +list[i].class_subject+"</td><td>"
 							+ "<a href='class/classList-search?keyword=" + list[i].class_teacher + "'>" + list[i].class_teacher+"</td><td>"
 							+ list[i].class_date +"</td><td>"
-							+ "<button type='button' class='addCart'>장바구니</button></td><td>"
-							+ "<button type='button' class='deleteClass'>&nbsp;&nbsp;X&nbsp;&nbsp;</button></td><td>"
+							+ "<button type='button' class='addCart' style='border:none; background-color:rgba(0,0,0,0);'>장바구니</button></td><td>"
+							+ "<button type='button' class='deleteClass'  style='border:none; background-color:rgba(0,0,0,0);'>&nbsp;&nbsp;X&nbsp;&nbsp;</button></td><td>"
 					);
 					
 				}

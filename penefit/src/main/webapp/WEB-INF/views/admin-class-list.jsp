@@ -83,8 +83,12 @@
 <button id = "dayBtn" value = "desc">날짜순</button>
 <button id = "endBtn">완료된 클래스</button>
 <button id = "activeBtn">진행중 클래스</button>
+<<<<<<< HEAD
 <%@ include file = "./footer.jsp" %>
 <img id = "im" />
+=======
+
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
 <script>
 

@@ -39,7 +39,7 @@
 	<table border ="2">
 	<thead>
 	<tr>
-	<th>회원아이디</th><th>회원비밀번호</th><th>회원이름</th><th>회원전화번호</th><th>회원주소</th><th>회원등급</th><th colspan ="2">관리자지정</th>
+	<th>회원아이디</th><th>회원비밀번호</th><th>회원이름</th><th>회원전화번호</th><th>회원등급</th><th colspan ="2">관리자지정</th>
 	</tr>
 	</thead>
 	<tbody id = "tbody">
@@ -53,7 +53,6 @@
 
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
 <script>
 
 

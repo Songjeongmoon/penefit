@@ -320,7 +320,7 @@ a {
 
 .outer {
 	position: absolute;
-	left: 8%;
+	left: 20%;
 	bottom: 10%;
 	width: 300px;
 	height: 20px;
@@ -331,7 +331,7 @@ a {
 
 .inner {
 	position: absolute;
-	left: 8%;
+	left: 20%;
 	bottom: 10%;
 	width: 120px;;
 	height: 20px;
@@ -344,8 +344,8 @@ a {
 	margin-top: 20px;
 	font-size: 50px;
 	position: absolute;
-	bottom: 15%;
-	left: 14%;
+	bottom: 40%;
+	left: 40%;
 }
 
 .pie-chart1 {
@@ -445,7 +445,87 @@ a {
 }
 #sideMenu5{
 	position: relative;
-	top : 400px;
+	top : 250px;
+}
+#mainBox1 {
+       grid-column: 1 / 3;
+}
+#mainBox4 {
+      grid-row: 2 / 4;
+}
+#mainBox5 {
+      grid-row: 2 / 4;
+}
+#mainBox6 {
+     grid-row: 2 / 4;
+}
+.mainTop {
+	color: white;
+    width: 100%;
+    height: 70px;
+    background-color: black;;
+    border-radius: 7px 7px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainTitle{
+    display: inline-block;
+    margin: 40px;
+    font-size: 30px;
+    color: skyblue
+}
+.mainTable {
+    text-align: center;
+    color: skyblue;
+    font-size: 20px;
+}
+td {
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+}
+.footer{
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 0 7px 7px;
+   	width: 100%;
+    height: 50px;
+   	background-color: black;
+   	color: white;
+   	display: flex;
+   	flex-direction: row;
+   	justify-content: center;
+   	align-items: center;
+}
+.mainDate{
+    margin: 0 20px 0 20px;
+}
+.stick {
+    position: relative;
+    top: 50%;
+   	background-color: orange;
+   	width: 20px;
+   	transform: translateY(-50%);
+   	margin: 0 30px 0 30px;
+   	color: white;
+}
+#stickBox {
+  	display: flex;
+   	position: absolute;
+   	width: 100%;
+  	height: 200px;
+   	top: 0;
+   	border-radius: 30px 30px 0 0;
+   	flex-direction: row;
+  	justify-content: center;
+   	align-items: center;	
+}
+th {
+    border-right: 1px solid white;
+}
+.visit {
+   	position: absolute;
+   	top: -20px;
 }
 #mainBox1 {
        grid-column: 1 / 3;
@@ -1694,12 +1774,22 @@ th {
             },
             success: function (data) {
               for (let i = 0; i < data.length; i++) {
+            	  if(i=0){
+            		  $("#noticeTbody").append(
+                              "<tr ><td  class='godetail' class='notice_num'>" + data[i].notice_num + "</td>"
+                              + "<td  class='godetail' class='notice_title'>" + data[i].notice_title + "</td>"
+                              + "<td class='godetail' class='member_id'>" + data[i].member_id + "</td>"
+                              + "<td class='godetail' class='notice_regdate'>" + data[i].notice_regdate + "</td><tr>"
+                            );
+            	  }else{
+            		  
                 $("#noticeTbody").append(
-                  "<tr><td  class='godetail'>" + data[i].notice_num + "</td>"
-                  + "<td  class='godetail'>" + data[i].notice_title + "</td>"
-                  + "<td class='godetail'>" + data[i].member_id + "</td>"
-                  + "<td class='godetail'>" + data[i].notice_regdate + "</td><tr>"
+                  "<tr><td  class='godetail' id='notice_num'>" + data[i].notice_num + "</td>"
+                  + "<td  class='godetail' id='notice_title'>" + data[i].notice_title + "</td>"
+                  + "<td class='godetail' id='member_id'>" + data[i].member_id + "</td>"
+                  + "<td class='godetail' id='notice_regdate'>" + data[i].notice_regdate + "</td><tr>"
                 );
+            	  }
 
               }
 
@@ -2291,12 +2381,12 @@ th {
 	    	  
 			  $.ajax({
 	    	    type:"PUT",
-	    	    url: "/admin/classUpdate",
+	    	    url: "/admin/class/update",
 	    	    processData: false,
 	    	    contentType: false,
 	    	    data: data,
 	    	    success: function(data){
-	    	    	alert("dd");
+	    	    	alert(data);
 	    	    },
 	    	    err: function(err){
 	    	      console.log("error");
@@ -2489,7 +2579,13 @@ th {
 		    		  url: "/admin/todaysSales",
 		              dataType: 'json',
 		              success: function (data) {
-		            	  $("#todaysSales").text(data +" 원");
+		            	  $("#todaysSales").text(data.toLocaleString() +" 원");
+		            	  $("#todaysSales").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
 		              },
 		              error: function () {
 		                alert("error");
@@ -2504,7 +2600,13 @@ th {
 		    		  url: "/admin/weeklySales",
 		              dataType: 'json',
 		              success: function (data) {
-		            	  $("#weeklySales").text(data +" 원");
+		            	  $("#weeklySales").text(data.toLocaleString() + " 원");
+		            	  $("#weeklySales").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
 		              },
 		              error: function () {
 		                alert("error");
@@ -2520,7 +2622,13 @@ th {
 		    		  url: "/admin/monthlySales",
 		              dataType: 'json',
 		              success: function (data) {
-		            	  $("#monthlySales").text(data +" 원");
+		            	  $("#monthlySales").text(data.toLocaleString() +" 원");
+		            	  $("#monthlySales").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
 		              },
 		              error: function () {
 		                alert("error");
@@ -2535,7 +2643,13 @@ th {
 		    		  url: "/admin/yearlySales",
 		              dataType: 'json',
 		              success: function (data) {
-		            	  $("#yearlySales").text(data +" 원");
+		            	  $("#yearlySales").text(data.toLocaleString() +" 원");
+		            	  $("#yearlySales").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
 		              },
 		              error: function () {
 		                alert("error");
@@ -2553,6 +2667,23 @@ th {
 	              dataType: 'json',
 	              success: function (data) {
 	            	  $("#dayChange").text(data +" %");
+	            	  if(data>=0){
+	            		  $("#dayChange").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"color":"blue",
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
+	            	  }else{
+	            		  $("#dayChange").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"color":"red",
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
+	            	  }
 	              },
 	              error: function () {
 	                alert("error");
@@ -2569,7 +2700,24 @@ th {
 	    		  url: "/admin/weekChange",
 	              dataType: 'json',
 	              success: function (data) {
-	            	  $("#weekChange").text(data +" %");
+	            	  $("#weekChange").text(data.toLocaleString() +" %");
+	            	  if(data>=0){
+	            		  $("#weekChange").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"color":"blue",
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
+	            	  }else{
+	            		  $("#weekChange").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"color":"red",
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
+	            	  }
 	              },
 	              error: function () {
 	                alert("error");
@@ -2587,6 +2735,23 @@ th {
 	              dataType: 'json',
 	              success: function (data) {
 	            	  $("#monthChange").text(data +" %");
+	            	  if(data>=0){
+	            		  $("#monthChange").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"color":"blue",
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
+	            	  }else{
+	            		  $("#monthChange").css({
+		            			"font-weight" : "bold",
+		            			"font-size" : "50px", 
+		            			"color":"red",
+		            			"margin-top" : "50px",
+		            			"font-family": "SBAggroB"
+		            	  })
+	            	  }
 	              },
 	              error: function () {
 	                alert("error");
@@ -2605,7 +2770,13 @@ th {
 	    		  url: "/admin/buyaverage",
 	              dataType: 'json',
 	              success: function (data) {
-	            	  $("#buyaverage").text(data +" 원");
+	            	  $("#buyaverage").text(data.toLocaleString() +" 원");
+	            	  $("#buyaverage").css({
+	            			"font-weight" : "bold",
+	            			"font-size" : "50px", 
+	            			"margin-top" : "50px",
+	            			"font-family": "SBAggroB"
+	            	  })
 	              },
 	              error: function () {
 	                alert("error");
@@ -2623,6 +2794,12 @@ th {
 	                  const temp1 = data * 10
 	                  const temp2 = Math.ceil(temp1) / 10;
 	            	  $("#average_purchase").text(temp2 +" 회");
+	            	  $("#average_purchase").css({
+	            			"font-weight" : "bold",
+	            			"font-size" : "50px", 
+	            			"margin-top" : "50px",
+	            			"font-family": "SBAggroB"
+	            	  })
 	              },
 	              error: function () {
 	                alert("error");

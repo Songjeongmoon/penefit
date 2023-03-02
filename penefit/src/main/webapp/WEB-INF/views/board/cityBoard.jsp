@@ -74,6 +74,7 @@ h2 {
 				<ul>
 					<li class="aside_title">커뮤니티</li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
 					<li class="aside_menu"><a href="#">수강후기</a></li>
 					<li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
@@ -81,6 +82,10 @@ h2 {
 =======
 					<li class="aside_menu"><a href="notice">공지사항</a></li>
 					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
+=======
+					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
+					<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
 >>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 				</ul>
 
@@ -163,8 +168,11 @@ h2 {
 			</div>
 		</section>
 	</div>
+<<<<<<< HEAD
 	<%@ include file="../footer.jsp"%>
 	
+=======
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 	<script>
 	
 	

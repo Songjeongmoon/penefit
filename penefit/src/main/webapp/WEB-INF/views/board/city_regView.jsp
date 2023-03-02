@@ -5,7 +5,39 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#form {
+	margin: 0 auto;
+}
 
+input, textarea {
+	width: 350px;
+	margin-bottom: 20px;
+}
+
+select {
+	width: 350px;
+	margin-bottom: 20px;
+}
+
+textarea {
+	height: 200px;
+}
+button{
+	background-color: #75BD43;
+	border: none;
+	color: white;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
+	width: 70px;
+	height: 33px;
+	line-height: 35px;
+	border-radius: 7px;
+	margin: 5px;
+}
+strong{
+	margin-right: 20px;
+}
+</style>
 <link rel="stylesheet" href="/css/style.css">
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
@@ -29,53 +61,53 @@
 
 			</aside>
 			<div class="content">
-				<h3>지역게시판 글등록 뷰뷰뷰뷰</h3>
+				<h2>지역게시판</h2>
+				<div style="text-align: center;">
+					<form action="/cityReg.do" method="post" id="form">
+						<div class="container">
+							<div>
+								<strong>지역</strong> <select name="sel">
+									<option value="All">전체</option>
+									<option value="A">서울</option>
+									<option value="B">경기</option>
+									<option value="C">인천</option>
+									<option value="D">강원</option>
+									<option value="E">충남</option>
+									<option value="F">대전</option>
+									<option value="G">충북</option>
+									<option value="H">부산</option>
+									<option value="I">울산</option>
+									<option value="J">대구</option>
+									<option value="K">경북</option>
+									<option value="L">경남</option>
+									<option value="M">전남</option>
+									<option value="N">광주</option>
+									<option value="O">전북</option>
+									<option value="P">제주</option>
+									<option value="Z">온라인</option>
+								</select>
+							</div>
+							<div>
+								<input type="hidden" name="member_id" value="${member_id }"> <input type="hidden" name="board_type" value=CC>
+							</div>
+							<div>
+								<strong>제목</strong> <input type="text" name="board_title">
 
-				<form action="/cityReg.do" method="post">
-					<div class="container">
-						<div>
-							<select name="sel">
-								<option value="All">전체</option>
-								<option value="A">서울</option>
-								<option value="B">경기</option>
-								<option value="C">인천</option>
-								<option value="D">강원</option>
-								<option value="E">충남</option>
-								<option value="F">대전</option>
-								<option value="G">충북</option>
-								<option value="H">부산</option>
-								<option value="I">울산</option>
-								<option value="J">대구</option>
-								<option value="K">경북</option>
-								<option value="L">경남</option>
-								<option value="M">전남</option>
-								<option value="N">광주</option>
-								<option value="O">전북</option>
-								<option value="P">제주</option>
-								<option value="Z">온라인</option>
-							</select>
+							</div>
+
+							<div style="display: flex; justify-content: center; align-items: center;">
+								<strong style="margin-bottom: 50px;">내용</strong>
+								<textarea name="board_content"></textarea>
+							</div>
+
+							<button type="button" id="cityreg" onclick="cityReg()">등록</button>
+
 						</div>
-						<div>
-							<input type="hidden" name="member_id" value="${member_id }"> <input type="hidden" name="board_type" value=CC>
-						</div>
-						<div>
-							<strong>제목</strong> <input type="text" name="board_title">
-
-						</div>
-
-						<div>
-							<strong>내용</strong>
-							<textarea name="board_content"></textarea>
-						</div>
-
-						<button type="submit" id="cityreg" onclick="cityReg()">등록</button>
-
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
 	<script>
 	
 	
