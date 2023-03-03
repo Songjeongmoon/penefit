@@ -1,7 +1,5 @@
 package com.penefit.moons.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -79,9 +77,10 @@ public class AdminChaengController {
 	}
 
 	@GetMapping("/qnaLoadAll")
-	public @ResponseBody List<QnAVO> qnaLoadAll() {
+	public @ResponseBody List<QnAVO> qnaLoadAll(int startNum) {
 		// qna리스트
-		List<QnAVO> qnaList = service.getAdminQnaList();
+		startNum = (startNum - 1) * 5;
+		List<QnAVO> qnaList = service.getAdminQnaList(startNum);
 		return qnaList;
 	}
 
@@ -92,9 +91,10 @@ public class AdminChaengController {
 	}
 
 	@GetMapping("/qnaLoadNew")
-	public @ResponseBody List<QnAVO> qnaLoadNew() {
+	public @ResponseBody List<QnAVO> qnaLoadNew(int startNum) {
 		// qna리스트 - 신규
-		List<QnAVO> qnaListToConfirm = service.qnaListToConfirm();
+		startNum = (startNum - 1) * 5;
+		List<QnAVO> qnaListToConfirm = service.qnaListToConfirm(startNum);
 		return qnaListToConfirm;
 	}
 
@@ -105,7 +105,8 @@ public class AdminChaengController {
 	// 관리자 화면 qna 리스트
 	@GetMapping("/adminQnaList")
 	public void adminQnaList(Model model) {
-		List<QnAVO> list = service.getAdminQnaList();
+		int startNum = 0;
+		List<QnAVO> list = service.getAdminQnaList(startNum);
 		model.addAttribute("list", list);
 	}
 
@@ -198,14 +199,16 @@ public class AdminChaengController {
 
 	@GetMapping("/getNotice")
 	@ResponseBody
-	public List<NoticeVO> getNotice() {
-		return service.getNotice();
+	public List<NoticeVO> getNotice(String keyword, int startNum) {
+		startNum = (startNum - 1) * 4;
+		return service.getNotice(keyword, startNum);
 	}
 
 	@GetMapping("/getNoticeNew")
 	@ResponseBody
-	public List<NoticeVO> getNoticeNew() {
-		return service.getNoticeNew();
+	public List<NoticeVO> getNoticeNew(int startNum) {
+		startNum = (startNum - 1) * 5;
+		return service.getNoticeNew(startNum);
 	}
 
 	@PostMapping("/regNotice")
@@ -217,12 +220,6 @@ public class AdminChaengController {
 			aservice.noticeReg(notice);	
 			return "등록 완료";
 		}
-	}
-
-	@GetMapping("/getsearchNotice")
-	@ResponseBody
-	public List<NoticeVO> getsearchNotice(String keyword) {
-		return service.getsearchNotice(keyword);
 	}
 
 	@GetMapping("/noticeDetail")
@@ -245,14 +242,15 @@ public class AdminChaengController {
 	
 	@GetMapping("/suggestNew")
 	@ResponseBody
-	public List<SuggestDTO> suggestNew() {
-		return service.suggestNew();
+	public List<SuggestDTO> suggestNew(int startNum) {
+		return service.suggestNew(startNum);
 	}
 	
 	@GetMapping("/suggestAll")
 	@ResponseBody
-	public List<SuggestDTO> suggestAll() {
-		return service.suggestAll();
+	public List<SuggestDTO> suggestAll(String status, String keyword, int startNum) {
+		startNum = (startNum - 1) * 5;
+		return service.suggestAll(status, keyword, startNum);
 	}
 	@GetMapping("/getsearchSuggestion")
 	@ResponseBody
@@ -391,6 +389,84 @@ public class AdminChaengController {
 	public double averagePurchase() {
 		double result = service.averagePurchase();
 		return result;
+	}
+	
+    @GetMapping("/getListWithFilter")
+    @ResponseBody
+    public List<SuggestDTO> getListWithFilter(String keyword) {
+       return service.getListWithFilter(keyword);
+    }
+    
+    @GetMapping("/qna-all-max-page")
+    @ResponseBody
+    public int getQnaAllMaxPage() {
+    	int result = service.getQnaAllMaxPage();
+    	if(result % 5 != 0) {
+    		result = result / 5 + 1;
+    	} else {
+    		result = result / 5;
+    	}
+    	return result;
+    }
+    
+    @GetMapping("/qna-new-max-page")
+    @ResponseBody
+    public int getQnaNewMaxPage() {
+    	int result = service.getQnaNewMaxPage();
+    	if(result % 5 != 0) {
+    		result = result / 5 + 1;
+    	} else {
+    		result = result / 5;
+    	}
+    	return result;
+    }
+    
+    @GetMapping("/notice-max-page")
+    @ResponseBody
+    public int getNoticeMaxPage(String keyword) {
+    	int result = service.getNoticeMaxPage(keyword);
+    	if(result % 5 != 0) {
+    		result = result / 5 + 1;
+    	} else {
+    		result = result / 5;
+    	}
+    	return result;
+    }
+    
+    @GetMapping("/notice-max-new")
+    @ResponseBody
+    public int getNoticeNewPage() {
+		int result = service.getNoticeNewPage();
+		if(result % 5 != 0) {
+    		result = result / 5 + 1;
+    	} else {
+    		result = result / 5;
+    	}
+    	return result;
+	}
+    
+    @GetMapping("/suggest-max-new")
+    @ResponseBody
+	public int getSuggestNewPage() {
+		int result = service.getSuggestNewPage();	
+		if(result % 5 != 0) {
+    		result = result / 5 + 1;
+    	} else {
+    		result = result / 5;
+    	}
+    	return result;
+	}
+    
+    @GetMapping("/suggest-max-all")
+    @ResponseBody
+	public int getSuggestAllPage(String status, String keyword) {
+		int result = service.getSuggestAllPage(status, keyword);	
+		if(result % 5 != 0) {
+    		result = result / 5 + 1;
+    	} else {
+    		result = result / 5;
+    	}
+    	return result;
 	}
 }
 

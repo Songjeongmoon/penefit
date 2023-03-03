@@ -77,6 +77,27 @@
 		ORDER BY B.class_memlit
 	</select>
 	
+	<select id="getMyClassListPage" resultType="com.penefit.moons.domain.ClassVO">
+		SELECT a.class_code, a.class_subject, a.class_teacher, a.class_date, b.city_name as city_code
+		FROM class a, city b
+		WHERE a.class_teacher = #{param2} AND a.city_code = b.city_code
+		ORDER BY a.class_date DESC
+		LIMIT #{startNum}, 10
+	</select>
+	
+	<select id="getMyCustomerList" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT a.member_id, a.member_name, a.member_tel
+		FROM member a, class_list b
+		WHERE b.class_code = #{class_code} AND a.member_id = b.member_id
+		ORDER BY a.member_id ASC
+	</select>
+	
+	<select id="getClassMaxPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE class_teacher = #{member_id}
+	</select>
+	
 	
 	
 	

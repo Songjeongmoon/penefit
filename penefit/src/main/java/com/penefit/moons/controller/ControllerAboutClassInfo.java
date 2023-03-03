@@ -1,5 +1,3 @@
-
-
 package com.penefit.moons.controller;
 
 import java.io.IOException;
@@ -23,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.penefit.moons.domain.ClassListDTO;
+import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.service.ServiceAboutClassInfo;
 
@@ -179,9 +179,32 @@ public class ControllerAboutClassInfo {
 		return list;
 	}
 	
+	@GetMapping("/list/my")
+	@ResponseBody
+	public List<ClassVO> getMyClassList(int startNum, String member_id){
+		System.out.println(startNum + "====" + member_id);
+		startNum = (startNum - 1) * 10;
+		return service.getMyClassListPage(startNum, member_id);
+	}
 	
+	@GetMapping("/list/max")
+	@ResponseBody
+	public int getClassMaxPage(String member_id) {
+		int result = service.getClassMaxPage(member_id);
+		if(result % 10 != 0) {
+			result = result / 10 + 1;
+		} else {
+			result = result / 10;
+		}
+		return result;
+	}
 	
-	
+	@GetMapping("/list/my/member")
+	@ResponseBody
+	public List<MemberVO> getMyCustomerList(String class_code){
+		System.out.println(class_code);
+		return service.getMyCustomerList(class_code);
+	}
 	
 	
 	

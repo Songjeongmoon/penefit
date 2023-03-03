@@ -110,9 +110,12 @@ public class ControllerAboutMember {
 	@GetMapping("/infoMember")
 	public String goinfoMember(HttpSession Session, Model model) {
 		String member_id = (String) Session.getAttribute("member_id");
+		if(member_id == null) {
+			return "redirect:/";
+		}
 		MemberVO member = serviceMember.selectOne(member_id);
 		model.addAttribute("memberinfo", member);
-		return "member/infoMember";
+		return "/member/infoMember";
 	}
 
 
