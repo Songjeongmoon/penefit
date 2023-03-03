@@ -19,6 +19,7 @@
 </style>
 
 <body>
+
 	<div class="container">
 		<div class="box" id="headerbox">
 			<header>
@@ -38,6 +39,10 @@
                     </c:if>
 					<a id="goWishlist">위시리스트</a> | <a id="shoppingcart">장바구니</a> | <a
 						id="goMypage">마이페이지</a>
+						
+					<c:if test="${member_grade=='C' }">
+						  |  <a style="" href="/dashboard/">관리자HOME</a>
+					</c:if>
 				</div>
 
 				<div id="navbox" class="box">
@@ -188,6 +193,7 @@
 				location.href = "../member/login"
 			}
 		});
+		
 	</script>
 	
 

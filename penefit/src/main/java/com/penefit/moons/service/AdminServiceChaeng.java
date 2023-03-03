@@ -223,4 +223,9 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 	public double averagePurchase() {
 		return mapper.averagePurchase();
 	}
+
+	@Override
+	public List<SuggestDTO> getListWithFilter(String keyword) {
+		return mapper.getListWithFilter(keyword);
+	}
 }

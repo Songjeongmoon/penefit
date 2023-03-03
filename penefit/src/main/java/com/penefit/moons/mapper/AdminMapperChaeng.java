@@ -112,6 +112,8 @@ public interface AdminMapperChaeng {
 
 	public double averagePurchase();
 
+	public List<SuggestDTO> getListWithFilter(String keyword);
+
 
 
 	

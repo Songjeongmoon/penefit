@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">'
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
 <style>
 @font-face {
@@ -107,6 +109,7 @@ footer {
 	left:50px;
 	width: 1300px;
 	margin-bottom: 80px;
+	margin-top: 50px;
 }
 h1 {
 	font-family: 'SBAggroB';
@@ -226,8 +229,10 @@ to {
 			</div>
 			<div class="rightnow1">지금바로보러 Go!</div>
 		</div>
-		
-			<div  id="listBox1">
+<div data-aos="fade-up"
+     data-aos-duration="3000">
+
+			<div  id="listBox1" >
 			<h1>금주의 신규 OPEN!!</h1>
 				<c:forEach var="c" items="${newlist }">
 					<div class="class_one">
@@ -239,6 +244,10 @@ to {
 					</div>	
 				</c:forEach>
 			</div>
+			</div>
+			<div data-aos="fade-up"
+     data-aos-duration="3000">
+			
 			<div  id="listBox2">
 			<h1>페네핏이 추천하는!</h1>
 				<c:forEach var="c" items="${recolist }">
@@ -250,6 +259,7 @@ to {
 						<p>${c.class_teacher }</p>
 					</div>	
 				</c:forEach>
+			</div>
 			</div>
 			
 	<footer>
@@ -334,6 +344,10 @@ to {
 			$(".mySlideDiv").eq(newIndex).show();
 
 		}
+		
 	</script>
+	<script>
+  AOS.init();
+</script>
 </body>
 </html>

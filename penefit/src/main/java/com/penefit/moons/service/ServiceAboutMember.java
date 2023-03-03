@@ -47,6 +47,8 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		for(int i = 0 ; i<list.size();i++) {
 			if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
 				session.setAttribute("member_id", member_id);
+				MemberVO mvo = mapper.selectOne(member_id);
+				session.setAttribute("member_grade", mvo.getMember_grade());
 				MemberVO member = mapper.selectOne(member_id);
 				if(member.getMember_grade().equals("C")) {
 					return 2;

@@ -259,6 +259,11 @@ public class AdminChaengController {
 	public List<SuggestDTO> getsearchSuggestion(String keyword) {
 		return service.getsearchSuggestion(keyword);
 	}
+	@GetMapping("/getListWithFilter")
+	@ResponseBody
+	public List<SuggestDTO> getListWithFilter(String keyword) {
+		return service.getListWithFilter(keyword);
+	}
 	
 	@GetMapping("/suggestType")
 	@ResponseBody

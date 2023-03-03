@@ -108,6 +108,8 @@ public interface AdminServiceChaengIm {
 
 	public double averagePurchase();
 
+	public List<SuggestDTO> getListWithFilter(String keyword);
+
 
 
 }
