@@ -1,5 +1,6 @@
 package com.penefit.moons.controller;
 
+import java.lang.annotation.Target;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.penefit.moons.domain.CartVO;
+import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.HistoryDTO;
 import com.penefit.moons.domain.HistoryVO;
 import com.penefit.moons.domain.ReviewVO;
@@ -36,6 +38,12 @@ public class RestControllerAboutClass {
 
 	@Autowired
 	ServiceAboutClass service;
+	
+	@GetMapping("/classPages")
+	public List<ClassVO> classPages(int startNum){
+		startNum = startNum * 8 - 8;
+		return service.getClassList(startNum);
+	}
 
 	
 	//class-detail페이지에 찜목록 확인
@@ -165,6 +173,13 @@ public class RestControllerAboutClass {
 		List<ReviewVO> list = service.getReviewList(member_id, pageNumF);
 		System.out.println(list);
 		return list;
+	}
+	
+	@GetMapping("/class/modalReview")
+	public ReviewVO getModalReview(int review_num) {
+		ReviewVO rvo = service.getReviewOne(review_num);
+		
+		return rvo;
 	}
 	
 	@GetMapping("/reviewmaxPage")

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -6,7 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+	crossorigin="anonymous"></script>
 </head>
 <style>
 .content {
@@ -31,7 +34,7 @@ hr {
 	border-bottom: thin solid #DBD5CB;
 }
 
-.content button, input[type='button'] {
+button, input[type='button'] {
 	background-color: #75BD43;
 	border: none;
 	color: white;
@@ -63,12 +66,14 @@ textarea {
 	border-collapse: collapse;
 	border-bottom: thin solid #DBD5CB;
 }
+
 h2 {
 	text-align: center;
 	font-size: 35px;
 	margin-bottom: 20px;
 	font-weight: bold;
-}	
+}
+
 .reply_List table th {
 	background-color: #BBB09F;
 }
@@ -82,15 +87,8 @@ h2 {
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
-<<<<<<< HEAD
-					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
-					<li class="aside_menu"><a href="#">수강후기</a></li>
-					<li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
-					<li class="aside_menu"><a href="#">클래스별게시판</a></li>
-=======
 					<li class="aside_menu"><a href="notice">공지사항</a></li>
 					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 				</ul>
 
 			</aside>
@@ -124,9 +122,16 @@ h2 {
 						<td>${cvo.board_viewcnt }</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="text-align: center;"><input type="hidden" name="board_num" value="${cvo.board_num}"> <c:if test="${sessionScope.member_id == cvo.member_id }">
-								<button type="button" onclick="location.href='city_modiView?board_num=${cvo.board_num }'">수정</button>
-								<button type="button" onclick="location.href='delCity?board_num=${cvo.board_num }'" style="background-color: darkgray;">삭제</button>
+
+						<td colspan="2" style="text-align: center;"><input
+							type="hidden" name="board_num" value="${cvo.board_num}">
+							<c:if test="${sessionScope.member_id == cvo.member_id }">
+								<button type="button"
+									onclick="location.href='city_modiView?board_num=${cvo.board_num }'">수정</button>
+								<button type="button"
+									onclick="location.href='delCity?board_num=${cvo.board_num }'"
+									style="background-color: darkgray;">삭제</button>
+
 
 							</c:if>
 							<button type="button" onclick="location.href='cityBoardview'">목록</button></td>
@@ -138,11 +143,18 @@ h2 {
 
 				<div class="reply_container">
 					<div class="reply_reg">
-						<input type="hidden" name="board_num" value="${cvo.board_num }"> <input type="hidden" name="reply_num" value="${reply_num}"> <input type="hidden" name="reply_type" value="C"><br> <input type="hidden" name="member_id" value="${member_id }" id="writer" readonly="readonly"><br>
-						<textarea name="reply_content" id="rReply" placeholder="댓글 내용을 입력해주세요."></textarea>
+
+						<input type="hidden" name="board_num" value="${cvo.board_num }">
+						<input type="hidden" name="reply_num" value="${reply_num}">
+						<input type="hidden" name="reply_type" value="C"><br>
+						<input type="hidden" name="member_id" value="${member_id }"
+							id="writer" readonly="readonly"><br>
+						<textarea name="reply_content" id="rReply"
+							placeholder="댓글 내용을 입력해주세요."></textarea>
 						<div style="text-align: right; margin-right: 100px;">
 							<input type="button" value="등록" onclick="regReply()">
 						</div>
+
 					</div>
 				</div>
 				<hr>
@@ -166,6 +178,7 @@ h2 {
 		</section>
 	</div>
 	<script>
+
 		$("#aside_menu_btn").mouseover(function() {
 			$("#aside_submenu").css("display", "block");
 		})
@@ -179,17 +192,9 @@ h2 {
 			const reply_type = document
 					.querySelector("input[name='reply_type']").value;
 			const member_id = document.querySelector("input[name='member_id']").value;
-<<<<<<< HEAD
-			const reply_content = document.querySelector("textarea[name='reply_content']").value;
-			if(reply_content == ""){
-				alert("내용을 입력해주세요.");
-				return false;
-			}
-=======
 			const reply_content = document
 					.querySelector("textarea[name='reply_content']").value;
 
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 			const obj = {
 				board_num : board_num,
 				reply_num : reply_num,
@@ -231,9 +236,11 @@ h2 {
 
 					tbody.innerHTML += "<tr><td><input type='hidden' name='reply_num' value='" + obj[i].reply_num + "'>"
 							+ obj[i].reply_content
+
 							+ "</td><td id='writer'>"
 							+ obj[i].member_id + "</td>" + msg;
 				}
+
 				$("#writer").css({
 					"width" : "200px",
 					"textalign" : "center"
@@ -241,14 +248,14 @@ h2 {
 				$(".delBtn").css({
 					"background-color" : "darkgray"
 				})
+
 			}
 			xhttp.open("GET", "/api/city/replyList/board_num/" + board_num,
 					true);
 			xhttp.send();
 		}
 
-		$(document)
-				.on(
+		$(document).on(
 						"click",
 						".delBtn",
 						function(evt) {
@@ -262,6 +269,7 @@ h2 {
 		function delReply(reply_num) {
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
+
 				getReplyList();
 			}
 			xhttp.open("DELETE", "/api/city/delReply/reply_num/" + reply_num,
