@@ -91,10 +91,9 @@ public class ControllerAboutBoard {
 	
 	//지역 게시판 
 	@GetMapping("/cityBoardview")
+
 	public String cityBoard1(Model model) {
-		
-		
-		
+	
 		String sel = "";
 		String keyword = "";
 				
@@ -120,7 +119,9 @@ public class ControllerAboutBoard {
 		pageNum = pageNum * 10 - 10;
 		return bservice.getAllCityList(pageNum, sel, keyword);
 	}
+
 	
+	//검색 페이징
 	@GetMapping("/citySearchCount")
 	@ResponseBody
 	public int getBoardCount(int pageNum, String sel, String keyword) {
@@ -132,22 +133,7 @@ public class ControllerAboutBoard {
 		}
 		return result;
 	}
-	
-	
-	/*@GetMapping("/cityBoardView")
-	public void cityBoard1 (int pageNum, Model model, int start) {
-		int param = pageNum * 10 - 10;
-		List<BoardVO> list = bservice.getAllCityList(param);
-		int notice_count = bservice.countCity();
 		
-		model.addAttribute("notice_count", notice_count);
-		model.addAttribute("list", list);
-		model.addAttribute("pstart", start);
-	}*/
-
-	
-	
-	
 	// 지역별게시판 등록뷰
 	@GetMapping("/city_regView")
 	public String cityBoardReg() {
@@ -207,8 +193,4 @@ public class ControllerAboutBoard {
 		return "redirect:cityBoardview";
 	}
 	
-	
-	
-
-
 }

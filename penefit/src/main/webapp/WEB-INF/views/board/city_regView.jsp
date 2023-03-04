@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <style>
 #form {
+
 	margin: 0 auto;
 }
 
@@ -42,6 +43,7 @@ strong{
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
+<<<<<<< HEAD
 	<%@ include file="../header.jsp"%>
 	<div class="box">
 		<section>
@@ -51,6 +53,21 @@ strong{
 					<li class="aside_menu"><a href="notice">공지사항</a></li>
 					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
 				</ul>
+=======
+
+   <%@ include file="../header.jsp"%>
+   <div class="box">
+      <section>
+         <aside>
+            <ul>
+               <li class="aside_title">커뮤니티</li>
+               <li class="aside_menu"><a href="notice?pageNum=1&start=1">공지사항</a></li>
+               <li class="aside_menu"><a href="cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
+            </ul>
+
+	
+
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 
 			</aside>
 			<div class="content">
@@ -86,6 +103,7 @@ strong{
 							<div>
 								<strong>제목</strong> <input type="text" name="board_title">
 
+
 							</div>
 
 							<div style="display: flex; justify-content: center; align-items: center;">
@@ -94,6 +112,7 @@ strong{
 							</div>
 
 							<button type="button" id="cityreg" onclick="cityReg()">등록</button>
+
 
 						</div>
 					</form>
@@ -142,26 +161,26 @@ strong{
                    "member_id" : member_id,
                    "city_code" : citysel
                  }
-           	
+              
                  $.ajax({
                     url: "/cityReg.do",
                     method: "POST",
                     contentType:'application/json',
                     data : JSON.stringify(bvo),
                     success:function(data){
-                    	alert(data);
-                    	
-                    	location.href="/board/cityBoardview";
+                       alert(data);
+                       
+                       location.href="/cityBoardview?pageNum=" + pageNum;
                     },
                     error : () => {
                         alert("error");
                      }
                  })
-			})
-	</script>
+         })
+   </script>
 
 
 
-	<script type="text/javascript" src="/js/javascript.js"></script>
+   <script type="text/javascript" src="/js/javascript.js"></script>
 </body>
 </html>

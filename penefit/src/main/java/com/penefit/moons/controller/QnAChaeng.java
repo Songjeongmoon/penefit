@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,7 @@ public class QnAChaeng {
 	ServiceAboutMember serviceMember;
 	
 	@PostMapping("/qnaForm")
-	public void qnaForm(HttpServletResponse res,  Model model, @Valid QnAVO qna, HttpSession session) {
+	public void qnaForm(HttpServletResponse res,  Model model, QnAVO qna, HttpSession session) {
 		res.setContentType("text/html; charset=UTF-8");
 		try {
 			PrintWriter out = res.getWriter();

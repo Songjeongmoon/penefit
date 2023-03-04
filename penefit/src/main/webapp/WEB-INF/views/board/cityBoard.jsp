@@ -35,7 +35,11 @@
 }
 
 input[type='button'], button[type='button']:not(id ='frontBtn '), button[type='button']:not(id
+<<<<<<< HEAD
 	 ='pageBtn ') {
+=======
+    ='pageBtn ') {
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 	background-color: #75BD43;
 	border: none;
 	width: 50px;
@@ -93,6 +97,15 @@ h2 {
 	width: 30px;
 	background-color: rgba(0, 0, 0, 0);
 	border: none;
+<<<<<<< HEAD
+=======
+}
+
+
+td a { 
+	text-decoration : none;
+	color:black;
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 }
 </style>
 </head>
@@ -103,8 +116,15 @@ h2 {
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
+<<<<<<< HEAD
 					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
 					<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
+=======
+					<li class="aside_menu"><a
+						href="/board/notice?pageNum=1&start=1">공지사항</a></li>
+					<li class="aside_menu"><a
+						href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 				</ul>
 
 			</aside>
@@ -134,18 +154,35 @@ h2 {
 					</select>
 
 					<button type="button" id="check_city" onclick="one_City()">선택</button>
+<<<<<<< HEAD
 					&nbsp;&nbsp;&nbsp; <input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요..."> <input type="button" value="검색" id="searchBtn">
+=======
+					&nbsp;&nbsp;&nbsp; <input type="text" name="keyword" id="keyword"
+						placeholder="검색어를 입력하세요..."> <input type="button"
+						value="검색" id="searchBtn">
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 					<div style="text-align: right;">
-						<button type="button" onclick="location.href='city_regView'" id="write">글쓰기</button>
+						<button type="button" onclick="location.href='city_regView'"
+							id="write">글쓰기</button>
 					</div>
 				</div>
 
+<<<<<<< HEAD
 				<input type="hidden" name="startNum" value="${start }"> <input type="hidden" name="maxPage" value="${count }">
 				<c:set var="end" value="${start+4 }"></c:set>
 				<c:if test="${count<end }">
 					<c:set var="end" value="${count }"></c:set>
 				</c:if>
 					<input type="hidden" name="end" value="${end }"> 
+=======
+				<input type="hidden" name="startNum" value="${start }"> <input
+					type="hidden" name="maxPage" value="${count }">
+				<c:set var="end" value="${start+4 }"></c:set>
+				<c:if test="${count<end }">
+					<c:set var="end" value="${count }"></c:set>
+				</c:if>
+				<input type="hidden" name="end" value="${end }">
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 				<div id="citybox1">
 					<table id="city_tbl">
 
@@ -165,24 +202,33 @@ h2 {
 								<tr class="dd">
 									<td>${board.board_num }</td>
 									<td>${board.city_name }</td>
-									<td>${board.board_title }</td>
+									<td><a href="city_detail?board_num=${board.board_num}">${board.board_title }</a></td>
 									<td>${board.member_id }</td>
 									<td>${board.board_viewcnt }</td>
 									<td>${board.board_regdate }</td>
+																		
 								</tr>
 							</c:forEach>
 						</tbody>
 
 					</table>
 					<div id="pagebox">
+<<<<<<< HEAD
 							<button type="button" id="backBtn">&lt;</button>
+=======
+						<button type="button" id="backBtn">&lt;</button>
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 						<div id="page">
 							<c:forEach var="pageNum" begin="${start }" end="${end }">
 								<button type="button" class="pageBtn">${pageNum }</button>
 							</c:forEach>
 						</div>
 						<c:if test="${count>5 }">
+<<<<<<< HEAD
 						<button type="button" id="frontBtn">&gt;</button>
+=======
+							<button type="button" id="frontBtn">&gt;</button>
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 						</c:if>
 					</div>
 				</div>
@@ -192,6 +238,7 @@ h2 {
 	</div>
 
 	<script>
+<<<<<<< HEAD
 	
 	if("${start}"==1){
 		$("#backBtn").hide();
@@ -345,36 +392,194 @@ h2 {
 			$("tbody").empty();
 	         const xhttp = new XMLHttpRequest();
 	         xhttp.onload = function() {
+=======
+   
+   if("${start}"==1){
+      $("#backBtn").hide();
+   }
+   
+      $(".content").on("click", (event) => {
+         let e = event.target.className;
+         if(e == "pageBtn" || event.target.id == "searchBtn"){
+            let pageNum = event.target.textContent;
+            if(pageNum == ""){
+               pageNum = 1;
+            }
+            let sel = $("#sel").val();
+            let search = $("#keyword").val();
+            $.ajax({
+               url: "/board/cityBoards",
+               method: "get",
+               dataType: "json",
+               data: {
+                  pageNum: pageNum,
+                  sel: sel,
+                  keyword: search
+               },
+               success: (data) => {
+                  $("#tbody1").empty();
+                  for(let i = 0; i < data.length; i++){
+                     $("#tbody1").append("<tr>"
+                     + "<td>" + data[i].board_num + "</td>"
+                     + "<td>" + data[i].city_name + "</td>"
+                     + "<td><a href='city_detail?board_num="+data[i].board_num+"'>" + data[i].board_title + "</a></td>"
+                     + "<td>" + data[i].member_id + "</td>"
+                     + "<td>" + data[i].board_viewcnt + "</td>"
+                     + "<td>" + data[i].board_regdate + "</td>"
+                     + "</tr>");
+                     
+                     
+                    
+                  }
+               },
+               error: () => {
+                  alert("Error [실패]");
+               },
+               complete: () => {
+                  if(event.target.id == "searchBtn"){
+                     $.ajax({
+                        url: "/board/citySearchCount",
+                        method: "get",
+                        data: {
+                           pageNum: pageNum,
+                           sel: sel,
+                           keyword: search
+                        },
+                        success: (data) => {
+                           $("#page").empty();
+                           $("input[name='maxPage']").val(data);
+                           $("input[name=startNum]").val(1);
+                           let start = $("input[name=startNum]").val();
+                           for(let i = start; i < start + 5; i++){
+                              
+                              if(i <= $("input[name='maxPage']").val()){
+                                 $("#page").append(
+                                    "<button type = 'button' class = pageBtn style = 'width: 20px'>" + i + "</button>"      
+                                 );
+                              } else{
+                                 $("#frontBtn").css("display", "none");
+                              }
+                           }
+                        },
+                        error: () => {
+                           alert("Error [실패]");
+                        }
+                     })
+                  }
+                  
+               }
+               
+            })
+         }
+      })
+      
+      $("#backBtn").click(() => {
+         let start = $("input[name=startNum]").val();
+         start = Number(start) - 5;
+         $("input[name=startNum]").val(start);
+         let end=start +4;
+         alert(end);
+         $("input[name=end]").val(end);
+         
+         $("#page").empty();
+         if(start < 1){
+            start = 1;
+            $("input[name='startNum']").val(start);
+         }
+         if(start==1){
+            $("#backBtn").hide();
+         }
+         for(let i = start; i < start + 5; i++){
+            if(i <= $("input[name='maxPage']").val()){
+               $("#frontBtn").css("display", "inline-block");
+               $("#page").append("<button type = 'button' class = 'pageBtn' style = 'width: 20px'>" + i + "</button>");
+            } else {
+               $("#frontBtn").css("display", "none");
+            }
+         }
+      });
+      
+      $("#frontBtn").click(() => {
+         
+         let start = $("input[name=startNum]").val();
+         start = Number(start) + 5;
+         let end=start +4;
+         
+         let max = $("input[name='maxPage']").val();
+         if(end>max){
+            end=max;
+         }
+         if(start!=1){
+            $("#backBtn").css("display", "inline-block");
+         }
+         $("input[name=end]").val(end);
+         $("input[name=startNum]").val(start);
+         alert(start);
+         $("#page").empty();
+         for(let i = start; i < start + 5; i++){
+            
+            if(i <= $("input[name='maxPage']").val()){
+               $("#page").append(
+                  "<button type = 'button' class = pageBtn style = 'width: 20px'>" + i + "</button>"      
+               );
+            } else{
+               $("#frontBtn").css("display", "none");
+            }
+         }
+      });
+   
+      $("#aside_menu_btn").mouseover(function() {
+         //alert('dd');
+         $("#aside_submenu").css("display", "block");
+      });
+      $("#aside_menu_btn").mouseout(function() {
+         //alert('dd');
+         $("#aside_submenu").css("display", "none");
+      });
+   
+      function one_City(){
+         $("#city_box1").css("display","none");
+         $("#city_box2").css("display","block");
+         const check_city = document.querySelector("select").value;
+         if(check_city == "All"){
+            all_City();
+            return false;
+         }
+         const tbody = document.querySelector("#tbody1");
+         $("tbody").empty();
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 
-	            let data = this.responseText;
+               let data = this.responseText;
 
-	            let obj = JSON.parse(data);
+               let obj = JSON.parse(data);
 
-	            for (let i = 0; i < obj.length; i++) {
-	               tbody.innerHTML += "<tr><td>" + obj[i].board_num
-	               					+ "</td><td>"+ obj[i].city_name
-	               				 	+ "</td><td><a href='city_detail?board_num="+obj[i].board_num+"'>"+ obj[i].board_title
-	                     			+ "</a></td><td>" + obj[i].member_id  
-	                   	 		 	+ "</td><td>" + obj[i].board_viewcnt
-	                     			+ "</td><td>" + obj[i].board_regdate + "</td><tr>";     
-	            }
-	         }
-	         xhttp.open("GET","/api/oneCityBoard?check_city=" +check_city);
-	         xhttp.send();
-	    }
-		
-  		function search_city(){
+               for (let i = 0; i < obj.length; i++) {
+                  tbody.innerHTML += "<tr><td>" + obj[i].board_num
+								+ "</td><td>"+ obj[i].city_name
+								+ "</td><td><a href='city_detail?board_num="+obj[i].board_num+"'>"+ obj[i].board_title
+								+ "</a></td><td>" + obj[i].member_id  
+								+ "</td><td>" + obj[i].board_viewcnt
+								+ "</td><td>" + obj[i].board_regdate + "</td><tr>";     
+               }
+            }
+            xhttp.open("GET","/api/oneCityBoard?check_city=" +check_city);
+            xhttp.send();
+       }
+      
+        function search_city(){
             
             $("#tbody1").empty();         
-            	const citysel= $("select[name='sel']").val();
-            	const keyword= $("#keyword").val();
-          		
-            	if(keyword == ""){
-          			alert("검색어를 입력해주세요.");
-          			location.reload();
-          			return false;
-          		}
-          		
+               const citysel= $("select[name='sel']").val();
+               const keyword= $("#keyword").val();
+                
+               if(keyword == ""){
+                   alert("검색어를 입력해주세요.");
+                   location.reload();
+                   return false;
+                }
+                
                     $.ajax({
                        url: "/board/citySearch",
                        method: "GET",
@@ -401,6 +606,6 @@ h2 {
                        });
              }
              
-	</script>
+   </script>
 </body>
 </html>

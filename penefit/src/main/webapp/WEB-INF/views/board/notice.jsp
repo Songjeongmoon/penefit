@@ -1,11 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
 
 <style>
@@ -13,6 +17,7 @@
 	display: none;
 	width: 100px;
 }
+
 h2 {
 	text-align: center;
 	font-size: 35px;
@@ -35,11 +40,29 @@ h2 {
 
 #notice_tbl tr {
 	border-bottom: thin solid #BBB09F;
+
 }
+
+#listBox{
+	display:relative;
+}
+
+.pageBox{
+	margin:0 auto;
+	position:absolute;
+	top : 720px;
+	left : 450px;
+	
+}
+
 </style>
 </head>
 <body>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 	<%@ include file="../header.jsp"%>
 	<div class="box">
 		<section>
@@ -49,12 +72,17 @@ h2 {
 					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
 					<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
 				</ul>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 
 			</aside>
-			<div class="content">
+			<div class="content" id="listBox">
 				<h2>공지사항</h2>
 				<c:set var="start" value="${pstart }" />
 				<c:set var="end" value="${pstart + 4 }" />
+
 
 
 				<c:if test="${notice_count % 10 gt 0 }">
@@ -66,7 +94,7 @@ h2 {
 				</c:if>
 
 
-				<h3>총 ${notice_count }건</h3>
+			<%-- 	&nbsp;&nbsp;&nbsp;<h4>총 ${notice_count }건</h4> --%>
 				<table id="notice_tbl">
 					<thead>
 						<tr>
@@ -89,9 +117,10 @@ h2 {
 						</c:forEach>
 					</tbody>
 				</table>
-
-
+			<div class="pageBox">
+			<c:if test="${start ne 1 }">
 				<a href="/board/notice?pageNum=${start - 5}&start=${start - 5}">[이전]</a>
+			</c:if>
 				<c:forEach var="pageNum" begin="${start }" end="${end }">
 					<c:if test="${pageNum lt count  }">
 						<a href="/board/notice?pageNum=${pageNum }&start=${start}">${pageNum }</a>&nbsp;&nbsp;
@@ -100,58 +129,24 @@ h2 {
 				<c:if test="${start + 5 lt count }">
 					<a href="/board/notice?pageNum=${start + 5}&start=${start + 5}">[다음]</a>
 				</c:if>
+				</div>
 			</div>
 		</section>
 	</div>
 	<script>
-      $("#aside_menu_btn").mouseover(function() {
-         //alert('dd');
-         $("#aside_submenu").css("display", "block");
-      })
-      $("#aside_menu_btn").mouseout(function() {
-         //alert('dd');
-         $("#aside_submenu").css("display", "none");
-      })
-
-      function getNotice(page) {
-         $.ajax({
-            url : "/notice/page" + page,
-            type : "GET",
-            success: function (data){
-               $.each(data, function (index, notice){
-                  var item = "<li>" + notice_num   ""
-               })
-            }
-            data : {
-               page : page
-            },
-            success : function(data) {
-               $("#notice-list").html(data);
-            },
-         });
-      }
-
-      $(document).ready(function() {
-         // 페이지 로드 시 첫 페이지 로드
-         getProducts(1);
-
-         // 이전 버튼 클릭 시 이전 페이지 로드
-         $("#prev-btn").click(function() {
-            var page = parseInt($("#page").val()) - 1;
-            if (page >= 1) {
-               $("#page").val(page);
-               getNotice(page);
-            }
-         });
-
-         // 다음 버튼 클릭 시 다음 페이지 로드
-         $("#next-btn").click(function() {
-            var page = parseInt($("#page").val()) + 1;
-            $("#page").val(page);
-            getNotice(page);
-         });
-      });
-   </script>
+		$("#aside_menu_btn").mouseover(function() {
+			//alert('dd');
+			$("#aside_submenu").css("display", "block");
+		})
+		$("#aside_menu_btn").mouseout(function() {
+			//alert('dd');
+			$("#aside_submenu").css("display", "none");
+		})
+		
+		
+		
+	
+	</script>
 
 </body>
 </html>

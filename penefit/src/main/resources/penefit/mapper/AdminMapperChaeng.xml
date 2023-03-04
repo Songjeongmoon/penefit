@@ -40,7 +40,6 @@
 		reply where qna_num = #{param1}
 	</select>
 
-
 	<!-- 리뷰목록 -->
 	<select id="getReviewList"
 		resultType="com.penefit.moons.domain.ReviewVO">
@@ -50,6 +49,7 @@
 		LIMIT #{startNum},5
 
 	</select>
+
 	<!-- 리뷰목록 신규 -->
 	<select id="getReviewListNew"
 		resultType="com.penefit.moons.domain.ReviewVO">

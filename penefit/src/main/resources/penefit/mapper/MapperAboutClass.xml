@@ -3,20 +3,36 @@
 <mapper namespace="com.penefit.moons.mapper.MapperAboutClass">
 	<!-- xml이 동작하는 인터페이스의 주소 -->
 
+	<!-- 클래스 count -->
+	<select id="countClass" resultType="_int">
+		SELECT COUNT(*) FROM class
+	</select>
+	
 	<!--클래스 목록 조회 -->
 	<select id="getClassList"
 		resultType="com.penefit.moons.domain.ClassVO">
-		select * from class
+		select * from class LIMIT #{pageNum},8
 	</select>
 
 
+	<!-- 진행중인 클래스 count -->
+	<select id="countOngingClass" resultType="_int">
+		SELECT COUNT(*) FROM class WHERE class_date NOT BETWEEN
+		'2000-07-01 00:00:00' AND (select CURRENT_TIMESTAMP())
+	</select>
+	
 	<!--진행중인 클래스 목록 조회 -->
 	<select id="getOngoingClassList"
 		resultType="com.penefit.moons.domain.ClassVO">
 		SELECT * FROM class WHERE class_date NOT BETWEEN
-		'2000-07-01 00:00:00' AND (select CURRENT_TIMESTAMP());
+		'2000-07-01 00:00:00' AND (select CURRENT_TIMESTAMP()) LIMIT #{pageNum},8
 	</select>
-	
+
+	<!-- 마감된 강의 count -->
+	<select id="expiredClassCount" resultType="_int">
+		SELECT COUNT(*) FROM class WHERE class_date BETWEEN '2000-07-01
+		00:00:00' AND (select CURRENT_TIMESTAMP())
+	</select>
 	
 	<select id="homerecolist"
 		resultType="com.penefit.moons.domain.ClassVO">
@@ -24,11 +40,20 @@
 		'2000-07-01 00:00:00' AND (select CURRENT_TIMESTAMP()) 
 		ORDER BY class_memcnt ASC limit 5
 	</select>
+
 	<!-- 마감된 강의 -->
 	<select id="getExpiredClassList"
 		resultType="com.penefit.moons.domain.ClassVO">
 		SELECT * FROM class WHERE class_date BETWEEN '2000-07-01
-		00:00:00' AND (select CURRENT_TIMESTAMP());
+		00:00:00' AND (select CURRENT_TIMESTAMP()) LIMIT #{pageNum},8
+	</select>
+	
+	<!-- 카테고리 별 클래스COUNT -->
+	<select id="ctgClassCount" resultType="_int">
+		SELECT COUNT(*) FROM class WHERE class_date NOT BETWEEN
+		'2000-07-01 00:00:00' AND (select CURRENT_TIMESTAMP()) AND class_code
+		LIKE
+		CONCAT(#{key},'%')
 	</select>
 
 	<!-- 메인의 클래스 -->
@@ -48,17 +73,17 @@
 		SELECT * FROM class WHERE class_date NOT BETWEEN
 		'2000-07-01 00:00:00' AND (select CURRENT_TIMESTAMP()) AND class_code
 		LIKE
-		CONCAT(#{key},'%')
+		CONCAT(#{param1},'%') LIMIT #{pageNum},8
 	</select>
+	
 
-	<!--신규 클래스 목록 조회 -->
+	<!--신규 클래스 목록 조회 -->				
 	<select id="getNewClassList"
 		resultType="com.penefit.moons.domain.ClassVO">
 		SELECT * FROM class
-		WHERE class_date NOT BETWEEN '2022-07-01
-		00:00:00' AND (select
-		CURRENT_TIMESTAMP()) order by class_regdate desc
-		limit 8
+		WHERE class_date NOT BETWEEN '2022-07-01 00:00:00' AND (select
+		CURRENT_TIMESTAMP()) order by class_regdate desc limit 8
+
 	</select>
 
 	<!--클래스 검색 -->
@@ -69,6 +94,7 @@
 		class_teacher like CONCAT('%', #{keyword},'%') or class_info like
 		CONCAT('%', #{keyword},'%')
 	</select>
+	
 	<!--클래스 검색 건수 -->
 	<select id="getSearchClassListCnt" resultType="_int">
 		select count(*)
@@ -298,6 +324,11 @@
 		c.class_code=#{class_code}
 		
 	</select>
+	
+	<select id="getReviewOne" resultType="com.penefit.moons.domain.ReviewVO">
+		SELECT * FROM review WHERE review_num=#{review_num}
+	
+	</select>
 
 	<!-- 중복리뷰 방지 -->
 	<select id="getReviewCheck" resultType="_int">
@@ -309,6 +340,7 @@
 	</select>
 
 	<!-- 리뷰목록 받기 -->
+
 	<select id="getReviewList"
 		resultType="com.penefit.moons.domain.ReviewVO">
 		SELECT c.class_code, c.class_subject, c.city_code, r.*
@@ -333,6 +365,7 @@
 	<select id="qnamaxPage" resultType="_int">
 	SELECT CEILING(COUNT(*)/5) from qna where member_id=#{member_id}
 	</select>
+
 	
 	<!-- 방문자수 추 -->
 	<insert id="insertVisits">

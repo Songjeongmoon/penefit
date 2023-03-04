@@ -14,12 +14,17 @@ import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.domain.WishlistVO;
 
 public interface ServiceAboutClassI {
-
-	// 전체 클래스 목록보기
-	public ArrayList<ClassVO> getClassList();
-
+	//전체 클래서 count---
+	public int countClass();
+	
+	// 전체 클래스 목록보기	----
+	public ArrayList<ClassVO> getClassList(int pageNum);
+	
+	//카테고리별 클래스 count
+	public int ctgClassCount(String key);
+	
 	// 카테고리별 클래스 목록
-	public ArrayList<ClassVO> getCtgClassList(String key);
+	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum);
 
 	// 신규 클래스 목록
 	public ArrayList<ClassVO> getNewClassList();
@@ -96,15 +101,29 @@ public interface ServiceAboutClassI {
 
 	//상세보기에 출력할 후기 목록
 	public List<ReviewVO> getReview(String class_code);
+	
+	//상세보기 후기 하나
+	public ReviewVO getReviewOne(int review_num);
 
 	//마감기간이 지나지 않은 목록
 	public ArrayList<ClassVO> getClassList1();
 
-	//진행중인 목록
-	public ArrayList<ClassVO> getOngoingClassList();
-	//마감된 목록
-	public ArrayList<ClassVO> getExpiredClassList();
+	//진행중인 클래스 count ----
+	public int countOngingClass();
 	
+	//진행중인 목록	----
+	public ArrayList<ClassVO> getOngoingClassList(int pageNum);
+	
+	
+	//마감된 강의 count---
+	public int expiredClassCount();
+	
+	//마감된 목록
+	public ArrayList<ClassVO> getExpiredClassList(int pageNum);
+	
+	//리뷰목록
+	public List<ReviewVO> getReviewList(String member_id);
+
 
 	public int getReviewCheck(String class_code, String member_id, int buy_history_num);
 	
