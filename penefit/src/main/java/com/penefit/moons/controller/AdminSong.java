@@ -31,7 +31,7 @@ class AdminSong {
 	
 	@GetMapping("/suggestionlist")
 	public String SuggestionListWindow() {
-		return "class/suggestion/adminSuggestionList";
+		return "admin/adminSuggestList";
 	}
 	
 	@GetMapping("suggestion/list")
@@ -77,7 +77,6 @@ class AdminSong {
 	@GetMapping("/class/one")
 	@ResponseBody
 	public ClassVO getClassOne(String class_code) {
-		System.out.println(class_code);
 		return service.getClassOne(class_code);
 	}
 	
@@ -90,11 +89,10 @@ class AdminSong {
 		
 	}
 	
-	@PutMapping("/class")
+	@PutMapping("/class/update")
 	@ResponseBody
 	public String updateClass(ClassVO classvo, MultipartHttpServletRequest files) {
 		String result = service.updateClass(classvo, files);
-		
 		return result;
 	}
 	

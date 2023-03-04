@@ -1,5 +1,10 @@
 package com.penefit.moons.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +35,24 @@ public class ControllerAboutAdmin {
 	}
 	
 	@PostMapping("notice_reg.do")		//공지사항 등록
-	public String noticeRegDo(NoticeVO nvo) {
-		log.info(nvo.toString());
-		adService.noticeReg(nvo);
+	public String noticeRegDo(NoticeVO nvo, HttpServletResponse res) {
+		res.setContentType("text/html; charset=UTF-8");
+		try {
+			PrintWriter out = res.getWriter();
+			if(nvo.getNotice_title().equals("")) {
+				out.print("<script> alert('제목을 입력해주세요.'); history.back();</script>");
+				out.close();
+			} else if(nvo.getNotice_content().equals("")) {
+				out.print("<script> alert('내용을 입력해주세요.'); history.back();</script>");
+				out.close();
+			} else {				
+				adService.noticeReg(nvo);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		return "redirect:board/notice";
+		return "redirect:/board/notice?pageNum=1&start=1";
 	}
 	
 	@GetMapping("errorWindow_404ver")

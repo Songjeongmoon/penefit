@@ -55,8 +55,8 @@ button {
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
-					<li class="aside_menu"><a href="notice">공지사항</a></li>
-					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
+					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
+					<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
 				</ul>
 			</aside>
 			<div class="content">

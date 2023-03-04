@@ -50,4 +50,16 @@
   	 <delete id="deleteMemberManager">
    		DELETE FROM member  WHERE member_id = #{member_id};
    	 </delete>
+   	 
+   	 	<!-- 관리자 멤버목록  받기 -->
+	<select id="getMemManagerList"
+		resultType="com.penefit.moons.domain.MemberVO">
+		SELECT * FROM member order by member_id asc limit #{pageNum}, 5
+	</select>
+	
+		<!-- 관리자 멤버목록 수  -->
+	<select id="getMemManagerListmaxPage" resultType="_int">
+	SELECT CEILING(COUNT(*)/5) from member
+	</select>
+	
 </mapper>

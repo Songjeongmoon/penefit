@@ -199,14 +199,14 @@ section {
 	margin : 0 auto;
 	position: absolute;
 	width: 1300px;
-	height: 1500px;
+	height: 1000px;
 	top: 250px;
 }
 .box section {
 	margin : 0 auto;
 	position: absolute;
 	width: 1300px;
-	height: 1500px;
+	height: 1000px;
 	top: 250px;
 }
 .bd-placeholder-img {
@@ -258,10 +258,11 @@ aside li {
 
 .content {
 	width: 1050px;
+	height : 1000px;
 	position: absolute;
 	left :230px;
 	z-index: 100;
-	
+	margin-bottom: 200px;
 }
 
 

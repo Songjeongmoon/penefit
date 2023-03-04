@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,10 +62,6 @@ public class ControllerAboutClassInfo {
 	public String ClassListWindow() {
 		return "/class/myClassList";
 	}
-	
-	
-	
-
 	
 	@PostMapping("/list/my/cnt")
 	@ResponseBody
@@ -128,7 +125,7 @@ public class ControllerAboutClassInfo {
 	//클래스 신청서 접수
 	
 	@PostMapping("/suggestion")
-	public void insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res) {
+	public void insertSuggestion(@Valid SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res) {
 		res.setContentType("text/html; charset=UTF-8");
 		List<MultipartFile> list = files.getFiles("files");
 		
@@ -164,7 +161,7 @@ public class ControllerAboutClassInfo {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
 			
 		
@@ -175,9 +172,10 @@ public class ControllerAboutClassInfo {
 	
 	@PostMapping("/suggestion-list")
 	@ResponseBody
-	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id, Model model) {
-		ArrayList<SuggestDTO> list = service.getMySuggestionList(member_id);
-		model.addAttribute("list", list);
+	public ArrayList<SuggestDTO> getMySuggestionListASC(String member_id, int pageNum) {
+		int pageNumF = pageNum *5 -5;
+		System.out.println("pageNumF : " + pageNumF);
+		ArrayList<SuggestDTO> list = service.getMySuggestionList(member_id, pageNumF);
 		return list;
 	}
 	

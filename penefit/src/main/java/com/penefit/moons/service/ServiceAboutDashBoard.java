@@ -103,4 +103,11 @@ public class ServiceAboutDashBoard implements ServiceAboutDashBoardI{
 		return mapper.getMember7days(day);
 	}
 
+	public String getGrade(String member_id) {
+		
+		return mapper.getGrade(member_id);
+	}
+	
+
+
 }

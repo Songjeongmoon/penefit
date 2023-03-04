@@ -34,6 +34,8 @@ public interface ServiceAboutDashBoardI {
 	public List<QnAVO> getQnAList();
 	
 	public List<VisitsDTO> getVisits();
+	
+	public String  getGrade(String member_id);
 
 	public int getMemberToday();
 	

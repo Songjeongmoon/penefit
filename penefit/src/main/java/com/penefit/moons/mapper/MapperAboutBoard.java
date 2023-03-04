@@ -35,11 +35,13 @@ public interface MapperAboutBoard {
 	public int cityReg(BoardVO bvo);
 
 	// 전체 지역 게시판
-	public List<BoardVO> getCityList();
+	public List<BoardVO> getCityList(@Param("startNum") int startNum, @Param("sel")String sel, @Param("keyword")String keyword);
 
 	// 각 지역별 게시판
 	public List<BoardVO> getOneCityList(String check_city);
 	
+	// 각 게시판 갯수
+	public int getSearchCount(int pageNum, String sel, String keyword);
 	
 	//지역 게시판 검색
 	public List<BoardVO> search_city(@Param("keyword") String keyword, @Param("city_code") String city_code);

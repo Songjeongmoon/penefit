@@ -1,7 +1,13 @@
 package com.penefit.moons.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +30,26 @@ public class ControllerAboutDashBoard {
 	ServiceAboutDashBoard serviceDash;
 	
 	@GetMapping("/")
-	public String dashboard(Model model, String class_date) {
+	public String dashboard(Model model, String class_date, HttpServletRequest req, HttpServletResponse res) {
+		
+		
+		HttpSession session = req.getSession();
+		String id = (String) session.getAttribute("member_id");
+		String grade = serviceDash.getGrade(id);
+		
+		if(id == null || !grade.equals("C")) {
+			
+			res.setContentType("text/html; charset=UTF-8");
+			try {
+				PrintWriter out = res.getWriter();
+				out.print("<script> alert('권한이 없습니다.'); history.back();</script>");
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 		ArrayList<MemberVO>memberList = serviceDash.teacherSelectALL(); 
 		

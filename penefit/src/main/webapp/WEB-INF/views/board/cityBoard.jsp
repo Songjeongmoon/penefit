@@ -61,6 +61,9 @@ h2 {
 	margin-bottom: 20px;
 	font-weight: bold;
 }
+#page{
+	display: inline-block;
+}
 </style>
 </head>
 <body>
@@ -68,11 +71,31 @@ h2 {
 	<div class="box">
 		<section>
 			<aside>
+<<<<<<< HEAD
             <ul>
                <li class="aside_title">커뮤니티</li>
                <li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
 				<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
             </ul>
+=======
+				<ul>
+					<li class="aside_title">커뮤니티</li>
+<<<<<<< HEAD
+<<<<<<< HEAD
+					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
+					<li class="aside_menu"><a href="#">수강후기</a></li>
+					<li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
+					<li class="aside_menu"><a href="#">클래스별게시판</a></li>
+=======
+					<li class="aside_menu"><a href="notice">공지사항</a></li>
+					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
+=======
+					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
+					<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
+				</ul>
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 
 			</aside>
 			<div class="content">
@@ -80,7 +103,7 @@ h2 {
 				<div id="selectbox">
 					<!-- 1. 이동 버튼이 있어야함 -->
 					<select id="sel" name="sel">
-						<option value="All">전체</option>
+						<option value="">전체</option>
 						<option value="A">서울</option>
 						<option value="B">경기</option>
 						<option value="C">인천</option>
@@ -102,14 +125,18 @@ h2 {
 
 					<button type="button" id="check_city" onclick="one_City()">선택</button>&nbsp;&nbsp;&nbsp; 
 					<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요..."> 
-					<input type="button" value="검색" id="searchBtn" onclick="search_city()">
+					<input type="button" value="검색" id="searchBtn">
 					<div style="text-align: right;">
 						<button type="button" onclick="location.href='city_regView'" id="write">글쓰기</button>
 					</div>
 				</div>
 				
+				<input type = "hidden" name = "startNum" value = "${start }">
+				<input type = "hidden" name = "maxPage" value = "${count }">
+				
 				<div id="citybox1">
 					<table id="city_tbl">
+					
 						<thead>
 							<tr>
 								<th>번호</th>
@@ -120,17 +147,154 @@ h2 {
 								<th>등록일</th>
 							</tr>
 						</thead>
-						<!--tbody에 내용물이 바뀌는것 -->
+						
 						<tbody id="tbody1">
-
+							<c:forEach var = "board" items="${list }">
+								<tr class="dd">
+									<td>${board.board_num }</td>
+									<td>${board.city_name }</td>
+									<td>${board.board_title }</td>
+									<td>${board.member_id }</td>
+									<td>${board.board_viewcnt }</td>
+									<td>${board.board_regdate }</td>
+								</tr>
+							</c:forEach>
 						</tbody>
+						
 					</table>
+					
+							<button type = "button" id = "backBtn" style = "width: 30px; background-color: black">&lt;</button>
+							
+						<div id = "page">
+							<c:forEach var = "pageNum" begin = "${start }" end = "${start + 4 }">
+								<button type = "button" class = "pageBtn" style = "width: 20px">${pageNum }</button>
+							</c:forEach>
+						</div>
+						
+							<button type = "button" id = "frontBtn" style = "width: 30px; background-color: black">&gt;</button>
 				</div>
 			</div>
 		</section>
 	</div>
+<<<<<<< HEAD
 	<%@ include file="../footer.jsp"%>
+	
+=======
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 	<script>
+	
+	
+		$(".content").on("click", (event) => {
+			let e = event.target.className;
+			if(e == "pageBtn" || event.target.id == "searchBtn"){
+				let pageNum = event.target.textContent;
+				if(pageNum == ""){
+					pageNum = 1;
+				}
+				let sel = $("#sel").val();
+				let search = $("#keyword").val();
+				$.ajax({
+					url: "/board/cityBoards",
+					method: "get",
+					dataType: "json",
+					data: {
+						pageNum: pageNum,
+						sel: sel,
+						keyword: search
+					},
+					success: (data) => {
+						$("#tbody1").empty();
+						for(let i = 0; i < data.length; i++){
+							$("#tbody1").append("<tr>"
+							+ "<td>" + data[i].board_num + "</td>"
+							+ "<td>" + data[i].city_name + "</td>"
+							+ "<td><a href = '#'>" + data[i].board_title + "</a></td>"
+							+ "<td>" + data[i].member_id + "</td>"
+							+ "<td>" + data[i].board_viewcnt + "</td>"
+							+ "<td>" + data[i].board_regdate + "</td>"
+							+ "</tr>");
+						}
+					},
+					error: () => {
+						alert("Error [실패]");
+					},
+					complete: () => {
+						if(event.target.id == "searchBtn"){
+							$.ajax({
+								url: "/board/citySearchCount",
+								method: "get",
+								data: {
+									pageNum: pageNum,
+									sel: sel,
+									keyword: search
+								},
+								success: (data) => {
+									$("#page").empty();
+									$("input[name='maxPage']").val(data);
+									$("input[name=startNum]").val(1);
+									let start = $("input[name=startNum]").val();
+									for(let i = start; i < start + 5; i++){
+										
+										if(i <= $("input[name='maxPage']").val()){
+											$("#page").append(
+												"<button type = 'button' class = pageBtn style = 'width: 20px'>" + i + "</button>"		
+											);
+										} else{
+											$("#frontBtn").css("display", "none");
+										}
+									}
+								},
+								error: () => {
+									alert("Error [실패]");
+								}
+							})
+						}
+						
+					}
+					
+				})
+			}
+		})
+		
+		$("#backBtn").click(() => {
+			let start = $("input[name=startNum]").val();
+			start = Number(start) - 5;
+			$("input[name=startNum]").val(start);
+			
+			$("#page").empty();
+			if(start < 1){
+				start = 1;
+				$("input[name='startNum']").val(start);
+			}
+			
+			for(let i = start; i < start + 5; i++){
+				if(i <= $("input[name='maxPage']").val()){
+					$("#frontBtn").css("display", "inline-block");
+					$("#page").append("<button type = 'button' class = pageBtn style = 'width: 20px'>" + i + "</button>");
+				} else {
+					$("#frontBtn").css("display", "none");
+				}
+			}
+		});
+		
+		$("#frontBtn").click(() => {
+			let start = $("input[name=startNum]").val();
+			start = Number(start) + 5;
+			$("input[name=startNum]").val(start);
+			
+			$("#page").empty();
+			for(let i = start; i < start + 5; i++){
+				
+				if(i <= $("input[name='maxPage']").val()){
+					$("#page").append(
+						"<button type = 'button' class = pageBtn style = 'width: 20px'>" + i + "</button>"		
+					);
+				} else{
+					$("#frontBtn").css("display", "none");
+				}
+			}
+		});
+	
 		$("#aside_menu_btn").mouseover(function() {
 			//alert('dd');
 			$("#aside_submenu").css("display", "block");
@@ -139,40 +303,6 @@ h2 {
 			//alert('dd');
 			$("#aside_submenu").css("display", "none");
 		});
-		
-		
-		all_City();
-		
-		
-		function all_City(){
-			
-			const tbody = document.querySelector("#tbody1");
-			$("tbody").empty();
-			 
-	        const xhttp = new XMLHttpRequest();
-	        xhttp.onload = function() {
-
-	        	
-	           let data = this.responseText;
-	           let obj = JSON.parse(data);
-	         
-	            for (let i = 0; i < obj.length; i++) {
-	               tbody.innerHTML += "<tr><td>" + obj[i].board_num 
-	               					+"</td><td>" +obj[i].city_name 
-	                     			+ "</td><td style='width:400px;'><a href='city_detail?board_num="+obj[i].board_num+"'>"+ obj[i].board_title  
-	                     			+"</td><td>" + obj[i].member_id  
-	                     			+"</td><td>" + obj[i].board_viewcnt  
-	                     			+"</td><td>" + obj[i].board_regdate + "</td><tr>"
-               
-	            }
-	            $("tr").css("border-bottom","thin solid #BBB09F");
-	            $("a").css("color","black");
-	            $("a").css("text-decoration","none");
-	            
-	         }
-	         xhttp.open("GET","/api/cityBoard/");
-	         xhttp.send();
-	    }
 	
 		function one_City(){
 			$("#city_box1").css("display","none");
@@ -207,9 +337,15 @@ h2 {
   		function search_city(){
             
             $("#tbody1").empty();         
-            const citysel= $("select[name='sel']").val();
-               const keyword= $("#keyword").val();
-          
+            	const citysel= $("select[name='sel']").val();
+            	const keyword= $("#keyword").val();
+          		
+            	if(keyword == ""){
+          			alert("검색어를 입력해주세요.");
+          			location.reload();
+          			return false;
+          		}
+          		
                     $.ajax({
                        url: "/board/citySearch",
                        method: "GET",

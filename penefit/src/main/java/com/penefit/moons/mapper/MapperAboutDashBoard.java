@@ -39,9 +39,13 @@ public interface MapperAboutDashBoard {
 	
 	public List<VisitsDTO> getVisits();
 	
+
 	public int getMemberToday();
 	
 	public int getMember7days(int day);
+
+	public String getGrade(String member_id);
+
 
 }
 

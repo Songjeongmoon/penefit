@@ -10,8 +10,6 @@ import com.penefit.moons.domain.SuggestDTO;
 public interface ServiceAboutClassInfoIm {
 	
 	public int insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files);
-	
-	public ArrayList<SuggestDTO> getMySuggestionList(String member_id);
 
 	public ArrayList<ClassListDTO> getMyClassList(String member_id);
 	
@@ -24,5 +22,7 @@ public interface ServiceAboutClassInfoIm {
 	public ArrayList<ClassListDTO> getMyClassListCnt(String member_id);
 	
 	public ArrayList<ClassListDTO> getMyClassListCntAsc(String member_id);
+
+	public ArrayList<SuggestDTO> getMySuggestionList(String member_id, int pageNum);
 	
 }

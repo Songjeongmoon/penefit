@@ -99,6 +99,7 @@
 									<option value="B">간식</option>
 									<option value="C">훈련</option>
 									<option value="D">의류</option>
+									<option value="E">기타</option>
 							</select></td>
 						</tr>
 
@@ -160,7 +161,7 @@
 							<td><input type="file" multiple="multiple" name="files"></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="text-align: center;"><input
+							<td colspan="2" style="text-align: center"><input
 								type="submit" value="신청" id="submitbtn"></td>
 						</tr>
 					</table>

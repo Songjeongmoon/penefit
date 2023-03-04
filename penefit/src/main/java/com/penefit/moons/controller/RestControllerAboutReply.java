@@ -33,17 +33,14 @@ public class RestControllerAboutReply {
 		return oneCList;
 	}
 
-	// 지역별 게시판
-	@GetMapping("/api/cityBoard/")
-	public List<BoardVO> cityBoard() {
-		List<BoardVO> clist = bservice.getCitylist();
-		return clist;
-	}
-
 	@PostMapping("/api/city/reply") // 댓글등록
 	public String regReply(@RequestBody ReplyVO crvo) {
-		int result = bservice.cityreplyReg(crvo);
 		String msg = "";
+		if(crvo.getReply_content().equals("")) {
+			msg = "[Error] 댓글 내용이 공백입니다.";
+			return msg;
+		}
+		int result = bservice.cityreplyReg(crvo);
 
 		if (result == 1) {
 			msg = "등록완료";
@@ -78,11 +75,12 @@ public class RestControllerAboutReply {
 	
 	@PostMapping("/cityReg.do")
 	public String cityBoardRegDo2(@RequestBody BoardVO bvo) {
-		System.out.println("bvo:"+ bvo);
-		System.out.println("--------------------");
-		int result = bservice.cityReg(bvo);
 		String msg="";
-		System.out.println("bvo:"+ bvo);
+		if(bvo.getBoard_content().equals("") || bvo.getBoard_title().equals("") || bvo.getCity_code().equals("")) {
+			msg = "공백이 존재합니다.";
+			return msg;
+		}
+		int result = bservice.cityReg(bvo);
 		if(result == 1) {
 			msg="등록 완료";
 		}else{

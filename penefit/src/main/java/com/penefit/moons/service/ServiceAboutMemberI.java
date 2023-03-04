@@ -1,6 +1,7 @@
 package com.penefit.moons.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,11 +17,11 @@ public interface ServiceAboutMemberI {
 	//아이디체크
 	public int idCheck(String id);
 	//로그인
-	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession Session);
+	public int loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession Session);
 	//로그아웃
 	public String logout(HttpSession session);
 	//회원정보수정
-	public String UpdateMember(MemberVO member);
+	public int UpdateMember(MemberVO member);
 	//회원정보조회
 	public MemberVO selectOne(String id);
 	//회원탈퇴
@@ -40,5 +41,10 @@ public interface ServiceAboutMemberI {
 	public String updateMemberManager(MemberVO member);
 	//관리자 회원탈퇴
 	public String deleteMemberManager(String id);
-		
+	
+	//관리자 멤버리스트 페이지
+	public List<MemberVO> getMemManagerList(int pageNum);
+	
+	//관리자 멤버리스트 페이지수
+		public int getMemManagerListmaxPage();
 }

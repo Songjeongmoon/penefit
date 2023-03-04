@@ -10,7 +10,7 @@ public interface QnaChaengI {
 	//qna등록
 	public void regQna(QnAVO qna);
 
-	public List<QnAVO> getQnaList(String member_id);
+	public List<QnAVO> getQnaList(String member_id, int pageNum);
 
 	public QnAVO qnaOneList(String member_id, int qna_num);
 

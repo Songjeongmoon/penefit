@@ -24,8 +24,8 @@ public class QnaChaeng implements QnaChaengI{
 		
 	}
 	@Override
-	public List<QnAVO> getQnaList(String member_id) {
-		List<QnAVO> list = mapper.getQnaList(member_id);
+	public List<QnAVO> getQnaList(String member_id, int pageNum) {
+		List<QnAVO> list = mapper.getQnaList(member_id, pageNum);
 		return list;
 	}
 	@Override

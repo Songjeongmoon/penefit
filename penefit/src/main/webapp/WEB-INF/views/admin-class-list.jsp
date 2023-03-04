@@ -6,13 +6,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#detailModal {
+		border: 1px solid red;
+		display: none;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateX(-50%);	
+	}
+	#add {
+		display: inline-block;
+		width: 100%;
+		height: 150px;
+		border: 1px solid red;
+	}
+	.imgBox {
+		heigth: 150px;
+		width: 150px;
+	}
+</style>
 </head>
 <body>
 <%@ include file = "./header.jsp" %>
 
 검색<input type = "text" name = "search" value=""><input type = "button" id = "searchBtn" value = "검색"><br>
-
-<table>
+<table id = "classList" border = "1">
 	<thead>
 		<tr>
 			<th>코드</th><th>제목</th><th>현재인원</th>
@@ -42,10 +61,11 @@
 	</tbody>
 	
 	
-</table>
 
+</table>
 	<div id = "detailModal">
-		<form action = "/admin/class/update" method = "post" enctype = "multipart/form-data">
+		<form id = "updateForm">
+			첨부했던 이미지<div id = "add"></div>
 			클래스코드<input type = "text" name = "class_code"><br>
 			제목<input type = "text" name = "class_subject"></input><br>
 			강사<input type = "text" name = "class_teacher"></input><br>
@@ -55,17 +75,28 @@
 			가격<input type = "text" name = "class_price"></input><br>
 			첨부사진<input type = "text" name = "suggest_photo"><br>
 			파일 새로넣기<input type = "file" name = "files" multiple="multiple"><br>
-			<input type = "submit" value = "수정">
+			<button type = "button" id = "updateBtn" >수정</button>
+			<button type = "button" id = "closeBtn" >닫기</button>
 		</form>
 		
 	</div>
 <button id = "dayBtn" value = "desc">날짜순</button>
 <button id = "endBtn">완료된 클래스</button>
 <button id = "activeBtn">진행중 클래스</button>
+<<<<<<< HEAD
 <%@ include file = "./footer.jsp" %>
+<img id = "im" />
+=======
 
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
 <script>
+
+	$("#closeBtn").click(() => {
+		$("#detailModal").css("display", "none");
+		$("#classList").css("display", "block");
+	})
+
 	$("#endBtn").click((event) => {
 		$.ajax({
 			url: "/admin/class/end",
@@ -115,6 +146,7 @@
 			
 		})
 	})
+	
 	$("#dayBtn").click((event) => {
 		if(event.target.value == "desc"){
 			event.target.value = "asc";
@@ -169,8 +201,10 @@
 	
 	$("#classListBody").click((event) => {
 		if(event.target.className == "classDetail"){
+			$("#classList").css("display", "none");
+			$("#detailModal").css("display", "inline-block");
 			let code = event.target.previousElementSibling.textContent;
-			alert(code);
+			$("#add").empty();
 			$.ajax({
 				url: "/admin/class/one",
 				method: "GET",
@@ -178,6 +212,13 @@
 					class_code : code
 				},
 				success: (data) => {
+					let photo = data.suggest_photo.split("-");
+					
+					for(let i = 0; i < photo.length; i++){
+						$("#add").append("<img class = 'imgBox' src=../../images/" + photo[i] + "/>");
+					
+					}
+					$("input[name='im']").val(photo[0]);
 					$("input[name='class_code']").val(data.class_code);
 					$("input[name='class_subject']").val(data.class_subject);
 					$("input[name='class_teacher']").val(data.class_teacher);
@@ -190,7 +231,6 @@
 				error: () => {
 					alert("error");
 				}
-				
 			})
 		}
 	})
@@ -243,6 +283,28 @@
 			}
 			
 		})
+	})
+	
+	$("#updateBtn").click(() => {
+		let form = $("#updateForm")[0];
+		let data = new FormData(form);
+		$.ajax({             
+	    	method: "PUT",          
+	        enctype: 'multipart/form-data',  
+	        url: "/admin/class/update",        
+	        data: data,          
+	        processData: false,    
+	        contentType: false,      
+	        cache: false,           
+	        timeout: 600000,       
+	        success: function(data) {
+	        	alert(data);
+	        },          
+	        error: function () {  
+	            alert("fail");      
+	        }     
+		});
+		
 	})
 	
 </script>

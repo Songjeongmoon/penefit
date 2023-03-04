@@ -54,11 +54,16 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 
 	// 전체 지역 게시판 리스트
 	@Override
-	public List<BoardVO> getCitylist() {
-		List<BoardVO> clist = bmapper.getCityList();
+	public List<BoardVO> getAllCityList(int pageNum, String sel, String keyword) {
+		List<BoardVO> clist = bmapper.getCityList(pageNum, sel, keyword);
 		return clist;
 	}
 
+	// 각 게시판 갯수
+	public int getSearchCount(int pageNum, String sel, String keyword) {
+		return bmapper.getSearchCount(pageNum, sel, keyword);
+	}
+	
 	// 각 지역 게시판 리스트
 	@Override
 	public List<BoardVO> getCityListOne(String check_city) {
@@ -73,6 +78,8 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		BoardVO cvo = bmapper.citySelectOne(board_num);
 		return cvo;
 	}
+	
+	
 
 	// 지역 게시판 등록
 	@Override
@@ -85,7 +92,7 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 	@Override
 	public List<BoardVO> searchCity(String keyword, String citysel) {
 		List<BoardVO> list = bmapper.search_city(keyword, citysel);
-
+		
 		return list;
 	}
 

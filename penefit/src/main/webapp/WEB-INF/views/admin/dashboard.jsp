@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 
 <head>
 <meta charset="UTF-8">
@@ -70,7 +71,81 @@
           xhttp.send();
         }
       </script>
+
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+	  google.charts.load("current", {packages:["corechart"]});
+	  google.charts.setOnLoadCallback(drawChart);
+	  
+	  function drawChart() {
+// 		//현재년월일
+
+// 		  var newDate = new Date();
+// 		  var yyyy = newDate.getFullYear();
+// 		  var mm = newDate.getMonth()+1;
+// 		  var dd = newDate.getDate();
+// 		  var dd1 = newDate.getDate()-1;
+// 		  var dd2 = newDate.getDate()-2;
+// 		  var dd3 = newDate.getDate()-3;
+// 		  var dd4 = newDate.getDate()-4;
+// 		  var dd5 = newDate.getDate()-5;
+// 		  var dd6 = newDate.getDate()-6;
+		
+// 		  var today = yyyy + "-" + mm + "-" + dd;
+//    		  var yesterday = yyyy + "-" + mm + "-" + dd1;
+// 		  var dayago3 = yyyy + "-" + mm + "-" + dd2;
+// 	   	  var dayago4 = yyyy + "-" + mm + "-" + dd3;
+// 	   	  var dayago5 = yyyy + "-" + mm + "-" + dd4;
+// 	   	  var dayago6 = yyyy + "-" + mm + "-" + dd5;
+// 	      var dayago7 = yyyy + "-" + mm + "-" + dd6;
+	      
+	      
+// 	      var threeDaysAgo = new Date(today); // 2023-03-03 - 월은 0에서부터 시작된다.
+// 	      threeDaysAgo.setDate(threeDaysAgo.getDate() - 3); // 2023-02-28 => 3일전으로~
+
+	      var currentDay = new Date();  
+	      var theYear = currentDay.getFullYear();
+	      var theMonth = currentDay.getMonth();
+	      var theDate  = currentDay.getDate();
+ 		//  var theDayOfWeek = currentDay.getDay();
+
+	      var thisWeek = [];
+	       
+	      for(var i=0; i<7; i++) {
+	        var resultDay = new Date(theYear, theMonth, theDate- i);
+	        var yyyy = resultDay.getFullYear();
+	        var mm = Number(resultDay.getMonth()) + 1;
+	        var dd = resultDay.getDate();
+	       
+	        mm = String(mm).length === 1 ? '0' + mm : mm;
+	        dd = String(dd).length === 1 ? '0' + dd : dd;
+	       
+	        thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+	      }
+
+	      
+	      
+	    var data = google.visualization.arrayToDataTable([
+	      ["날짜", "가입자수" ],
+	      [thisWeek[6], ${member7dayCount}],
+	      [thisWeek[5], ${member6dayCount}],
+	      [thisWeek[4], ${member5dayCount}],
+	      [thisWeek[3], ${member4dayCount}],
+	      [thisWeek[2], ${member3dayCount}],
+	      [thisWeek[1], ${member2dayCount}],
+	      [thisWeek[0], ${membertodayCount}]
 	 
+	    ]);
+
+	    var chart = new google.visualization.ColumnChart(document.getElementById('memberchartdiv'));
+
+        chart.draw(data);
+      }
+  </script>
+
+
+
+
 
 <link rel="stylesheet" href="/css/reset.css" />
 <style>
@@ -258,6 +333,7 @@ a {
 }
 
 #home {
+
       	display: inline-block;
       	position: absolute;
       	width: 150px;
@@ -529,9 +605,7 @@ th {
    	top: -20px;
 }
 
-
-
-      #memberBox1{
+ #memberBox1{
       grid-column: 1 / 4;
       grid-row:1/3;
       background-color: white;
@@ -598,6 +672,10 @@ th {
 	}
 	#membertbody .memChange:hover, .memDel:hover {
 	  background-color: #3e8e41;
+	}
+	.membernewR{
+	width:200px;
+  	height: 200px;
 	} 
     </style>
   </head>
@@ -777,7 +855,7 @@ th {
        			
        		</table>
 	        <div class="footer">
-	        	<span>totla: ${qnaCount }</span>
+	        	<span>total: ${qnaCount }</span>
 	        </div>
         </div>
       </div>
@@ -809,6 +887,12 @@ th {
 					
 						</tbody>
 					</table>
+					 <div id="page" style="text-align: center;">
+		               <input type="hidden" name="Memmanager_startNum" value="1">
+		               <button type="button" id="Memmanager_backBtn" style="width: 40px;">이전</button>
+		               <div id="Memmanager_pages" style="display: inline;"></div>
+		               <button type="button" id="Memmanager_frontBtn" style="width: 40px;">다음</button>
+		          	  </div>
 					</div>
 			</div>
 
@@ -819,8 +903,8 @@ th {
 				<h2>[신규 가입 회원]</h2>
 				${membertodayCount }명
 			</div>
-			<div id="membernewR">
-			<div id="member_newmember7days" style='width: 300px; height: 100px; position: relative; top: -20px; left: 10px;'></div>
+			<div class="membernewR">
+			  <div id="memberchartdiv" style="width: 400px; height: 100px; position: relative; top: -20px; left: 10px;"></div>
 			</div>
 		</div>
 		
@@ -863,6 +947,8 @@ th {
          <div id="managerBox2" class="box"> 
       </div>
 	</div>
+	
+	
      <div id="qnaArticle" class="article">
 			<div class="box" id="qnabox1">
 				<div class="subtitle">&nbsp;&nbsp;신규글</div>
@@ -2755,7 +2841,7 @@ th {
      <script>
       //(문지현)회원목록
       getlist();
-
+      Memmanager_page();
 	  function getlist() {
 		 let tbody = document.querySelector("#membertbody");
 		 const xhttp = new XMLHttpRequest();
@@ -2772,10 +2858,169 @@ th {
 			+ "<td><input type='button' class = 'memDel' value='삭제'></td></tr>";
 			 }
 		  }
-			  xhttp.open("GET", "/member/selectall", true);
+			  xhttp.open("GET", "/member/MembermanagerList?pageNum=1", true);
 			  xhttp.send();
 			}
-		
+	  
+      $("#Memmanager_pages").on("click", function (event) {
+          let e = event.target.className;
+          if (e == "pageBtn") {
+          $("#membertbody").empty();
+             let pageNum = event.target.textContent;
+             $.ajax({
+                url: "/member/MembermanagerList",
+                method: "get",
+                dataType: "json",
+                data: {
+                   pageNum: pageNum
+                },
+                success: (data) => {
+                   
+                   for (let i = 0; i < data.length; i++) {
+                      $("#membertbody").append("<tr><td>" +data[i].member_id +"</td><td><input type='text' value="+data[i].member_pw+"></td><td>" 
+                  			+ "<input type='text' value="+data[i].member_name+"></td><td><input type='text' value=" + data[i].member_tel+"></td><td>"
+                			+ "<input type='text' value="+data[i].postnum+"></td><td><input  type='text' value='"+data[i].member_address+"'></td><td>"
+                			+ "<input  type='text' value='"+data[i].member_addressdetail+"'></td><td>"+data[i].member_grade+"</td>"
+                			+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+                			+ "<td><input type='button' class = 'memDel' value='삭제'></td></tr>");
+                   }
+                   $("td").css({
+                      "border-bottom": "thin solid #BBB09F",
+                      "height": "40px"
+                   });
+                   $("td:nth-of-type(4)").css({
+                      "width": "300px",
+                      "height": "100px",
+                   });
+                   $("a").css("color", "black");
+                   $("a").css("text-decoration", "none");
+                },
+                error: () => {
+                   alert("Error [실패]");
+                }
+
+
+             })
+
+          }
+
+
+       })
+
+	//회원목록 최대페이지
+      function Memmanager_max() {
+         let maxPage;
+         $.ajax({
+            url: "/member/MembermanagermaxPage",
+            method: "get",
+            async: false,
+            success: function (data) {
+               maxPage = data;
+            },
+            error: function () {
+               alert("error!");
+            }
+         })
+         return maxPage;
+      }
+      
+      //회원목록 페이지버튼
+      function Memmanager_page() {
+         $("#membertbody").empty();
+         //ajax로 가져온다
+         let start = $("input[name=Memmanager_startNum]").val();
+         let startNum = Number(start);
+         let maxPage = Memmanager_max();
+         let endPage = startNum+4;
+     
+         if(startNum == 1){
+            $("#Memmanager_backBtn").hide();
+         }
+         if(endPage > maxPage){
+            endPage=(maxPage+1);
+         }
+         
+         for (let i = startNum; i < endPage+1; i++) {
+            $("#Memmanager_pages").append(
+            "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
+            )
+         }
+         $("#Memmanager_frontBtn").css({
+            "width": "40px",   
+            "margin": "0 3px",   
+            "border": "none",
+            "background-color": "rgba(0, 0, 0, 0)"
+         })
+         $("#Memmanager_backBtn").css({
+            "width": "40px",   
+            "margin": "0 3px",   
+            "border": "none",
+            "background-color": "rgba(0, 0, 0, 0)"
+         })
+
+
+      }
+      //나의 문의내역 다음버튼
+      $("#Memmanager_frontBtn").click(() => {
+         $("#Memmanager_backBtn").show();
+         $("#Memmanager_pages").empty();
+         let start = $("input[name=Memmanager_startNum]").val();
+         let startNum = Number(start) +5;
+         $("input[name=Memmanager_startNum]").val(startNum);
+         
+         let maxPage = Memmanager_max();
+
+         let endPage = startNum+5;
+            if(endPage>maxPage){
+               endPage=maxPage;
+               $("#Memmanager_frontBtn").hide();
+            }
+         for (let i = startNum; i < endPage+1; i++) {
+            
+            $("#Memmanager_pages").append(
+            "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
+            )
+         }
+         $("#Memmanager_frontBtn").css({
+            "width": "40px",   
+            "margin": "0 3px",   
+            "border": "none",
+            "background-color": "rgba(0, 0, 0, 0)"
+         })
+         $("#Memmanager_backBtn").css({
+            "width": "40px",   
+            "margin": "0 3px",   
+            "border": "none",
+            "background-color": "rgba(0, 0, 0, 0)"
+         })
+      });
+
+      //나의 문의내역 이전버튼
+      $("#Memmanager_backBtn").click(() => {
+         $("#Memmanager_frontBtn").show();
+         $("#Memmanager_pages").empty();
+         let start = $("input[name=Memmanager_startNum]").val();
+         let startNum = Number(start) -5;
+
+         
+         if(startNum == 1){
+            $("#Memmanager_backBtn").hide();
+         }
+         $("input[name=Memmanager_startNum]").val(startNum);
+         
+         
+         let maxPage = Memmanager_max();
+         let endPage = startNum+4;
+         
+         for (let i = startNum; i < endPage+1; i++) {
+            
+            $("#Memmanager_pages").append(
+            "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
+            )
+         }
+      });
+      
+      
 		
 		function serchMem() {
 			

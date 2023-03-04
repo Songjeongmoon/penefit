@@ -1,6 +1,10 @@
 package com.penefit.moons.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,8 +91,46 @@ public class ControllerAboutBoard {
 	
 	//지역 게시판 
 	@GetMapping("/cityBoardview")
-	public String cityBoard1() {
+	public String cityBoard1(Model model) {
+		
+		
+		
+		String sel = "";
+		String keyword = "";
+				
+		List<BoardVO> list = bservice.getAllCityList(0, sel, keyword);
+		int count = bservice.countCity();
+		
+		if(count % 10 == 0) {
+			count = count / 10;
+		}else {
+			count = count / 10 + 1;
+		}
+		
+		model.addAttribute("count", count);
+		model.addAttribute("list", list);
+		model.addAttribute("start", 1);
+		
 		return "/board/cityBoard";
+	}
+	
+	@GetMapping("/cityBoards")
+	@ResponseBody
+	public List<BoardVO> getBoardList(int pageNum, String sel, String keyword){
+		pageNum = pageNum * 10 - 10;
+		return bservice.getAllCityList(pageNum, sel, keyword);
+	}
+	
+	@GetMapping("/citySearchCount")
+	@ResponseBody
+	public int getBoardCount(int pageNum, String sel, String keyword) {
+		int result = bservice.getSearchCount(pageNum, sel, keyword);
+		if(result % 10 == 0) {
+			result = result / 10;
+		} else {
+			result = result / 10 + 1;
+		}
+		return result;
 	}
 	
 	
@@ -131,8 +173,18 @@ public class ControllerAboutBoard {
 
 	//지역게시판 검색
 	@GetMapping("/citySearch")
-	public @ResponseBody List<BoardVO> getSearchCity(Model model, String keyword, String citysel) {
-	
+	public @ResponseBody List<BoardVO> getSearchCity(Model model, String keyword, String citysel, HttpServletResponse res) {
+		if(keyword.equals("")) {
+			try {
+				res.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = res.getWriter();
+				out.print("<script> alert('입력란을 채워주세요.'); location.href='/board/cityBoardview?pageNum=1&start=1';</script>");
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		List<BoardVO> list = bservice.searchCity(keyword, citysel);
 		return list;
 	}
