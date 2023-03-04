@@ -34,9 +34,9 @@ public interface AdminServiceChaengIm {
 	// 상세보기에 답변표시
 	public String replyofQna(int qnaNum);
 
-	public List<ReviewVO> getReviewList();
+	public List<ReviewVO> getReviewList(int startNum);
 
-	public  List<ReviewVO> getReviewListNew();
+	public  List<ReviewVO> getReviewListNew(int startNum);
 
 	public List<QnAVO> qnaListToConfirm(int startNum);
 
@@ -120,4 +120,10 @@ public interface AdminServiceChaengIm {
 	public int getSuggestNewPage();
 	
 	public int getSuggestAllPage(String status, String keyword);
+	
+	public int getClassAllPage(String status, String keyword);
+	
+	public int getReviewNewPage();
+	
+	public int getReviewAllPage();
 }

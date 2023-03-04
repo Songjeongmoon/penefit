@@ -38,9 +38,9 @@ public interface AdminMapperChaeng {
 	public String replyofQna(@Param("qnaNum") int param1);
 
 	//리뷰목록
-	public List<ReviewVO> getReviewList();
+	public List<ReviewVO> getReviewList(int startNum);
 
-	public List<ReviewVO> getReviewListNew();
+	public List<ReviewVO> getReviewListNew(int startNum);
 
 	public List<QnAVO> qnaListToConfirm(int startNum);
 
@@ -123,4 +123,14 @@ public interface AdminMapperChaeng {
 	public int getSuggestNewPage();
 	
 	public int getSuggestAllPage(@Param("status") String status, @Param("keyword") String keyword);
+	
+	public int getClassAllPageEnd(String keyword);
+	
+	public int getClassAllPageActive(String keyword);
+	
+	public int getClassAllPage(String keyword);
+	
+	public int getReviewNewPage();
+	
+	public int getReviewAllPage();
 }

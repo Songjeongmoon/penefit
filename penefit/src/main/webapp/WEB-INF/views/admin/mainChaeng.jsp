@@ -1012,7 +1012,7 @@ th {
                <div class="content">
                   <input type="text" name="classKeyword" id="classSearchBar" style="margin: 10px;"> <input type="button" value="검색" id="classSearchbtn">
                   <div>
-                     <a id="dayBtn">날짜순</a> | <a id="endBtn">완료된 클래스</a> | <a id="activeBtn">진행중인 클래스</a>
+                     <a id="dayBtn" class = "status">날짜순</a> | <a id="endBtn" class = "status">완료된 클래스</a> | <a id="activeBtn" class = "status">진행중인 클래스</a>
                   </div>
                   <table id="classtbl" style="margin: 10px;">
                      <thead>
@@ -1028,6 +1028,15 @@ th {
                         <!--  -->
                      </tbody>
                   </table>
+                  <div id = "classAllBackBtn" class="page">이전</div>
+                  <div id = "classAllTblBox" class="page"></div>
+                  <div id = "classAllFrontBtn" class="page">다음</div>
+                  <input type = "hidden" id = "classAllPageStartNum" value = 1>
+				  <input type = "hidden" id = "classAllMaxPage">
+                  <input type = "hidden" id = "statusKeyword" value = "desc">
+                  <input type = "hidden" id = "dayStatus" value = "desc">
+                  <input type = "hidden" id = "push" value = 0>
+                  
                </div>
             </div>
             <div class="box" id="classbox2">
@@ -1076,7 +1085,11 @@ th {
                      </thead>
                      <tbody id="reviewNewTbl"></tbody>
                   </table>
-
+                  <div id = "reviewNewBackBtn" class="page">이전</div>
+                  <div id = "reviewNewTblBox" class="page"></div>
+                  <div id = "reviewNewFrontBtn" class="page">다음</div>
+                  <input type = "hidden" id = "reviewPageNewStartNum" value = 1>
+				  <input type = "hidden" id = "reviewMaxNewPage">
 
                </div>
             </div>
@@ -1104,7 +1117,11 @@ th {
                      </thead>
                      <tbody id="reviewAllTbl"></tbody>
                   </table>
-
+                   <div id = "reviewAllBackBtn" class="page">이전</div>
+                  <div id = "reviewAllTblBox" class="page"></div>
+                  <div id = "reviewAllFrontBtn" class="page">다음</div>
+                  <input type = "hidden" id = "reviewPageAllStartNum" value = 1>
+				  <input type = "hidden" id = "reviewMaxAllPage">
                </div>
 
 
@@ -1752,52 +1769,217 @@ th {
         //=============================리뷰=================================
         //신규리뷰 리스트
         function reviewLoadNew() {
-          $("#reviewNewTbl").empty();
-          $.ajax({
-            method: "get",
-            url: "/admin/reviewLoadNew",
-            dataType: 'JSON',
-            success: function (data) {
-              for (let i = 0; i < data.length; i++) {
-                $("#reviewNewTbl").append(
-                  "<tr><td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_num + "</a></td>"
-                  + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].member_id + "</a></td>"
-                  + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_content + "</a></td>"
-                  + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].score + "</a></td>"
-                  + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_regdate + "</a></td>"
-                  + "</tr>");
+            $("#reviewNewTbl").empty();
+            $.ajax({
+              method: "get",
+              url: "/admin/reviewLoadNew",
+              dataType: 'json',
+              data: {
+              	startNum: 1
+              },
+              success: function (data) {
+            	  for (let i = 0; i < data.length; i++) {
+                      $("#reviewNewTbl").append(
+                        "<tr><td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_num + "</a></td>"
+                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].member_id + "</a></td>"
+                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_content + "</a></td>"
+                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].score + "</a></td>"
+                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_regdate + "</a></td>"
+                        + "</tr>");
 
+                    }
+              },
+              error: function () {
+                alert("error");
+              },
+              complete: () => {
+              	$.ajax({
+              		url: "/admin/review-max-new",
+              		method: "GET",
+              		success: (data) => {
+              			$("#reviewNewTblBox").empty();
+              			$("#reviewNewBackBtn").css("display", "none");
+              			$("#reviewPageNewStartNum").val(1);
+              			$("#reviewMaxNewPage").val(data);
+              			for(let i = 1; i < 6; i++){
+              				if(i <= data){
+  		                        $("#reviewNewTblBox").append("<div class = 'page'>" + i + "</div>");            				
+              				}else {
+              					$("#reviewNewFrontBtn").css("display", "none");
+              				}
+              			}
+              		},
+              		error: () => {
+              			alert("[error] 전체글 최대 페이지를 가져오는데 실패하였습니다.");
+              		}
+              	})
               }
-            },
-            error: function () {
-              alert("reviewLoadNew Error");
-            }
-          });
-        }
+            })
+          }
+          $("#reviewNewTblBox").click((event) => {
+          	if(event.target.className == "page"){
+          		let page = event.target.textContent;
+          		$.ajax({
+  	        		url: "/admin/reviewLoadNew",
+  	        		method: "GET",
+  	        		data: {
+  	        			startNum: page
+  	        		},
+  	        		success: (data) => {
+  	        			$("#reviewNewTbl").empty();
+  	        			for (let i = 0; i < data.length; i++) {
+  	                      $("#reviewNewTbl").append(
+  	                        "<tr><td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_num + "</a></td>"
+  	                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].member_id + "</a></td>"
+  	                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_content + "</a></td>"
+  	                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].score + "</a></td>"
+  	                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_regdate + "</a></td>"
+  	                        + "</tr>");
+  	                    }
+  	        		},
+  	        		error: () => {
+  	        			alert("[error] 페이지를 불러올수 없습니다.");
+  	        		}
+          		})
+          	}
+          })
+          $("#reviewNewBackBtn").click(() => {
+          	$("#reviewNewFrontBtn").css("display", "inline-block");
+          	$("#reviewNewTblBox").empty();
+  			let startNum = $("#reviewPageNewStartNum").val();
+  			startNum = Number(startNum) - 5;
+  			$("#reviewPageNewStartNum").val(startNum);
+  			if(startNum <= 1){
+  				$("#reviewNewBackBtn").css("display", "none");
+  				startNum = 1;
+  			}
+  			for(let i = startNum; i < startNum + 5; i++){
+  				$("#reviewNewTblBox").append("<div class = 'page'>" + i + "</div>");
+  			}
+          })
+          
+          $("#reviewNewFrontBtn").click(() => {
+          	$("#reviewNewBackBtn").css("display", "inline-block");
+          	$("#reviewNewTblBox").empty();
+          	let startNum = $("#reviewPageNewStartNum").val();
+  			startNum = Number(startNum) + 5;
+  			let maxPage = $("#reviewMaxNewPage").val();
+  			$("#reviewPageNewStartNum").val(startNum);
+  			for(let i = startNum; i < startNum + 5; i++){
+  				if(i <= maxPage){
+                      $("#reviewNewTblBox").append("<div class = 'page'>" + i + "</div>");            				
+  				}else {
+  					$("#reviewNewFrontBtn").css("display", "none");
+  				}
+  			}
+          })
+        
         //전체리뷰 리스트
-        function reviewLoadAll() {
-          $("#reviewAllTbl").empty();
-          $.ajax({
-            method: "get",
-            url: "/admin/reviewLoadAll",
-            dataType: 'JSON',
-            success: function (data) {
-              for (let i = 0; i < data.length; i++) {
-                $("#reviewAllTbl").append(
-                  "<tr><td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_num + "</a></td>"
-                  + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].member_id + "</a></td>"
-                  + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_content + "</a></td>"
-                  + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].score + "</a></td>"
-                  + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_regdate + "</a></td>"
-                  + "</tr>");
+       function reviewLoadAll() {
+            $("#reviewAllTbl").empty();
+            $.ajax({
+              method: "get",
+              url: "/admin/reviewLoadAll",
+              dataType: 'json',
+              data: {
+              	startNum: 1
+              },
+              success: function (data) {
+            	  for (let i = 0; i < data.length; i++) {
+                      $("#reviewAllTbl").append(
+                        "<tr><td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_num + "</a></td>"
+                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].member_id + "</a></td>"
+                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_content + "</a></td>"
+                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].score + "</a></td>"
+                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_regdate + "</a></td>"
+                        + "</tr>");
 
+                    }
+              },
+              error: function () {
+                alert("error");
+              },
+              complete: () => {
+              	$.ajax({
+              		url: "/admin/review-max-all",
+              		method: "GET",
+              		success: (data) => {
+              			$("#reviewAllTblBox").empty();
+              			$("#reviewAllBackBtn").css("display", "none");
+              			$("#reviewPageAllStartNum").val(1);
+              			$("#reviewMaxAllPage").val(data);
+              			for(let i = 1; i < 6; i++){
+              				if(i <= data){
+  		                        $("#reviewAllTblBox").append("<div class = 'page'>" + i + "</div>");            				
+              				}else {
+              					$("#reviewAllFrontBtn").css("display", "none");
+              				}
+              			}
+              		},
+              		error: () => {
+              			alert("[error] 전체글 최대 페이지를 가져오는데 실패하였습니다.");
+              		}
+              	})
               }
-            },
-            error: function () {
-              alert("reviewLoadAll Error");
-            }
-          });
-        }
+            })
+          }
+          $("#reviewAllTblBox").click((event) => {
+          	if(event.target.className == "page"){
+          		let page = event.target.textContent;
+          		$.ajax({
+  	        		url: "/admin/reviewLoadAll",
+  	        		method: "GET",
+  	        		data: {
+  	        			startNum: page
+  	        		},
+  	        		success: (data) => {
+  	        			$("#reviewAllTbl").empty();
+  	        			for (let i = 0; i < data.length; i++) {
+  	                      $("#reviewAllTbl").append(
+  	                        "<tr><td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_num + "</a></td>"
+  	                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].member_id + "</a></td>"
+  	                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_content + "</a></td>"
+  	                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].score + "</a></td>"
+  	                        + "<td><a onclick='reviewDetail(" + data[i].review_num + ")'>" + data[i].review_regdate + "</a></td>"
+  	                        + "</tr>");
+  	                    }
+  	        		},
+  	        		error: () => {
+  	        			alert("[error] 페이지를 불러올수 없습니다.");
+  	        		}
+          		})
+          	}
+          })
+          $("#reviewAllBackBtn").click(() => {
+          	$("#reviewAllFrontBtn").css("display", "inline-block");
+          	$("#reviewAllTblBox").empty();
+  			let startNum = $("#reviewPageAllStartNum").val();
+  			startNum = Number(startNum) - 5;
+  			$("#reviewPageAllStartNum").val(startNum);
+  			if(startNum <= 1){
+  				$("#reviewAllBackBtn").css("display", "none");
+  				startNum = 1;
+  			}
+  			for(let i = startNum; i < startNum + 5; i++){
+  				$("#reviewAllTblBox").append("<div class = 'page'>" + i + "</div>");
+  			}
+          })
+          
+          $("#reviewAllFrontBtn").click(() => {
+          	$("#reviewAllBackBtn").css("display", "inline-block");
+          	$("#reviewAllTblBox").empty();
+          	let startNum = $("#reviewPageAllStartNum").val();
+  			startNum = Number(startNum) + 5;
+  			let maxPage = $("#reviewMaxAllPage").val();
+  			$("#reviewPageAllStartNum").val(startNum);
+  			for(let i = startNum; i < startNum + 5; i++){
+  				if(i <= maxPage){
+                      $("#reviewAllTblBox").append("<div class = 'page'>" + i + "</div>");            				
+  				}else {
+  					$("#reviewAllFrontBtn").css("display", "none");
+  				}
+  			}
+          })
 
         //상세보기
         function reviewDetail(review_num) {
@@ -2782,79 +2964,161 @@ th {
    <script>
         //=======================클래스리스트====================
         //클래스 리스트
-        function classListAll() {
+       
+       function classListAll() {
+	      $("#classAllPageStartNum").val(1);
+	      let status = $("#statusKeyword").val();
+	      let keyword = $("#classSearchBar").val();
+	      let startNum = $("#classAllPageStartNum").val();
+	      $("#classAllTblBox").empty();
           $("#classTbody").empty();
+          $("#classAllFrontBtn").css("display", "inline-block");
           $.ajax({
             method: "get",
             url: "/admin/classListAll",
             dataType: 'json',
+            data: {
+            	status: status,
+            	keyword: keyword,
+            	startNum: startNum
+            },
             success: function (data) {
-               for(let i=0;i<data.length;i++){
-                   $("#classTbody").append(
-                         "<tr>"
-                         +"<td class='classDetail'>"+ data[i].class_code +"</td>"
-                         +"<td class='classDetail'>"+ data[i].class_subject +"</td>"
-                         +"<td class='classDetail'>"+ data[i].class_teacher +"</td>"
-                         +"</tr>"
-                         
-                   );
-               }
+              for(let i=0;i<data.length;i++){
+                  $("#classTbody").append(
+                        "<tr>"
+                        +"<td class='classDetail'>"+ data[i].class_code +"</td>"
+                        +"<td class='classDetail'>"+ data[i].class_subject +"</td>"
+                        +"<td class='classDetail'>"+ data[i].class_teacher +"</td>"
+                        +"</tr>");
+                        
+           	  }
             },
             error: function () {
               alert("error");
-            }
+            },
+            complete: () => {
+	         	$("#classAllBackBtn").css("display", "none");
+	         	$.ajax({
+	         		url: "/admin/class-max-all",
+	         		method: "GET",
+	         		data: {
+	         			status: status,
+	                	keyword: keyword
+	         		},
+	         		success: (data) => {
+	         			$("#classAllMaxPage").val(data);
+	         			for(let i = 1; i < 6; i++){
+	         				if(i <= data){
+	         					$("#classAllTblBox").append("<div class = 'page'>" + i + "</div>");
+	         				}
+         					if(i >= data){
+    							$("#classAllFrontBtn").css("display", "none");
+    						}
+	         			}
+	         		},
+	         		error: () => {
+	         			alert("[error] 페이지를 가져올수 없습니다.");
+	         		}
+	         	})
+	         }
           })
+          
         }
+	     
+	     $("#classAllTblBox").click((event) => {
+		     	if(event.target.className == "page"){
+		     		$("#classTbody").empty();
+		     		let startNum = $("#classAllPageStartNum").val();
+			  	    let status = $("#statusKeyword").val();
+			  	    let keyword = $("#classSearchBar").val();
+		     		let page = event.target.textContent;
+		     		$.ajax({
+			        		url: "/admin/classListAll",
+			        		method: "GET",
+			        		datatype: "json",
+			        		data: {
+			        			status: status,
+			        			keyword: keyword,
+			        			startNum: page
+			        		},
+			        		success: (data) => {
+			        			for(let i=0;i<data.length;i++){
+			                        $("#classTbody").append(
+			                              "<tr>"
+			                              +"<td class='classDetail'>"+ data[i].class_code +"</td>"
+			                              +"<td class='classDetail'>"+ data[i].class_subject +"</td>"
+			                              +"<td class='classDetail'>"+ data[i].class_teacher +"</td>"
+			                              +"</tr>");
+			                              
+			                 	  }
+			        		},
+			        		error: () => {
+			        			alert("[error] 페이지를 불러올수 없습니다.");
+			        		}
+		     		})
+		     	}
+		     })
+		     $("#classAllBackBtn").click(() => {
+		     	$("#classAllFrontBtn").css("display", "inline-block");
+		     	$("#classAllTblBox").empty();
+					let startNum = $("#classAllPageStartNum").val();
+					startNum = Number(startNum) - 5;
+					$("#classAllPageStartNum").val(startNum);
+					if(startNum <= 1){
+						$("#classAllBackBtn").css("display", "none");
+						startNum = 1;
+					}
+					for(let i = startNum; i < startNum + 5; i++){
+						$("#classAllTblBox").append("<div class = 'page'>" + i + "</div>");
+					}
+		     })
+		     
+		     $("#classAllFrontBtn").click(() => {
+		     	$("#classAllBackBtn").css("display", "inline-block");
+		     	$("#classAllTblBox").empty();
+		     	let startNum = $("#classAllPageStartNum").val();
+					startNum = Number(startNum) + 5;
+					$("#classAllPageStartNum").val(startNum);
+					let maxPage = $("#classAllMaxPage").val();
+					for(let i = startNum; i < startNum + 5; i++){
+						if(i <= maxPage){
+		                 $("#classAllTblBox").append("<div class = 'page'>" + i + "</div>");            				
+						}
+						if(i >= maxPage){
+							$("#classAllFrontBtn").css("display", "none");
+						}
+					}
+		     })
+        
+      $(".status").click((event) => {
+    	  $("#push").val(1);
+    	  if(event.target.id == "activeBtn"){
+    		  $("#statusKeyword").val("active");
+    	  } else if(event.target.id == "endBtn"){
+    		  $("#statusKeyword").val("end");
+    	  } else if(event.target.id == "dayBtn" && $("#dayStatus").val() == "desc"){
+    		  $("#statusKeyword").val("desc");
+    		  $("#dayStatus").val("asc");
+    	  } else{
+    		  $("#statusKeyword").val("asc");
+    		  $("#dayStatus").val("desc");
+    	  }
+    	  classListAll();
+      })  
       
         
+        
+        
         $("#classSearchbtn").click(function () {
-            let keyword = $("#classSearchBar").val();
-            if (keyword == "") {
                 classListAll();
-            } else {
-               classListSearch(keyword);
-
-            }
-          });
-          $("#classSearchBar").keydown(function (evt) {
-            let keyword = $("#classSearchBar").val();
+        });
+	     
+        $("#classSearchBar").keydown(function (evt) {
             if (evt.keyCode == 13) {
-
-              if (keyword == "") {
-                 classListAll();
-              } else {
-                 classListSearch(keyword);
-              }
+            	classListAll();
             }
-          });
-      //클래스 검색
-        function classListSearch(keyword) {
-          $("#classTbody").empty();
-          $.ajax({
-            method: "get",
-            url: "/admin/classListSearch",
-            dataType: 'json',
-            data :{
-               "keyword" : keyword
-            },
-            success: function (data) {
-               for(let i=0;i<data.length;i++){
-                   $("#classTbody").append(
-                         "<tr>"
-                         +"<td class='classDetail'>"+ data[i].class_code +"</td>"
-                         +"<td class='classDetail'>"+ data[i].class_subject +"</td>"
-                         +"<td class='classDetail'>"+ data[i].class_teacher +"</td>"
-                         +"</tr>"
-                         
-                   );
-               }
-            },
-            error: function () {
-              alert("error");
-            }
-          })
-        }
-      
+        });
+        
       //클래스정보상세보기
       $(document).on("click",".classDetail",function(evt){
          let class_code = evt.target.parentElement.children[0].innerText;
@@ -2893,103 +3157,7 @@ th {
              })
          
       }
-      //정렬하기
-      $("#endBtn").click((event) => {
-      $.ajax({
-         url: "/admin/class/end",
-         method: "GET",
-         dataType: "json",
-         success: (data) => {
-            $("#classTbody").empty();
-            for(let i = 0; i < data.length; i++){
-               $("#classTbody").append(
-                         "<tr>"
-                         +"<td class='classDetail'>"+ data[i].class_code +"</td>"
-                         +"<td class='classDetail'>"+ data[i].class_subject +"</td>"
-                         +"<td class='classDetail'>"+ data[i].class_teacher +"</td>"
-                         +"</tr>"
-                   );
-            }
-         },
-         error: () => {
-            alert("error");
-         }
-         
-      })
-   })
    
-   $("#activeBtn").click((event) => {
-      $.ajax({
-         url: "/admin/class/active",
-         method: "GET",
-         dataType: "json",
-         success: (data) => {
-            $("#classTbody").empty();
-            for(let i = 0; i < data.length; i++){
-               $("#classTbody").append(
-                         "<tr>"
-                         +"<td class='classDetail'>"+ data[i].class_code +"</td>"
-                         +"<td class='classDetail'>"+ data[i].class_subject +"</td>"
-                         +"<td class='classDetail'>"+ data[i].class_teacher +"</td>"
-                         +"</tr>"
-                   );
-            }
-         },
-         error: () => {
-            alert("error");
-         }
-         
-      })
-   })
-   $("#dayBtn").click((event) => {
-      if(event.target.value == "desc"){
-         event.target.value = "asc";
-         $.ajax({
-            url: "/admin/class/ASC",
-            method: "GET",
-            dataType: "json",
-            success: (data) => {
-               $("#classTbody").empty();
-               for(let i = 0; i < data.length; i++){
-                  $("#classTbody").append(
-                            "<tr>"
-                            +"<td class='classDetail'>"+ data[i].class_code +"</td>"
-                            +"<td class='classDetail'>"+ data[i].class_subject +"</td>"
-                            +"<td class='classDetail'>"+ data[i].class_teacher +"</td>"
-                            +"</tr>"
-                      );
-               }
-            },
-            error: () => {
-               alert("error");
-            }
-            
-         })
-      } else{
-         event.target.value = "desc";
-         $.ajax({
-            url: "/admin/class/DESC",
-            method: "GET",
-            dataType: "json",
-            success: (data) => {
-               $("#classTbody").empty();
-               for(let i = 0; i < data.length; i++){
-                  $("#classTbody").append(
-                            "<tr>"
-                            +"<td class='classDetail'>"+ data[i].class_code +"</td>"
-                            +"<td class='classDetail'>"+ data[i].class_subject +"</td>"
-                            +"<td class='classDetail'>"+ data[i].class_teacher +"</td>"
-                            +"</tr>"
-                      );
-               }
-            },
-            error: () => {
-               alert("error");
-            }
-            
-         })
-      }
-   })
    //클래스 삭제
       $(document).on("click",".delClass", function(evt){
          let class_code = $("input[name='class_code']").val();

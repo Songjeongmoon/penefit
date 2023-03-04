@@ -57,12 +57,12 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 	}
 
 	@Override
-	public List<ReviewVO> getReviewList() {
-		return mapper.getReviewList();
+	public List<ReviewVO> getReviewList(int startNum) {
+		return mapper.getReviewList(startNum);
 	}
 	@Override
-	public List<ReviewVO> getReviewListNew() {
-		return mapper.getReviewListNew();
+	public List<ReviewVO> getReviewListNew(int startNum) {
+		return mapper.getReviewListNew(startNum);
 	}
 	@Override
 	public List<QnAVO> qnaListToConfirm(int startNum) {
@@ -253,5 +253,26 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 	@Override
 	public int getSuggestAllPage(String status, String keyword) {
 		return mapper.getSuggestAllPage(status, keyword);
+	}
+
+	@Override
+	public int getClassAllPage(String status, String keyword) {
+		if(status.equals("end")) {
+			return mapper.getClassAllPageEnd(keyword);			
+		} else if(status.equals("active")) {
+			return mapper.getClassAllPageActive(keyword);	
+		} else {
+			return mapper.getClassAllPage(keyword);
+		}
+	}
+
+	@Override
+	public int getReviewNewPage() {
+		return mapper.getReviewNewPage();
+	}
+	
+	@Override
+	public int getReviewAllPage() {
+		return mapper.getReviewAllPage();
 	}
 }
