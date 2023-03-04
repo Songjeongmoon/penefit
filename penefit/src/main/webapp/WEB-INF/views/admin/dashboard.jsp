@@ -78,36 +78,12 @@
 	  google.charts.setOnLoadCallback(drawChart);
 	  
 	  function drawChart() {
-// 		//현재년월일
-
-// 		  var newDate = new Date();
-// 		  var yyyy = newDate.getFullYear();
-// 		  var mm = newDate.getMonth()+1;
-// 		  var dd = newDate.getDate();
-// 		  var dd1 = newDate.getDate()-1;
-// 		  var dd2 = newDate.getDate()-2;
-// 		  var dd3 = newDate.getDate()-3;
-// 		  var dd4 = newDate.getDate()-4;
-// 		  var dd5 = newDate.getDate()-5;
-// 		  var dd6 = newDate.getDate()-6;
-		
-// 		  var today = yyyy + "-" + mm + "-" + dd;
-//    		  var yesterday = yyyy + "-" + mm + "-" + dd1;
-// 		  var dayago3 = yyyy + "-" + mm + "-" + dd2;
-// 	   	  var dayago4 = yyyy + "-" + mm + "-" + dd3;
-// 	   	  var dayago5 = yyyy + "-" + mm + "-" + dd4;
-// 	   	  var dayago6 = yyyy + "-" + mm + "-" + dd5;
-// 	      var dayago7 = yyyy + "-" + mm + "-" + dd6;
-	      
-	      
-// 	      var threeDaysAgo = new Date(today); // 2023-03-03 - 월은 0에서부터 시작된다.
-// 	      threeDaysAgo.setDate(threeDaysAgo.getDate() - 3); // 2023-02-28 => 3일전으로~
 
 	      var currentDay = new Date();  
 	      var theYear = currentDay.getFullYear();
 	      var theMonth = currentDay.getMonth();
 	      var theDate  = currentDay.getDate();
- 		//  var theDayOfWeek = currentDay.getDay();
+
 
 	      var thisWeek = [];
 	       
