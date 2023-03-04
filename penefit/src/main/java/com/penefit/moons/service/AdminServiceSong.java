@@ -135,9 +135,16 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	}
 
 	@Override
-	public List<ClassVO> getClassList() {
-		List<ClassVO> list = mapper.getClassList();
-		return list;
+	public List<ClassVO> getClassList(String status, String keyword, int startNum) {
+		if(status.equals("desc")) {
+			return mapper.getClassList(keyword, startNum);
+		} else if(status.equals("active")) {
+			return mapper.getClassListActive(keyword, startNum);
+		} else if(status.equals("end")) {
+			return mapper.getClassListEnd(keyword, startNum);			
+		} else {
+			return mapper.getClassListASC(keyword, startNum);			
+		}
 	}
 
 	@Override
@@ -162,21 +169,6 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	public ClassVO getClassOne(String class_code) {
 		ClassVO vo = mapper.getClassOne(class_code);
 		return vo;
-	}
-
-	@Override
-	public List<ClassVO> getClassListASC() {
-		return mapper.getClassListASC();		
-	}
-
-	@Override
-	public List<ClassVO> getClassListEnd() {
-		return mapper.getClassListEnd();
-	}
-
-	@Override
-	public List<ClassVO> getClassListActive() {
-		return mapper.getClassListActive();
 	}
 
 	@Override

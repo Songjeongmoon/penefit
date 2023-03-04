@@ -5,7 +5,7 @@
 	<!-- 전체 qna리스트 -->
 	<select id="getAdminQnaList"
 		resultType="com.penefit.moons.domain.QnAVO">
-		select * from qna ORDER BY qna_regdate DESC
+		select * from qna ORDER BY qna_regdate DESC LIMIT #{startNum}, 5
 	</select>
 
 	<!-- qna리스트 필터 -->
@@ -47,7 +47,7 @@
 		SELECT *
 		FROM review
 		ORDER BY review_regdate DESC
-		LIMIT 0,5
+		LIMIT #{startNum},5
 
 	</select>
 	<!-- 리뷰목록 신규 -->
@@ -59,7 +59,7 @@
 		INTERVAL -24 HOUR)
 		ORDER BY
 		review_regdate asc
-		LIMIT 0,5
+		LIMIT #{startNum}, 5
 	</select>
 	<!-- qna목록 신규 -->
 	<select id="qnaListToConfirm"
@@ -69,6 +69,7 @@
 		WHERE qna_status = '답변대기'
 		ORDER BY
 		qna_regdate DESC
+		LIMIT #{startNum}, 5
 	</select>
 
 	<select id="getQnACount" resultType="_int">
@@ -138,8 +139,10 @@
 	</select>
 	<select id="getNotice"
 		resultType="com.penefit.moons.domain.NoticeVO">
-		SELECT * FROM
-		notice
+		SELECT *
+		FROM notice
+		WHERE notice_title like CONCAT('%',#{param1},'%') or notice_content like CONCAT('%',#{param1},'%') or member_id like CONCAT('%', #{param1},'%')
+		LIMIT #{param2}, 5
 	</select>
 	<select id="getNoticeNew"
 		resultType="com.penefit.moons.domain.NoticeVO">
@@ -148,7 +151,7 @@
 		WHERE notice_regdate > DATE_ADD(now(),
 		INTERVAL -24 HOUR)
 		ORDER BY
-		notice_regdate asc LIMIT 0,5
+		notice_regdate asc LIMIT #{startNum}, 5
 	</select>
 	<select id="getNoticeNewCnt" resultType="_int">
 		SELECT Count(*)
@@ -160,16 +163,7 @@
 		notice_regdate asc
 	</select>
 
-	<select id="getsearchNotice"
-		resultType="com.penefit.moons.domain.NoticeVO">
-		select * from notice where
-		notice_title like CONCAT('%',
-		#{keyword},'%') or
-		notice_content like CONCAT('%',
-		#{keyword},'%') or
-		member_id like CONCAT('%', #{keyword},'%')
 
-	</select>
 
 
 	<select id="noticeDetail"
@@ -198,16 +192,19 @@
 		WHERE status = '검토'
 		ORDER BY
 		suggest_regdate ASC
-		LIMIT 5
-
+		LIMIT #{startNum}, 5
 	</select>
 
 	<select id="suggestAll"
 		resultType="com.penefit.moons.domain.SuggestDTO">
 		SELECT *
 		FROM suggest
+		WHERE status like CONCAT('%',#{param1},'%') AND
+		(suggest_title like CONCAT('%',#{param2},'%') or member_id like CONCAT('%',#{param2},'%') or
+		type like CONCAT('%', #{param2},'%'))
 		ORDER BY
 		suggest_regdate DESC
+		LIMIT #{param3}, 5
 
 	</select>
 	<!-- 제안서 검색 -->
@@ -381,5 +378,82 @@
 		GROUP BY member_id
 		HAVING COUNT(*) > 1
 		) t;
+	</select>
+	
+	 <!-- 제안서 리스트 with 필터 -->
+    <select id = "getListWithFilter" resultType = "com.penefit.moons.domain.SuggestDTO">
+       SELECT *
+       FROM suggest
+       WHERE status = #{keyword}
+    </select>
+    
+    <select id = "getQnaAllMaxPage" resultType = "_int">
+    	SELECT COUNT(*)
+    	FROM qna
+    </select>
+    
+    <select id = "getQnaNewMaxPage" resultType = "_int">
+    	SELECT COUNT(*)
+    	FROM qna
+    	WHERE qna_status = '답변대기'
+    </select>
+    
+    <select id = "getNoticeMaxPage" resultType = "_int">
+    	SELECT COUNT(*)
+    	FROM notice
+    	WHERE notice_title like CONCAT('%',#{keyword},'%') or notice_content like CONCAT('%',#{keyword},'%') or member_id like CONCAT('%', #{keyword},'%')
+    </select>
+    
+    <select id="getNoticeNewPage" resultType = "_int">
+    	SELECT COUNT(*)
+		FROM notice
+		WHERE notice_regdate > DATE_ADD(now(),
+		INTERVAL -24 HOUR)
+	</select>
+	
+	<select id="getSuggestNewPage" resultType = "_int">
+		SELECT COUNT(*)
+		FROM suggest
+		WHERE status = '검토'
+	</select>
+	
+	<select id="getSuggestAllPage" resultType = "_int">
+		SELECT COUNT(*)
+		FROM suggest
+		WHERE status like CONCAT('%',#{param1},'%') AND
+		(suggest_title like CONCAT('%',#{param2},'%') or member_id like CONCAT('%',#{param2},'%') or
+		type like CONCAT('%', #{param2},'%'))
+	</select>
+	
+	<select id="getClassAllPageEnd" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE NOW() > class_date AND
+		(class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%'))
+	</select>
+	
+	<select id="getClassAllPageActive" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE class_date > NOW() AND
+		(class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%'))
+	</select>
+	
+	<select id="getClassAllPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<select id="getReviewNewPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM review
+		WHERE review_regdate > DATE_ADD(now(),
+		INTERVAL -24 HOUR)
+	</select>
+	
+	<select id="getReviewAllPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM review
 	</select>
 </mapper>

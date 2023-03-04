@@ -280,12 +280,40 @@ h4 {
    border: none;
    background-color: rgba(0, 0, 0, 0);
 }
+
+#modalFilter {
+}
+
+#customerModal {
+	display: none;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform:translate(-50%, -50%);
+	background-color: yellow;
+	width: 600px;
+	height: 800px;
+}
+#infoCloseBtn {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	z-index: 1;
+}
+.myClassInfo {
+	cursor: pointer;
+}
+#classListBackBtn, #pageBtnBox, #classListFrontBtn, .pageBtn {
+	display: inline-block
+}
+
+
 </style>
 </head>
 
 <body>
+	
    <%@ include file="../header.jsp"%>
-
    <div class="box">
       <section>
          <aside>
@@ -448,7 +476,7 @@ h4 {
             <table id="myclasstbl">
                <thead>
                   <tr>
-                     <th style="width: 300px;">제목</th>
+                     <th style="width: 300px">제목</th>
                      <th>강사</th>
                      <th>강의일자</th>
                      <th>지역</th>
@@ -458,6 +486,12 @@ h4 {
                <tbody id="myClassListBody"></tbody>
 
             </table>
+            <input type = "text" name= "classListStartNum" value = "1">
+            <input type = "text" name= "classListMaxPage" >
+            
+            <div id = "classListBackBtn">이전</div>
+            <div id = "pageBtnBox"></div>
+            <div id = "classListFrontBtn">다음</div>
 
          </div>
          <div class="content" id="myInquiry">
@@ -503,6 +537,20 @@ h4 {
 
          </div>
       </section>
+   </div>
+   <div id = "modalFilter">
+	   <div id = "customerModal">
+	   			<div id = "infoCloseBtn">[X]</div>
+	   		<table>
+	   			<thead>
+	   				<tr>
+	   					<th>아이디</th><th>이름</th><th>전화번호</th>
+	   				</tr>
+	   			</thead>
+	   			<tbody id = "customerInfo"></tbody>
+	   			
+	   		</table>
+	   </div>
    </div>
    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
    <script>
@@ -602,6 +650,9 @@ h4 {
                $("#myClassLabel").click(function () {
                   $(".content:not(#myClassList)").css("display", "none");
                   $("#myClassList").css("display", "block");
+                  getMyClassList();
+                  getMyClassMax();
+                  
                });
 
 
@@ -1617,9 +1668,180 @@ h4 {
                   }
                });
 
-
-
-            </script>
+		$("body").click((event) => {
+			if(event.target.id == "myClassLabel" || event.target.className == "myClassPageBtn"){
+				let page = event.target.textContent;
+				let no = 0;
+				if(isNaN(page)){
+					page = 1;
+					no = 1;
+				}
+				
+				$("#myClassListBody").empty();
+				$.ajax({
+					url: "/class/list/my",
+					method: "GET",
+					dataType: "json",
+					data: {
+						startNum: page,
+						member_id: "${member_id}"
+					},
+					success: (data) => {
+						if(data.length == 0){
+							alert("데이터가 존재하지 않습니다.");
+							return false;
+						}
+						for(let i = 0; i < data.length; i++){						
+							$("#myClassListBody").append("<tr>"
+									+ "<input type = 'hidden' value = '" + data[i].class_code + "' ></input>"
+									+ "<td class = 'myClassInfo'>" + data[i].class_subject + "</td>"
+									+ "<td>" + data[i].class_teacher + "</td>"
+									+ "<td>" + data[i].class_date + "</td>"
+									+ "<td>" + data[i].city_code + "</td>"
+									+ "</tr>");
+						}
+					},
+					error: () => {
+						alert("데이터를 가져오기 실패했습니다.");
+					},
+					complete: () => {
+						if(no == 1){	
+							$("#classListBackBtn").css("display", "none");
+							$("#pageBtnBox").empty();
+							$.ajax({
+								url: "/class/list/max",
+								method: "GET",
+								data: {
+									member_id: "${member_id}"
+								},
+								success: (data) => {
+									$("input[name='classListMaxPage']").val(data);
+									for(let i = 1; i < 6; i++){
+										if(i <= data){
+											$("#pageBtnBox").append("<div class='pageBtn'>" + i + "</div>");
+										} else{
+											$("#classListFrontBtn").css("display", "none");											
+										}
+									}
+								},
+								error: () => {
+									alert("[error] 데이터를 가져오는데 실패하였습니다.");
+								}
+								
+							})
+						}
+					}
+				})
+			}
+		})
+		
+		
+		$("#pageBtnBox").click((event) => {
+			if(event.target.className == "pageBtn"){
+				let page = event.target.textContent;
+				$.ajax({
+					url: "/class/list/my",
+					method: "GET",
+					dataType: "json",
+					data: {
+						startNum: page,
+						member_id: "${member_id}"
+					},
+					success: (data) => {
+						$("#myClassListBody").empty();
+						if(data.length == 0){
+							alert("데이터가 존재하지 않습니다.");
+							return false;
+						}
+						for(let i = 0; i < data.length; i++){						
+							$("#myClassListBody").append("<tr>"
+									+ "<input type = 'hidden' value = '" + data[i].class_code + "' ></input>"
+									+ "<td class = 'myClassInfo'>" + data[i].class_subject + "</td>"
+									+ "<td>" + data[i].class_teacher + "</td>"
+									+ "<td>" + data[i].class_date + "</td>"
+									+ "<td>" + data[i].city_code + "</td>"
+									+ "</tr>");
+						}
+					},
+					error: () => {
+						alert("데이터를 가져오기 실패했습니다.");
+					}
+				})
+			}
+		})
+		
+		$("#classListFrontBtn").click(() => {
+			$("#pageBtnBox").empty();
+			let startNum = $("input[name='classListStartNum']").val();
+			let maxPage = $("input[name='classListMaxPage']").val();
+			startNum = Number(startNum) + 5;
+			$("input[name='classListStartNum']").val(startNum);
+			$("#classListBackBtn").css("display", "inline-block");
+			for(let i = startNum; i < startNum + 5; i++){
+				if(i <= maxPage){
+					$("#pageBtnBox").append("<div class='pageBtn'>" + i + "</div>");
+				} else{
+					$("#classListFrontBtn").css("display", "none");											
+				}
+			}
+		})
+		
+		$("#classListBackBtn").click(() => {
+			$("#pageBtnBox").empty();
+			let startNum = $("input[name='classListStartNum']").val();
+			let maxPage = $("input[name='classListMaxPage']").val();
+			startNum = Number(startNum) - 5;
+			if(startNum){
+				$("#classListBackBtn").css("display", "none");
+			}
+			$("#classListFrontBtn").css("display", "inline-block");
+			for(let i = startNum; i < startNum + 5; i++){
+				if(i <= maxPage){
+					$("#pageBtnBox").append("<div class='pageBtn'>" + i + "</div>");
+				}
+			}
+		})
+		
+		
+		$("#myClassListBody").click((event) => {
+			if(event.target.className == "myClassInfo"){
+				$("#customerInfo").empty();
+				let code = event.target.previousElementSibling.value;
+				$.ajax({
+					url: "/class/list/my/member",
+					method: "GET",
+					dataType: "json",
+					data: {
+						class_code: code
+					},
+					success: (data) => {
+						$("#customerModal").css("display", "inline-block");
+						if(data.length == 0){
+							$("#customerInfo").append("0명 입니다.");
+							return false;
+						}
+						for(let i = 0; i < data.length; i++){						
+							$("#customerInfo").append("<tr>"
+									+ "<td>" + data[i].member_id + "</td>"
+									+ "<td>" + data[i].member_name + "</td>"
+									+ "<td>" + data[i].member_tel + "</td>"
+									+ "</tr>")
+						}
+					},
+					error: () => {
+						alert("[error] 데이터 가져오기 실패하였습니다.");
+					}
+				
+				})
+			}
+		})
+		
+		$("#infoCloseBtn").click(() => {
+			$("#customerModal").css("display", "none");
+		})
+		
+		
+	</script>
 </body>
 
 </html>

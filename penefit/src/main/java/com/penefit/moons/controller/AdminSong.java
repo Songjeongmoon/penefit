@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,38 +40,14 @@ class AdminSong {
 	}
 	
 	
-	@GetMapping("/class")
-	public String getClassList(Model model){
-		
-		List<ClassVO> list = service.getClassList();
-		System.out.println(list);
-		model.addAttribute("list", list);
-		return "/admin-class-list";
-	}
-	
-	@GetMapping("/class/DESC")
-	@ResponseBody
-	public List<ClassVO> getClassListDESC(){
-		return service.getClassList();
-	}
-	
-	@GetMapping("/class/ASC")
-	@ResponseBody
-	public List<ClassVO> getClassListASC(){
-		return service.getClassListASC();
-	}
-	
-	@GetMapping("/class/end")
-	@ResponseBody
-	public List<ClassVO> getClassListEnd(){
-		return service.getClassListEnd();
-	}
-	
-	@GetMapping("/class/active")
-	@ResponseBody
-	public List<ClassVO> getClassListActive(){
-		return service.getClassListActive();
-	}
+//	@GetMapping("/class")
+//	public String getClassList(Model model){
+//		
+//		List<ClassVO> list = service.getClassList();
+//		System.out.println(list);
+//		model.addAttribute("list", list);
+//		return "/admin-class-list";
+//	}
 	
 	@GetMapping("/class/one")
 	@ResponseBody
