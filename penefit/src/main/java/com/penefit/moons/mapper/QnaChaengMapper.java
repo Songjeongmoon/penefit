@@ -13,7 +13,7 @@ public interface QnaChaengMapper {
 
 	public void regQna(QnAVO qna);
 	
-	public List<QnAVO> getQnaList(String member_id);
+	public List<QnAVO> getQnaList(@Param(value = "member_id") String member_id,@Param(value = "pageNum")  int pageNum);
 
 	public QnAVO qnaOneList(@Param("member_id")String member_id,@Param("qna_num") int qna_num);
 

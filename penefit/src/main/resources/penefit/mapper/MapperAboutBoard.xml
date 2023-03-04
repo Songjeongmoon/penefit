@@ -9,76 +9,64 @@
 
 	<!-- 공지사항 조회수증가 -->
 	<update id="noticeViewCnt">
-		UPDATE notice SET notice_viewcnt = notice_viewcnt + 1
-		WHERE notice_num=#{notice_num} 	
-	</update>
+	UPDATE notice SET notice_viewcnt = notice_viewcnt + 1 WHERE notice_num=#{notice_num} </update>
 
 	<!-- 공지사항 수정 -->
-	<update id="modiNotice">
-		UPDATE notice SET notice_title=#{notice_title},
-		notice_content=#{notice_content},notice_modidate=now() WHERE
-		notice_num=#{notice_num} 
-	</update>
+
+
+	<update id="modiNotice">UPDATE notice SET
+		notice_title=#{notice_title},notice_content=#{notice_content},notice_modidate=now()
+		WHEREnotice_num=#{notice_num} </update>
 
 	<!-- 공지사항 삭제 -->
-	<delete id="delNotice">
-		DELETE FROM notice WHERE notice_num=#{notice_num}
+
+
+	<delete id="delNotice">DELETE FROM notice WHERE notice_num=#{notice_num}
 	</delete>
-	
+
 	<!-- 지역게시판 글 개수 세기 -->
-	<select id="countCity" resultType="_int" >
-		SELECT COUNT(*) FROM board WHERE board_type = 'CC' 
-	</select>
+
+
+	<select id="countCity" resultType="_int">SELECT COUNT(*) FROM board
+		WHERE board_type = 'CC' </select>
 
 	<!-- 지역 전체 게시판 -->
-	<select resultType="com.penefit.moons.domain.BoardVO"
-		id="getCityList"> 
-		SELECT b.*, c.* FROM board b, city c WHERE b.board_type= 'cc' AND
-		c.city_code = b.city_code AND b.city_code like
-		CONCAT('%',#{param2},'%') AND (b.board_title like
-		CONCAT('%',#{param3},'%') OR b.member_id like
-		CONCAT('%',#{param3},'%')) ORDER BY b.board_num LIMIT #{param1}, 10
+	<select id="getCityList" resultType="com.penefit.moons.domain.BoardVO"> 
+		SELECT b.*, c.* FROM board b, city c WHERE b.board_type= 'cc' AND c.city_code = b.city_code AND b.city_code like CONCAT('%',#{param2},'%') AND (b.board_title like CONCAT('%',#{param3},'%') OR b.member_id like CONCAT('%',#{param3},'%')) ORDER BY b.board_num LIMIT #{param1}, 10
 	</select>
 
-	<!-- 각 지역 게시판 검색 개수 -->
-	<select resultType="_int" id="getSearchCount"> 
-		SELECT COUNT(*) FROM board b, city
-		c WHERE b.board_type= 'cc' AND c.city_code = b.city_code AND
-		b.city_code like CONCAT('%',#{param2},'%') AND (b.board_title like
-		CONCAT('%',#{param3},'%') OR b.member_id like
-		CONCAT('%',#{param3},'%')) 
+	<!-- 각 게시판 갯수 -->
+	<select id="getSearchCount" resultType="_int"> 
+		SELECT COUNT(*) FROM board b, city c WHERE b.board_type= 'cc' AND c.city_code = b.city_code AND b.city_code like CONCAT('%',#{param2},'%') AND (b.board_title like CONCAT('%',#{param3},'%') OR b.member_id like CONCAT('%',#{param3},'%'))
 	</select>
 
 	<!-- 각 지역별 게시판 -->
-	<select resultType="com.penefit.moons.domain.BoardVO" id="getOneCityList">
-		<!-- SELECT FROM board WHERE board_type= 'CC' AND city_code=#{city_code} -->
-		SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND
-		c.city_code = b.city_code AND c.city_code = #{city_code}
+
+	<!-- 각 지역별 게시판 -->
+	<select id="getOneCityList" resultType="com.penefit.moons.domain.BoardVO">	
+	<!--  SELECT FROM board WHERE board_type= 'CC' AND city_code=#{city_code}--> 
+		SELECT b.*, c.* FROM board b, city c WHERE board_type= 'cc'AND c.city_code = b.city_code AND c.city_code = #{city_code}
 	</select>
 
 	<!-- 지역상세 게시판 -->
-	<select resultType="com.penefit.moons.domain.BoardVO" id="citySelectOne">
-		SELECT * FROM board WHERE board_num=#{board_num} 
+	<select id="citySelectOne" resultType="com.penefit.moons.domain.BoardVO">
+		SELECT * FROM board WHERE board_num=#{board_num}
 	</select>
 
-
 	<update id="cityViewCnt">
-		UPDATE board SET board_viewcnt = board_viewcnt + 1
-		WHERE board_num=#{board_num} 
-	</update>
+	UPDATE board SET board_viewcnt = board_viewcnt + 1 WHERE board_num=#{board_num}
+</update>
 
-	<insert id="cityReg">
-		INSERT INTO board (board_title, board_content,
-		member_id, board_regdate, board_viewcnt, board_type, city_code) VALUES
-		(#{board_title}, #{board_content}, #{member_id}, now(), 0, 'CC',
-		#{city_code}) 
-	</insert>
+	<insert id="cityReg">INSERT INTO board (board_title,
+		board_content,member_id, board_regdate, board_viewcnt, board_type,
+		city_code) VALUES(#{board_title}, #{board_content}, #{member_id},
+		now(), 0, 'CC',#{city_code}) </insert>
+
+
 
 	<!-- 지역게시판 수정 -->
 	<update id="modiCity">
-		UPDATE board SET board_title=#{board_title},
-		board_content=#{board_content},board_modidate=now() WHERE
-		board_num=#{board_num} 
+		UPDATE board SET board_title=#{board_title}, board_content=#{board_content},board_modidate=now() WHERE board_num=#{board_num}
 	</update>
 
 	<!-- 지역게시판 삭제 -->
@@ -87,44 +75,48 @@
 	</delete>
 
 	<!-- 지역게시판 검색 -->
-	<select id="search_city" resultType="com.penefit.moons.domain.BoardVO" >
-		<!-- SELECT * FROM board WHERE board_title LIKE CONCAT('%', #{keyword}, 
-			'%') OR member_id like CONCAT('%', #{keyword},'%') AND city_code=#{city_code} -->
-		SELECT b.*, c.* FROM board b, city c WHERE (board_title LIKE
-		CONCAT('%', #{keyword}, '%') OR member_id like CONCAT('%',
-		#{keyword},'%') AND c.city_code=#{city_code}
+
+	<select id="search_city"
+		resultType="com.penefit.moons.domain.BoardVO">
+
+		<!-- SELECT * FROM board WHERE board_title LIKE CONCAT('%', #{keyword},'%') 
+			OR member_id like CONCAT('%', #{keyword},'%') AND city_code=#{city_code} -->
+
+		SELECT b.*, c.* FROM board b, city c WHERE (board_title
+		LIKECONCAT('%', #{keyword}, '%') OR member_id like
+		CONCAT('%',#{keyword},'%') AND c.city_code=#{city_code}
 	</select>
 
 	<!-- 댓글 -->
-	<insert id="reg_cityReply">
-		INSERT INTO reply(board_num, reply_content,
-		reply_regdate, member_id, reply_type) VALUES (#{board_num},
-		#{reply_content},now(),#{member_id}, 'C') 
-	</insert>
 
-	<select id="get_CityReplyList" resultType="com.penefit.moons.domain.ReplyVO"
-		>SELECT * FROM reply WHERE board_num=#{board_num} and reply_type ='C' 
-	</select>
 
-	<delete id="del_CityReply">
-		DELETE FROM reply WHERE reply_num=#{reply_num}
+	<insert id="reg_cityReply">INSERT INTO reply(board_num,
+		reply_content,reply_regdate, member_id, reply_type) VALUES
+		(#{board_num},#{reply_content},now(),#{member_id}, 'C') </insert>
+
+	<select id="get_CityReplyList"
+		resultType="com.penefit.moons.domain.ReplyVO">SELECT * FROM reply WHERE board_num=#{board_num} and
+		reply_type ='C' </select>
+
+	<delete id="del_CityReply">DELETE FROM reply WHERE reply_num=#{reply_num}
 	</delete>
 
 	<!-- FAQ 게시판 -->
-	<select id="getFaQList" resultType="com.penefit.moons.domain.BoardVO">
-		SELECT * FROM board WHERE board_type= 'FF' 
-	</select>
+
+
+	<select id="getFaQList"
+		resultType="com.penefit.moons.domain.BoardVO">SELECT * FROM board WHERE board_type= 'FF' </select>
 
 	<!-- 공지사항 글 개수 세기 -->
-	<select  id="countNotice" resultType="_int">
-		SELECT COUNT(*) FROM notice
+
+
+	<select id="countNotice" resultType="_int">SELECT COUNT(*) FROM notice
 	</select>
 
 	<!-- 공지사항 리스트 & 페이징 -->
-	<select resultType="com.penefit.moons.domain.NoticeVO" id="getpages">
-		SELECT * FROM notice LIMIT #{startnum}, 10 
-	</select>
 
-	
+
+	<select id="getpages"
+		resultType="com.penefit.moons.domain.NoticeVO">SELECT * FROM notice LIMIT #{startnum}, 10 </select>
 
 </mapper>

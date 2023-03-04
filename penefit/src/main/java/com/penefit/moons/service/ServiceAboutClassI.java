@@ -77,8 +77,6 @@ public interface ServiceAboutClassI {
 	// 히스토리에 추가
 	public void addHistory(HistoryDTO history, String member_id);
 
-	// 히스토리 조회
-	public ArrayList<HistoryVO> getHistory(String member_id);
 
 	// 히스토리 상세조회
 	public HistoryVO getOneHistory(String member_id, int buy_history_num);
@@ -110,7 +108,6 @@ public interface ServiceAboutClassI {
 	//마감기간이 지나지 않은 목록
 	public ArrayList<ClassVO> getClassList1();
 
-	
 	//진행중인 클래스 count ----
 	public int countOngingClass();
 	
@@ -127,9 +124,26 @@ public interface ServiceAboutClassI {
 	//리뷰목록
 	public List<ReviewVO> getReviewList(String member_id);
 
+
 	public int getReviewCheck(String class_code, String member_id, int buy_history_num);
 	
 	public void insertVisits();
+
+	public ArrayList<HistoryVO> getHistory(int pageNum, String member_id);
+
+	public int historymaxPage(String member_id);
+
+	public List<ReviewVO> getReviewList(String member_id, int pageNum);
+
+	public int reviewmaxPage(String member_id);
+
+	public int suggestmaxPage(String member_id);
+
+	public int qnamaxPage(String member_id);
+
+	public List<ClassVO> homenewlist();
+
+	public List<ClassVO> homerecolist();
 
 
 }

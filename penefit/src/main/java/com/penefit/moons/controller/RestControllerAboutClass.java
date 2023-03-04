@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 //github.com/eseo99/penefit.git
 import org.springframework.web.bind.annotation.RestController;
 
@@ -130,11 +131,14 @@ public class RestControllerAboutClass {
 	
 	//구매내역 받아오기
 	@GetMapping("/historyList")
-	public ArrayList<HistoryVO> getHistory(HttpSession session){
+	public ArrayList<HistoryVO> getHistory(int pageNum, HttpSession session){
 		String member_id = (String) session.getAttribute("member_id");
-		ArrayList<HistoryVO> list = service.getHistory(member_id);
+		int pageNumF = pageNum * 10-10;
+		ArrayList<HistoryVO> list = service.getHistory(pageNumF,member_id);
 		return list;
 	}
+	
+	
 	
 	//구매 상세내역
 	@GetMapping("/OneHistory/buy_history_num/{buy_history_num}")
@@ -159,12 +163,15 @@ public class RestControllerAboutClass {
 		int result = service.getReviewCheck(class_code, member_id, buy_history_num);
 		return result;
 	}
-	
 	//리뷰목록
 	@GetMapping("/myReviewList")
-	public List<ReviewVO> reviewList(HttpSession session){
+	public List<ReviewVO> reviewList(HttpSession session, int pageNum){
 		String member_id = (String) session.getAttribute("member_id");
-		List<ReviewVO> list = service.getReviewList(member_id);
+		System.out.println(pageNum);
+		int pageNumF = pageNum * 5-5;
+		System.out.println("pageNumF : " + pageNumF);
+		List<ReviewVO> list = service.getReviewList(member_id, pageNumF);
+		System.out.println(list);
 		return list;
 	}
 	
@@ -175,6 +182,24 @@ public class RestControllerAboutClass {
 		return rvo;
 	}
 	
+	@GetMapping("/reviewmaxPage")
+	public int reviewmaxPage(HttpSession session) {
+		String member_id = (String) session.getAttribute("member_id");
+		int result = service.reviewmaxPage(member_id);
+		return result;
+	}
 	
 	
+	@GetMapping("/suggestmaxPage")
+	public int suggestmaxPage(HttpSession session) {
+		String member_id = (String) session.getAttribute("member_id");
+		int result = service.suggestmaxPage(member_id);
+		return result;
+	}
+	@GetMapping("/qnamaxPage")
+	public int qnamaxPage(HttpSession session) {
+		String member_id = (String) session.getAttribute("member_id");
+		int result = service.qnamaxPage(member_id);
+		return result;
+	}
 }

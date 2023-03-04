@@ -41,7 +41,8 @@ public interface MapperAboutBoard {
 	// 각 지역별 게시판
 	public List<BoardVO> getOneCityList(String check_city);
 	
-	// 각 게시판 개수
+
+	// 각 게시판 갯수
 	public int getSearchCount(int pageNum, String sel, String keyword);
 	
 	//지역 게시판 검색

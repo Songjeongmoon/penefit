@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.penefit.moons.domain.ClassListDTO;
+import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.mapper.MapperAboutClassInfo;
 
@@ -27,30 +29,23 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 		suggest.setSuggest_content(suggest.getTime() + "시간짜리 수업입니다 -" + suggest.getSuggest_content());
 		String fileNames = "";
 		List<MultipartFile> list = files.getFiles("files");
-		String[] uuids = UUID.randomUUID().toString().split("-");
-		
 		String savePath = System.getProperty("user.dir") + "/src/main/webapp/images";
-		String uuid = "";
-		for(int i = 0; i < uuids.length; i++) {
-			uuid += uuids[i];
-		}
+		
+		
 		
 		for(int i = 0; i < list.size(); i++) {
-			String[] fileName = list.get(i).getOriginalFilename().split("-");
-			String name = "";
-			for(int j = 0; j < fileName.length; j++) {
-				name += fileName[j];
-			}
+			String[] uuids = UUID.randomUUID().toString().split("-");
 			
-			
+			String uuid = "";
+				uuid += uuids[0];
 			if(i == 0) {
-				fileNames += uuid + name;				
+				fileNames += uuid;				
 			}else {
-				fileNames += "-" + uuid + name;				
+				fileNames += "-" + uuid;				
 			}
 			
 			try {
-				File saveFile = new File(savePath, uuid + name);
+				File saveFile = new File(savePath, uuid);
 				list.get(i).transferTo(saveFile);
 			} catch (IllegalStateException | IOException e) {
 					e.printStackTrace();
@@ -63,8 +58,8 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 	}
 
 	@Override
-	public ArrayList<SuggestDTO> getMySuggestionList(String member_id) {
-		ArrayList<SuggestDTO> list = mapper.getMySuggestionList(member_id);
+	public ArrayList<SuggestDTO> getMySuggestionList(String member_id, int pageNum) {
+		ArrayList<SuggestDTO> list = mapper.getMySuggestionList(member_id, pageNum);
 		return list;
 	}
 	
@@ -103,6 +98,21 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 	public ArrayList<ClassListDTO> getMyClassListCntAsc(String member_id) {
 		ArrayList<ClassListDTO> list = mapper.getMyClassListCntAsc(member_id);
 		return list;
-	}	
+	}
+
+	@Override
+	public List<ClassVO> getMyClassListPage(int pageNum, String member_id) {
+		return mapper.getMyClassListPage(pageNum, member_id);
+	}
+
+	@Override
+	public List<MemberVO> getMyCustomerList(String class_code) {
+		return mapper.getMyCustomerList(class_code);
+	}
+
+	@Override
+	public int getClassMaxPage(String member_id) {
+		return mapper.getClassMaxPage(member_id);
+	}
 	
 }

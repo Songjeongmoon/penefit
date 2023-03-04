@@ -91,14 +91,13 @@ public class ControllerAboutBoard {
 	
 	//지역 게시판 
 	@GetMapping("/cityBoardview")
-	public String cityBoard1(Model model, int pageNum, int start) {
-		
-		pageNum = pageNum * 10 - 10;
-		
+
+	public String cityBoard1(Model model) {
+	
 		String sel = "";
 		String keyword = "";
 				
-		List<BoardVO> list = bservice.getAllCityList(pageNum, sel, keyword);
+		List<BoardVO> list = bservice.getAllCityList(0, sel, keyword);
 		int count = bservice.countCity();
 		
 		if(count % 10 == 0) {
@@ -107,10 +106,9 @@ public class ControllerAboutBoard {
 			count = count / 10 + 1;
 		}
 		
-	
 		model.addAttribute("count", count);
 		model.addAttribute("list", list);
-		model.addAttribute("start", start);
+		model.addAttribute("start", 1);
 		
 		return "/board/cityBoard";
 	}
@@ -121,7 +119,7 @@ public class ControllerAboutBoard {
 		pageNum = pageNum * 10 - 10;
 		return bservice.getAllCityList(pageNum, sel, keyword);
 	}
-	
+
 	
 	//검색 페이징
 	@GetMapping("/citySearchCount")

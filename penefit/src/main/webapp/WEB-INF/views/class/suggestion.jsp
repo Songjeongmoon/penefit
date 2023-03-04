@@ -84,88 +84,90 @@
                <li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
             </ul>
 
-         </aside>
-         <div class="content">
-            <h2>클래스제안</h2>
-            <br>
-            <form action="/class/suggestion" method="post"
-               enctype="multipart/form-data" id="formsuggest">
-               <table id="suggesttbl">
-                  <tr>
-                     <th>분류</th>
-                     <td><select name="type" style="text-align: center;">
-                           <option value="">- - - - -분류 - - - - -</option>
-                           <option value="A">미용</option>
-                           <option value="B">간식</option>
-                           <option value="C">훈련</option>
-                           <option value="D">의류</option>
-                           <option value="E">기타</option>
-                     </select></td>
-                  </tr>
 
-                  <tr>
-                     <th>ID</th>
-                     <td><input type="text" name="member_id"
-                        value="${member_id }" style="text-align: center;"></td>
-                  </tr>
-                  <tr>
-                     <th>주제</th>
-                     <td><input type="text" name="suggest_title"></td>
-                  </tr>
-                  <tr>
-                     <th>지역</th>
-                     <td><select name="city_code" style="text-align: center;">
-                           <option value="">- - - - - 지역 - - - - -</option>
-                           <option value="A">서울</option>
-                           <option value="B">경기</option>
-                           <option value="C">인천</option>
-                           <option value="D">강원</option>
-                           <option value="E">충남</option>
-                           <option value="F">대전</option>
-                           <option value="G">충북</option>
-                           <option value="H">부산</option>
-                           <option value="I">울산</option>
-                           <option value="J">대구</option>
-                           <option value="K">경북</option>
-                           <option value="L">경남</option>
-                           <option value="M">전남</option>
-                           <option value="N">광주</option>
-                           <option value="O">제주</option>
-                           <option value="Z">온라인</option>
-                     </select></td>
-                  </tr>
-                  <tr>
-                     <th>수업예정일</th>
-                     <td><input type="datetime-local" name="class_time"
-                        style="text-align: center;"></td>
-                  </tr>
-                  <tr>
-                     <th>수업길이(시간기준)</th>
-                     <td><input type="number" name="time" value="1" min="1"
-                        style="text-align: center;"></td>
-                  </tr>
-                  <tr>
-                     <th>내용</th>
-                     <td><textarea name="suggest_content"></textarea></td>
-                  </tr>
-                  <tr>
-                     <th>최대인원</th>
-                     <td><input type="number" name="maxCnt"></td>
-                  </tr>
-                  <tr>
-                     <th>참가비용</th>
-                     <td><input type="number" name="price"></td>
-                  </tr>
-                  <tr>
-                     <th>추가이미지 첨부</th>
-                     <td><input type="file" multiple="multiple" name="files"></td>
-                  </tr>
-                  <tr>
-                     <td colspan="2" style="text-align: center;"><input
-                        type="submit" value="신청" id="submitbtn"></td>
-                  </tr>
-               </table>
-            </form>
+			</aside>
+			<div class="content">
+				<h2>클래스제안</h2>
+				<br>
+				<form action="/class/suggestion" method="post"
+					enctype="multipart/form-data" id="formsuggest">
+					<table id="suggesttbl">
+						<tr>
+							<th>분류</th>
+							<td><select name="type" style="text-align: center;">
+									<option value="">- - - - -분류 - - - - -</option>
+									<option value="A">미용</option>
+									<option value="B">간식</option>
+									<option value="C">훈련</option>
+									<option value="D">의류</option>
+									<option value="E">기타</option>
+							</select></td>
+						</tr>
+
+
+						<tr>
+							<th>ID</th>
+							<td><input type="text" name="member_id"
+								value="${member_id }" style="text-align: center;"></td>
+						</tr>
+						<tr>
+							<th>주제</th>
+							<td><input type="text" name="suggest_title"></td>
+						</tr>
+						<tr>
+							<th>지역</th>
+							<td><select name="city_code" style="text-align: center;">
+									<option value="">- - - - - 지역 - - - - -</option>
+									<option value="A">서울</option>
+									<option value="B">경기</option>
+									<option value="C">인천</option>
+									<option value="D">강원</option>
+									<option value="E">충남</option>
+									<option value="F">대전</option>
+									<option value="G">충북</option>
+									<option value="H">부산</option>
+									<option value="I">울산</option>
+									<option value="J">대구</option>
+									<option value="K">경북</option>
+									<option value="L">경남</option>
+									<option value="M">전남</option>
+									<option value="N">광주</option>
+									<option value="O">제주</option>
+									<option value="Z">온라인</option>
+							</select></td>
+						</tr>
+						<tr>
+							<th>수업예정일</th>
+							<td><input type="datetime-local" name="class_time"
+								style="text-align: center;"></td>
+						</tr>
+						<tr>
+							<th>수업길이(시간기준)</th>
+							<td><input type="number" name="time" value="1" min="1"
+								style="text-align: center;"></td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td><textarea name="suggest_content"></textarea></td>
+						</tr>
+						<tr>
+							<th>최대인원</th>
+							<td><input type="number" name="maxCnt"></td>
+						</tr>
+						<tr>
+							<th>참가비용</th>
+							<td><input type="number" name="price"></td>
+						</tr>
+						<tr>
+							<th>추가이미지 첨부</th>
+							<td><input type="file" multiple="multiple" name="files"></td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align: center"><input
+								type="submit" value="신청" id="submitbtn"></td>
+						</tr>
+					</table>
+				</form>
 
          </div>
       </section>

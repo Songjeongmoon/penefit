@@ -40,24 +40,22 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 	}
 
 	@Override
-	public String loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession Session) {
-		ArrayList<MemberVO>list = mapper.loginCheck(member_id, member_pw);
+	public int loginCheck(@ModelAttribute("member_id")String member_id, @ModelAttribute("member_pw")String member_pw, HttpSession session) {
+	
+		ArrayList<MemberVO>list = mapper.loginCheck();
+		
 		for(int i = 0 ; i<list.size();i++) {
 			if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
-				Session.setAttribute("member_id", member_id);
+				session.setAttribute("member_id", member_id);
 				MemberVO member = mapper.selectOne(member_id);
 				if(member.getMember_grade().equals("C")) {
-					return "/dashboard/"; //관리자페이지
+					return 2;
 				}else {
-					return "/";
+					return 1;
 				}
-				
-			
 			}
-			
 		}
-		return "/member/login";
-		
+		return 0;
 	}
 
 	@Override
@@ -67,15 +65,8 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 	}
 
 	@Override
-	public String UpdateMember(MemberVO member) {
-		int result = mapper.updateMember(member);
-		String path = "";
-		if(result==1) {
-			path = "수정완료";
-		}else {
-			path = "수정실패";
-		}
-		return path;
+	public int UpdateMember(MemberVO member) {
+		return mapper.updateMember(member);
 	}
 
 	@Override

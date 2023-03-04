@@ -24,13 +24,13 @@ public interface AdminMapperSong {
 	
 	public int deleteClass(String class_code);
 	
-	public List<ClassVO> getClassList();
+	public List<ClassVO> getClassList(@Param("keyword") String keyword, @Param("startNum")int startNum);
 	
-	public List<ClassVO> getClassListASC();
+	public List<ClassVO> getClassListASC(@Param("keyword") String keyword, @Param("startNum")int startNum);
 	
-	public List<ClassVO> getClassListEnd();
+	public List<ClassVO> getClassListEnd(@Param("keyword") String keyword, @Param("startNum")int startNum);
 	
-	public List<ClassVO> getClassListActive();
+	public List<ClassVO> getClassListActive(@Param("keyword") String keyword, @Param("startNum")int startNum);
 	
 	public List<ClassVO> searchClass(String class_subject);
 	

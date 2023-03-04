@@ -15,7 +15,7 @@ public interface AdminServiceSongIm {
 	
 	public String deleteClass(String class_code);
 	
-	public List<ClassVO> getClassList();
+	public List<ClassVO> getClassList(String status, String keyword, int startNum);
 	
 	public List<ClassVO> searchClass(String class_subject);
 	
@@ -24,12 +24,6 @@ public interface AdminServiceSongIm {
 	public SuggestDTO getSuggestionInfo(int suggest_num);
 	
 	public ClassVO getClassOne(String class_code);
-	
-	public List<ClassVO> getClassListASC();
-	
-	public List<ClassVO> getClassListEnd();
-	
-	public List<ClassVO> getClassListActive();
 	
 	public int rejectSuggestion(int suggest_num, String reject_reason);
 

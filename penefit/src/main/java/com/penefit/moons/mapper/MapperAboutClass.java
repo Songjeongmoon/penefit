@@ -89,7 +89,7 @@ public interface MapperAboutClass {
 	public void updateClassMemcnt(String class_code);
 
 	//히스토리 목록 조회
-	public ArrayList<HistoryVO> getHistory(String member_id);
+	public ArrayList<HistoryVO> getHistory(@Param(value = "pageNum") int pageNum, @Param(value = "member_id") String member_id);
 
 	//히스토리 상세보기
 	public HistoryVO getOneHistory(@Param(value = "member_id")String member_id ,@Param(value = "buy_history_num")int buy_history_num);
@@ -148,10 +148,22 @@ public interface MapperAboutClass {
 	public ArrayList<ClassVO> getExpiredClassList(int pageNum);
 
 	//리뷰목록받아오기
-	public ArrayList<ReviewVO> getReviewList(@Param(value = "member_id") String member_id);
+	public ArrayList<ReviewVO> getReviewList(@Param(value = "member_id") String member_id,@Param(value = "pageNum")  int pageNum);
 	
 	//방문자 추가하기
 	public void insertVisits();
+
+	public int historymaxPage(@Param(value = "member_id") String member_id);
+
+	public int reviewmaxPage(String member_id);
+
+	public int suggestmaxPage(String member_id);
+
+	public int qnamaxPage(String member_id);
+
+	public List<ClassVO> homenewlist();
+
+	public List<ClassVO> homerecolist();
 
 	
 }

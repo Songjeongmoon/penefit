@@ -200,7 +200,6 @@ body {
 		dataType : "json",
 		success: (data) => {
 			for(let i = 0; i < data.length; i++){
-				alert(data);
 				$("#tbody").append("<tr>"
 						+ "<td>" + data[i].suggest_num + "</td><td>" + data[i].type + "</td>"
 						+ "<td class='showDetail'>" + data[i].suggest_title + "</td><td>" + data[i].city_code + "</td>"

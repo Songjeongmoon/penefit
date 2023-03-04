@@ -17,7 +17,7 @@ public interface MapperAboutMember {
 	public int idCheck(@Param(value="id") String param1);
 	
 	//로그인
-	public ArrayList<MemberVO> loginCheck(String id, String pw);
+	public ArrayList<MemberVO> loginCheck();
 	//회원정보수정
 	public int updateMember(MemberVO member);
 	//회원정보조회

@@ -53,7 +53,6 @@
 
 		</section>
 	</div>
-	<%@ include file="../footer.jsp"%>
 <script>
 
 

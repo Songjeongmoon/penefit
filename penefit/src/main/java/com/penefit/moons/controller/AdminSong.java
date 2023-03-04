@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +30,7 @@ class AdminSong {
 	
 	@GetMapping("/suggestionlist")
 	public String SuggestionListWindow() {
-		return "class/suggestion/adminSuggestionList";
+		return "admin/adminSuggestList";
 	}
 	
 	@GetMapping("suggestion/list")
@@ -41,43 +40,18 @@ class AdminSong {
 	}
 	
 	
-	@GetMapping("/class")
-	public String getClassList(Model model){
-		
-		List<ClassVO> list = service.getClassList();
-		System.out.println(list);
-		model.addAttribute("list", list);
-		return "/admin-class-list";
-	}
-	
-	@GetMapping("/class/DESC")
-	@ResponseBody
-	public List<ClassVO> getClassListDESC(){
-		return service.getClassList();
-	}
-	
-	@GetMapping("/class/ASC")
-	@ResponseBody
-	public List<ClassVO> getClassListASC(){
-		return service.getClassListASC();
-	}
-	
-	@GetMapping("/class/end")
-	@ResponseBody
-	public List<ClassVO> getClassListEnd(){
-		return service.getClassListEnd();
-	}
-	
-	@GetMapping("/class/active")
-	@ResponseBody
-	public List<ClassVO> getClassListActive(){
-		return service.getClassListActive();
-	}
+//	@GetMapping("/class")
+//	public String getClassList(Model model){
+//		
+//		List<ClassVO> list = service.getClassList();
+//		System.out.println(list);
+//		model.addAttribute("list", list);
+//		return "/admin-class-list";
+//	}
 	
 	@GetMapping("/class/one")
 	@ResponseBody
 	public ClassVO getClassOne(String class_code) {
-		System.out.println(class_code);
 		return service.getClassOne(class_code);
 	}
 	
@@ -90,11 +64,10 @@ class AdminSong {
 		
 	}
 	
-	@PutMapping("/class")
+	@PutMapping("/class/update")
 	@ResponseBody
 	public String updateClass(ClassVO classvo, MultipartHttpServletRequest files) {
 		String result = service.updateClass(classvo, files);
-		
 		return result;
 	}
 	

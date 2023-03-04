@@ -89,4 +89,13 @@ public class ServiceAboutDashBoard implements ServiceAboutDashBoardI{
 		return mapper.getVisits();
 	}
 
+
+	@Override
+	public String getGrade(String member_id) {
+		
+		return mapper.getGrade(member_id);
+	}
+	
+	
+
 }
