@@ -26,7 +26,7 @@
               [obj[0].type + " : 미용", obj[0].qty],
               [obj[1].type + " : 요리", obj[1].qty],
               [obj[2].type + " : 의류", obj[2].qty],
-              [obj[3].type + " : 기타", obj[3].qty].    
+              [obj[3].type + " : 기타", obj[3].qty]
             ]);
 
             var options = {

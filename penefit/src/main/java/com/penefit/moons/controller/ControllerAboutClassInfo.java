@@ -8,7 +8,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -125,7 +124,7 @@ public class ControllerAboutClassInfo {
 	//클래스 신청서 접수
 	
 	@PostMapping("/suggestion")
-	public void insertSuggestion(@Valid SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res) {
+	public void insertSuggestion(SuggestDTO suggest, MultipartHttpServletRequest files, HttpServletResponse res) {
 		res.setContentType("text/html; charset=UTF-8");
 		List<MultipartFile> list = files.getFiles("files");
 		

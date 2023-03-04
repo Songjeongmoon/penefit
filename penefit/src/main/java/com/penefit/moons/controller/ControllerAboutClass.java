@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 //github.com/eseo99/penefit.git
@@ -37,33 +36,83 @@ public class ControllerAboutClass {
 	@Autowired
 	ServiceAboutClassI service;
 
-	// 전체클래스
+	// 전체클래스 ---
 	@GetMapping("/classList")
-	public void getClassList(Model model) {
-		ArrayList<ClassVO> list = service.getClassList();
+	public void getClassList(Model model, int pageNum) {
+		//System.out.println("pageNum" +pageNum);
+		ArrayList<ClassVO> list = service.getClassList((pageNum * 8 - 8));
+		
+		int count = service.countClass();
+		//System.out.println(count);
+		
+		if(count % 8 == 0) {
+			count = count/8;
+		}else {
+			count = count/8 + 1;
+		}
+		
+		model.addAttribute("startNum", 1);
+		model.addAttribute("count", count);
 		model.addAttribute("list", list);
 	}
 
-	// 진행중인 목록
+	// 진행중인 목록 ---
 	@GetMapping("/classList-ongoing")
-	public void getClassList1(Model model) {
-		ArrayList<ClassVO> list = service.getOngoingClassList();
+	public void getClassList1(Model model, int pageNum) {
+		
+		int count = service.countOngingClass();				// 0 startNum 
+		if(count % 8 == 0) {
+			count = count/8;
+		}else {
+			count = count/8 + 1;
+		}
+															//0번째 부터 8개 달라
+		ArrayList<ClassVO> list = service.getOngoingClassList((pageNum * 8 - 8));
+		model.addAttribute("startNum", 1);
+		model.addAttribute("count", count);
 		model.addAttribute("list", list);
 	}
-
-	// 마감된 목록
+	
+	// 마감된 목록	---
 	@GetMapping("/classList-expired")
-	public void getClassExpired(Model model) {
-		ArrayList<ClassVO> list = service.getExpiredClassList();
+	public void getClassExpired(Model model, int pageNum) {
+		
+		int count = service.expiredClassCount();
+		if(count % 8 == 0) {
+			count = count/8;
+		}else {
+			count = count/8 + 1;
+		}
+		
+		ArrayList<ClassVO> list = service.getExpiredClassList((pageNum * 8 - 8));
+		model.addAttribute("startNum", 1);
+		model.addAttribute("count", count);
 		model.addAttribute("list", list);
 	}
 
 	// 카테고리별 클래스 목록
 	@GetMapping("/classList-category")
-	public void getCtgClassList(Model model, String key) {
-		ArrayList<ClassVO> list = service.getCtgClassList(key);
+	public void getCtgClassList(Model model, String key, int pageNum) {
+		ArrayList<ClassVO> list = service.getCtgClassList(key, (pageNum * 8 - 8));
+		int count = service.ctgClassCount(key);
+		System.out.println(count);
+		if(count % 8 == 0) {
+			count = count/8;
+			
+		}else{
+			count = count/8 + 1;
+		}
+		System.out.println(pageNum);
+		
+		System.out.println("key : " + key + "그리고" + "pageNum : " + pageNum + "count : " + count);
+		System.out.println("====================");
+		model.addAttribute("startNum", 1);
 		model.addAttribute("list", list);
+		model.addAttribute("count", count);
 	}
+	
+	
+	
 
 	// 신규 클래스 목록
 	@GetMapping("/classList-new")
@@ -90,7 +139,6 @@ public class ControllerAboutClass {
 		ClassVO cvo = service.selectClassOne(class_code);
 		List<ReviewVO> rvo = service.getReview(class_code);
 		
-		
 		LocalDateTime now = LocalDateTime.now();
 		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -106,7 +154,8 @@ public class ControllerAboutClass {
 		model.addAttribute("rvo", rvo);
 		model.addAttribute("cvo", cvo);
 	}
-
+	
+	
 	// 장바구니에 담고 --> 리스트와 함께 페이지로 이동
 	@GetMapping("/shoppingcart")
 	public String shoppingcart(String class_code, HttpSession session) {
