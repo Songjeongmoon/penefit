@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -121,7 +120,7 @@ public class ControllerAboutMember {
 
 	@PutMapping("/updateMember")
 	@ResponseBody
-	public String updateMember(@Valid @RequestBody MemberVO member, HttpServletResponse res) {
+	public String updateMember(@RequestBody MemberVO member, HttpServletResponse res) {
 		res.setContentType("text/html; charset=UTF-8");
 		int result = serviceMember.UpdateMember(member);
 

@@ -8,8 +8,12 @@
 <style>
 #form {
 <<<<<<< HEAD
+<<<<<<< HEAD
    margin: 0 auto;
 =======
+=======
+
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 	margin: 0 auto;
 >>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 }
@@ -75,6 +79,7 @@ strong{
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
    <%@ include file="../header.jsp"%>
    <div class="box">
       <section>
@@ -101,6 +106,21 @@ strong{
 					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
 >>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 				</ul>
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
+=======
+
+   <%@ include file="../header.jsp"%>
+   <div class="box">
+      <section>
+         <aside>
+            <ul>
+               <li class="aside_title">커뮤니티</li>
+               <li class="aside_menu"><a href="notice?pageNum=1&start=1">공지사항</a></li>
+               <li class="aside_menu"><a href="cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
+            </ul>
+
+	
+
 >>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 
 <<<<<<< HEAD
@@ -174,8 +194,12 @@ strong{
 >>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                      </div>
 =======
+=======
+
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 							</div>
 
 							<div style="display: flex; justify-content: center; align-items: center;">
@@ -186,6 +210,7 @@ strong{
 							<button type="button" id="cityreg" onclick="cityReg()">등록</button>
 >>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 
+<<<<<<< HEAD
 <<<<<<< HEAD
                      <div style="display: flex; justify-content: center; align-items: center;">
                         <strong style="margin-bottom: 50px;">내용</strong>
@@ -222,6 +247,9 @@ strong{
          const board_content= $("textarea[name='board_content']").val();
          const board_type = $("input[name='board_type']").val();
 =======
+=======
+
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 						</div>
 					</form>
 				</div>
@@ -279,7 +307,11 @@ strong{
                     success:function(data){
                        alert(data);
                        
+<<<<<<< HEAD
                        location.href="/board/cityBoardview";
+=======
+                       location.href="/cityBoardview?pageNum=" + pageNum;
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
                     },
                     error : () => {
                         alert("error");

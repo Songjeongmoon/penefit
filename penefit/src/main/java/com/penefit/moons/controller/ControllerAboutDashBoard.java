@@ -101,7 +101,7 @@ public class ControllerAboutDashBoard {
 			visitList.add(dto);
 		}
 		model.addAttribute("visits", visitList);
-		return "/admin/dashboard";
+		return "/admin/mainChaeng";
 	}
 	
 	

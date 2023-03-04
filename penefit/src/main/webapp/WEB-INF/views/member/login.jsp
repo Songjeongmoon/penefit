@@ -58,61 +58,7 @@ p {
 }
 </style>
 </head>
-<body>
-	<%@ include file="../header.jsp"%>
 
-<<<<<<< HEAD
-<style>
-*{
-/* border :1px solid pink; */
-}
-section{
-text-align: center;
-}
-.login {
-	position : relative;
-	top : 30px;
-	margin : 0 auto;
-	display: inline-block;
-	width: 400px;
-	height: 500px;
-	border: solid 1px #BBB09F;
-	border-radius : 7px;
-	box-shadow: 7px 7px 7px 7px #DBD5CB;
-}
-#login_title h2{
-	margin-top: 50px;
-	font-size: 40px;
-	color: #BBB09F;
-}
-#login_id,  #login_pw{
-	margin-top: 35px;
-
-}
-input[type='text'], input[type='password']{
-	height: 40px;
-	width: 250px;
-}
-input[type='submit']{
-	width: 250px;
-	margin-top: 20px;
-	height: 40px;
-	background-color: #75BD43;
-	font-size: 20px;
-	line-height: 50px;
-	border-radius: 7px;
-	color: white;
-	border : none;
-}
-p{
-	text-align: left;
-	display: inline;
-	position: relative;
-	right : 90px;
-	
-}
-
-</style>
 </head>
 <body>
 	<%@ include file="../header.jsp"%>
@@ -168,7 +114,6 @@ function submit_check(){
 
 </script>
 
-=======
 	<div class="box">
 		<section>
 			<form name="frm_login" id="frm_login" method="post" action="login.do">
@@ -219,7 +164,7 @@ function submit_check(){
 	</script>
 
 	<script type="text/javascript" src="/js/javascript.js"></script>
->>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
+
 
 
 </body>
