@@ -47,7 +47,7 @@
 		SELECT *
 		FROM review
 		ORDER BY review_regdate DESC
-		LIMIT 0,5
+		LIMIT #{startNum},5
 
 	</select>
 	<!-- 리뷰목록 신규 -->
@@ -59,7 +59,7 @@
 		INTERVAL -24 HOUR)
 		ORDER BY
 		review_regdate asc
-		LIMIT 0,5
+		LIMIT #{startNum}, 5
 	</select>
 	<!-- qna목록 신규 -->
 	<select id="qnaListToConfirm"
@@ -423,5 +423,37 @@
 		WHERE status like CONCAT('%',#{param1},'%') AND
 		(suggest_title like CONCAT('%',#{param2},'%') or member_id like CONCAT('%',#{param2},'%') or
 		type like CONCAT('%', #{param2},'%'))
+	</select>
+	
+	<select id="getClassAllPageEnd" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE NOW() > class_date AND
+		(class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%'))
+	</select>
+	
+	<select id="getClassAllPageActive" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE class_date > NOW() AND
+		(class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%'))
+	</select>
+	
+	<select id="getClassAllPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM class
+		WHERE class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<select id="getReviewNewPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM review
+		WHERE review_regdate > DATE_ADD(now(),
+		INTERVAL -24 HOUR)
+	</select>
+	
+	<select id="getReviewAllPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM review
 	</select>
 </mapper>

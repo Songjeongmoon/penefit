@@ -62,17 +62,20 @@ public class AdminChaengController {
 
 	// 전체리뷰
 	@GetMapping("/reviewLoadAll")
-	public @ResponseBody List<ReviewVO> reviewList() {
+	public @ResponseBody List<ReviewVO> reviewList(int startNum) {
 		// 리뷰리스트
-		List<ReviewVO> list = service.getReviewList();
+		startNum = (startNum - 1) * 5;
+		List<ReviewVO> list = service.getReviewList(startNum);
 		return list;
 	}
 
 	// 신규리뷰
 	@GetMapping("/reviewLoadNew")
-	public @ResponseBody List<ReviewVO> reviewLoadNew() {
+	public @ResponseBody List<ReviewVO> reviewLoadNew(int startNum) {
 		// 리뷰리스트 - 신규
-		List<ReviewVO> list = service.getReviewListNew();
+		startNum = (startNum - 1) * 5;
+		List<ReviewVO> list = service.getReviewListNew(startNum);
+		System.out.println(list);
 		return list;
 	}
 
@@ -270,8 +273,9 @@ public class AdminChaengController {
 	}
 	@GetMapping("/classListAll")
 	@ResponseBody
-	public List<ClassVO> classListAll(){
-		return asservice.getClassList();
+	public List<ClassVO> classListAll(String status, String keyword, int startNum){
+		startNum = (startNum - 1) * 10;
+		return asservice.getClassList(status, keyword, startNum);
 	}
 	@GetMapping("/classListSearch")
 	@ResponseBody
@@ -461,6 +465,42 @@ public class AdminChaengController {
     @ResponseBody
 	public int getSuggestAllPage(String status, String keyword) {
 		int result = service.getSuggestAllPage(status, keyword);	
+		if(result % 5 != 0) {
+    		result = result / 5 + 1;
+    	} else {
+    		result = result / 5;
+    	}
+    	return result;
+	}
+    
+    @GetMapping("/class-max-all")
+    @ResponseBody
+	public int getClassAllPage(String status, String keyword) {
+		int result = service.getClassAllPage(status, keyword);	
+		if(result % 10 != 0) {
+    		result = result / 10 + 1;
+    	} else {
+    		result = result / 10;
+    	}
+    	return result;
+	}
+    
+    @GetMapping("/review-max-new")
+    @ResponseBody
+	public int getReviewNewPage() {
+		int result = service.getReviewNewPage();	
+		if(result % 5 != 0) {
+    		result = result / 5 + 1;
+    	} else {
+    		result = result / 5;
+    	}
+    	return result;
+	}
+    
+    @GetMapping("/review-max-all")
+    @ResponseBody
+	public int getReviewAllPage() {
+		int result = service.getReviewAllPage();	
 		if(result % 5 != 0) {
     		result = result / 5 + 1;
     	} else {
