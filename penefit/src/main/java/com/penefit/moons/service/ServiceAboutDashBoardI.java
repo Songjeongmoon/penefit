@@ -37,4 +37,7 @@ public interface ServiceAboutDashBoardI {
 	
 	public String  getGrade(String member_id);
 
+	public int getMemberToday();
+	
+	public int getMember7days(int day);
 }

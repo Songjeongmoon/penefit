@@ -1,6 +1,7 @@
 package com.penefit.moons.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -40,5 +41,10 @@ public interface ServiceAboutMemberI {
 	public String updateMemberManager(MemberVO member);
 	//관리자 회원탈퇴
 	public String deleteMemberManager(String id);
-		
+	
+	//관리자 멤버리스트 페이지
+	public List<MemberVO> getMemManagerList(int pageNum);
+	
+	//관리자 멤버리스트 페이지수
+		public int getMemManagerListmaxPage();
 }

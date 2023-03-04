@@ -72,6 +72,52 @@
           xhttp.send();
         }
       </script>
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+	  google.charts.load("current", {packages:["corechart"]});
+	  google.charts.setOnLoadCallback(drawChart);
+	  
+	  function drawChart() {
+
+	      var currentDay = new Date();  
+	      var theYear = currentDay.getFullYear();
+	      var theMonth = currentDay.getMonth();
+	      var theDate  = currentDay.getDate();
+
+
+	      var thisWeek = [];
+	       
+	      for(var i=0; i<7; i++) {
+	        var resultDay = new Date(theYear, theMonth, theDate- i);
+	        var yyyy = resultDay.getFullYear();
+	        var mm = Number(resultDay.getMonth()) + 1;
+	        var dd = resultDay.getDate();
+	       
+	        mm = String(mm).length === 1 ? '0' + mm : mm;
+	        dd = String(dd).length === 1 ? '0' + dd : dd;
+	       
+	        thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+	      }
+
+	      
+	      
+	    var data = google.visualization.arrayToDataTable([
+	      ["날짜", "가입자수" ],
+	      [thisWeek[6], ${member7dayCount}],
+	      [thisWeek[5], ${member6dayCount}],
+	      [thisWeek[4], ${member5dayCount}],
+	      [thisWeek[3], ${member4dayCount}],
+	      [thisWeek[2], ${member3dayCount}],
+	      [thisWeek[1], ${member2dayCount}],
+	      [thisWeek[0], ${membertodayCount}]
+	 
+	    ]);
+
+	    var chart = new google.visualization.ColumnChart(document.getElementById('memberchartdiv'));
+
+        chart.draw(data);
+      }
+  </script>
 
 <link rel="stylesheet" href="/css/reset.css" />
 <style>
@@ -633,6 +679,79 @@ table tbody tr:hover {
 	font-weight: bold;
 	background-color: #f7f7f7;
 }
+
+ #memberBox1{
+      grid-column: 1 / 4;
+      grid-row:1/3;
+      background-color: white;
+      }
+     #memberBox2{
+      grid-column: 1 / 4;
+      background-color: white;
+     }
+      
+      #managerBox1{
+      grid-column: 1 / 3;
+      grid-row:1/4;
+      background-color: white;
+      }
+      #managerBox2{
+      grid-column: 3 / 4;
+      grid-row:1/4;	
+      background-color: white;
+      }
+      .memberlistgrade{
+      margin-left: 20px;
+
+      }
+     #memberlistTable table {
+	  border-collapse: collapse;
+	  width: 100%;
+	}
+	
+	#memberlistTable th, td {
+	  padding: 8px;
+	  text-align: left;
+	  border-bottom: 1px solid #ddd;
+	}
+	
+	#memberlistTable th {
+	   background-color: #f2f2f2;
+	  font-weight: bold;
+	  text-align: center;
+	  padding: 10px;
+	}
+	#membertbody input[type=text]{
+	  width: 100%;
+	  border: none;
+	  background-color: transparent;
+	}
+
+    #membertbody tr:nth-child(even) {
+ 	 background-color: #f2f2f2;
+	}
+	#membertbody tr:nth-child(odd) {
+ 	 background-color: #ffffff;
+	}
+    #membertbody .memChange, .memDel {
+	  border: none;
+/* 	  background-color: #4CAF50;  */
+	  color: black;
+	  padding: 5px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 12px;
+	  cursor: pointer;
+	  border-radius: 5px;
+	}
+	#membertbody .memChange:hover, .memDel:hover {
+	  background-color: #3e8e41;
+	}
+	.membernewR{
+	width:200px;
+  	height: 200px;
+	} 
 </style>
 </head>
 
@@ -812,22 +931,92 @@ table tbody tr:hover {
 				</div>
 			</div>
 
-			<div id="memberArticle" class="article">
-				<div id="box1" class="box">1</div>
-				<div class="box">2</div>
-				<div class="box">3</div>
-				<div class="box">4</div>
-				<div class="box">5</div>
-				<div class="box">6</div>
-			</div>
-
-			<div id="managerArticle" class="article">
-				<div id="box1" class="box">1</div>
-				<div class="box">2</div>
-				<div class="box">3</div>
-				<div class="box">4</div>
-				<div class="box">5</div>
-				<div class="box">6</div>
+		<div id="memberArticle" class="article">
+		        <div id="memberBox1" class="box">
+					<div class = memberlistgrade>
+						<div id = "memberlistgradeTitle">
+							<h2>[회원목록]</h2>
+						</div>
+							<div id="memberSearch">
+								<select name='memberOption'>
+								  	<option value='' selected>-- 선택 --</option>
+								  	<option value='member_id'>아이디</option>
+								  	<option value='member_name'>이름</option>
+								  	<option value='member_grade'>등급</option>
+								</select>
+								<input type="text" name="searchMem" id="searchMem1">
+								<input type="button" value="검색" id="searchMemBtn" onclick="serchMem()">
+							</div>
+							<div id="memberlistTable">
+							<table border ="1">
+								<thead>
+									<tr>
+										<th>회원아이디</th><th>회원비밀번호</th><th>회원이름</th><th>회원전화번호</th><th>우편번호</th><th>회원주소</th><th>회원상세주소</th><th>회원등급</th><th colspan ="2">관리자지정</th>
+									</tr>
+								</thead>
+								<tbody id = "membertbody">
+							
+								</tbody>
+							</table>
+							 <div id="page" style="text-align: center;">
+				               <input type="hidden" name="Memmanager_startNum" value="1">
+				               <button type="button" id="Memmanager_backBtn" style="width: 40px;">이전</button>
+				               <div id="Memmanager_pages" style="display: inline;"></div>
+				               <button type="button" id="Memmanager_frontBtn" style="width: 40px;">다음</button>
+				          	  </div>
+							</div>
+					</div>
+		
+				</div>
+				<div id="memberBox2">
+				<div class ="membernew">
+					<div id= "membernewL">
+						<h2>[신규 가입 회원]</h2>
+						${membertodayCount }명
+					</div>
+					<div class="membernewR">
+					  <div id="memberchartdiv" style="width: 400px; height: 100px; position: relative; top: -20px; left: 10px;"></div>
+					</div>
+				</div>
+				
+				</div>
+				
+				
+		      </div>
+		
+		      <div id="managerArticle" class="article">
+		        <div id="managerBox1" class="box">
+		        <div class = memberlist>
+					<div id = "memberlistTitle">
+						<h2>[회원목록]</h2>
+					</div>
+					<div id="memberSearch">
+						<select name='memberOption2'>
+						  	<option value='' selected>-- 선택 --</option>
+						  	<option value='member_id'>아이디</option>
+						  	<option value='member_name'>이름</option>
+						  	<option value='member_grade'>등급</option>
+						</select>
+						<input type="text" name="searchMem" id="searchMem2">
+						<input type="button" value="검색" id="searchMemBtn" onclick="serchMem2()">
+					</div>
+					<div id="memberlistTable">
+						<table border ="1">
+							<thead>
+								<tr>
+									<th>회원아이디</th><th>회원비밀번호</th><th>회원이름</th><th>회원전화번호</th><th>회원등급</th><th colspan ="2">관리자지정</th>
+								</tr>
+							</thead>
+								<tbody id = "tbodygrade">
+						
+							</tbody>
+						</table>
+					</div>
+				</div>
+		        
+		        </div>
+		         <div id="managerBox2" class="box"> 
+		      </div>
 			</div>
 
 			<div id="qnaArticle" class="article">
@@ -3521,3 +3710,370 @@ table tbody tr:hover {
             })
          }
    </script>
+   
+     <script>
+      //(문지현)회원목록
+      getlist();
+      Memmanager_page();
+	  function getlist() {
+		 let tbody = document.querySelector("#membertbody");
+		 const xhttp = new XMLHttpRequest();
+		 xhttp.onload = function() {
+		 let data = this.responseText;
+		 let obj = JSON.parse(data);
+		
+		 for(i = 0;i<obj.length;i++ ){
+			tbody.innerHTML +="<tr><td class='objid''>" +obj[i].member_id +"</td><td><input type='text' value="+obj[i].member_pw+"></td><td>" 
+			+ "<input type='text' value="+obj[i].member_name+"></td><td><input type='text' value=" + obj[i].member_tel+"></td><td>"
+			+ "<input type='text' value="+obj[i].postnum+"></td><td><input  type='text' value='"+obj[i].member_address+"'></td><td>"
+			+ "<input  type='text' value='"+obj[i].member_addressdetail+"'></td><td>"+obj[i].member_grade+"</td>"
+			+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+			+ "<td><input type='button' class = 'memDel' value='삭제'></td></tr>";
+			 }
+		  }
+			  xhttp.open("GET", "/member/MembermanagerList?pageNum=1", true);
+			  xhttp.send();
+			}
+	  
+      $("#Memmanager_pages").on("click", function (event) {
+          let e = event.target.className;
+          if (e == "pageBtn") {
+          $("#membertbody").empty();
+             let pageNum = event.target.textContent;
+             $.ajax({
+                url: "/member/MembermanagerList",
+                method: "get",
+                dataType: "json",
+                data: {
+                   pageNum: pageNum
+                },
+                success: (data) => {
+                   
+                   for (let i = 0; i < data.length; i++) {
+                      $("#membertbody").append("<tr><td>" +data[i].member_id +"</td><td><input type='text' value="+data[i].member_pw+"></td><td>" 
+                  			+ "<input type='text' value="+data[i].member_name+"></td><td><input type='text' value=" + data[i].member_tel+"></td><td>"
+                			+ "<input type='text' value="+data[i].postnum+"></td><td><input  type='text' value='"+data[i].member_address+"'></td><td>"
+                			+ "<input  type='text' value='"+data[i].member_addressdetail+"'></td><td>"+data[i].member_grade+"</td>"
+                			+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+                			+ "<td><input type='button' class = 'memDel' value='삭제'></td></tr>");
+                   }
+                   $("td").css({
+                      "border-bottom": "thin solid #BBB09F",
+                      "height": "40px"
+                   });
+                   $("td:nth-of-type(4)").css({
+                      "width": "300px",
+                      "height": "100px",
+                   });
+                   $("a").css("color", "black");
+                   $("a").css("text-decoration", "none");
+                },
+                error: () => {
+                   alert("Error [실패]");
+                }
+
+
+             })
+
+          }
+
+
+       })
+
+	//회원목록 최대페이지
+      function Memmanager_max() {
+         let maxPage;
+         $.ajax({
+            url: "/member/MembermanagermaxPage",
+            method: "get",
+            async: false,
+            success: function (data) {
+               maxPage = data;
+            },
+            error: function () {
+               alert("error!");
+            }
+         })
+         return maxPage;
+      }
+      
+      //회원목록 페이지버튼
+      function Memmanager_page() {
+         $("#membertbody").empty();
+         //ajax로 가져온다
+         let start = $("input[name=Memmanager_startNum]").val();
+         let startNum = Number(start);
+         let maxPage = Memmanager_max();
+         let endPage = startNum+4;
+     
+         if(startNum == 1){
+            $("#Memmanager_backBtn").hide();
+         }
+         if(endPage > maxPage){
+            endPage=(maxPage+1);
+         }
+         
+         for (let i = startNum; i < endPage+1; i++) {
+            $("#Memmanager_pages").append(
+            "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
+            )
+         }
+         $("#Memmanager_frontBtn").css({
+            "width": "40px",   
+            "margin": "0 3px",   
+            "border": "none",
+            "background-color": "rgba(0, 0, 0, 0)"
+         })
+         $("#Memmanager_backBtn").css({
+            "width": "40px",   
+            "margin": "0 3px",   
+            "border": "none",
+            "background-color": "rgba(0, 0, 0, 0)"
+         })
+
+
+      }
+      //나의 문의내역 다음버튼
+      $("#Memmanager_frontBtn").click(() => {
+         $("#Memmanager_backBtn").show();
+         $("#Memmanager_pages").empty();
+         let start = $("input[name=Memmanager_startNum]").val();
+         let startNum = Number(start) +5;
+         $("input[name=Memmanager_startNum]").val(startNum);
+         
+         let maxPage = Memmanager_max();
+
+         let endPage = startNum+5;
+            if(endPage>maxPage){
+               endPage=maxPage;
+               $("#Memmanager_frontBtn").hide();
+            }
+         for (let i = startNum; i < endPage+1; i++) {
+            
+            $("#Memmanager_pages").append(
+            "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
+            )
+         }
+         $("#Memmanager_frontBtn").css({
+            "width": "40px",   
+            "margin": "0 3px",   
+            "border": "none",
+            "background-color": "rgba(0, 0, 0, 0)"
+         })
+         $("#Memmanager_backBtn").css({
+            "width": "40px",   
+            "margin": "0 3px",   
+            "border": "none",
+            "background-color": "rgba(0, 0, 0, 0)"
+         })
+      });
+
+      //나의 문의내역 이전버튼
+      $("#Memmanager_backBtn").click(() => {
+         $("#Memmanager_frontBtn").show();
+         $("#Memmanager_pages").empty();
+         let start = $("input[name=Memmanager_startNum]").val();
+         let startNum = Number(start) -5;
+
+         
+         if(startNum == 1){
+            $("#Memmanager_backBtn").hide();
+         }
+         $("input[name=Memmanager_startNum]").val(startNum);
+         
+         
+         let maxPage = Memmanager_max();
+         let endPage = startNum+4;
+         
+         for (let i = startNum; i < endPage+1; i++) {
+            
+            $("#Memmanager_pages").append(
+            "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
+            )
+         }
+      });
+      
+      
+		
+		function serchMem() {
+			
+			$("#membertbody").empty();
+		    let memberOption = $("select[name='memberOption']").val();
+		    let search = $("#searchMem1").val();
+		    alert(memberOption);
+		
+		    urldata = "";
+		    data ="";
+		    if(memberOption=="member_id"){
+		       urldata = "/member/selectOneid";
+		       data = "id";
+		    }else if(memberOption=="member_name"){
+		       urldata = "/member/selectOnename";
+		       data = "name";
+		    }else if(memberOption=="member_grade"){
+		       urldata = "/member/selectOnegrade";
+		       data = "grade";
+		    }
+		    $.ajax({
+		       url: urldata+"?"+data+"="+search,
+		       method: "GET",
+		       dataType: "json",
+		       success: (data) => {
+		    	   for(let i=0 ; i<data.length;i++){
+		    		   $("#membertbody").append("<tr><td>" +data[i].member_id +"</td><td><input type='text' value=" + data[i].member_pw +"></td><td>"
+		    				    + "<input type='text' value="+data[i].member_name+"></td><td><input type='text' value=" + data[i].member_tel+"></td><td>"
+		    					+ "<input type='text' value="+data[i].postnum+"></td><td><input  type='text' value='"+data[i].member_address+"'></td><td>"
+		    					+ "<input  type='text' value='"+data[i].member_addressdetail+"'></td><td>"+data[i].member_grade+"</td>"
+		    				  	+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+		    				  	+ "<td><input type='button' class = 'memDel'  value='삭제'></td></tr>")
+		    	          
+		    	   }
+		         
+		       }
+		       
+		    })
+		}	
+		
+		
+		$("#membertbody").click((e) => {
+			if(e.target.value == "수정"){
+				let id = e.target.parentElement.parentElement.children[0].innerText;
+				let pw = e.target.parentElement.parentElement.children[1].firstChild.value;
+				let name = e.target.parentElement.parentElement.children[2].firstChild.value;
+				let tel = e.target.parentElement.parentElement.children[3].firstChild.value;
+				let postnum = e.target.parentElement.parentElement.children[4].firstChild.value;
+				let address = e.target.parentElement.parentElement.children[5].firstChild.value;
+				let addressdetail = e.target.parentElement.parentElement.children[6].firstChild.value;
+				let grade = e.target.parentElement.parentElement.children[7].innerText;
+				
+				   let obj_member = {
+			               "member_id" : id,
+			               "member_pw" : pw,
+			               "member_name" : name,
+			               "member_tel" : tel,
+			               "postnum" : postnum,
+			               "member_address" : address,
+			               "member_addressdetail" : addressdetail,
+			               "member_grade" :grade
+			            }
+				   alert(JSON.stringify(obj_member));
+				      $.ajax({
+				             url: "/member/UpdateMemManager",
+				             method: "POST",
+				             contentType: "application/json",
+				             data: JSON.stringify(obj_member),
+				             success: function(data){
+				                 alert(data);
+				         	}
+				      })  
+		
+			} else if(e.target.value == "삭제"){
+				let id = e.target.parentElement.parentElement.children[0].innerText;
+				
+				 $.ajax({
+		             url: "/member/deleteMemManager",
+		             method: "DELETE",
+		             data: {
+		            	 "id" : id
+		             },
+		             success: function(data){
+		                 alert(data);
+		         	}
+		      })  
+				
+			}
+		
+		})
+	//(문지현)회원등급변경
+	
+	getlist2();
+
+	function getlist2() {
+		  let tbody = document.querySelector("#tbodygrade");
+		  const xhttp = new XMLHttpRequest();
+		  xhttp.onload = function() {
+			 let data = this.responseText;
+			 let obj = JSON.parse(data);
+	
+				for(i = 0;i<obj.length;i++ ){
+					tbody.innerHTML +="<tr><td class='objid''>" +obj[i].member_id +"</td><td>" + obj[i].member_pw +"</td><td>" + obj[i].member_name+"</td><td>" + obj[i].member_tel+"</td><td>"
+					+ obj[i].member_grade+"</td><td><select name='memberOptionChange'>"
+				  	+ "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
+				  	+ "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
+				  	+ "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>";
+				}
+		    }
+		  xhttp.open("GET", "/member/selectall", true);
+		  xhttp.send();
+		}
+	
+	
+	function serchMem2() {
+		
+		$("#tbodygrade").empty();
+	    let memberOption = $("select[name='memberOption2']").val();
+	    let search = $("#searchMem2").val();
+	    alert(memberOption);
+	    alert(search);
+	    urldata = "";
+	    data ="";
+	    if(memberOption=="member_id"){
+	       urldata = "/member/selectOneid";
+	       data = "id";
+	    }else if(memberOption=="member_name"){
+	       urldata = "/member/selectOnename";
+	       data = "name";
+	    }else if(memberOption=="member_grade"){
+	       urldata = "/member/selectOnegrade";
+	       data = "grade";
+	    }
+	    $.ajax({
+	       url: urldata+"?"+data+"="+search,
+	       method: "GET",
+	       dataType: "json",
+	       success: (data) => {
+	    	   for(let i=0 ; i<data.length;i++){
+	    		   $("#tbodygrade").append("<tr><td>" +data[i].member_id +"</td><td>" + data[i].member_pw +"</td><td>" + data[i].member_name+"</td><td>" + data[i].member_tel+"</td><td>"
+	    	  				+data[i].member_grade+"</td><td><select name='memberOption2'>"
+	    				  	+ "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
+	    				  	+ "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
+	    				  	+ "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>")
+	    	          
+	    	   }
+	         
+	       }
+	       
+	    })
+	}	
+	$("#tbodygrade").click((e) => {
+		if(e.target.className == "gradeChange"){
+			 let memberOptionChange = e.target.parentElement.previousElementSibling.firstChild.value;
+			 let gradeid = e.target.parentElement.parentElement.firstChild.textContent;
+			 alert(memberOptionChange);
+			 alert(id);
+			 $.ajax({
+			        url: "/member/gradeChange",
+			        method: "PUT",
+			        data : {     
+			         "gradeid": gradeid,
+			         "grade":memberOptionChange
+			        },
+			        success: function(data){
+			           alert(data);
+			           
+			        },
+			        error: function(){
+			           alert("error..");
+			        }
+			        
+			     })      
+			  
+		}
+	
+	})
+	
+		
+    </script>
+  </body>
+
+</html>

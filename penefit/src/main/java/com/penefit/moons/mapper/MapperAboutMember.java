@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.penefit.moons.domain.MemberVO;
+import com.penefit.moons.domain.ReviewVO;
 
 @Mapper
 public interface MapperAboutMember {
@@ -39,4 +40,9 @@ public interface MapperAboutMember {
 	public int updateMemberManager(MemberVO member);
 	//관리자 회원탈퇴
 	public int deleteMemberManager(String id);
+	//관리자 멤버리스트 페이지
+	public ArrayList<MemberVO> getMemManagerList(int pageNum);
+	//관리자 멤버리스트 페이지수
+	public int getMemManagerListmaxPage();
+	
 }
