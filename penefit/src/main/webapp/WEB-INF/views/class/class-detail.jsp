@@ -583,9 +583,7 @@
 
 										);
 								
-										
-											
-								)
+						
 					
 							}
 							xhttp.open("GET", "modalReview?review_num="
