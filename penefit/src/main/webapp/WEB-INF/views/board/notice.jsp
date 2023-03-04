@@ -40,19 +40,6 @@ h2 {
 </head>
 <body>
 
-<<<<<<< HEAD
-   <%@ include file="../header.jsp"%>
-   <div class="box">
-      <section>
-         <aside>
-            <ul>
-               <li class="aside_title">커뮤니티</li>
-               <li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
-               <li class="aside_menu"><a href="#">수강후기</a></li>
-               <li class="aside_menu"><a href="/board/cityBoardview">지역별게시판</a></li>
-               <li class="aside_menu"><a href="#">클래스별게시판</a></li>
-            </ul>
-=======
 	<%@ include file="../header.jsp"%>
 	<div class="box">
 		<section>
@@ -62,7 +49,6 @@ h2 {
 					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
 					<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
 				</ul>
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
 			</aside>
 			<div class="content">

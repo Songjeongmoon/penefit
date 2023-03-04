@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +30,7 @@ footer {
 				<p>
 					<a href="/">Home&nbsp;&nbsp;</a> <a href="/centerinfo/centerinfo">About&nbsp;&nbsp;</a> <a href="/board/FAQ">FAQ&nbsp;&nbsp;</a> <a href="#">Pricing</a>
 				</p>
-				<p>Â© Copyright Penefit. All Rights Reserved</p>
+				<p>© Copyright Penefit. All Rights Reserved</p>
 			</div>
 		</div>
 	</footer>

@@ -25,8 +25,8 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 
 	//관리자 화면 qna 리스트
 	@Override
-	public List<QnAVO> getAdminQnaList() {
-		return mapper.getAdminQnaList();
+	public List<QnAVO> getAdminQnaList(int startNum) {
+		return mapper.getAdminQnaList(startNum);
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 		return mapper.getReviewListNew();
 	}
 	@Override
-	public List<QnAVO> qnaListToConfirm() {
-		return mapper.qnaListToConfirm();
+	public List<QnAVO> qnaListToConfirm(int startNum) {
+		return mapper.qnaListToConfirm(startNum);
 	}
 	@Override
 	public int getQnACountAll() {
@@ -108,17 +108,13 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 	}
 
 	@Override
-	public List<NoticeVO> getNotice() {
-		return mapper.getNotice();
+	public List<NoticeVO> getNotice(String keyword, int startNum) {
+		return mapper.getNotice(keyword, startNum);
 	}
 
 	@Override
-	public List<NoticeVO> getNoticeNew() {
-		return mapper.getNoticeNew();
-	}
-	@Override
-	public List<NoticeVO> getsearchNotice(String keyword) {
-		return mapper.getsearchNotice(keyword);
+	public List<NoticeVO> getNoticeNew(int startNum) {
+		return mapper.getNoticeNew(startNum);
 	}
 
 	@Override
@@ -135,12 +131,12 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 		mapper.delNotice(notice_num);
 	}
 	@Override
-	public List<SuggestDTO> suggestNew() {
-		return mapper.suggestNew();
+	public List<SuggestDTO> suggestNew(int startNum) {
+		return mapper.suggestNew(startNum);
 	}
 	@Override
-	public List<SuggestDTO> suggestAll() {
-		return mapper.suggestAll();
+	public List<SuggestDTO> suggestAll(String status, String keyword, int startNum) {
+		return mapper.suggestAll(status, keyword, startNum);
 	}
 	@Override
 	public List<SuggestDTO> getsearchSuggestion(String keyword) {
@@ -227,5 +223,35 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 	@Override
 	public List<SuggestDTO> getListWithFilter(String keyword) {
 		return mapper.getListWithFilter(keyword);
+	}
+
+	@Override
+	public int getQnaAllMaxPage() {
+		return mapper.getQnaAllMaxPage();
+	}
+
+	@Override
+	public int getQnaNewMaxPage() {
+		return mapper.getQnaNewMaxPage();
+	}
+
+	@Override
+	public int getNoticeMaxPage(String keyword) {
+		return mapper.getNoticeMaxPage(keyword);
+	}
+
+	@Override
+	public int getNoticeNewPage() {
+		return mapper.getNoticeNewPage();
+	}
+
+	@Override
+	public int getSuggestNewPage() {
+		return mapper.getSuggestNewPage();		
+	}
+
+	@Override
+	public int getSuggestAllPage(String status, String keyword) {
+		return mapper.getSuggestAllPage(status, keyword);
 	}
 }

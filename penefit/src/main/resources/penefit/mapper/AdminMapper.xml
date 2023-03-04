@@ -57,7 +57,6 @@
 		WHERE status = '검토'
 	</select>
 	
-	
 	<insert id="createClass">
 		INSERT INTO class
 		(class_code, class_subject, suggest_photo, class_teacher, class_date,

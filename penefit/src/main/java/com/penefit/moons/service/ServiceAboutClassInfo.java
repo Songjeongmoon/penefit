@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.penefit.moons.domain.ClassListDTO;
+import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.mapper.MapperAboutClassInfo;
 
@@ -96,6 +98,21 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 	public ArrayList<ClassListDTO> getMyClassListCntAsc(String member_id) {
 		ArrayList<ClassListDTO> list = mapper.getMyClassListCntAsc(member_id);
 		return list;
-	}	
+	}
+
+	@Override
+	public List<ClassVO> getMyClassListPage(int pageNum, String member_id) {
+		return mapper.getMyClassListPage(pageNum, member_id);
+	}
+
+	@Override
+	public List<MemberVO> getMyCustomerList(String class_code) {
+		return mapper.getMyCustomerList(class_code);
+	}
+
+	@Override
+	public int getClassMaxPage(String member_id) {
+		return mapper.getClassMaxPage(member_id);
+	}
 	
 }

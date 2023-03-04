@@ -17,7 +17,7 @@ import com.penefit.moons.domain.SuggestType;
 public interface AdminServiceChaengIm {
 
 	// 관리자 화면 qna 리스트
-	public List<QnAVO> getAdminQnaList();
+	public List<QnAVO> getAdminQnaList(int startNum);
 
 	// 관리자 화면 필터링 qna
 	public List<QnAVO> getAdminQnaWithFilter(String filterKey);
@@ -38,7 +38,7 @@ public interface AdminServiceChaengIm {
 
 	public  List<ReviewVO> getReviewListNew();
 
-	public List<QnAVO> qnaListToConfirm();
+	public List<QnAVO> qnaListToConfirm(int startNum);
 
 	public int getQnACountAll();
 
@@ -58,11 +58,10 @@ public interface AdminServiceChaengIm {
 
 	public int getReviewCount();
 
-	public List<NoticeVO> getNotice();
+	public List<NoticeVO> getNotice(String keyword, int startNum);
 
-	public List<NoticeVO> getNoticeNew();
+	public List<NoticeVO> getNoticeNew(int startNum);
 
-	public List<NoticeVO> getsearchNotice(String keyword);
 
 	public NoticeVO noticeDetail(int notice_num);
 
@@ -70,9 +69,9 @@ public interface AdminServiceChaengIm {
 
 	public void delNotice(int notice_num);
 
-	public List<SuggestDTO> suggestNew();
+	public List<SuggestDTO> suggestNew(int startNum);
 
-	public List<SuggestDTO> suggestAll();
+	public List<SuggestDTO> suggestAll(String status, String keyword, int startNum);
 
 	public List<SuggestDTO> getsearchSuggestion(String keyword);
 
@@ -107,9 +106,18 @@ public interface AdminServiceChaengIm {
 	public int buyaverage();
 
 	public double averagePurchase();
-
+	
 	public List<SuggestDTO> getListWithFilter(String keyword);
 
-
-
+	public int getQnaAllMaxPage();
+	
+	public int getQnaNewMaxPage();
+	
+	public int getNoticeMaxPage(String keyword);
+	
+	public int getNoticeNewPage();
+	
+	public int getSuggestNewPage();
+	
+	public int getSuggestAllPage(String status, String keyword);
 }

@@ -1,12 +1,14 @@
 package com.penefit.moons.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Value;
 
 import com.penefit.moons.domain.ClassListDTO;
+import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.MemberVO;
 import com.penefit.moons.domain.SuggestDTO;
 
 @Mapper
@@ -27,5 +29,11 @@ public interface MapperAboutClassInfo {
 	public ArrayList<ClassListDTO> getMyClassListCnt(String member_id);
 	
 	public ArrayList<ClassListDTO> getMyClassListCntAsc(String member_id);
+	
+	public List<ClassVO> getMyClassListPage(@Param("startNum") int startNum, @Param("member_id")String member_id);
+	
+	public List<MemberVO> getMyCustomerList(String class_code);
+	
+	public int getClassMaxPage(String member_id);
 	
 }
