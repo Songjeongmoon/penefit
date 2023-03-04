@@ -21,7 +21,7 @@ public interface ServiceAboutClassI {
 	public ArrayList<ClassVO> getClassList(int pageNum);
 	
 	//카테고리별 클래스 count
-	public int ctgClassCount();
+	public int ctgClassCount(String key);
 	
 	// 카테고리별 클래스 목록
 	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum);
@@ -103,6 +103,9 @@ public interface ServiceAboutClassI {
 
 	//상세보기에 출력할 후기 목록
 	public List<ReviewVO> getReview(String class_code);
+	
+	//상세보기 후기 하나
+	public ReviewVO getReviewOne(int review_num);
 
 	//마감기간이 지나지 않은 목록
 	public ArrayList<ClassVO> getClassList1();
@@ -119,8 +122,9 @@ public interface ServiceAboutClassI {
 	public int expiredClassCount();
 	
 	//마감된 목록
-	public ArrayList<ClassVO> getExpiredClassList(int startNum);
+	public ArrayList<ClassVO> getExpiredClassList(int pageNum);
 	
+	//리뷰목록
 	public List<ReviewVO> getReviewList(String member_id);
 
 	public int getReviewCheck(String class_code, String member_id, int buy_history_num);

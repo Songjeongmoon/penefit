@@ -7,6 +7,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#listBox{
+	display:relative;
+}
+
+.pageBox{
+	margin:0 auto;
+	position:absolute;
+	top : 720px;
+	left : 450px;
+	
+}
+</style>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
@@ -39,7 +52,7 @@
 					</li>
 					<li class="aside_menu"><a href="/class/classList-new">신규
 							클래스</a></li>
-					<li class="aside_menu"><a href="/class/classList-expired">지난클래스</a></li>
+					<li class="aside_menu"><a href="/class/classList-expired?pageNum=1">지난클래스</a></li>
 					<li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
 				</ul>
 
@@ -58,7 +71,10 @@
 						<p>${c.class_teacher }</p>
 					</div>
 				</c:forEach>
+				<div class="pageBox">
+				<c:if test="${startNum ne 1 }">
 				<a href="class/classList-ongoing?pageNum=${startNum - 5}&startNum=${startNum - 5 }">[이전]</a>
+				</c:if>
 				<c:forEach var="pageNum" begin="${startNum }" end="${startNum + 4 }">
 					<c:if test="${pageNum le count }">
 						<a href="/class/classList-ongoing?pageNum=${pageNum }">${pageNum }</a>&nbsp;&nbsp;
@@ -67,6 +83,7 @@
 				<c:if test="${startNum + 5 le count }">
 					<a href="/class/classList=ongoing?pageNum=${startNum + 5 }&startNum="${startNum + 5 }">[다음]</a>
 				</c:if>
+				</div>
 
 
 			</div>

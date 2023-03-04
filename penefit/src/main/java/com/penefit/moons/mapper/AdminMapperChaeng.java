@@ -4,8 +4,17 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.javassist.bytecode.SignatureAttribute.ClassType;
 
+import com.penefit.moons.domain.ClassRate;
+import com.penefit.moons.domain.ClassVO;
+import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
+import com.penefit.moons.domain.QnAtype;
+import com.penefit.moons.domain.ReviewScore;
+import com.penefit.moons.domain.ReviewVO;
+import com.penefit.moons.domain.SuggestDTO;
+import com.penefit.moons.domain.SuggestType;
 
 @Mapper
 public interface AdminMapperChaeng {
@@ -20,12 +29,91 @@ public interface AdminMapperChaeng {
 	public QnAVO adminQnaDetail(int qnaNum);
 	
 	//답변 등록하기
-	public void regReplyforQna(@Param("String") String param1,@Param("adminid") String param2,@Param("qnanum") int param3);
+	public void regReplyforQna(@Param("content") String param1 ,@Param("adminid") String param2,@Param("qnanum") int param3);
 
 	//qna 상태변경
 	public void changeQnaStatus(@Param("qnanum") int param1);
 
 	//상세보기에 답변표시
 	public String replyofQna(@Param("qnaNum") int param1);
+
+	//리뷰목록
+	public List<ReviewVO> getReviewList();
+
+	public List<ReviewVO> getReviewListNew();
+
+	public List<QnAVO> qnaListToConfirm();
+
+	public int getQnACountAll();
+
+	public int getQnACount();
+
+	public double spendtime();
+
+	public List<QnAtype> getQnaType();
+
+	public ReviewVO reviewDetail(@Param("review_num") int review_num);
+
+	public void deleteReview(@Param("review_num") int review_num);
+
+	public ReviewScore bestClass();
+
+	public ReviewScore worstClass();
+
+	public int getReviewCount();
+
+	public List<NoticeVO> getNotice();
+
+	public List<NoticeVO> getNoticeNew();
+
+	public List<NoticeVO> getsearchNotice(String keyword);
+
+	public NoticeVO noticeDetail(int notice_num);
+
+	public void modiNotice(NoticeVO notice);
+
+	public void delNotice(int notice_num);
+
+	public List<SuggestDTO> suggestNew();
+
+	public List<SuggestDTO> suggestAll();
+
+	public List<SuggestDTO> getsearchSuggestion(String keyword);
+
+	public List<SuggestType> suggestType();
+
+	public List<ClassVO> classListSearch(String keyword);
+
+	public ClassRate classRate();
+
+	public void moveCloseTbl(ClassVO classVO);
+
+	public int allClass();
+
+	public int openClass();
+
+	public List<ClassType> classType();
+
+	public int todaysSales();
+
+	public int monthlySales();
+
+	public int yearlySales();
+
+	public int weeklySales();
+
+	public int dayChange();
+
+	public int weekChange();
+
+	public int monthChange();
+
+	public int buyaverage();
+
+	public double averagePurchase();
+
+
+
+	
 	
 }

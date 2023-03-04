@@ -32,7 +32,7 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 
 	@Override
 	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum) {
-		System.out.println("key : " + key + "그리고" + "pageNum : " + pageNum);
+		
 		ArrayList<ClassVO> list = mapper.getCtgClassList(key, pageNum);
 		System.out.println(list);
 		return list;
@@ -221,7 +221,6 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	@Override
 	public List<ReviewVO> getReview(String class_code) {
 		List<ReviewVO> list = mapper.getReview(class_code);
-		System.out.println("REVIEW =====================" + list);
 		return list;
 	}
 
@@ -259,8 +258,8 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 
 	// 마감된 목록
 	@Override
-	public ArrayList<ClassVO> getExpiredClassList(int startNum) {
-		ArrayList<ClassVO> list = mapper.getExpiredClassList(startNum);
+	public ArrayList<ClassVO> getExpiredClassList(int pageNum) {
+		ArrayList<ClassVO> list = mapper.getExpiredClassList(pageNum);
 		return list;
 	}
 	//리뷰목록
@@ -299,9 +298,18 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	
 	//카테고리별 class count
 	@Override
-	public int ctgClassCount() {
-		int result = mapper.ctgClassCount();
+	public int ctgClassCount(String key) {
+		int result = mapper.ctgClassCount(key);
+		System.out.println(result);
+		System.out.println("!!!!!!!!!!!!!!!!!!!1");
 		return result;
+	}
+
+
+	@Override
+	public ReviewVO getReviewOne(int review_num) {
+		ReviewVO rvo = mapper.getReviewOne(review_num);
+		return rvo;
 	}
 
 	

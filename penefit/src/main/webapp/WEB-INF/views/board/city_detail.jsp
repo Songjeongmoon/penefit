@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -10,8 +11,75 @@
 	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
 	crossorigin="anonymous"></script>
 </head>
+<style>
+.content {
+	margin: 0 atuo;
+}
 
+#cityDetailTbl {
+	margin: 0 auto;
+	width: 700px;
+	border-collapse: collapse;
+}
+
+hr {
+	border: thin solid #DBD5CB;
+}
+
+#cityDetailTbl tr {
+	height: 35px;
+}
+
+#cityDetailTbl th, td, tr {
+	border-bottom: thin solid #DBD5CB;
+}
+
+button, input[type='button'] {
+	background-color: #75BD43;
+	border: none;
+	color: white;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
+	width: 70px;
+	height: 33px;
+	line-height: 35px;
+	border-radius: 7px;
+	margin: 5px;
+}
+
+textarea {
+	margin: 0 auto;
+	width: 80%;
+	height: 100px;
+	border: thin solid #DBD5CB;
+	border-radius: 7px;
+	padding: 5px;
+}
+
+.reply_container {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.reply_List table {
+	width: 800px;
+	margin: 0 auto;
+	border-collapse: collapse;
+	border-bottom: thin solid #DBD5CB;
+}
+
+h2 {
+	text-align: center;
+	font-size: 35px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.reply_List table th {
+	background-color: #BBB09F;
+}
+</style>
 <link rel="stylesheet" href="/css/">
+
 <body>
 	<%@ include file="../header.jsp"%>
 	<div class="box">
@@ -20,14 +88,13 @@
 				<ul>
 					<li class="aside_title">커뮤니티</li>
 					<li class="aside_menu"><a href="notice">공지사항</a></li>
-					<li class="aside_menu"><a href="#">수강후기</a></li>
 					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
-					<li class="aside_menu"><a href="classList_new">클래스별게시판</a></li>
 				</ul>
+
 			</aside>
 			<div class="content">
-				<h1>city 상세목록</h1>
-				<table border="1">
+				<h2>지역별 게시판</h2>
+				<table id="cityDetailTbl">
 
 					<tr>
 						<th>번호</th>
@@ -55,17 +122,19 @@
 						<td>${cvo.board_viewcnt }</td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="hidden" name="board_num"
-							value="${cvo.board_num}"> <c:if
-								test="${sessionScope.member_id == cvo.member_id }">
+
+						<td colspan="2" style="text-align: center;"><input
+							type="hidden" name="board_num" value="${cvo.board_num}">
+							<c:if test="${sessionScope.member_id == cvo.member_id }">
 								<button type="button"
 									onclick="location.href='city_modiView?board_num=${cvo.board_num }'">수정</button>
 								<button type="button"
-									onclick="location.href='delCity?board_num=${cvo.board_num }'">삭제</button>
+									onclick="location.href='delCity?board_num=${cvo.board_num }'"
+									style="background-color: darkgray;">삭제</button>
+
 
 							</c:if>
-							<button type="button" onclick="location.href='cityBoardview'">목록</button>
-						</td>
+							<button type="button" onclick="location.href='cityBoardview'">목록</button></td>
 					</tr>
 				</table>
 
@@ -74,6 +143,7 @@
 
 				<div class="reply_container">
 					<div class="reply_reg">
+
 						<input type="hidden" name="board_num" value="${cvo.board_num }">
 						<input type="hidden" name="reply_num" value="${reply_num}">
 						<input type="hidden" name="reply_type" value="C"><br>
@@ -81,18 +151,21 @@
 							id="writer" readonly="readonly"><br>
 						<textarea name="reply_content" id="rReply"
 							placeholder="댓글 내용을 입력해주세요."></textarea>
-						<br> <input type="button" value="등록" onclick="regReply()">
+						<div style="text-align: right; margin-right: 100px;">
+							<input type="button" value="등록" onclick="regReply()">
+						</div>
+
 					</div>
 				</div>
 				<hr>
 				<br> <br>
 				<div class="reply_List">
-					<table border="1">
+					<table>
 						<thead>
 							<tr>
-								<th>내용</th>
+								<th style="width: 500px">내용</th>
 								<th>작성자</th>
-								<th>삭제</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody id="tbody">
@@ -100,17 +173,16 @@
 						</tbody>
 					</table>
 				</div>
+
 			</div>
 		</section>
 	</div>
 	<script>
-		alert($("#writer").val());
+
 		$("#aside_menu_btn").mouseover(function() {
-			//alert('dd');
 			$("#aside_submenu").css("display", "block");
 		})
 		$("#aside_menu_btn").mouseout(function() {
-			//alert('dd');
 			$("#aside_submenu").css("display", "none");
 		})
 
@@ -164,9 +236,18 @@
 
 					tbody.innerHTML += "<tr><td><input type='hidden' name='reply_num' value='" + obj[i].reply_num + "'>"
 							+ obj[i].reply_content
-							+ "</td><td>"
+
+							+ "</td><td id='writer'>"
 							+ obj[i].member_id + "</td>" + msg;
 				}
+
+				$("#writer").css({
+					"width" : "200px",
+					"textalign" : "center"
+				});
+				$(".delBtn").css({
+					"background-color" : "darkgray"
+				})
 
 			}
 			xhttp.open("GET", "/api/city/replyList/board_num/" + board_num,
@@ -174,8 +255,7 @@
 			xhttp.send();
 		}
 
-		$(document)
-				.on(
+		$(document).on(
 						"click",
 						".delBtn",
 						function(evt) {
@@ -183,14 +263,13 @@
 							let reply_num = evt.target.parentElement.parentElement.children[0].children[0].value;
 
 							delReply(reply_num);
-							alert(reply_num);
 
 						})
 
 		function delReply(reply_num) {
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
-				alert(this.responseText);
+
 				getReplyList();
 			}
 			xhttp.open("DELETE", "/api/city/delReply/reply_num/" + reply_num,
@@ -199,6 +278,6 @@
 			xhttp.send();
 		}
 	</script>
-	<script type="text/javascript" src="/js/javascript.js"></script>
 </body>
+
 </html>

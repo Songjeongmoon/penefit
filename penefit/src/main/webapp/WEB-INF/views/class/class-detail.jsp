@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <style>
@@ -85,10 +87,12 @@
 	position: absolute;
 	top: 350px;
 }
-#expired{
+
+#expired {
 	background-color: gray;
 	cursor: default;
 }
+
 #detailMenu {
 	margin: 0 auto;
 	width: 800px;
@@ -116,66 +120,182 @@
 }
 
 #detailMenu li:hover {
-	border: none; 
-	background-color : #BBB09F;
+	border: none;
+	background-color: #BBB09F;
 	line-height: 32px;
 	color: white;
 	width: 192px;
 	height: 32px;
 }
-#detail_box1{
-position: absolute;
+
+#detail_box1 {
+	position: absolute;
 	margin-top: 20px;
 	top: 500px;
 }
-#detailview{
+
+#detailview {
 	width: 800px;
 	height: 100%;
 	margin-bottom: 200px;
 }
-.oneDetail{
+
+.oneDetail {
 	width: 200px;
-	border : 1px solid red;
+	border: 1px solid red;
 	height: 200px;
 	display: flex;
-	flex-wrap : wrap;
-	margin : 10px 5px;
-	margin-right : 10px;
+	flex-wrap: wrap;
+	margin: 10px 5px;
+	margin-right: 10px;
 	align-items: flex-start;
 }
-#class_detail_img{
-	margin: 0 auto;
-	}
-#detail_box2{
-display: none;
-position : absolute;
-top : 520px;
-overflow: hidden;
-border: 1px solid green;
-left : 220px;
 
+#class_detail_img {
+	margin: 0 auto;
 }
- #class_detail_info{
- 	width: 400px;
- } 
- .oneDetail div{
-  font-size: 15px;
- }
-  .oneDetail span:nth-of-type(3){
-  font-size: 15px;
- }
-  .oneDetail span:nth-of-type(4){
-  font-size: 15px;
- }
-   .oneDetail span:nth-of-type(5){
-  font-size: 15px;
- }
- #detail_box2 .arrow{
- 	width: 30px;
- 	height: 35px;
- 	position: relative;
- 	top: 60px;
- }
+
+#detail_box2 {
+	display: none;
+	position: absolute;
+	top: 520px;
+	overflow: hidden;
+	
+	left: 220px;
+}
+
+#class_detail_info {
+	width: 400px;
+}
+
+.oneDetail div {
+	font-size: 15px;
+}
+
+.oneDetail span:nth-of-type(3) {
+	font-size: 15px;
+}
+
+.oneDetail span:nth-of-type(4) {
+	font-size: 15px;
+}
+
+.oneDetail span:nth-of-type(5) {
+	font-size: 15px;
+}
+
+#detail_box2 .arrow {
+	width: 30px;
+	height: 35px;
+	position: relative;
+	top: 60px;
+}
+
+/*swiper*/
+#detail_box2 {
+	width: 800px;
+	height: 350px;
+	background-color: white;
+	margin: 0 auto;
+	margin-left: 30px;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+#detail_box2-vertical>.swiper-pagination-bullets {
+	top: unset !important;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+}
+
+#detail_box2-vertical>.swiper-pagination-bullets .swiper-pagination-bullet
+	{
+	display: inline-block !important;
+	margin: 6px 2px !important;
+}
+
+#review_container {
+	
+	position: relative;
+	box-shadow: 5px 5px 5px rgb(0,0,0,0.2);
+	border-radius:14px;
+	padding:10px;
+}
+
+#rev_img {
+	
+	width: 170px;
+	height: 170px;
+	margin: 0 auto;
+}
+
+
+
+/*리뷰 modal*/
+
+#modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	text-align:center;
+}
+
+#modal button {
+	display: inline-block;
+	width: 100px;
+	margin-left: calc(100% - 100px - 10px);
+}
+
+.modal_content {
+	background-color: white;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	width:400px;
+	height:550px;
+	max-width: 400px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	border-radius:12px;
+	
+}
+
+
+#modal .modal_layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: -1;
+}
 </style>
 </head>
 <body>
@@ -190,7 +310,9 @@ left : 220px;
 				<div id="class_detail_info">
 					<div id="class_subject">${cvo.class_subject }</div>
 					<div id="class_teacher">${cvo.class_teacher }</div>
-					<br><hr><br>
+					<br>
+					<hr>
+					<br>
 					<div id="class_day">일 자 : ${cvo.class_date }</div>
 					<br>
 					<div id="class_memcnt">인 원 : ${cvo.class_memcnt } /</div>
@@ -218,37 +340,85 @@ left : 220px;
 				</div>
 
 
-			<div id="detailMenu">
-				<ul>
-					<li id="detail_box1_btn"><label for="detail_box1_btn">상세설명</label></li>
-					<li id="detail_box2_btn"><label for="detail_box2_btn">클래스후기</label></li>
-					<li id="detail_box3_btn"><label for="detail_box3_btn">위치설명</label></li>
-					<li id="detail_box4_btn"><label for="detail_box4_btn">취소약관</label></li>
-				</ul>
-			</div>
-			<div class="detail_box" id="detail_box1">
-				<img src="../images/01.jpg" id="detailview">
-			</div>
-			
-			<div class="detail_box" id="detail_box2" >
-				<img src="../images/leftarrow.png" class="arrow">
-					<c:forEach var="r" items="${rvo }">
-						<div class="oneDetail">
-							<div><img src="../images/${r.review_photo }" class="review_img" style="width: 90px;height: 90px;"></div>
-							<div style="align-items: flex-start;">${r.review_content }</div>
-							<div>${r.member_id }</div> 
-							<div>${r.review_regdate }</div>
-							<div>${r.score }</div>
-						</div>
-					</c:forEach>
-				<img src="../images/rightarrow.png" class="arrow">
-			</div>
-				
-			<div class="detail_box" id="detail_box3"></div>
+				<div id="detailMenu">
+					<ul>
+						<li id="detail_box1_btn"><label for="detail_box1_btn">상세설명</label></li>
+						<li id="detail_box2_btn"><label for="detail_box2_btn">클래스후기</label></li>
+						<li id="detail_box3_btn"><label for="detail_box3_btn">위치설명</label></li>
+						<li id="detail_box4_btn"><label for="detail_box4_btn">취소약관</label></li>
+					</ul>
+				</div>
+				<div class="detail_box" id="detail_box1">
+					<img src="../images/${fn:split(cvo.suggest_photo,'-')[1]}"
+						style="width: 800px; height: 5000px;"> <img
+						src="../images/${fn:split(cvo.suggest_photo,'-')[2]}"
+						style="width: 800px; height: 5000px;">
+				</div>
+				<div class="swiper detail_box" id="detail_box2">
+					<div class="swiper-wrapper">
+						<c:forEach var="r" items="${rvo }">
+							<div class="swiper-slide">
+								<div class="container" id="review_container">
+									<div class="item" id="rev_img">
+										<img src="../images/${r.review_photo }" class="review_img"
+											style="width: 150px; height: 150px;">
+									</div>
+									<input type="hidden" id="review_num" value="${r.review_num }">
+
+									<div class="item" id="rev_content">
+										<c:choose>
+											<c:when test="${fn:length(r.review_content) gt 28 }">
+												<c:out value="${fn:substring(r.review_content,0,27)}" />...
+											</c:when>
+											<c:otherwise>
+												<c:out value="${r.review_content }" />
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<div class="item" id="rev_writer"><strong>${r.member_id }</strong></div>
+									<div class="item" id="rev_regdate">${r.review_regdate }</div>
+									<%-- <div class="item" id="rev_score">${r.score }</div> --%>
+								</div>
+							</div>
+
+						</c:forEach>
+					</div>
+
+					<div class="swiper-pagination"></div>
+					<strong><div class="swiper-button-prev" style="color:lightgray"></div></strong>
+					<strong><div class="swiper-button-next" style="color:lightgray"></div></strong>
+				</div>
+
+				<div class="detail_box" id="detail_box3"></div>
 			</div>
 		</section>
+
+
+		<!--리뷰 modal -->
+		<div id="modal">
+			<div class="modal_content">
+				<button id="btn_x" style="width:30px; float:right;" >X</button>
+				<table border="1">
+					<thead>
+					</thead>
+					<tbody id="tbody">
+
+					</tbody>
+				</table>
+
+			</div>
+
+			<div class="modal_layer"></div>
+		</div>
 	</div>
+
+	<!-- Swiper JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
 	<%-- <%@ include file="../footer.jsp"%> --%>
+
+
 	<script>
 		//세션에서 로그인 아이디 받아오기
 		let member_id = "${member_id}";
@@ -337,11 +507,100 @@ left : 220px;
 		$("#detail_box2_btn").click(function() {
 			$(".detail_box:not(#detail_box2)").css("display", "none");
 			$("#detail_box2").css("display", "flex");
+
 		});
 		$("#detail_box3_btn").click(function() {
 			$(".detail_box:not(#detail_box3)").css("display", "none");
 			$("#detail_box3").css("display", "block");
 		});
+
+		const swiper = new Swiper('#detail_box2', {
+			//기본 셋팅
+			//방향 셋팅 vertical 수직, horizontal 수평 설정이 없으면 수평
+			direction : 'horizontal',
+			//한번에 보여지는 페이지 숫자
+			slidesPerView : 3,
+			//페이지와 페이지 사이의 간격
+			spaceBetween : 30,
+			//드레그 기능 true 사용가능 false 사용불가
+			debugger : true,
+			//마우스 휠기능 true 사용가능 false 사용불가
+			mousewheel : true,
+			//반복 기능 true 사용가능 false 사용불가
+			loop : true,
+			//선택된 슬라이드를 중심으로 true 사용가능 false 사용불가 djqt
+			centeredSlides : true,
+			// 페이지 전환효과 slidesPerView효과와 같이 사용 불가
+			// effect: 'fade',
+
+			//페이징
+			pagination : {
+				//페이지 기능
+				el : '.swiper-pagination',
+				//클릭 가능여부
+				clickable : true,
+			},
+
+			//방향표
+			navigation : {
+				//다음페이지 설정
+				nextEl : '.swiper-button-next',
+				//이전페이지 설정
+				prevEl : '.swiper-button-prev',
+			},
+		});
+
+		$(document)
+				.on(
+						"click",
+						".review_img",
+						function(evt) {
+
+							$("#modal").css("display", "block");
+							let review_num = evt.target.parentElement.nextElementSibling.value;
+							const xhttp = new XMLHttpRequest();
+							xhttp.onload = function() {
+								let result = this.responseText;
+								let reviewlist = JSON.parse(result);
+
+								$("#tbody").empty();
+
+								$("#tbody")
+										.append(
+												"<tr><td colspan='2'><img src='../images/"+ reviewlist.review_photo +"' width='200px; '></td></tr>"
+														+ "<tr><td>"
+														+ reviewlist.review_content
+														+ "</td></tr>"
+														+ "<tr><td>"
+														+ reviewlist.member_id
+														+ "</td></tr>"
+														+ "<tr><td>"
+														+ reviewlist.review_regdate
+														+ "</td></tr>"
+														+ "<tr><td>"
+														+ reviewlist.score
+														+ "</td></tr>"
+
+										);
+								
+										
+											
+								)
+					
+							}
+							xhttp.open("GET", "modalReview?review_num="
+									+ review_num, true);
+							xhttp.send();
+						})
+
+
+		/* $(document).on("mouseleave", ".review_img", function(){
+			$("#modal").css("display", "none");
+		})
+		 */
+		$("#btn_x").on("click", function() {
+			$("#modal").css("display", "none");
+		})
 	</script>
 </body>
 </html>

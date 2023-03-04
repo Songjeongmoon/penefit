@@ -21,7 +21,7 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	AdminMapperSong mapper;
 	
 	@Override
-	public int createClass(String suggest_num) {
+	public int createClass(int suggest_num) {
 		int cnt = 0;
 		SuggestDTO suggest = mapper.getSuggestInfo(suggest_num);
 		String[] code = mapper.getTypeCnt();
@@ -152,7 +152,7 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	}
 
 	@Override
-	public SuggestDTO getSuggestionInfo(String suggest_num) {
+	public SuggestDTO getSuggestionInfo(int suggest_num) {
 		return mapper.getSuggestInfo(suggest_num);
 		
 		
@@ -180,8 +180,18 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	}
 
 	@Override
-	public int rejectSuggestion(String suggest_num, String reject_reason) {
+	public int rejectSuggestion(int suggest_num, String reject_reason) {
 		return mapper.rejectSuggestion(suggest_num, reject_reason);
+	}
+
+	@Override
+	public List<ClassVO> classListSearch(String keyword) {
+		return mapper.classListSearch(keyword);
+	}
+
+	@Override
+	public void approveSuggestion(int suggest_num) {
+		 mapper.approveSuggestion(suggest_num);		
 	}
 	
 	

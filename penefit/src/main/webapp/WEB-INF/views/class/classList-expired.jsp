@@ -7,6 +7,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#listBox{
+	display:relative;
+}
+
+.pageBox{
+	margin:0 auto;
+	position:absolute;
+	top : 720px;
+	left : 450px;
+	
+}
+</style>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
@@ -18,33 +31,36 @@
 			<aside>
 				<ul>
 					<li class="aside_title">클래스</li>
-					<li class="aside_menu"><a href="/class/classList">클래스 전체보기</a></li>
-					<li class="aside_menu"><a href="/class/classList-ongoing">진행중인클래스</a></li>
+					<li class="aside_menu"><a href="/class/classList?pageNum=1">클래스
+							전체보기</a></li>
+					<li class="aside_menu"><a
+						href="/class/classList-ongoing?pageNum=1">진행중인클래스</a></li>
 					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
 						<div id="aside_submenu">
 							<p>
-								<a href="classList-category?key=A">&nbsp;&nbsp;의류</a>
+								<a href="classList-category?key=A&pageNum=1">&nbsp;&nbsp;의류</a>
 							</p>
 							<p>
-								<a href="classList-category?key=B">&nbsp;&nbsp;식품</a>
+								<a href="classList-category?key=B&pageNum=1">&nbsp;&nbsp;식품</a>
 							</p>
 							<p>
-								<a href="classList-category?key=C">&nbsp;&nbsp;미용</a>
+								<a href="classList-category?key=C&pageNum=1">&nbsp;&nbsp;미용</a>
 							</p>
 							<p>
-								<a href="classList-category?key=D">&nbsp;&nbsp;기타</a>
+								<a href="classList-category?key=D&pageNum=1">&nbsp;&nbsp;기타</a>
 							</p>
 						</div>
 					</li>
 					<li class="aside_menu"><a href="/class/classList-new">신규
 							클래스</a></li>
-					<li class="aside_menu"><a href="/class/classList-expired">지난클래스</a></li>
+					<li class="aside_menu"><a
+						href="/class/classList-expired?pageNum=1">지난클래스</a></li>
 					<li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
 				</ul>
 
 			</aside>
-			<input type="text" id="startPage" value=1> 
-			<input type="text" id="maxPage" value="${count }">
+			<input type="hidden" id="startPage" value=1> <input type="hidden"
+				id="maxPage" value="${count }">
 			<div class="content" id="listBox">
 				<c:forEach var="c" items="${list }">
 					<div class="class_one">
@@ -56,18 +72,22 @@
 						<p>${c.class_teacher }</p>
 					</div>
 				</c:forEach>
-				<button id="prev">[이전]</button>
-				<div id="pageNum">
-					<c:forEach var="page" begin="${start }" end="${start+4 }">
-						<c:if test="${page le count }">
-							<button class="pages">${page }</button>
-						</c:if>
-					</c:forEach>
-				</div>
-				<c:if test="${count gt 5}">
-					<button id="next">[다음]</button>
+				<div class="pageBox">
+				<c:if test="${startNum ne 1 }">
+					<a href="class/classList-expired?pageNum=${startNum - 5}&startNum=${startNum - 5}">[이전]</a>
 				</c:if>
-			</div>			
+					<c:forEach var="pageNum" begin="${startNum }"
+						end="${startNum + 4 }">
+						<c:if test="${pageNum le count  }">
+							<a href="/class/classList-expired?pageNum=${pageNum }">${pageNum }</a>&nbsp;&nbsp;
+               		</c:if>
+					</c:forEach>
+					<c:if test="${startNum + 5 le count }">
+						<a
+							href="/class/classList-expired?pageNum=${startNum + 5}&startNum=${startNum + 5}">[다음]</a>
+					</c:if>
+				</div>
+			</div>
 		</section>
 	</div>
 

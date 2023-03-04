@@ -23,7 +23,7 @@ public interface MapperAboutClass {
 	public ArrayList<ClassVO> getClassList(@Param("pageNum") int pageNum);
 	
 	//카테고리별 클래스 count
-	public int ctgClassCount();
+	public int ctgClassCount(String key);
 
 	// 카테고리별 클래스 목록 조회
 	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum);
@@ -126,6 +126,8 @@ public interface MapperAboutClass {
 
 	//상세보기에 출력할 리뷰
 	public List<ReviewVO> getReview(String class_code);
+	
+	public ReviewVO getReviewOne(int review_num);
 
 	//중복리뷰 방지
 	public int getReviewCheck(@Param(value = "class_code")String class_code,@Param(value = "member_id") String member_id,@Param(value = "buy_history_num") int buy_history_num);
@@ -143,7 +145,7 @@ public interface MapperAboutClass {
 	public int expiredClassCount();
 	
 	//마감된 목록 ---
-	public ArrayList<ClassVO> getExpiredClassList(int startNum);
+	public ArrayList<ClassVO> getExpiredClassList(int pageNum);
 
 	//리뷰목록받아오기
 	public ArrayList<ReviewVO> getReviewList(@Param(value = "member_id") String member_id);

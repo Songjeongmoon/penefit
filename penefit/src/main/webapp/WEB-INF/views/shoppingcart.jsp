@@ -121,7 +121,6 @@ input[id="checkAll"] {
 		if ($('#checkAll').is(':checked')) {
 			$('.checking').prop('checked', true);
 			calcPrice();
-			alert("amount : " + amount);
 		} else {
 			$('.checking').prop('checked', false);
 			amount=0;
@@ -241,13 +240,12 @@ input[id="checkAll"] {
 						"click",
 						".delete_img",
 						function(evt) {
-							let cartNum = evt.target.parentElement.parentElement.parentElement.children[0].innerText;
-							alert(cartNum);
-							deleteCart(cartNum);
+							let shopping_cart_num = evt.target.parentElement.parentElement.parentElement.children[0].firstChild.value;
+							deleteCart(shopping_cart_num);
 						})
 
 		//1개 삭제하기
-		function deleteCart(cartNum) {
+		function deleteCart(shopping_cart_num) {
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
 				this.responseText;
@@ -255,7 +253,7 @@ input[id="checkAll"] {
 				calcPrice();
 				alert("삭제되었습니다.");
 			}
-			xhttp.open("DELETE", "deleteCart/shopping-cart-num/" + cartNum,
+			xhttp.open("DELETE", "deleteCart/shopping-cart-num/" + shopping_cart_num,
 					true);
 			xhttp.send();
 		}
@@ -283,8 +281,8 @@ input[id="checkAll"] {
 							$("input[ disabled='disabled']").each(
 								function() {
 									if($(this).is(":disabled") == true) {
-										cartNum = this.parentElement.parentElement.children[0].innerText;
-										deleteSomeCart(cartNum);
+										shopping_cart_num = this.parentElement.parentElement.children[0].firstChild.value;
+										deleteSomeCart(shopping_cart_num);
 									}
 								}
 							)
@@ -303,19 +301,19 @@ input[id="checkAll"] {
 									.each(
 											function() {
 												if ($(this).is(":checked") == true) {
-													cartNum = this.parentElement.parentElement.children[0].innerText;
-													deleteSomeCart(cartNum);
+													shopping_cart_num = this.parentElement.parentElement.children[0].firstChild.value;
+													deleteSomeCart(shopping_cart_num);
 												}
 											});
 							location.reload();
 							alert("삭제되었습니다.");
 						});
-		function deleteSomeCart(cartNum) {
+		function deleteSomeCart(shopping_cart_num) {
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
 				this.responseText;
 			}
-			xhttp.open("DELETE", "deleteCart/shopping-cart-num/" + cartNum,
+			xhttp.open("DELETE", "deleteCart/shopping-cart-num/" + shopping_cart_num,
 					true);
 			xhttp.send();
 		}
@@ -324,7 +322,6 @@ input[id="checkAll"] {
 		let amount;
 		calcPrice();
 		
-		alert("amount : " + amount);
 		function calcPrice() {
 			amount = 0;
 			$("input[class='checking']")
@@ -343,7 +340,6 @@ input[id="checkAll"] {
 		//체크 변경시 금액계산
 		$(document).on("click", ".checking", function() {
 			calcPrice();
-			alert("amount : " + amount);
 		});
 
 		//아임포트  결제 API
@@ -396,8 +392,8 @@ input[id="checkAll"] {
 			classCode_arr=[];
 			$("input[class='checking']").each(function() {
 						if ($(this).is(":checked") == true) {
-							cartNum = this.parentElement.parentElement.children[0].children[0].value;
-							class_arr.push(cartNum);
+							shopping_cart_num = this.parentElement.parentElement.children[0].children[0].value;
+							class_arr.push(shopping_cart_num);
 							let cl_code = this.parentElement.parentElement.children[1].children[0].value;
 							classCode_arr.push(cl_code);
 						}

@@ -7,11 +7,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#listBox{
+	display:relative;
+}
+
+.pageBox{
+	margin:0 auto;
+	position:absolute;
+	top : 720px;
+	left : 450px;
+	
+}
+
+
+</style>
+
 <script src="https://code.jquery.com/jquery-3.6.3.js"
 	integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 	crossorigin="anonymous"></script>
 </head>
-</head>
+
 <body>
 	<%@ include file="../header.jsp"%>
 
@@ -20,9 +36,10 @@
 			<aside>
 				<ul>
 					<li class="aside_title">클래스</li>
+					<li class="aside_menu"><a href="/class/classList?pageNum=1">클래스
+							전체보기</a></li>
 					<li class="aside_menu"><a
-						href="/class/classList?pageNum=1">클래스 전체보기</a></li>
-					<li class="aside_menu"><a href="/class/classList-ongoing?pageNum=1">진행중인클래스</a></li>
+						href="/class/classList-ongoing?pageNum=1">진행중인클래스</a></li>
 					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
 						<div id="aside_submenu">
 							<p>
@@ -40,18 +57,18 @@
 						</div>
 					</li>
 					<li class="aside_menu"><a href="/class/classList-new">신규클래스</a></li>
-					<li class="aside_menu"><a href="/class/classList-expired">지난클래스</a></li>
+					<li class="aside_menu"><a href="/class/classList-expired?pageNum=1">지난클래스</a></li>
 					<li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
 				</ul>
 
 			</aside>
-			//<input type="hidden" id="startPage" value="${startNum}" > 
-			<input type="hidden" id="maxPage" value="${count }">
+			<input type="hidden" id="startPage" value="${startNum}"> <input
+				type="hidden" id="maxPage" value="${count }">
 			<div class="content" id="listBox">
 				<c:forEach var="c" items="${list }" varStatus="status">
 					<div class="class_one">
-						<a href="class-detail?class_code=${c.class_code }">
-						<img src="../images/${fn:split(c.suggest_photo,'-')[0]}"></a> <br>
+						<a href="class-detail?class_code=${c.class_code }"> <img
+							src="../images/${fn:split(c.suggest_photo,'-')[0]}"></a> <br>
 						<br>
 						<p>
 							<a href="class-detail?class_code=${c.class_code }">${c.class_subject }</a>
@@ -60,18 +77,21 @@
 						<p>${c.class_teacher }</p>
 					</div>
 				</c:forEach>
-				
-				<a href="/class/classList?pageNum=${startNum - 5}&startNum=${startNum - 5}">[이전]</a>
-				<c:forEach var="pageNum" begin="${startNum }" end="${startNum + 4 }">
-					<c:if test="${pageNum le count  }">
-						<a href="/class/classList?pageNum=${pageNum }">${pageNum }</a>&nbsp;&nbsp;
-               		</c:if>
-				</c:forEach>
-					<c:if test="${start + 5 le count }">
-						<a href="/class/classList?pageNum=${start + 5}&startNum=${startNum + 5}">[다음]</a>
+				<div class="pageBox">
+				<c:if test="${startNum ne 1 }">
+					<a href="/class/classList?pageNum=${startNum - 1}&startNum=${startNum - 1}">[이전]</a>
+				</c:if>
+					<c:forEach var="pageNum" begin="${startNum }"
+						end="${startNum + 4 }">
+						<c:if test="${pageNum le count  }">
+							<a href="/class/classList?pageNum=${pageNum }">${pageNum }</a>&nbsp;&nbsp;
+               			</c:if>
+					</c:forEach>
+					<c:if test="${startNum + 5 le count }">
+						<a
+							href="/class/classList?pageNum=${startNum + 5}&startNum=${startNum + 5}">[다음]</a>
 					</c:if>
-					
-					
+				</div>
 			</div>
 		</section>
 	</div>

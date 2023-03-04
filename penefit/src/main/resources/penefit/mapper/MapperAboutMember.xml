@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.penefit.moons.mapper.MapperAboutMember">
 	<insert id="regMember">
-		INSERT INTO member (member_id,member_pw,member_name,member_tel,member_address,member_grade) VALUES (#{member_id}, #{member_pw}, #{member_name}, #{member_tel}, #{member_address}, #{member_grade});
+		INSERT INTO member (member_id,member_pw,member_name,member_tel, member_address, member_addressdetail, postnum, member_grade, joindate) 
+		VALUES (#{member_id}, #{member_pw}, #{member_name}, #{member_tel}, #{member_address}, #{member_addressdetail}, #{postnum}, #{member_grade},now());
 	</insert>
 	
 	<select id="idCheck" resultType="_int" >
@@ -18,7 +19,7 @@
 	</select>
 	
    <update id="updateMember" >
-      UPDATE member SET member_pw = #{member_pw}, member_tel = #{member_tel}, member_address =#{member_address} WHERE member_id = #{member_id}
+      UPDATE member SET member_pw = #{member_pw}, member_tel = #{member_tel}, member_address =#{member_address},member_addressdetail =#{member_addressdetail}, postnum = #{postnum} WHERE member_id = #{member_id}
    </update>
    
    <delete id="deleteMember">

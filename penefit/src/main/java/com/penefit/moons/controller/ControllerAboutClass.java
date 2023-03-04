@@ -40,15 +40,10 @@ public class ControllerAboutClass {
 	@GetMapping("/classList")
 	public void getClassList(Model model, int pageNum) {
 		//System.out.println("pageNum" +pageNum);
-		
-		if(pageNum<1) {
-			pageNum = 1;
-		}
-		
 		ArrayList<ClassVO> list = service.getClassList((pageNum * 8 - 8));
 		
 		int count = service.countClass();
-		System.out.println(count);
+		//System.out.println(count);
 		
 		if(count % 8 == 0) {
 			count = count/8;
@@ -80,7 +75,7 @@ public class ControllerAboutClass {
 	
 	// 마감된 목록	---
 	@GetMapping("/classList-expired")
-	public void getClassExpired(Model model) {
+	public void getClassExpired(Model model, int pageNum) {
 		
 		int count = service.expiredClassCount();
 		if(count % 8 == 0) {
@@ -89,8 +84,8 @@ public class ControllerAboutClass {
 			count = count/8 + 1;
 		}
 		
-		ArrayList<ClassVO> list = service.getExpiredClassList(0);
-		model.addAttribute("start", 1);
+		ArrayList<ClassVO> list = service.getExpiredClassList((pageNum * 8 - 8));
+		model.addAttribute("startNum", 1);
 		model.addAttribute("count", count);
 		model.addAttribute("list", list);
 	}
@@ -98,18 +93,26 @@ public class ControllerAboutClass {
 	// 카테고리별 클래스 목록
 	@GetMapping("/classList-category")
 	public void getCtgClassList(Model model, String key, int pageNum) {
-		int count = service.ctgClassCount();
+		ArrayList<ClassVO> list = service.getCtgClassList(key, (pageNum * 8 - 8));
+		int count = service.ctgClassCount(key);
+		System.out.println(count);
 		if(count % 8 == 0) {
 			count = count/8;
 			
 		}else{
 			count = count/8 + 1;
 		}
-		ArrayList<ClassVO> list = service.getCtgClassList(key, (pageNum * 8 - 8));
+		System.out.println(pageNum);
+		
+		System.out.println("key : " + key + "그리고" + "pageNum : " + pageNum + "count : " + count);
+		System.out.println("====================");
 		model.addAttribute("startNum", 1);
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
 	}
+	
+	
+	
 
 	// 신규 클래스 목록
 	@GetMapping("/classList-new")
@@ -136,7 +139,6 @@ public class ControllerAboutClass {
 		ClassVO cvo = service.selectClassOne(class_code);
 		List<ReviewVO> rvo = service.getReview(class_code);
 		
-		
 		LocalDateTime now = LocalDateTime.now();
 		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -152,7 +154,8 @@ public class ControllerAboutClass {
 		model.addAttribute("rvo", rvo);
 		model.addAttribute("cvo", cvo);
 	}
-
+	
+	
 	// 장바구니에 담고 --> 리스트와 함께 페이지로 이동
 	@GetMapping("/shoppingcart")
 	public String shoppingcart(String class_code, HttpSession session) {

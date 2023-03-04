@@ -107,6 +107,7 @@ public class ControllerAboutBoard {
 			count = count / 10 + 1;
 		}
 		
+	
 		model.addAttribute("count", count);
 		model.addAttribute("list", list);
 		model.addAttribute("start", start);
@@ -134,18 +135,6 @@ public class ControllerAboutBoard {
 		}
 		return result;
 	}
-	
-	
-	/*@GetMapping("/cityBoardView")
-	public void cityBoard1 (int pageNum, Model model, int start) {
-		int param = pageNum * 10 - 10;
-		List<BoardVO> list = bservice.getAllCityList(param);
-		int notice_count = bservice.countCity();
-		
-		model.addAttribute("notice_count", notice_count);
-		model.addAttribute("list", list);
-		model.addAttribute("pstart", start);
-	}*/
 		
 	// 지역별게시판 등록뷰
 	@GetMapping("/city_regView")

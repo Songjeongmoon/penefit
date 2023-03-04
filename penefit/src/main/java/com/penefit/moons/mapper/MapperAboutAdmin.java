@@ -7,7 +7,7 @@ import com.penefit.moons.domain.NoticeVO;
 @Mapper
 public interface MapperAboutAdmin {
 	
-	public int noticeReg(NoticeVO nvo);		//공지사항등록
+	public int noticeReg(NoticeVO notice);		//공지사항등록
 	
 	
 

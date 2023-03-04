@@ -26,7 +26,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		int result = mapper.regMember(member);
 
 		if (result == 1) {
-			return "home";
+			return "/member/regComplete";
 		} else {
 			return "/member/regMember";
 		}
@@ -45,8 +45,14 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 		for(int i = 0 ; i<list.size();i++) {
 			if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
 				Session.setAttribute("member_id", member_id);
+				MemberVO member = mapper.selectOne(member_id);
+				if(member.getMember_grade().equals("C")) {
+					return "/dashboard/"; //관리자페이지
+				}else {
+					return "/";
+				}
 				
-				return "/member/home";
+			
 			}
 			
 		}

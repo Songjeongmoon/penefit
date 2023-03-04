@@ -10,6 +10,19 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
+#listBox{
+	display:relative;
+}
+
+.pageBox{
+	margin:0 auto;
+	position:absolute;
+	top : 720px;
+	left : 450px;
+	
+}
+
+
 </style>
 </head>
 <body>
@@ -20,10 +33,10 @@
 			<aside>
 				<ul>
 					<li class="aside_title">클래스</li>
-					<li class="aside_menu"><a href="/class/classList&pageNum=1">클래스
+					<li class="aside_menu"><a href="/class/classList?pageNum=1">클래스
 							전체보기</a></li>
 					<li class="aside_menu"><a
-						href="/class/classList-ongoing&pageNum=1">진행중인클래스</a></li>
+						href="/class/classList-ongoing?pageNum=1">진행중인클래스</a></li>
 					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
 						<div id="aside_submenu">
 							<p>
@@ -42,13 +55,14 @@
 					</li>
 					<li class="aside_menu"><a href="/class/classList-new">신규
 							클래스</a></li>
-					<li class="aside_menu"><a href="/class/classList-expired">지난클래스</a></li>
+					<li class="aside_menu"><a
+						href="/class/classList-expired?pageNum=1">지난클래스</a></li>
 					<li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
 				</ul>
 
 			</aside>
-			<input type="hidden" id="startPage" value=1 > 
-			<input type="hidden" id="maxPage" value="${count }">
+			<input type="hidden" id="startPage" value=1> <input
+				type="hidden" id="maxPage" value="${count }">
 			<div class="content" id="listBox">
 				<c:forEach var="c" items="${list }">
 					<div class="class_one">
@@ -62,22 +76,25 @@
 						<p>${c.class_price }</p>
 						<p>${c.class_teacher }</p>
 					</div>
-					
-				</c:forEach>
-				<a href="/class/classList-category?pageNum=${startNum - 5 }&startNum=${startNum - 5 }">[이전]</a>
-				<c:forEach var="pageNum" begin="${startNum }" end="${startNum + 4 }">
-				
-								<a href="/class/classList-category?pageNum=${pageNum }">${pageNum }</a>
 
-				
-					<%-- <c:if test="${pageNum le count }">
-						<a href="/class/classList-category?pageNum=${pageNum }">${pageNum }</a>
-					</c:if> --%>
 				</c:forEach>
-					<c:if test="${startNum + 5 le count }">
-						<a href="/class/classList-category?pageNum=${startNum + 5 }&startNum="${startNum + 5 }">[다음]</a>
+			 
+			
+				<div class="pageBox">
+					<c:if test="${startNum ne 1 }">
+						<a href="/class/classList-category?key=${key }&pageNum=${startNum - 1}&startNum=${startNum - 1}">[이전]</a>
 					</c:if>
-			</div>
+					<c:forEach var="pageNum" begin="${startNum }" end="${startNum + 4 }">
+						<c:if test="${pageNum le count}">
+							<a href="/class/classList-category?key=${key }&pageNum=${pageNum }" >${pageNum }</a>&nbsp;&nbsp;
+               			</c:if>
+               			
+					</c:forEach>
+					<c:if test="${start + 5 le count }">
+						<a href="/class/classList-category?key=${key }&pageNum=${startNum + 5}&startNum=${startNum + 5}">[다음]</a>
+					</c:if>
+				</div>
+				</div>
 		</section>
 	</div>
 	<script>
@@ -89,8 +106,13 @@
 			//alert('dd');
 			$("#aside_submenu").css("display", "none");
 		})
-
-
+		
+// 		let startNum = "${startNum}";
+// 		alert(startNum);
+		
+		
+		
+		
 	</script>
 </body>
 </html>
