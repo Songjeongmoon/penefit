@@ -1,6 +1,7 @@
 package com.penefit.moons.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -143,5 +144,16 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 			path = "회원탈퇴 완료되었습니다.";
 		}
 		return path;
+	}
+
+	@Override
+	public List<MemberVO> getMemManagerList(int pageNum) {
+		ArrayList<MemberVO> list = mapper.getMemManagerList(pageNum);
+		return list;
+	}
+
+	@Override
+	public int getMemManagerListmaxPage() {
+		return mapper.getMemManagerListmaxPage();
 	}
 }
