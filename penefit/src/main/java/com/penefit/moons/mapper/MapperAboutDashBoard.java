@@ -46,6 +46,10 @@ public interface MapperAboutDashBoard {
 
 	public String getGrade(String member_id);
 
+	public int getMemall();
+	
+	public int getMemteacherall();
+	
 
 }
 

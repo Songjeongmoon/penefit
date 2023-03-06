@@ -62,4 +62,6 @@
 	SELECT CEILING(COUNT(*)/5) from member
 	</select>
 	
+
+	
 </mapper>

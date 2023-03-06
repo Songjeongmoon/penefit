@@ -46,5 +46,7 @@ public interface ServiceAboutMemberI {
 	public List<MemberVO> getMemManagerList(int pageNum);
 	
 	//관리자 멤버리스트 페이지수
-		public int getMemManagerListmaxPage();
+	public int getMemManagerListmaxPage();
+		
+
 }

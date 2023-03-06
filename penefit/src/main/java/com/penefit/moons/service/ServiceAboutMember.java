@@ -156,4 +156,7 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
 	public int getMemManagerListmaxPage() {
 		return mapper.getMemManagerListmaxPage();
 	}
+
+
+	
 }
