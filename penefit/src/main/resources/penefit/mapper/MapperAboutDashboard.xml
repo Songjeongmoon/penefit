@@ -75,10 +75,23 @@
 		LIMIT 5
 	</select>
 	
+
+	<select id ="getMemberToday" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE joindate LIKE CONCAT('%',DATE(NOW()),'%')
+	</select>
+	
+		<select id ="getMember7days" resultType="_int">
+		SELECT COUNT(*)FROM member WHERE joindate LIKE DATE(DATE_SUB(NOW(), INTERVAL #{param1} DAY));
+
+	</select>
+
 	<select id="getGrade" resultType="string">
 	SELECT member_grade
 	FROM member
 	WHERE member_id = #{member_id}
 	</select>
 	
+
 </mapper>

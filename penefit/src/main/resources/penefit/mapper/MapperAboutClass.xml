@@ -358,13 +358,14 @@
 	<select id="suggestmaxPage" resultType="_int">
 	SELECT CEILING(COUNT(*)/5) from suggest where member_id=#{member_id}
 	</select>
-	<!-- 문의수  -->
+	
+	<!-- 문의수 -->
 	<select id="qnamaxPage" resultType="_int">
 	SELECT CEILING(COUNT(*)/5) from qna where member_id=#{member_id}
 	</select>
 
 	
-	<!-- 방문자수 추 -->
+	<!-- 방문자수 -->
 	<insert id="insertVisits">
 		INSERT INTO visits (visit, day)
 		VALUES (visit + 1,

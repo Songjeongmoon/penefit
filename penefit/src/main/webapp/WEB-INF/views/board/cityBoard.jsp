@@ -109,6 +109,13 @@ td a {
 	<div class="box">
 		<section>
 			<aside>
+<<<<<<< HEAD
+            <ul>
+               <li class="aside_title">커뮤니티</li>
+               <li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
+				<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
+            </ul>
+=======
 				<ul>
 					<li class="aside_title">커뮤니티</li>
 					<li class="aside_menu"><a
@@ -116,6 +123,7 @@ td a {
 					<li class="aside_menu"><a
 						href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
 				</ul>
+>>>>>>> branch 'master' of https://github.com/Munjeehyun/penefit.git
 
 			</aside>
 			<div class="content">

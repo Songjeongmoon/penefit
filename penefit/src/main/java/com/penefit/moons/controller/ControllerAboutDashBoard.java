@@ -60,6 +60,15 @@ public class ControllerAboutDashBoard {
 		int classEndCount = serviceDash.getClassEndCount();
 		int classActiveCount = serviceDash.getClassActiveCount();
 		List<ClassVO> classTodayList = serviceDash.getClassListToday();
+		int membertodayCount = serviceDash.getMemberToday();
+		int member2dayCount = serviceDash.getMember7days(1);
+		int member3dayCount = serviceDash.getMember7days(2);
+		int member4dayCount = serviceDash.getMember7days(3);
+		int member5dayCount = serviceDash.getMember7days(4);
+		int member6dayCount = serviceDash.getMember7days(5);
+		int member7dayCount = serviceDash.getMember7days(6);
+	
+		
 		
 		int qnaCount = serviceDash.getQnACount();
 		List<QnAVO> qnaList = serviceDash.getQnAList();
@@ -75,6 +84,13 @@ public class ControllerAboutDashBoard {
 		
 		model.addAttribute("qnaCount", qnaCount);
 		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("membertodayCount", membertodayCount);
+		model.addAttribute("member2dayCount", member2dayCount);
+		model.addAttribute("member3dayCount", member3dayCount);
+		model.addAttribute("member4dayCount", member4dayCount);
+		model.addAttribute("member5dayCount", member5dayCount);
+		model.addAttribute("member6dayCount", member6dayCount);
+		model.addAttribute("member7dayCount", member7dayCount);
 		
 		List<VisitsDTO> visits = serviceDash.getVisits();
 		List<VisitsDTO> visitList = new ArrayList<>();
