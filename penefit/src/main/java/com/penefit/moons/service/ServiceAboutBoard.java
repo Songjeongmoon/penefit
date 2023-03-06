@@ -59,9 +59,18 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		return clist;
 	}
 
-	// 각 게시판 갯수
+	// 각 게시판 개수
 	public int getSearchCount(int pageNum, String sel, String keyword) {
 		return bmapper.getSearchCount(pageNum, sel, keyword);
+	}
+	
+	
+	// 지역 게시판 검색
+	@Override
+	public List<BoardVO> searchCity(String keyword, String citysel) {
+		List<BoardVO> list = bmapper.search_city(keyword, citysel);
+		
+		return list;
 	}
 	
 	// 각 지역 게시판 리스트
@@ -88,13 +97,7 @@ public class ServiceAboutBoard implements ServiceAboutBoardI {
 		return result;
 	}
 
-	// 지역 게시판 검색
-	@Override
-	public List<BoardVO> searchCity(String keyword, String citysel) {
-		List<BoardVO> list = bmapper.search_city(keyword, citysel);
-		
-		return list;
-	}
+
 
 	@Override
 	public void modiCity(BoardVO bvo) {
