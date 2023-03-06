@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-//github.com/eseo99/penefit.git
 
 import com.penefit.moons.domain.ClassVO;
-import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.ReviewVO;
 import com.penefit.moons.service.ServiceAboutClassI;
 
@@ -37,7 +35,7 @@ public class ControllerAboutClass {
 	@Autowired
 	ServiceAboutClassI service;
 
-	// 전체클래스 ---
+	// 전체클래스 
 	@GetMapping("/classList")
 	public void getClassList(Model model, int pageNum, int start) {
 		if(start < 1) {
@@ -168,8 +166,6 @@ public class ControllerAboutClass {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date1 = dateFormat.parse(cvo.getClass_date());
 		Date date2 = dateFormat.parse(formatedNow);
-		// System.out.println("Date-1: " + dateFormat.format(date1));
-		// System.out.println("Date-2: " + dateFormat.format(date2));
 		if (date1.before(date2)) {
 			model.addAttribute("status", "마감");
 		} else {

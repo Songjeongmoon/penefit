@@ -38,7 +38,7 @@
                     </c:if>
                <a id="goWishlist">위시리스트</a> | <a id="shoppingcart">장바구니</a> | <a
                   id="goMypage">마이페이지</a>
-                  <c:if test="${member_grade=='C' }"><a href="/dashbord">  |  관리자HOME</a></c:if>
+                  <c:if test="${member_grade=='C' }"><a href="/dashboard/">  |  관리자HOME</a></c:if>
             </div>
 
             <div id="navbox" class="box">

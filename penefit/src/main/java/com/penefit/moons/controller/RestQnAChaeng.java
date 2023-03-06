@@ -23,7 +23,7 @@ public class RestQnAChaeng {
 	@GetMapping("/qnaList")
 	public List<QnAVO> getQnaList(HttpSession session, int pageNum){
 		String member_id = (String) session.getAttribute("member_id");
-		List<QnAVO> list = service.getQnaList(member_id, pageNum);
+		List<QnAVO> list = service.getQnaList(member_id, (pageNum-1)*10);
 		return list;
 	}
 	
@@ -39,7 +39,6 @@ public class RestQnAChaeng {
 	public String getQnaReply(@PathVariable int qna_num){
 		//답변내용 가져오기
 		String r = service.getQnaReply(qna_num);
-		System.out.println(r);
 		if(r=="") {
 			r="";
 		}

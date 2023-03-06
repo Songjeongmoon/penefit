@@ -173,7 +173,6 @@ public class ControllerAboutMember {
 	@PostMapping("/UpdateMemManager")
 	@ResponseBody
 	public String UpdateMemManager(@RequestBody MemberVO member) {
-		System.out.println("uptatemember :" + member);
 		String path = serviceMember.updateMemberManager(member);
 		return path;
 	}

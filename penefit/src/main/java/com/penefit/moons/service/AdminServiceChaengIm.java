@@ -5,12 +5,16 @@ import java.util.List;
 import org.apache.ibatis.javassist.bytecode.SignatureAttribute.ClassType;
 
 import com.penefit.moons.domain.ClassRate;
+import com.penefit.moons.domain.ClassTypeDTO;
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
 import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
+import com.penefit.moons.domain.SalesReturnDTO;
+import com.penefit.moons.domain.SalesTimeDTO;
+import com.penefit.moons.domain.SalesWeek;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.domain.SuggestType;
 
@@ -126,4 +130,12 @@ public interface AdminServiceChaengIm {
 	public int getReviewNewPage();
 	
 	public int getReviewAllPage();
+
+	public List<ClassTypeDTO> classRegTypeRate();
+
+	public List<SalesWeek> salesThisWeek();
+
+	public List<SalesReturnDTO> dataReturndiv();
+
+	public List<SalesTimeDTO> dataTimediv();
 }

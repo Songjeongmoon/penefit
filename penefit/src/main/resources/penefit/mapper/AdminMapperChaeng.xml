@@ -5,7 +5,8 @@
 	<!-- 전체 qna리스트 -->
 	<select id="getAdminQnaList"
 		resultType="com.penefit.moons.domain.QnAVO">
-		select * from qna ORDER BY qna_regdate DESC LIMIT #{startNum}, 5
+		select * from qna ORDER BY qna_regdate DESC LIMIT
+		#{startNum}, 5
 	</select>
 
 	<!-- qna리스트 필터 -->
@@ -46,7 +47,8 @@
 		SELECT *
 		FROM review
 		ORDER BY review_regdate DESC
-		LIMIT #{startNum},5
+		LIMIT
+		#{startNum},5
 
 	</select>
 
@@ -141,8 +143,10 @@
 		resultType="com.penefit.moons.domain.NoticeVO">
 		SELECT *
 		FROM notice
-		WHERE notice_title like CONCAT('%',#{param1},'%') or notice_content like CONCAT('%',#{param1},'%') or member_id like CONCAT('%', #{param1},'%')
-		LIMIT #{param2}, 5
+		WHERE notice_title like
+		CONCAT('%',#{param1},'%') or notice_content like
+		CONCAT('%',#{param1},'%') or member_id like CONCAT('%', #{param1},'%')
+		LIMIT #{param2}, 10
 	</select>
 	<select id="getNoticeNew"
 		resultType="com.penefit.moons.domain.NoticeVO">
@@ -199,12 +203,15 @@
 		resultType="com.penefit.moons.domain.SuggestDTO">
 		SELECT *
 		FROM suggest
-		WHERE status like CONCAT('%',#{param1},'%') AND
-		(suggest_title like CONCAT('%',#{param2},'%') or member_id like CONCAT('%',#{param2},'%') or
+		WHERE status like
+		CONCAT('%',#{param1},'%') AND
+		(suggest_title like
+		CONCAT('%',#{param2},'%') or member_id like CONCAT('%',#{param2},'%')
+		or
 		type like CONCAT('%', #{param2},'%'))
 		ORDER BY
 		suggest_regdate DESC
-		LIMIT #{param3}, 5
+		LIMIT #{param3}, 10
 
 	</select>
 	<!-- 제안서 검색 -->
@@ -252,6 +259,9 @@
 		memlit, ROUND(SUM(class_memcnt)/SUM(class_memlit)*100) AS rate
 		FROM
 		class
+		WHERE class_date NOT BETWEEN
+		'2000-07-01 00:00:00' AND (select
+		CURRENT_TIMESTAMP());
 	</select>
 
 	<insert id="moveCloseTbl">
@@ -279,7 +289,9 @@
 
 	<select id="todaysSales" resultType="_int">
 		SELECT COALESCE(SUM(amount),
-		0) AS todays_total FROM buy_history WHERE buy_history_date = CURDATE()
+		0) AS todays_total FROM buy_history WHERE
+		CAST(buy_history_date AS
+		date) = CURDATE()
 	</select>
 	<select id="weeklySales" resultType="_int">
 		SELECT
@@ -303,7 +315,9 @@
 		buy_history_date >=
 		DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
 		GROUP BY
-		DATE_FORMAT(buy_history_date, '%Y-%m');
+		DATE_FORMAT(buy_history_date, '%Y-%m')
+		ORDER BY buy_history_date desc
+		LIMIT 1
 	</select>
 	<select id="yearlySales" resultType="_int">
 		SELECT
@@ -314,7 +328,9 @@
 		WHERE buy_history_date >=
 		DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
 		GROUP BY
-		DATE_FORMAT(buy_history_date, '%Y');
+		DATE_FORMAT(buy_history_date, '%Y')
+		ORDER BY buy_history_date desc
+		LIMIT 1
 	</select>
 
 	<select id="dayChange" resultType="_int">
@@ -379,81 +395,177 @@
 		HAVING COUNT(*) > 1
 		) t;
 	</select>
-	
-	 <!-- 제안서 리스트 with 필터 -->
-    <select id = "getListWithFilter" resultType = "com.penefit.moons.domain.SuggestDTO">
-       SELECT *
-       FROM suggest
-       WHERE status = #{keyword}
-    </select>
-    
-    <select id = "getQnaAllMaxPage" resultType = "_int">
-    	SELECT COUNT(*)
-    	FROM qna
-    </select>
-    
-    <select id = "getQnaNewMaxPage" resultType = "_int">
-    	SELECT COUNT(*)
-    	FROM qna
-    	WHERE qna_status = '답변대기'
-    </select>
-    
-    <select id = "getNoticeMaxPage" resultType = "_int">
-    	SELECT COUNT(*)
-    	FROM notice
-    	WHERE notice_title like CONCAT('%',#{keyword},'%') or notice_content like CONCAT('%',#{keyword},'%') or member_id like CONCAT('%', #{keyword},'%')
-    </select>
-    
-    <select id="getNoticeNewPage" resultType = "_int">
-    	SELECT COUNT(*)
-		FROM notice
-		WHERE notice_regdate > DATE_ADD(now(),
-		INTERVAL -24 HOUR)
-	</select>
-	
-	<select id="getSuggestNewPage" resultType = "_int">
-		SELECT COUNT(*)
+
+	<!-- 제안서 리스트 with 필터 -->
+	<select id="getListWithFilter"
+		resultType="com.penefit.moons.domain.SuggestDTO">
+		SELECT *
 		FROM suggest
+		WHERE status = #{keyword}
+	</select>
+
+	<select id="getQnaAllMaxPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM qna
+	</select>
+
+	<select id="getQnaNewMaxPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM qna
+		WHERE qna_status = '답변대기'
+	</select>
+
+	<select id="getNoticeMaxPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM
+		notice
+		WHERE notice_title like CONCAT('%',#{keyword},'%') or
+		notice_content like
+		CONCAT('%',#{keyword},'%') or member_id like
+		CONCAT('%',
+		#{keyword},'%')
+	</select>
+
+	<select id="getNoticeNewPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM
+		notice
+		WHERE notice_regdate > DATE_ADD(now(),
+		INTERVAL -24
+		HOUR)
+	</select>
+
+	<select id="getSuggestNewPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM
+		suggest
 		WHERE status = '검토'
 	</select>
-	
-	<select id="getSuggestAllPage" resultType = "_int">
+
+	<select id="getSuggestAllPage" resultType="_int">
 		SELECT COUNT(*)
-		FROM suggest
+		FROM
+		suggest
 		WHERE status like CONCAT('%',#{param1},'%') AND
-		(suggest_title like CONCAT('%',#{param2},'%') or member_id like CONCAT('%',#{param2},'%') or
+		(suggest_title
+		like CONCAT('%',#{param2},'%') or member_id like
+		CONCAT('%',#{param2},'%') or
 		type like CONCAT('%', #{param2},'%'))
 	</select>
-	
+
 	<select id="getClassAllPageEnd" resultType="_int">
 		SELECT COUNT(*)
-		FROM class
+		FROM
+		class
 		WHERE NOW() > class_date AND
-		(class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%'))
+		(class_subject like
+		CONCAT('%',#{keyword},'%') OR class_info like
+		CONCAT('%',#{keyword},'%') OR class_teacher like
+		CONCAT('%',#{keyword},'%'))
 	</select>
-	
+
 	<select id="getClassAllPageActive" resultType="_int">
 		SELECT COUNT(*)
 		FROM class
 		WHERE class_date > NOW() AND
-		(class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%'))
+		(class_subject like
+		CONCAT('%',#{keyword},'%') OR class_info like
+		CONCAT('%',#{keyword},'%') OR class_teacher like
+		CONCAT('%',#{keyword},'%'))
 	</select>
-	
+
 	<select id="getClassAllPage" resultType="_int">
 		SELECT COUNT(*)
-		FROM class
-		WHERE class_subject like CONCAT('%',#{keyword},'%') OR class_info like CONCAT('%',#{keyword},'%') OR class_teacher like CONCAT('%',#{keyword},'%')
+		FROM
+		class
+		WHERE class_subject like CONCAT('%',#{keyword},'%') OR class_info
+		like CONCAT('%',#{keyword},'%') OR class_teacher like
+		CONCAT('%',#{keyword},'%')
 	</select>
-	
+
 	<select id="getReviewNewPage" resultType="_int">
 		SELECT COUNT(*)
-		FROM review
+		FROM
+		review
 		WHERE review_regdate > DATE_ADD(now(),
 		INTERVAL -24 HOUR)
 	</select>
-	
+
 	<select id="getReviewAllPage" resultType="_int">
 		SELECT COUNT(*)
-		FROM review
+		FROM
+		review
+	</select>
+	<select id="classRegTypeRate"
+		resultType="com.penefit.moons.domain.ClassTypeDTO">
+		SELECT
+		LEFT(class_code, 1) AS class_type,
+		sum(class_memcnt)
+		AS class_memcnt,
+		sum(class_memlit) AS class_memlit,
+		sum(class_memcnt) /
+		sum(class_memlit) * 100 AS class_memratio
+		FROM class
+		WHERE
+		class_date >
+		CURRENT_DATE
+		GROUP BY
+		LEFT(class_code, 1)
+		ORDER BY class_memratio DESC
+	</select>
+	<select id="salesThisWeek"
+		resultType="com.penefit.moons.domain.SalesWeek">
+		SELECT DATE_SUB(DATE(NOW()), INTERVAL seq.seq DAY) AS date,
+		COALESCE(SUM(buy_history.amount), 0) AS total_sales
+		FROM (SELECT 0 seq UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT
+		3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6) seq
+		LEFT JOIN buy_history ON DATE(buy_history.buy_history_date) =
+		DATE_SUB(DATE(NOW()), INTERVAL seq.seq DAY)
+
+		WHERE DATE_SUB(DATE(NOW()), INTERVAL seq.seq DAY) BETWEEN
+		DATE_SUB(DATE(NOW()), INTERVAL 6 DAY) AND DATE(NOW())
+		GROUP BY DATE_SUB(DATE(NOW()), INTERVAL seq.seq DAY)
+		ORDER BY DATE ASC
+	</select>
+
+	<select id="dataReturndiv"
+		resultType="com.penefit.moons.domain.SalesReturnDTO">
+		SELECT date_range.buy_history_date,
+		COALESCE(SUM(CASE WHEN bh.buy_history_current != '결제완료' THEN bh.amount END), 0) AS
+		cancelled_amount,
+		COALESCE(SUM(CASE WHEN bh.buy_history_current = '결제완료' THEN bh.amount END), 0) AS
+		completed_amount
+		FROM (
+		SELECT DATE(NOW() - INTERVAL 6 DAY) AS buy_history_date UNION ALL
+		SELECT DATE(NOW() - INTERVAL 5 DAY) UNION ALL
+		SELECT DATE(NOW() - INTERVAL 4 DAY) UNION ALL
+		SELECT DATE(NOW() - INTERVAL 3 DAY) UNION ALL
+		SELECT DATE(NOW() - INTERVAL 2 DAY) UNION ALL
+		SELECT DATE(NOW() - INTERVAL 1 DAY) UNION ALL
+		SELECT DATE(NOW())
+		) AS date_range
+		LEFT JOIN buy_history AS bh ON date_range.buy_history_date =
+		DATE(bh.buy_history_date)
+		WHERE date_range.buy_history_date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY)
+		AND NOW()
+		GROUP BY date_range.buy_history_date
+		ORDER BY date_range.buy_history_date ASC;
+
+	</select>
+	<select id="dataTimediv" resultType="com.penefit.moons.domain.SalesTimeDTO">
+	SELECT hours.hour_of_purchase, IFNULL(purchase_count, 0) AS purchase_count
+FROM (
+    SELECT 0 AS hour_of_purchase UNION SELECT 1 UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION
+    SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12 UNION SELECT 13 UNION SELECT 14 UNION
+    SELECT 15 UNION SELECT 16 UNION SELECT 17 UNION SELECT 18 UNION SELECT 19 UNION SELECT 20 UNION SELECT 21 UNION SELECT 22 UNION
+    SELECT 23
+) AS hours
+LEFT JOIN (
+    SELECT HOUR(buy_history_date) AS hour_of_purchase, COUNT(*) AS purchase_count
+    FROM buy_history
+    GROUP BY hour_of_purchase
+) AS hour_counts
+ON hours.hour_of_purchase = hour_counts.hour_of_purchase;
+	
 	</select>
 </mapper>

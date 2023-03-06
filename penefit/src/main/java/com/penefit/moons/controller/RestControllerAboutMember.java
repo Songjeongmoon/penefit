@@ -21,18 +21,14 @@ public class RestControllerAboutMember {
 	
 	@GetMapping("idCheck")
 	public int idCheck(String id) {
-		System.out.println("id : " + id);
 		int result = serviceMember.idCheck(id);
 		return result;
 	}
 	
 	@GetMapping("/MembermanagerList")
 	public List<MemberVO> reviewList(int pageNum){
-		System.out.println(pageNum);
 		int pageNumF = pageNum * 5-5;
-		System.out.println("pageNumF : " + pageNumF);
 		List<MemberVO> list = serviceMember.getMemManagerList(pageNumF);
-		System.out.println(list);
 		return list;
 	}
 	
