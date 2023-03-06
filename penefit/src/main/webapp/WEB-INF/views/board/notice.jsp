@@ -59,6 +59,7 @@ h2 {
 </head>
 <body>
 
+<<<<<<< HEAD
 
    <%@ include file="../header.jsp"%>
    <div class="box">
@@ -70,6 +71,17 @@ h2 {
                <li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
             </ul>
 
+=======
+	<%@ include file="../header.jsp"%>
+	<div class="box">
+		<section>
+			<aside>
+				<ul>
+					<li class="aside_title">커뮤니티</li>
+					<li class="aside_menu"><a href="/board/notice?pageNum=1&start=1">공지사항</a></li>
+					<li class="aside_menu"><a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a></li>
+				</ul>
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
          </aside>
          <div class="content" id="listBox">
@@ -77,11 +89,17 @@ h2 {
             <c:set var="start" value="${pstart }" />
             <c:set var="end" value="${pstart + 4 }" />
 
+<<<<<<< HEAD
 
 
             <c:if test="${notice_count % 10 gt 0 }">
                <c:set var="count" value="${notice_count / 10 + 1 }" />
             </c:if>
+=======
+				<c:if test="${notice_count % 10 gt 0 }">
+					<c:set var="count" value="${notice_count / 10 + 1 }" />
+				</c:if>
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
             <c:if test="${notice_count % 10 eq 0 }">
                <c:set var="count" value="${notice_count / 10 }" />

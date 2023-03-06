@@ -118,7 +118,9 @@ textarea{
 	<script>
 	let class_code = "${classinfo.class_code}";
 	function getScore(){
-		let score = document.querySelector(".star span").clientWidth/32;
+		let score = document.querySelector(".star span").clientWidth/17.99;
+		let temp1 = score*10;
+		score = Math.floor(temp1)/10;
 		alert(score);
 		$("#val").html("<input type='hidden' value='"+ score+"' name='score' >")
 			

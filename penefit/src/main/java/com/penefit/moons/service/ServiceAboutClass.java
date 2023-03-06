@@ -23,17 +23,17 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	MapperAboutClass mapper;
 
 	@Override
-	public ArrayList<ClassVO> getClassList(int pageNum) {
-		ArrayList<ClassVO> list = mapper.getClassList(pageNum);
-		System.out.println("getClassList" + pageNum);
+	public ArrayList<ClassVO> getClassList(int startnum) {
+		ArrayList<ClassVO> list = mapper.getClassList(startnum);
+		//System.out.println("getClassList" + startnum);
 		return list;
 	}
 	
 
 	@Override
-	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum) {
+	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("startnum") int startnum) {
 		
-		ArrayList<ClassVO> list = mapper.getCtgClassList(key, pageNum);
+		ArrayList<ClassVO> list = mapper.getCtgClassList(key, startnum);
 		System.out.println(list);
 		return list;
 	}
@@ -45,9 +45,9 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	}
 
 	@Override
-	public ArrayList<ClassVO> getSearchClassList(String keyword,int pageNum) {
-		ArrayList<ClassVO> list = mapper.getSearchClassList(keyword, pageNum);
-	    return list;
+	public ArrayList<ClassVO> getSearchClassList(String keyword,int startnum) {
+		ArrayList<ClassVO> list = mapper.getSearchClassList(keyword, startnum);
+		return list;
 	}
 
 	@Override
@@ -251,15 +251,15 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	
 	// 진행중인 목록 페페이징	---
 	@Override
-	public ArrayList<ClassVO> getOngoingClassList(int pageNum) {
-		ArrayList<ClassVO> list = mapper.getOngoingClassList(pageNum);
+	public ArrayList<ClassVO> getOngoingClassList(int startnum) {
+		ArrayList<ClassVO> list = mapper.getOngoingClassList(startnum);
 		return list;
 	}
 
 	// 마감된 목록
 	@Override
-	public ArrayList<ClassVO> getExpiredClassList(int pageNum) {
-		ArrayList<ClassVO> list = mapper.getExpiredClassList(pageNum);
+	public ArrayList<ClassVO> getExpiredClassList(int startnum) {
+		ArrayList<ClassVO> list = mapper.getExpiredClassList(startnum);
 		return list;
 	}
 	//리뷰목록

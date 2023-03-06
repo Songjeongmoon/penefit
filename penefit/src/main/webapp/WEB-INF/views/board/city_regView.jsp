@@ -158,7 +158,11 @@ strong{
                     success:function(data){
                        alert(data);
                        
+<<<<<<< HEAD
                        location.href="/cityBoardview?pageNum=" + pageNum;
+=======
+                       location.href="/board/cityBoardview?pageNum=1&start=1";
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
                     },
                     error : () => {
                         alert("error");

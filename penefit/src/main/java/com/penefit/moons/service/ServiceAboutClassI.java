@@ -18,19 +18,20 @@ public interface ServiceAboutClassI {
 	public int countClass();
 	
 	// 전체 클래스 목록보기	----
-	public ArrayList<ClassVO> getClassList(int pageNum);
+	public ArrayList<ClassVO> getClassList(int startnum);
 	
 	//카테고리별 클래스 count
 	public int ctgClassCount(String key);
 	
 	// 카테고리별 클래스 목록
-	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum);
+	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("startnum") int startnum);
 
 	// 신규 클래스 목록
 	public ArrayList<ClassVO> getNewClassList();
 
 	// 검색된 클래스 목록
-    public ArrayList<ClassVO> getSearchClassList(String keyword, int pageNum);
+	public ArrayList<ClassVO> getSearchClassList(String keyword, int startnum);
+
 	// 검색된 클래스 갯수
 	public int getSearchClassListCnt(String keyword);
 
@@ -111,14 +112,14 @@ public interface ServiceAboutClassI {
 	public int countOngingClass();
 	
 	//진행중인 목록	----
-	public ArrayList<ClassVO> getOngoingClassList(int pageNum);
+	public ArrayList<ClassVO> getOngoingClassList(int startnum);
 	
 	
 	//마감된 강의 count---
 	public int expiredClassCount();
 	
 	//마감된 목록
-	public ArrayList<ClassVO> getExpiredClassList(int pageNum);
+	public ArrayList<ClassVO> getExpiredClassList(int startnum);
 	
 	//리뷰목록
 	public List<ReviewVO> getReviewList(String member_id);

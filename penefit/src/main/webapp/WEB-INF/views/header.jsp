@@ -56,7 +56,7 @@
                      <div class="title">클래스</div>
                      <div class="subtitle">
                         <div class="subtitle_li">
-                           <a href="/class/classList-ongoing?pageNum=1">클래스과정</a>
+                           <a href="/class/classList-ongoing?pageNum=1&start=1">클래스과정</a>
                         </div>
                         <div class="subtitle_li">
                            <a href="/class/suggestion">클래스제안</a>
@@ -123,7 +123,7 @@
    $("#search_bar1").keyup(function(evt) {
       if (evt.keyCode == 13) {
          let keyword = $("#search_bar1").val();
-         let url2 = "/class/classList-search?keyword=" + keyword + "&pageNum=1";
+         let url2 = "/class/classList-search?keyword=" + keyword + "&pageNum=1" + "&start=1";
          location.href = url2;
       }
    })

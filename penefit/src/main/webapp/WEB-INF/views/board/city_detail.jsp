@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,9 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-	integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <style>
 .content {
@@ -87,10 +84,9 @@ h2 {
 			<aside>
 				<ul>
 					<li class="aside_title">커뮤니티</li>
-					<li class="aside_menu"><a href="notice">공지사항</a></li>
-					<li class="aside_menu"><a href="cityBoard">지역별게시판</a></li>
+					<li class="aside_menu"><a href="notice?pageNum=1&start=1">공지사항</a></li>
+					<li class="aside_menu"><a href="cityBoard?pageNum=1&start=1">지역별게시판</a></li>
 				</ul>
-
 			</aside>
 			<div class="content">
 				<h2>지역별 게시판</h2>
@@ -123,14 +119,9 @@ h2 {
 					</tr>
 					<tr>
 
-						<td colspan="2" style="text-align: center;"><input
-							type="hidden" name="board_num" value="${cvo.board_num}">
-							<c:if test="${sessionScope.member_id == cvo.member_id }">
-								<button type="button"
-									onclick="location.href='city_modiView?board_num=${cvo.board_num }'">수정</button>
-								<button type="button"
-									onclick="location.href='delCity?board_num=${cvo.board_num }'"
-									style="background-color: darkgray;">삭제</button>
+						<td colspan="2" style="text-align: center;"><input type="hidden" name="board_num" value="${cvo.board_num}"> <c:if test="${sessionScope.member_id == cvo.member_id }">
+								<button type="button" onclick="location.href='city_modiView?board_num=${cvo.board_num }'">수정</button>
+								<button type="button" onclick="location.href='delCity?board_num=${cvo.board_num }'" style="background-color: darkgray;">삭제</button>
 
 
 							</c:if>
@@ -144,13 +135,8 @@ h2 {
 				<div class="reply_container">
 					<div class="reply_reg">
 
-						<input type="hidden" name="board_num" value="${cvo.board_num }">
-						<input type="hidden" name="reply_num" value="${reply_num}">
-						<input type="hidden" name="reply_type" value="C"><br>
-						<input type="hidden" name="member_id" value="${member_id }"
-							id="writer" readonly="readonly"><br>
-						<textarea name="reply_content" id="rReply"
-							placeholder="댓글 내용을 입력해주세요."></textarea>
+						<input type="hidden" name="board_num" value="${cvo.board_num }"> <input type="hidden" name="reply_num" value="${reply_num}"> <input type="hidden" name="reply_type" value="C"><br> <input type="hidden" name="member_id" value="${member_id }" id="writer" readonly="readonly"><br>
+						<textarea name="reply_content" id="rReply" placeholder="댓글 내용을 입력해주세요."></textarea>
 						<div style="text-align: right; margin-right: 100px;">
 							<input type="button" value="등록" onclick="regReply()">
 						</div>
@@ -178,7 +164,6 @@ h2 {
 		</section>
 	</div>
 	<script>
-
 		$("#aside_menu_btn").mouseover(function() {
 			$("#aside_submenu").css("display", "block");
 		})
@@ -238,7 +223,8 @@ h2 {
 							+ obj[i].reply_content
 
 							+ "</td><td id='writer'>"
-							+ obj[i].member_id + "</td>" + msg;
+							+ obj[i].member_id
+							+ "</td>" + msg;
 				}
 
 				$("#writer").css({
@@ -255,7 +241,8 @@ h2 {
 			xhttp.send();
 		}
 
-		$(document).on(
+		$(document)
+				.on(
 						"click",
 						".delBtn",
 						function(evt) {

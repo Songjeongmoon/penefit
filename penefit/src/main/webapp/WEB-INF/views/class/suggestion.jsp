@@ -58,6 +58,7 @@
    <div class="box">
       <section>
          <aside>
+<<<<<<< HEAD
             <ul>
                <li class="aside_title">클래스</li>
                <li class="aside_menu"><a href="/class/classList">클래스 전체보기</a></li>
@@ -83,6 +84,34 @@
                <li class="aside_menu"><a href="/class/classList-expired">지난클래스</a></li>
                <li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
             </ul>
+=======
+           <ul>
+					<li class="aside_title">클래스</li>
+					<li class="aside_menu"><a href="/class/classList?pageNum=1">클래스
+							전체보기</a></li>
+					<li class="aside_menu"><a
+						href="/class/classList-ongoing?pageNum=1">진행중인클래스</a></li>
+					<li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
+						<div id="aside_submenu">
+							<p>
+								<a href="classList-category?key=A&pageNum=1">&nbsp;&nbsp;의류</a>
+							</p>
+							<p>
+								<a href="classList-category?key=B&pageNum=1">&nbsp;&nbsp;식품</a>
+							</p>
+							<p>
+								<a href="classList-category?key=C&pageNum=1">&nbsp;&nbsp;미용</a>
+							</p>
+							<p>
+								<a href="classList-category?key=D&pageNum=1">&nbsp;&nbsp;기타</a>
+							</p>
+						</div>
+					</li>
+					<li class="aside_menu"><a href="/class/classList-new">신규클래스</a></li>
+					<li class="aside_menu"><a href="/class/classList-expired?pageNum=1">지난클래스</a></li>
+					<li class="aside_menu"><a href="/class/suggestion">클래스제안</a></li>
+				</ul>
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
 
 			</aside>

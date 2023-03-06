@@ -380,7 +380,7 @@ color: #ff5f5f;
                      <div class="swiper-slide">
                         <div class="container" id="review_container">
                            <div class="item" id="rev_img">
-                  <c:if test="${r.review_photo != ''}">
+						<c:if test="${r.review_photo != ''}">
                               <img src="../images/${r.review_photo }" class="review_img"
                                  style="width: 150px; height: 150px;">
                          </c:if>
@@ -523,6 +523,7 @@ color: #ff5f5f;
 
       //장바구니에 담기
       $("#addCart").click(function() {
+<<<<<<< HEAD
          if("${member_id}" == ""){
             alert("회원만 이용할 수 있습니다.");
             location.href = "/member/login";
@@ -530,6 +531,15 @@ color: #ff5f5f;
                //alert("장바구니 버튼 클릭!");
              location.href = "shoppingcart?class_code=" + class_code;
          }
+=======
+    	  if("${member_id}" == ""){
+    		  alert("회원만 이용할 수 있습니다.");
+    		  location.href = "/member/login";
+    	  }else{
+  	          //alert("장바구니 버튼 클릭!");
+	          location.href = "shoppingcart?class_code=" + class_code;
+    	  }
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
       });
 
       $("#detail_box1_btn").click(function() {
@@ -594,14 +604,26 @@ color: #ff5f5f;
                      xhttp.onload = function() {
                         let result = this.responseText;
                         let reviewlist = JSON.parse(result);
+<<<<<<< HEAD
                   let imgurl = reviewlist.review_photo;
                   if(imgurl == ""){
                      imgurl = "logo.png";
                   }
                   
+=======
+						let imgurl = reviewlist.review_photo;
+						if(imgurl == ""){
+							imgurl = "logo.png";
+						}
+						
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
                         $("#tbody").empty();
+<<<<<<< HEAD
                   
+=======
+						
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
                         $("#tbody")
                               .append(
                                     "<tr><td colspan='2'><img src='../images/"+ imgurl +"' width='200px; '></td></tr>"

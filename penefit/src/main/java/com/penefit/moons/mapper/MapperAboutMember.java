@@ -40,9 +40,41 @@ public interface MapperAboutMember {
 	public int updateMemberManager(MemberVO member);
 	//관리자 회원탈퇴
 	public int deleteMemberManager(String id);
+	
 	//관리자 멤버리스트 페이지
-	public ArrayList<MemberVO> getMemManagerList(int pageNum);
+	public ArrayList<MemberVO> getMemManagerList(@Param("keyword") String keyword, @Param("startNum") int startNum);
+	//관리자 멤버리스트 아이디검색
+	public ArrayList<MemberVO> getMemManagerListId(@Param("keyword") String keyword, @Param("startNum") int startNum);
+	//관리자 멤버리스트 이름검색
+	public ArrayList<MemberVO> getMemManagerListName(@Param("keyword") String keyword, @Param("startNum") int startNum);
+	//관리자 멤버리스트 등급검색
+	public ArrayList<MemberVO> getMemManagerListGrade(@Param("keyword") String keyword, @Param("startNum") int startNum);
+	
 	//관리자 멤버리스트 페이지수
-	public int getMemManagerListmaxPage();
+	public int getMemberMaxPage(String keyword);
+	
+	public int getMemberMaxPageId(String keyword);
+	
+	public int getMemberMaxPageName(String keyword);
+	
+	public int getMemberMaxPageGrade(String keyword);
+	
+	//관리자 강사리스트 페이지
+	public ArrayList<MemberVO> getManagerManagerList(@Param("keyword") String keyword, @Param("startNum") int startNum);
+	//관리자 강사리스트 아이디검색
+	public ArrayList<MemberVO> getManagerManagerListId(@Param("keyword") String keyword, @Param("startNum") int startNum);
+	//관리자 강사리스트 이름검색
+	public ArrayList<MemberVO> getManagerManagerListName(@Param("keyword") String keyword, @Param("startNum") int startNum);
+	//관리자 강사리스트 등급검색
+	public ArrayList<MemberVO> getManagerManagerListGrade(@Param("keyword") String keyword, @Param("startNum") int startNum);
+	
+	//관리자 멤버리스트 페이지수
+	public int getManagerMaxPage(String keyword);
+	
+	public int getManagerMaxPageId(String keyword);
+	
+	public int getManagerMaxPageName(String keyword);
+	
+	public int getManagerMaxPageGrade(String keyword);
 	
 }

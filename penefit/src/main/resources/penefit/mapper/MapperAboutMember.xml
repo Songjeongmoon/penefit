@@ -26,18 +26,65 @@
    		DELETE FROM member  WHERE member_id = #{member_id};
    </delete>
    
-   <select id ="selectALL" resultType="com.penefit.moons.domain.MemberVO">
-		SELECT * FROM member; 
+	<select id="getMemManagerList" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT *
+	  	FROM member
+	  	WHERE member_id LIKE CONCAT('%',#{param1},'%')
+	  	OR member_name LIKE CONCAT('%',#{param1},'%')
+	  	OR member_grade LIKE CONCAT('%',#{param1},'%')
+	  	LIMIT #{param2}, 5
 	</select>
-   <select id ="selectOneID" resultType="com.penefit.moons.domain.MemberVO">
-		SELECT * FROM member WHERE member_id LIKE CONCAT('%',#{id},'%')
+	
+	<select id="getMemManagerListId" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT *
+	  	FROM member
+	  	WHERE member_id LIKE CONCAT('%',#{param1},'%')
+	  	LIMIT #{param2}, 5
 	</select>
-	   <select id ="selectOneName" resultType="com.penefit.moons.domain.MemberVO">
-		SELECT * FROM member WHERE member_name LIKE CONCAT('%',#{name},'%')
+	
+	<select id="getMemManagerListName" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT *
+	  	FROM member
+	  	WHERE member_name LIKE CONCAT('%',#{param1},'%')
+	  	LIMIT #{param2}, 5
 	</select>
-	   <select id ="selectOneGrade" resultType="com.penefit.moons.domain.MemberVO">
-		SELECT * FROM member WHERE member_grade LIKE CONCAT('%',#{grade},'%')
-	  </select>
+	
+	<select id="getMemManagerListGrade" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT *
+	  	FROM member
+	  	WHERE member_grade LIKE CONCAT('%',#{param1},'%')
+	  	LIMIT #{param2}, 5
+	</select>
+	
+	<select id="getManagerManagerList" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT *
+	  	FROM member
+	  	WHERE member_id LIKE CONCAT('%',#{param1},'%')
+	  	OR member_name LIKE CONCAT('%',#{param1},'%')
+	  	OR member_grade LIKE CONCAT('%',#{param1},'%')
+	  	LIMIT #{param2}, 5
+	</select>
+	
+	<select id="getManagerManagerListId" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT *
+	  	FROM member
+	  	WHERE member_id LIKE CONCAT('%',#{param1},'%')
+	  	LIMIT #{param2}, 5
+	</select>
+	
+	<select id="getManagerManagerListName" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT *
+	  	FROM member
+	  	WHERE member_name LIKE CONCAT('%',#{param1},'%')
+	  	LIMIT #{param2}, 5
+	</select>
+	
+	<select id="getManagerManagerListGrade" resultType="com.penefit.moons.domain.MemberVO">
+		SELECT *
+	  	FROM member
+	  	WHERE member_grade LIKE CONCAT('%',#{param1},'%')
+	  	LIMIT #{param2}, 5
+	</select>
 	
 	 <update id="updateGrade" >
       UPDATE member SET member_grade = #{member_grade} WHERE member_id = #{member_id};
@@ -51,15 +98,60 @@
    		DELETE FROM member  WHERE member_id = #{member_id};
    	 </delete>
    	 
-   	 	<!-- 관리자 멤버목록  받기 -->
-	<select id="getMemManagerList"
-		resultType="com.penefit.moons.domain.MemberVO">
-		SELECT * FROM member order by member_id asc limit #{pageNum}, 5
-	</select>
 	
 		<!-- 관리자 멤버목록 수  -->
-	<select id="getMemManagerListmaxPage" resultType="_int">
-	SELECT CEILING(COUNT(*)/5) from member
+	<select id="getMemberMaxPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_id LIKE CONCAT('%',#{keyword},'%') OR
+	  	member_name LIKE CONCAT('%',#{keyword},'%') OR
+	  	member_grade LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<select id="getMemberMaxPageId" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_id LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<select id="getMemberMaxPageName" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_name LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<select id="getMemberMaxPageGrade" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_grade LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	
+	
+		<!-- 관리자 강사목록 수  -->
+	<select id="getManagerMaxPage" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_id LIKE CONCAT('%',#{keyword},'%') OR
+	  	member_name LIKE CONCAT('%',#{keyword},'%') OR
+	  	member_grade LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<select id="getManagerMaxPageId" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_id LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<select id="getManagerMaxPageName" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_name LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<select id="getManagerMaxPageGrade" resultType="_int">
+		SELECT COUNT(*)
+		FROM member
+		WHERE member_grade LIKE CONCAT('%',#{keyword},'%')
 	</select>
 	
 </mapper>

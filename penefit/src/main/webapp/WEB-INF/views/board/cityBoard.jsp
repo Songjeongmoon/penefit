@@ -36,8 +36,12 @@
    margin-bottom: 20px;
 }
 
+<<<<<<< HEAD
 input[type='button'], button[type='button']:not(id ='frontBtn '), button[type='button']:not(id
     ='pageBtn ') {
+=======
+input[type='button'], button[type='button']:not([id ='backBtn'],[id ='frontBtn'],[class='pageBtn']){
+>>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
    background-color: #75BD43;
    border: none;
    width: 50px;
@@ -292,7 +296,6 @@ td a {
          start = Number(start) - 5;
          $("input[name=startNum]").val(start);
          let end=start +4;
-         alert(end);
          $("input[name=end]").val(end);
          
          $("#page").empty();
@@ -328,7 +331,6 @@ td a {
          }
          $("input[name=end]").val(end);
          $("input[name=startNum]").val(start);
-         alert(start);
          $("#page").empty();
          for(let i = start; i < start + 5; i++){
             
@@ -343,7 +345,6 @@ td a {
       });
    
       $("#aside_menu_btn").mouseover(function() {
-         //alert('dd');
          $("#aside_submenu").css("display", "block");
       });
       $("#aside_menu_btn").mouseout(function() {

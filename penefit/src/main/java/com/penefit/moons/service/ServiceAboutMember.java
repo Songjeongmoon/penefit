@@ -48,10 +48,8 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
       for(int i = 0 ; i<list.size();i++) {
          if(list.get(i).getMember_id().equals(member_id)&&list.get(i).getMember_pw().equals(member_pw)) {
             session.setAttribute("member_id", member_id);
-            MemberVO mvo = mapper.selectOne(member_id);
-            session.setAttribute("member_grade", mvo.getMember_grade());
-            System.out.println(mvo.getMember_grade());
             MemberVO member = mapper.selectOne(member_id);
+            session.setAttribute("member_grade", member.getMember_grade());
             if(member.getMember_grade().equals("C")) {
                return 2;
             }else {
@@ -120,8 +118,6 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
    @Override
    public String updateGrade(String id, String grade) {
       int result = mapper.updateGrade(id, grade) ;
-      System.out.println("service id" + id);
-      System.out.println("service id" + grade);
       String path = "";
       if(result==1) {
          path = "등급 수정 완료되었습니다.";
@@ -150,13 +146,57 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
    }
 
    @Override
-   public List<MemberVO> getMemManagerList(int pageNum) {
-      ArrayList<MemberVO> list = mapper.getMemManagerList(pageNum);
-      return list;
+   public List<MemberVO> getMemManagerList(String status, String keyword, int startNum) {
+	   
+      if(status.equals("")) {
+    	  return mapper.getMemManagerList(keyword, startNum);    	  
+      } else if(status.equals("id")) {
+    	  return mapper.getMemManagerListId(keyword, startNum);   
+	  } else if(status.equals("name")) {
+		  return mapper.getMemManagerListName(keyword, startNum);   
+	  } else {
+		  return mapper.getMemManagerListGrade(keyword, startNum);   
+	  }
    }
 
-   @Override
-   public int getMemManagerListmaxPage() {
-      return mapper.getMemManagerListmaxPage();
+	@Override
+	public int getMemberMaxPage(String status, String keyword) {
+		if(status.equals("")) {
+			return mapper.getMemberMaxPage(keyword);
+	    } else if(status.equals("id")) {
+	    	return mapper.getMemberMaxPageId(keyword);
+		} else if(status.equals("name")) {
+			return mapper.getMemberMaxPageName(keyword);
+		} else {
+			return mapper.getMemberMaxPageGrade(keyword);
+		}
+	}
+	
+	@Override
+   public List<MemberVO> getManagerManagerList(String status, String keyword, int startNum) {
+	   
+      if(status.equals("")) {
+    	  return mapper.getManagerManagerList(keyword, startNum);    	  
+      } else if(status.equals("id")) {
+    	  return mapper.getManagerManagerListId(keyword, startNum);   
+	  } else if(status.equals("name")) {
+		  return mapper.getManagerManagerListName(keyword, startNum);   
+	  } else {
+		  return mapper.getManagerManagerListGrade(keyword, startNum);   
+	  }
    }
+
+	@Override
+	public int getManagerMaxPage(String status, String keyword) {
+		if(status.equals("")) {
+			return mapper.getManagerMaxPage(keyword);
+	    } else if(status.equals("id")) {
+	    	return mapper.getManagerMaxPageId(keyword);
+		} else if(status.equals("name")) {
+			return mapper.getManagerMaxPageName(keyword);
+		} else {
+			return mapper.getManagerMaxPageGrade(keyword);
+		}
+	}
+
 }

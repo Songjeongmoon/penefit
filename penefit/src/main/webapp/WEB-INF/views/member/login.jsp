@@ -86,13 +86,6 @@ p {
       </section>
    </div>
    <script>
-      /*$("#frm_login").ready(function() {
-       let message = "[[${msg}]]";
-       if (message != "") {
-       alert(message);
-       }else {
-       }
-       })*/
       function submit_check() {
          const member_id = $("input[name='member_id']").val();
          const member_pw = $("input[name='member_pw']").val();

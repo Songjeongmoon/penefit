@@ -21,24 +21,41 @@ public class RestControllerAboutMember {
 	
 	@GetMapping("idCheck")
 	public int idCheck(String id) {
-		System.out.println("id : " + id);
 		int result = serviceMember.idCheck(id);
 		return result;
 	}
 	
 	@GetMapping("/MembermanagerList")
-	public List<MemberVO> reviewList(int pageNum){
-		System.out.println(pageNum);
-		int pageNumF = pageNum * 5-5;
-		System.out.println("pageNumF : " + pageNumF);
-		List<MemberVO> list = serviceMember.getMemManagerList(pageNumF);
-		System.out.println(list);
+	public List<MemberVO> getMemManagerList(String status, String keyword, int startNum){
+		startNum = (startNum - 1) * 5;
+		List<MemberVO> list = serviceMember.getMemManagerList(status, keyword, startNum);
 		return list;
 	}
 	
-	@GetMapping("/MembermanagermaxPage")
-	public int qnamaxPage() {
-		int result = serviceMember.getMemManagerListmaxPage();
-		return result;
+	@GetMapping("/member-max-all")
+	public int getMemberMaxPage(String status, String keyword){
+		int result = serviceMember.getMemberMaxPage(status, keyword);
+		if(result % 5 == 0) {
+			return result / 5;
+		} else {
+			return result / 5 + 1;
+		}
+	}
+	
+	@GetMapping("/managermanagerList")
+	public List<MemberVO> getManagerManagerList(String status, String keyword, int startNum){
+		startNum = (startNum - 1) * 5;
+		List<MemberVO> list = serviceMember.getManagerManagerList(status, keyword, startNum);
+		return list;
+	}
+	
+	@GetMapping("/manager-max-all")
+	public int getManagerMaxPage(String status, String keyword){
+		int result = serviceMember.getManagerMaxPage(status, keyword);
+		if(result % 5 == 0) {
+			return result / 5;
+		} else {
+			return result / 5 + 1;
+		}
 	}
 }

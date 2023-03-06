@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.penefit.moons.domain.ClassRate;
+import com.penefit.moons.domain.ClassTypeDTO;
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
 import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
+import com.penefit.moons.domain.SalesReturnDTO;
+import com.penefit.moons.domain.SalesTimeDTO;
+import com.penefit.moons.domain.SalesWeek;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.domain.SuggestType;
 import com.penefit.moons.service.AdminServiceChaengIm;
@@ -75,7 +79,6 @@ public class AdminChaengController {
 		// 리뷰리스트 - 신규
 		startNum = (startNum - 1) * 5;
 		List<ReviewVO> list = service.getReviewListNew(startNum);
-		System.out.println(list);
 		return list;
 	}
 
@@ -203,7 +206,7 @@ public class AdminChaengController {
 	@GetMapping("/getNotice")
 	@ResponseBody
 	public List<NoticeVO> getNotice(String keyword, int startNum) {
-		startNum = (startNum - 1) * 5;
+		startNum = (startNum - 1) * 10;
 		return service.getNotice(keyword, startNum);
 	}
 
@@ -252,7 +255,7 @@ public class AdminChaengController {
 	@GetMapping("/suggestAll")
 	@ResponseBody
 	public List<SuggestDTO> suggestAll(String status, String keyword, int startNum) {
-		startNum = (startNum - 1) * 5;
+		startNum = (startNum - 1) * 10;
 		return service.suggestAll(status, keyword, startNum);
 	}
 	@GetMapping("/getsearchSuggestion")
@@ -429,10 +432,10 @@ public class AdminChaengController {
     @ResponseBody
     public int getNoticeMaxPage(String keyword) {
     	int result = service.getNoticeMaxPage(keyword);
-    	if(result % 5 != 0) {
-    		result = result / 5 + 1;
+    	if(result % 10 != 0) {
+    		result = result / 10 + 1;
     	} else {
-    		result = result / 5;
+    		result = result / 10;
     	}
     	return result;
     }
@@ -465,10 +468,10 @@ public class AdminChaengController {
     @ResponseBody
 	public int getSuggestAllPage(String status, String keyword) {
 		int result = service.getSuggestAllPage(status, keyword);	
-		if(result % 5 != 0) {
-    		result = result / 5 + 1;
+		if(result % 10 != 0) {
+    		result = result / 10 + 1;
     	} else {
-    		result = result / 5;
+    		result = result / 10;
     	}
     	return result;
 	}
@@ -508,5 +511,25 @@ public class AdminChaengController {
     	}
     	return result;
 	}
+    @GetMapping("/classRegTypeRate")
+    @ResponseBody
+    public List<ClassTypeDTO> classRegTypeRate(){
+    	return service.classRegTypeRate();
+    }
+    @GetMapping("/salesThisWeek")
+    @ResponseBody
+    public List<SalesWeek> salesThisWeek(){
+    	return service.salesThisWeek();
+    }
+    @GetMapping("/dataReturndiv")
+    @ResponseBody
+    public List<SalesReturnDTO> dataReturndiv(){
+    	return service.dataReturndiv();
+    }
+    @GetMapping("/dataTimediv")
+    @ResponseBody
+    public List<SalesTimeDTO> dataTimediv(){
+    	return service.dataTimediv();
+    }
 }
 
