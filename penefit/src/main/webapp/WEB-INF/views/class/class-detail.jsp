@@ -395,7 +395,7 @@ color: #ff5f5f;
                            <div class="item" id="rev_content">
                               <c:choose>
                                  <c:when test="${fn:length(r.review_content) gt 28 }">
-                                    <c:out value="${fn:substring(r.review_content,0,27)}" />...
+                                    <c:out value="${fn:substring(r.review_content,0,21)}" />...
                                  </c:when>
                                  <c:otherwise>
                                     <c:out value="${r.review_content }" />
@@ -523,7 +523,6 @@ color: #ff5f5f;
 
       //장바구니에 담기
       $("#addCart").click(function() {
-<<<<<<< HEAD
          if("${member_id}" == ""){
             alert("회원만 이용할 수 있습니다.");
             location.href = "/member/login";
@@ -531,15 +530,6 @@ color: #ff5f5f;
                //alert("장바구니 버튼 클릭!");
              location.href = "shoppingcart?class_code=" + class_code;
          }
-=======
-    	  if("${member_id}" == ""){
-    		  alert("회원만 이용할 수 있습니다.");
-    		  location.href = "/member/login";
-    	  }else{
-  	          //alert("장바구니 버튼 클릭!");
-	          location.href = "shoppingcart?class_code=" + class_code;
-    	  }
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
       });
 
       $("#detail_box1_btn").click(function() {
@@ -604,26 +594,13 @@ color: #ff5f5f;
                      xhttp.onload = function() {
                         let result = this.responseText;
                         let reviewlist = JSON.parse(result);
-<<<<<<< HEAD
-                  let imgurl = reviewlist.review_photo;
-                  if(imgurl == ""){
-                     imgurl = "logo.png";
-                  }
-                  
-=======
 						let imgurl = reviewlist.review_photo;
 						if(imgurl == ""){
 							imgurl = "logo.png";
 						}
 						
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
                         $("#tbody").empty();
-<<<<<<< HEAD
-                  
-=======
-						
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
                         $("#tbody")
                               .append(
                                     "<tr><td colspan='2'><img src='../images/"+ imgurl +"' width='200px; '></td></tr>"
