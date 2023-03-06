@@ -94,14 +94,14 @@ button {
                <div style="margin: 0 auto; text-align: center;">
                   <input type="hidden" name="notice_num" value="${nvo.notice_num}">
 
-                  <c:if test="${sessionScope.member_id == nvo.member_id }">
-                  </c:if>
-                  <button type="button" onclick="location.href='notice?pageNum=1&start=1'">목록</button>
-                  
-                  
-               </div>
-            </form>
-         </div>
+						<c:if test="${sessionScope.member_id == nvo.member_id }">
+						</c:if>
+						<button type="button" onclick="location.href='notice?pageNum=1&start=1'">목록</button>
+						
+						
+					</div>
+				</form>
+			</div>
 
       </section>
    </div>

@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8"> 
+<title>Insert title here</title> 
 <style>
 	#detailModal {
 		border: 1px solid red;
@@ -60,8 +60,6 @@
 	
 	</tbody>
 	
-	
-
 </table>
 	<div id = "detailModal">
 		<form id = "updateForm">
@@ -83,12 +81,9 @@
 <button id = "dayBtn" value = "desc">날짜순</button>
 <button id = "endBtn">완료된 클래스</button>
 <button id = "activeBtn">진행중 클래스</button>
-<<<<<<< HEAD
+
 <%@ include file = "./footer.jsp" %>
 <img id = "im" />
-=======
-
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
 <script>
 

@@ -20,19 +20,19 @@ public interface MapperAboutClass {
 	public int countClass();
 	
 	// 클래스목록조회	---
-	public ArrayList<ClassVO> getClassList(@Param("pageNum") int pageNum);
+	public ArrayList<ClassVO> getClassList(@Param("startnum") int startnum);
 	
 	//카테고리별 클래스 count
 	public int ctgClassCount(String key);
 
 	// 카테고리별 클래스 목록 조회
-	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("pageNum") int pageNum);
+	public ArrayList<ClassVO> getCtgClassList(@Param(value = "key") String key, @Param("startnum") int startnum);
 
 	// 신규클래스 조회
 	public ArrayList<ClassVO> getNewClassList();
 
 	// 클래스 검색
-	public ArrayList<ClassVO> getSearchClassList(@Param(value = "keyword") String keyword);
+	public ArrayList<ClassVO> getSearchClassList(@Param(value = "keyword") String keyword, @Param("startnum") int startnum);
 
 	// 클래스 검색결과 수
 	public int getSearchClassListCnt(@Param(value = "keyword") String keyword);
@@ -139,13 +139,13 @@ public interface MapperAboutClass {
 	public int countOngingClass();
 	
 	//진행중인 목록 ---
-	public ArrayList<ClassVO> getOngoingClassList(int pageNum);
+	public ArrayList<ClassVO> getOngoingClassList(int startnum);
 
 	//마감된 강의 count ---
 	public int expiredClassCount();
 	
 	//마감된 목록 ---
-	public ArrayList<ClassVO> getExpiredClassList(int pageNum);
+	public ArrayList<ClassVO> getExpiredClassList(int startnum);
 
 	//리뷰목록받아오기
 	public ArrayList<ReviewVO> getReviewList(@Param(value = "member_id") String member_id,@Param(value = "pageNum")  int pageNum);

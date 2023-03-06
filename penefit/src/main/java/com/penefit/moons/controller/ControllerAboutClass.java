@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-//github.com/eseo99/penefit.git
 
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.ReviewVO;
@@ -38,71 +37,81 @@ public class ControllerAboutClass {
 
 	// 전체클래스 
 	@GetMapping("/classList")
-	public void getClassList(Model model, int pageNum) {
-		ArrayList<ClassVO> list = service.getClassList((pageNum * 8 - 8));
-		
-		int count = service.countClass();
-		
-		if(count % 8 == 0) {
-			count = count/8;
-		}else {
-			count = count/8 + 1;
+	public void getClassList(Model model, int pageNum, int start) {
+		if(start < 1) {
+			start=1;
+		}else if(start < 1 || pageNum < 1) {
+			start = 1;
+			pageNum = 1;
 		}
 		
-		model.addAttribute("startNum", 1);
-		model.addAttribute("count", count);
-		model.addAttribute("list", list);
+		ArrayList<ClassVO> list = service.getClassList((pageNum * 8 - 8));
+		int count = service.countClass();
+		
+		model.addAttribute("count", count);			
+		model.addAttribute("list", list);							
+		model.addAttribute("pstart", start);
+	
 	}
 
 	// 진행중인 목록 ---
 	@GetMapping("/classList-ongoing")
-	public void getClassList1(Model model, int pageNum) {
-		
-		int count = service.countOngingClass();				// 0 startNum 
-		if(count % 8 == 0) {
-			count = count/8;
-		}else {
-			count = count/8 + 1;
+	public void getClassList1(Model model, int pageNum, int start) {
+		if(start < 1) {
+			start=1;
+		}else if(start < 1 || pageNum < 1) {
+			start = 1;
+			pageNum = 1;
 		}
-															//0번째 부터 8개 달라
+		
 		ArrayList<ClassVO> list = service.getOngoingClassList((pageNum * 8 - 8));
-		model.addAttribute("startNum", 1);
-		model.addAttribute("count", count);
-		model.addAttribute("list", list);
+		int count = service.countOngingClass();	
+		
+		model.addAttribute("count", count);			
+		model.addAttribute("list", list);							
+		model.addAttribute("pstart", start);
+	
 	}
 	
 	// 마감된 목록	---
 	@GetMapping("/classList-expired")
-	public void getClassExpired(Model model, int pageNum) {
-		
-		int count = service.expiredClassCount();
-		if(count % 8 == 0) {
-			count = count/8;
-		}else {
-			count = count/8 + 1;
+	public void getClassExpired(Model model, int pageNum, int start) {
+	
+		if(start < 1) {
+			start=1;
+		}else if(start < 1 || pageNum < 1) {
+			start = 1;
+			pageNum = 1;
 		}
 		
 		ArrayList<ClassVO> list = service.getExpiredClassList((pageNum * 8 - 8));
-		model.addAttribute("startNum", 1);
-		model.addAttribute("count", count);
-		model.addAttribute("list", list);
+		int count = service.expiredClassCount();	
+		
+		model.addAttribute("count", count);			
+		model.addAttribute("list", list);							
+		model.addAttribute("pstart", start);
+	
 	}
+		
 
 	// 카테고리별 클래스 목록
 	@GetMapping("/classList-category")
-	public void getCtgClassList(Model model, String key, int pageNum) {
-		ArrayList<ClassVO> list = service.getCtgClassList(key, (pageNum * 8 - 8));
-		int count = service.ctgClassCount(key);
-		if(count % 8 == 0) {
-			count = count/8;
-			
-		}else{
-			count = count/8 + 1;
+	public void getCtgClassList(Model model, String key, int pageNum, int start) {
+	
+		if(start < 1) {
+			start=1;
+		}else if(start < 1 || pageNum < 1) {
+			start = 1;
+			pageNum = 1;
 		}
 		
-		model.addAttribute("startNum", 1);
-		model.addAttribute("list", list);
-		model.addAttribute("count", count);
+		ArrayList<ClassVO> list = service.getCtgClassList(key, (pageNum * 8 - 8));
+		int count = service.ctgClassCount(key);
+		
+		model.addAttribute("key", key);
+		model.addAttribute("count", count);			
+		model.addAttribute("list", list);							
+		model.addAttribute("pstart", start);
 	}
 	
 	
@@ -117,15 +126,35 @@ public class ControllerAboutClass {
 
 	// 검색된 클래스 목록
 	@GetMapping("/classList-search")
-	public String getSearchClassList(Model model, @RequestParam("keyword") String keyword) {
-		ArrayList<ClassVO> list = service.getSearchClassList(keyword);
-		model.addAttribute("list", list);
-		int result = service.getSearchClassListCnt(keyword);
+	public String getSearchClassList(Model model, @RequestParam("keyword") String keyword, int pageNum, int start) {
+		if(start < 1) {
+			start=1;
+		}else if(start < 1 || pageNum < 1) {
+			start = 1;
+			pageNum = 1;
+		}
+		
+		System.out.println("keyword : " + keyword);
+		ArrayList<ClassVO> list = service.getSearchClassList(keyword, (pageNum * 8 - 8));
+		int cnt = service.getSearchClassListCnt(keyword);
+		int result;
+		if(cnt % 8 == 0) {
+			result = cnt / 8;
+		}else {
+			result = cnt / 8 + 1;
+		}
+		
+		model.addAttribute("pstart", start);
 		model.addAttribute("result", result);
+		model.addAttribute("list", list);							
+		model.addAttribute("cnt", cnt);	
 		model.addAttribute("keyword", keyword);
+	
+		
 		return "/class/classList-search";
+		
 	}
-
+	
 	// 클래스 상세보기
 	@GetMapping("/class-detail")
 	public void selectClassOne(Model model, String class_code, HttpSession session) throws Exception {
