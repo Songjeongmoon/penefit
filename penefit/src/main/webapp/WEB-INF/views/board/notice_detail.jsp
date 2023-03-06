@@ -96,7 +96,9 @@ button {
 
 						<c:if test="${sessionScope.member_id == nvo.member_id }">
 						</c:if>
-						<button type="button" onclick="location.href='notice'">목록</button>
+						<button type="button" onclick="location.href='notice?pageNum=1&start=1'">목록</button>
+						
+						
 					</div>
 				</form>
 			</div>

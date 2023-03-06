@@ -77,8 +77,6 @@ h2 {
 				<c:set var="start" value="${pstart }" />
 				<c:set var="end" value="${pstart + 4 }" />
 
-
-
 				<c:if test="${notice_count % 10 gt 0 }">
 					<c:set var="count" value="${notice_count / 10 + 1 }" />
 				</c:if>
