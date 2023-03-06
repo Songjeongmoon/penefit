@@ -122,16 +122,26 @@ public class ControllerAboutClass {
 	}
 
 	// 검색된 클래스 목록
-	@GetMapping("/classList-search")
-	public String getSearchClassList(Model model, @RequestParam("keyword") String keyword) {
-		System.out.println("keyword : " + keyword);
-		ArrayList<ClassVO> list = service.getSearchClassList(keyword);
-		model.addAttribute("list", list);
-		int result = service.getSearchClassListCnt(keyword);
-		model.addAttribute("result", result);
-		model.addAttribute("keyword", keyword);
-		return "/class/classList-search";
-	}
+    @GetMapping("/classList-search")
+    public String getSearchClassList(Model model, @RequestParam("keyword") String keyword, int pageNum) {
+       System.out.println("keyword : " + keyword);
+       System.out.println("pageNum : " + pageNum);
+       ArrayList<ClassVO> list = service.getSearchClassList(keyword, (pageNum * 8 - 8));
+       int cnt = service.getSearchClassListCnt(keyword);
+       int result;
+       if(cnt % 8 == 0) {
+          result = cnt / 8;
+       }else {
+          result = cnt/8 + 1;
+       }
+       
+       model.addAttribute("startNum", 1);
+       model.addAttribute("list", list);
+       model.addAttribute("result", result);
+       model.addAttribute("cnt", cnt);
+       model.addAttribute("keyword", keyword);
+       return "/class/classList-search";
+    }
 
 	// 클래스 상세보기
 	@GetMapping("/class-detail")

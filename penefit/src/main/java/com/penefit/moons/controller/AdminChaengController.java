@@ -203,7 +203,7 @@ public class AdminChaengController {
 	@GetMapping("/getNotice")
 	@ResponseBody
 	public List<NoticeVO> getNotice(String keyword, int startNum) {
-		startNum = (startNum - 1) * 4;
+		startNum = (startNum - 1) * 5;
 		return service.getNotice(keyword, startNum);
 	}
 

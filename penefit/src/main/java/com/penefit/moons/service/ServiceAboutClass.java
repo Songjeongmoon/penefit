@@ -45,9 +45,9 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 	}
 
 	@Override
-	public ArrayList<ClassVO> getSearchClassList(String keyword) {
-		ArrayList<ClassVO> list = mapper.getSearchClassList(keyword);
-		return list;
+	public ArrayList<ClassVO> getSearchClassList(String keyword,int pageNum) {
+		ArrayList<ClassVO> list = mapper.getSearchClassList(keyword, pageNum);
+	    return list;
 	}
 
 	@Override

@@ -248,53 +248,73 @@
 }
 
 
-
-/*리뷰 modal*/
-
 #modal {
-   display: none;
-   position: fixed;
-   z-index: 1;
-   left: 0;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   background-color: rgba(0, 0, 0, 0.5);
-   text-align:center;
+display: none;
+position: fixed;
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+text-align: center;
 }
 
 #modal button {
-   display: inline-block;
-   width: 100px;
-   margin-left: calc(100% - 100px - 10px);
+display: inline-block;
+width: 30px;
+height: 30px;
+border: none;
+background-color: transparent;
+font-size: 1.2rem;
+color: #fff;
+cursor: pointer;
+position: absolute;
+top: 10px;
+right: 10px;
 }
 
 .modal_content {
-   background-color: white;
-   margin: auto;
-   padding: 20px;
-   border: 1px solid #888;
-   width: 80%;
-   width:400px;
-   height:550px;
-   max-width: 400px;
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
-   border-radius:12px;
-   
+background-color: #fff;
+margin: auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+max-width: 400px;
+height: 550px;
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+border-radius: 12px;
+overflow-y: auto;
 }
 
-
 #modal .modal_layer {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   background: rgba(0, 0, 0, 0.5);
-   z-index: -1;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: -1;
+}
+
+#tbody tr {
+border-bottom: 1px solid #ccc;
+}
+
+#tbody td {
+padding: 10px;
+border-bottom: 1px solid lightgray;
+}
+
+#tbody td:first-child {
+font-weight: bold;
+}
+
+#btn_x:hover {
+color: #ff5f5f;
 }
 </style>
 </head>
@@ -360,8 +380,15 @@
                      <div class="swiper-slide">
                         <div class="container" id="review_container">
                            <div class="item" id="rev_img">
+                  <c:if test="${r.review_photo != ''}">
                               <img src="../images/${r.review_photo }" class="review_img"
                                  style="width: 150px; height: 150px;">
+                         </c:if>
+                         
+                         <c:if test="${r.review_photo == ''}">
+                              <img src="../images/logo.png" class="review_img"
+                                 style="width: 150px; height: 150px;">
+                         </c:if>
                            </div>
                            <input type="hidden" id="review_num" value="${r.review_num }">
 
@@ -397,8 +424,8 @@
       <!--리뷰 modal -->
       <div id="modal">
          <div class="modal_content">
-            <button id="btn_x" style="width:30px; float:right;" >X</button>
-            <table border="1">
+            <button id="btn_x" style="width:30px; float:right; color:black;" >X</button>
+            <table style="margin: 0 auto;">
                <thead>
                </thead>
                <tbody id="tbody">
@@ -496,8 +523,13 @@
 
       //장바구니에 담기
       $("#addCart").click(function() {
-         //alert("장바구니 버튼 클릭!");
-         location.href = "shoppingcart?class_code=" + class_code;
+         if("${member_id}" == ""){
+            alert("회원만 이용할 수 있습니다.");
+            location.href = "/member/login";
+         }else{
+               //alert("장바구니 버튼 클릭!");
+             location.href = "shoppingcart?class_code=" + class_code;
+         }
       });
 
       $("#detail_box1_btn").click(function() {
@@ -562,12 +594,17 @@
                      xhttp.onload = function() {
                         let result = this.responseText;
                         let reviewlist = JSON.parse(result);
+                  let imgurl = reviewlist.review_photo;
+                  if(imgurl == ""){
+                     imgurl = "logo.png";
+                  }
+                  
 
                         $("#tbody").empty();
-
+                  
                         $("#tbody")
                               .append(
-                                    "<tr><td colspan='2'><img src='../images/"+ reviewlist.review_photo +"' width='200px; '></td></tr>"
+                                    "<tr><td colspan='2'><img src='../images/"+ imgurl +"' width='200px; '></td></tr>"
                                           + "<tr><td>"
                                           + reviewlist.review_content
                                           + "</td></tr>"

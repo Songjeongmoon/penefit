@@ -63,20 +63,20 @@
                <li class="aside_menu"><a href="/class/classList">클래스 전체보기</a></li>
                <li class="aside_menu"><a href="/class/classList-ongoing">진행중인클래스</a></li>
                <li class="aside_menu" id="aside_menu_btn">카테고리별 클래스
-                  <div id="aside_submenu">
-                     <p>
-                        <a href="classList-category?key=A">&nbsp;&nbsp;의류</a>
-                     </p>
-                     <p>
-                        <a href="classList-category?key=B">&nbsp;&nbsp;식품</a>
-                     </p>
-                     <p>
-                        <a href="classList-category?key=C">&nbsp;&nbsp;미용</a>
-                     </p>
-                     <p>
-                        <a href="classList-category?key=D">&nbsp;&nbsp;기타</a>
-                     </p>
-                  </div>
+						<div id="aside_submenu">
+							<p>
+								<a href="classList-category?key=A&pageNum=1">&nbsp;&nbsp;의류</a>
+							</p>
+							<p>
+								<a href="classList-category?key=B&pageNum=1">&nbsp;&nbsp;식품</a>
+							</p>
+							<p>
+								<a href="classList-category?key=C&pageNum=1">&nbsp;&nbsp;미용</a>
+							</p>
+							<p>
+								<a href="classList-category?key=D&pageNum=1">&nbsp;&nbsp;기타</a>
+							</p>
+						</div>
                </li>
                <li class="aside_menu"><a href="/class/classList-new">신규
                      클래스</a></li>
@@ -173,13 +173,16 @@
       </section>
    </div>
 
-
-
-
-
-
-
    <script>
+   $("#aside_menu_btn").mouseover(function() {
+		//alert('dd');
+		$("#aside_submenu").css("display", "block");
+	})
+	$("#aside_menu_btn").mouseout(function() {
+		//alert('dd');
+		$("#aside_submenu").css("display", "none");
+	})
+	
    $("input[type='submit']").click( (event) => {
       if($("select[name='type']").val() == ""){
          alert("분류를 선택해주세요.");

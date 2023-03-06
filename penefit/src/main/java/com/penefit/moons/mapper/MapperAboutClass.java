@@ -32,7 +32,7 @@ public interface MapperAboutClass {
 	public ArrayList<ClassVO> getNewClassList();
 
 	// 클래스 검색
-	public ArrayList<ClassVO> getSearchClassList(@Param(value = "keyword") String keyword);
+    public ArrayList<ClassVO> getSearchClassList(@Param(value = "keyword") String keyword, @Param("pageNum") int pageNum);
 
 	// 클래스 검색결과 수
 	public int getSearchClassListCnt(@Param(value = "keyword") String keyword);

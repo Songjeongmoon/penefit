@@ -30,8 +30,7 @@ public interface ServiceAboutClassI {
 	public ArrayList<ClassVO> getNewClassList();
 
 	// 검색된 클래스 목록
-	public ArrayList<ClassVO> getSearchClassList(String keyword);
-
+    public ArrayList<ClassVO> getSearchClassList(String keyword, int pageNum);
 	// 검색된 클래스 갯수
 	public int getSearchClassListCnt(String keyword);
 
