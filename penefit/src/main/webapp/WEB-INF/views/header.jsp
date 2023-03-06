@@ -19,7 +19,6 @@
 </style>
 
 <body>
-
    <div class="container">
       <div class="box" id="headerbox">
          <header>
@@ -39,10 +38,7 @@
                     </c:if>
                <a id="goWishlist">위시리스트</a> | <a id="shoppingcart">장바구니</a> | <a
                   id="goMypage">마이페이지</a>
-                  
-               <c:if test="${member_grade=='C' }">
-                    |  <a style="" href="/dashboard/">관리자HOME</a>
-               </c:if>
+                  <c:if test="${member_grade=='C' }"><a href="/dashboard/">  |  관리자HOME</a></c:if>
             </div>
 
             <div id="navbox" class="box">
@@ -54,33 +50,18 @@
                            <a href="/centerinfo/centerinfo">센터소개</a>
                         </div>
 
-<<<<<<< HEAD
                      </div>
                   </li>
                   <li>
                      <div class="title">클래스</div>
                      <div class="subtitle">
                         <div class="subtitle_li">
-                           <a href="/class/classList-ongoing">클래스과정</a>
+                           <a href="/class/classList-ongoing?pageNum=1">클래스과정</a>
                         </div>
                         <div class="subtitle_li">
                            <a href="/class/suggestion">클래스제안</a>
                         </div>
-=======
-							</div>
-						</li>
-						<li>
-							<div class="title">클래스</div>
-							<div class="subtitle">
-								<div class="subtitle_li">
-									<a href="/class/classList-ongoing?pageNum=1">클래스과정</a>
-								</div>
-								<div class="subtitle_li">
-									<a href="/class/suggestion">클래스제안</a>
-								</div>
->>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 
-<<<<<<< HEAD
                      </div>
                   </li>
                   <li>
@@ -90,21 +71,8 @@
                            <a href="/board/notice?pageNum=1&start=1">공지사항</a>
                         </div>
                         <div class="subtitle_li">
-                           <a href="/board/cityBoardview">지역별게시판</a>
+                           <a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a>
                         </div>
-=======
-							</div>
-						</li>
-						<li>
-							<div class="title">커뮤니티</div>
-							<div class="subtitle">
-								<div class="subtitle_li">
-									<a href="/board/notice?pageNum=1&start=1">공지사항</a>
-								</div>
-								<div class="subtitle_li">
-									<a href="/board/cityBoardview?pageNum=1&start=1">지역별게시판</a>
-								</div>
->>>>>>> branch 'master' of https://github.com/Ellie1221/penefit.git
 
                      </div>
                   </li>
@@ -221,7 +189,6 @@
             location.href = "../member/login"
          }
       });
-      
    </script>
    
 

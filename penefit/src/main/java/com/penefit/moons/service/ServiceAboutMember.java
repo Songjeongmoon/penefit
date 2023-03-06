@@ -1,6 +1,7 @@
 package com.penefit.moons.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -49,7 +50,6 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
             session.setAttribute("member_id", member_id);
             MemberVO mvo = mapper.selectOne(member_id);
             session.setAttribute("member_grade", mvo.getMember_grade());
-            System.out.println(mvo.getMember_grade());
             MemberVO member = mapper.selectOne(member_id);
             if(member.getMember_grade().equals("C")) {
                return 2;
@@ -119,8 +119,6 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
    @Override
    public String updateGrade(String id, String grade) {
       int result = mapper.updateGrade(id, grade) ;
-      System.out.println("service id" + id);
-      System.out.println("service id" + grade);
       String path = "";
       if(result==1) {
          path = "등급 수정 완료되었습니다.";
@@ -138,13 +136,24 @@ public class ServiceAboutMember implements ServiceAboutMemberI {
       return path;
    }
 
-   @Override
-   public String deleteMemberManager(String id) {
-      int result = mapper.deleteMemberManager(id);
-      String path = "";
-      if(result==1) {
-         path = "회원탈퇴 완료되었습니다.";
-      }
-      return path;
-   }
+	@Override
+	public String deleteMemberManager(String id) {
+		int result = mapper.deleteMemberManager(id);
+		String path = "";
+		if(result==1) {
+			path = "회원탈퇴 완료되었습니다.";
+		}
+		return path;
+	}
+
+	@Override
+	public List<MemberVO> getMemManagerList(int pageNum) {
+		ArrayList<MemberVO> list = mapper.getMemManagerList(pageNum);
+		return list;
+	}
+
+	@Override
+	public int getMemManagerListmaxPage() {
+		return mapper.getMemManagerListmaxPage();
+	}
 }

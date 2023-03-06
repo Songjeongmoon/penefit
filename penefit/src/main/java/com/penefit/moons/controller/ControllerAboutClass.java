@@ -36,14 +36,12 @@ public class ControllerAboutClass {
 	@Autowired
 	ServiceAboutClassI service;
 
-	// 전체클래스 ---
+	// 전체클래스 
 	@GetMapping("/classList")
 	public void getClassList(Model model, int pageNum) {
-		//System.out.println("pageNum" +pageNum);
 		ArrayList<ClassVO> list = service.getClassList((pageNum * 8 - 8));
 		
 		int count = service.countClass();
-		//System.out.println(count);
 		
 		if(count % 8 == 0) {
 			count = count/8;
@@ -95,17 +93,13 @@ public class ControllerAboutClass {
 	public void getCtgClassList(Model model, String key, int pageNum) {
 		ArrayList<ClassVO> list = service.getCtgClassList(key, (pageNum * 8 - 8));
 		int count = service.ctgClassCount(key);
-		System.out.println(count);
 		if(count % 8 == 0) {
 			count = count/8;
 			
 		}else{
 			count = count/8 + 1;
 		}
-		System.out.println(pageNum);
 		
-		System.out.println("key : " + key + "그리고" + "pageNum : " + pageNum + "count : " + count);
-		System.out.println("====================");
 		model.addAttribute("startNum", 1);
 		model.addAttribute("list", list);
 		model.addAttribute("count", count);
@@ -124,7 +118,6 @@ public class ControllerAboutClass {
 	// 검색된 클래스 목록
 	@GetMapping("/classList-search")
 	public String getSearchClassList(Model model, @RequestParam("keyword") String keyword) {
-		System.out.println("keyword : " + keyword);
 		ArrayList<ClassVO> list = service.getSearchClassList(keyword);
 		model.addAttribute("list", list);
 		int result = service.getSearchClassListCnt(keyword);
@@ -144,8 +137,6 @@ public class ControllerAboutClass {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date1 = dateFormat.parse(cvo.getClass_date());
 		Date date2 = dateFormat.parse(formatedNow);
-		// System.out.println("Date-1: " + dateFormat.format(date1));
-		// System.out.println("Date-2: " + dateFormat.format(date2));
 		if (date1.before(date2)) {
 			model.addAttribute("status", "마감");
 		} else {

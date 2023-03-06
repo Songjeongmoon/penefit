@@ -7,12 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.penefit.moons.domain.ClassRate;
+import com.penefit.moons.domain.ClassTypeDTO;
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.NoticeVO;
 import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.QnAtype;
 import com.penefit.moons.domain.ReviewScore;
 import com.penefit.moons.domain.ReviewVO;
+import com.penefit.moons.domain.SalesReturnDTO;
+import com.penefit.moons.domain.SalesTimeDTO;
+import com.penefit.moons.domain.SalesWeek;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.domain.SuggestType;
 import com.penefit.moons.mapper.AdminMapperChaeng;
@@ -274,5 +278,25 @@ public class AdminServiceChaeng  implements AdminServiceChaengIm{
 	@Override
 	public int getReviewAllPage() {
 		return mapper.getReviewAllPage();
+	}
+
+	@Override
+	public List<ClassTypeDTO> classRegTypeRate() {
+		return mapper.classRegTypeRate();
+	}
+
+	@Override
+	public List<SalesWeek> salesThisWeek() {
+		return mapper.salesThisWeek();
+	}
+
+	@Override
+	public List<SalesReturnDTO> dataReturndiv() {
+		return mapper.dataReturndiv();
+	}
+
+	@Override
+	public List<SalesTimeDTO> dataTimediv() {
+		return mapper.dataTimediv();
 	}
 }

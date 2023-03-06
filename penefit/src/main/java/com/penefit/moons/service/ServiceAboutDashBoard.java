@@ -91,11 +91,23 @@ public class ServiceAboutDashBoard implements ServiceAboutDashBoardI{
 
 
 	@Override
+	public int getMemberToday() {
+		
+		return mapper.getMemberToday();
+	}
+
+
+	@Override
+	public int getMember7days(int day) {
+		
+		return mapper.getMember7days(day);
+	}
+
 	public String getGrade(String member_id) {
 		
 		return mapper.getGrade(member_id);
 	}
 	
-	
+
 
 }
