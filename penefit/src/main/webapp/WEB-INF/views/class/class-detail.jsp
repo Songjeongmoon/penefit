@@ -408,7 +408,7 @@ mark{
                            <div class="item" id="rev_content">
                               <c:choose>
                                  <c:when test="${fn:length(r.review_content) gt 28 }">
-                                    <c:out value="${fn:substring(r.review_content,0,27)}" />...
+                                    <c:out value="${fn:substring(r.review_content,0,21)}" />...
                                  </c:when>
                                  <c:otherwise>
                                     <c:out value="${r.review_content }" />
@@ -577,7 +577,9 @@ a
 
       //장바구니에 담기
       $("#addCart").click(function() {
-         if ("${member_id}" == "") {
+
+         if("${member_id}" == ""){
+
             alert("회원만 이용할 수 있습니다.");
             location.href = "/member/login";
          } else {
@@ -653,12 +655,14 @@ a
                      xhttp.onload = function() {
                         let result = this.responseText;
                         let reviewlist = JSON.parse(result);
+
                         let imgurl = reviewlist.review_photo;
                         if (imgurl == "") {
                            imgurl = "logo.png";
                         }
 
                         $("#tbody").empty();
+
 
                         $("#tbody")
                               .append(

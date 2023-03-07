@@ -121,7 +121,6 @@ textarea{
 		let score = document.querySelector(".star span").clientWidth/17.99;
 		let temp1 = score*10;
 		score = Math.floor(temp1)/10;
-		alert(score);
 		$("#val").html("<input type='hidden' value='"+ score+"' name='score' >")
 			
 	}

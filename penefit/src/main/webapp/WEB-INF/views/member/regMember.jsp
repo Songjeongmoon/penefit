@@ -32,10 +32,11 @@ h6 {
 	margin-left: 400px;
 	margin-top: 30px;
 	width: 600px;
-	height: 1000px;
+	height: 800px;
 	border: solid 1px #BBB09F;
 	border-radius: 7px;
 	box-shadow: 7px 7px 7px  7px #DBD5CB;
+	margin-bottom: 100px;
 }
 
 .reg_main {
@@ -44,7 +45,7 @@ h6 {
 }
 
 input[type=text] {
-	width: 300px;
+	width: 350px;
 	height: 40px;
 	font-size: 20px;
 	line-height: 70px;
@@ -53,7 +54,7 @@ input[type=text] {
 }
 
 input[type=password] {
-	width: 300px;
+	width: 350px;
 	height: 40px;
 	font-size: 20px;
 	line-height: 50px;
@@ -96,6 +97,10 @@ span::after {
 	content: "*";
 	color: red; 
 	margin-left: 5px;
+}
+input::placeholder {
+
+font-size: 12px;
 }
 </style>
 </head>

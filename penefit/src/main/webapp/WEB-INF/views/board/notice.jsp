@@ -60,6 +60,7 @@ h2 {
 <body>
 
 
+
    <%@ include file="../header.jsp"%>
    <div class="box">
       <section>
@@ -72,6 +73,7 @@ h2 {
 
 
 
+
          </aside>
          <div class="content" id="listBox">
             <h2>공지사항</h2>
@@ -80,9 +82,11 @@ h2 {
 
 
 
+
             <c:if test="${notice_count % 10 gt 0 }">
                <c:set var="count" value="${notice_count / 10 + 1 }" />
             </c:if>
+
 
             <c:if test="${notice_count % 10 eq 0 }">
                <c:set var="count" value="${notice_count / 10 }" />
