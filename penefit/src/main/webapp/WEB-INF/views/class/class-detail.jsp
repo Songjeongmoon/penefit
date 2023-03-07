@@ -578,6 +578,7 @@ a
       //장바구니에 담기
       $("#addCart").click(function() {
          if ("${member_id}" == "") {
+
             alert("회원만 이용할 수 있습니다.");
             location.href = "/member/login";
          } else {
@@ -653,13 +654,13 @@ a
                      xhttp.onload = function() {
                         let result = this.responseText;
                         let reviewlist = JSON.parse(result);
+
                         let imgurl = reviewlist.review_photo;
                         if (imgurl == "") {
                            imgurl = "logo.png";
                         }
 
                         $("#tbody").empty();
-
                         $("#tbody")
                               .append(
                                     "<tr><td colspan='2'><img src='../images/"+ imgurl +"' width='200px; '></td></tr>"

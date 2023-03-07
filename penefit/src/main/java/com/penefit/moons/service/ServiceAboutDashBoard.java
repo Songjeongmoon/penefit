@@ -107,6 +107,20 @@ public class ServiceAboutDashBoard implements ServiceAboutDashBoardI{
 		
 		return mapper.getGrade(member_id);
 	}
+
+
+	@Override
+	public int getMemall() {
+		
+		return mapper.getMemall();
+	}
+
+
+	@Override
+	public int getMemteacherall() {
+		
+		return mapper.getMemteacherall();
+	}
 	
 
 

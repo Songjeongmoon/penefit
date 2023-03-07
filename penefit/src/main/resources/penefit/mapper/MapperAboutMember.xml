@@ -154,4 +154,6 @@
 		WHERE member_grade LIKE CONCAT('%',#{keyword},'%')
 	</select>
 	
+
+	
 </mapper>

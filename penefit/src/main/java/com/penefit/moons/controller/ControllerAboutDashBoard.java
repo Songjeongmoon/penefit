@@ -21,6 +21,7 @@ import com.penefit.moons.domain.QnAVO;
 import com.penefit.moons.domain.SuggestDTO;
 import com.penefit.moons.domain.VisitsDTO;
 import com.penefit.moons.service.ServiceAboutDashBoard;
+import com.penefit.moons.service.ServiceAboutMember;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -28,6 +29,7 @@ public class ControllerAboutDashBoard {
 	
 	@Autowired
 	ServiceAboutDashBoard serviceDash;
+
 	
 	@GetMapping("/")
 	public String dashboard(Model model, String class_date, HttpServletRequest req, HttpServletResponse res) {
@@ -67,8 +69,9 @@ public class ControllerAboutDashBoard {
 		int member5dayCount = serviceDash.getMember7days(4);
 		int member6dayCount = serviceDash.getMember7days(5);
 		int member7dayCount = serviceDash.getMember7days(6);
+		int memberCount = serviceDash.getMemall();
+		int memberTeacherCount = serviceDash.getMemteacherall();
 	
-		
 		
 		int qnaCount = serviceDash.getQnACount();
 		List<QnAVO> qnaList = serviceDash.getQnAList();
@@ -91,6 +94,8 @@ public class ControllerAboutDashBoard {
 		model.addAttribute("member5dayCount", member5dayCount);
 		model.addAttribute("member6dayCount", member6dayCount);
 		model.addAttribute("member7dayCount", member7dayCount);
+		model.addAttribute("memberCount", memberCount);
+		model.addAttribute("memberTeacherCount", memberTeacherCount);
 		
 		List<VisitsDTO> visits = serviceDash.getVisits();
 		List<VisitsDTO> visitList = new ArrayList<>();

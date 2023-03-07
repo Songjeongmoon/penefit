@@ -364,6 +364,39 @@
 					        }
 						
 					</script>
+					<!--   <새로> -->
+               <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+               google.charts.load("current", {packages:["corechart"]});
+               google.charts.setOnLoadCallback(drawChart7);
+
+               function drawChart7() {
+                 var data = google.visualization.arrayToDataTable([
+                   ['구분', '명'],
+                   ['회원', ${memberCount}],
+                   ['강사', ${memberTeacherCount}]
+                 ]);
+         
+                 var options = {
+                  pieHole: 0.3,
+                  pieSliceText: 'percentage' ,
+                  pieSliceTextStyle: {
+                      color: 'black',
+                      fontSize: 20,
+                    },
+                    width:700,
+                 height:400,
+                 colors: [ '#b21f1f', '#DBDBDB', 'black'],
+                 backgroundColor :'none',
+                chartArea:{left:5,top:80,width:'80%',height:'80%'},
+                is3D : true,
+                
+                 };
+            
+                 var chart = new google.visualization.PieChart(document.getElementById('memdonut'));
+                 chart.draw(data, options);
+               }
+             </script>
 
 <link rel="stylesheet" href="/css/reset.css" />
 <style>
@@ -1013,7 +1046,17 @@ table tbody tr:hover {
 	width: 300px;
 	left: 300px;
 }
+.mempagebox{
+	text-align: center;
+	position: absolute;
+	bottom: 5px;
+	margin: 0 auto;
+	width: 700px;
+	left: 300px;
+	top : 440px
 
+	
+}
 div.page {
 	display: inline;
 	margin: 0 5px;
@@ -1354,6 +1397,7 @@ background-color: gray;
 }
 #memberlistTable_table{
 	width: 1300px;
+	position: relative;
 }
 #memberlistTable input{
 	border: thin solid #f0f0f0;
@@ -1395,10 +1439,6 @@ height: 26px;
 }
 #statusbox3{
 	grid-column: 1/4;
-}
-
-.btnPage{
-	display: inline-block;
 }
 </style>
 </head>
@@ -1586,96 +1626,99 @@ height: 26px;
 				</div>
 			</div>
 
-			<div id="memberArticle" class="article">
-				<div id="memberBox1" class="box">
-					<div class="subtitle">&nbsp;&nbsp;회원목록</div>
-					<div class=memberlistgrade>
-						<div id="memberSearch">
-							<select name='memberOption'>
-								<option value='' selected>-- 선택 --</option>
-								<option value='id'>아이디</option>
-								<option value='name'>이름</option>
-								<option value='grade'>등급</option>
-							</select> <input type="text" name="searchMem" id="memberSearchBar"> <input type="button" value="검색" id="searchMemBtn">
-						</div>
-						<div id="memberlistTable">
-							<table id="memberlistTable_table">
-								<thead>
-									<tr>
-										<th>아이디</th>
-										<th>비밀번호</th>
-										<th>이름</th>
-										<th>전화번호</th>
-										<th>우편번호</th>
-										<th>주소</th>
-										<th>상세주소</th>
-										<th>등급</th>
-										<th colspan="2">관리자지정</th>
-									</tr>
-								</thead>
-								<tbody id="membertbody"></tbody>
-							</table>
-							<div class="pagebox">
-							<div id="memberAllBackBtn" class="btnPage">이전</div>
-							<div id="memberAllTblBox" class="btnPage"></div>
-							<div id="memberAllFrontBtn" class="btnPage">다음</div>
-							<input type="hidden" id="memberSearchStatus" value = "">
-							<input type="hidden" id="memberAllPageStartNum" value = 1>
-							<input type="hidden" id="memberMaxAllPage">
+	<div id="memberArticle" class="article">
+					<div id="memberBox1" class="box">
+						<div class="subtitle">&nbsp;&nbsp;회원목록</div>
+						<div class=memberlistgrade>
+							<div id="memberSearch">
+								<select name='memberOption'>
+									<option value='' selected>-- 선택 --</option>
+									<option value='id'>아이디</option>
+									<option value='name'>이름</option>
+									<option value='grade'>등급</option>
+								</select> <input type="text" name="searchMem" id="memberSearchBar"> <input type="button" value="검색" id="searchMemBtn">
 							</div>
-							
+							<div id="memberlistTable">
+								<table id="memberlistTable_table">
+									<thead>
+										<tr>
+											<th>아이디</th>
+											<th>비밀번호</th>
+											<th>이름</th>
+											<th>전화번호</th>
+											<th>우편번호</th>
+											<th>주소</th>
+											<th>상세주소</th>
+											<th>등급</th>
+											<th colspan="2">관리자지정</th>
+										</tr>
+									</thead>
+									<tbody id="membertbody"></tbody>
+								</table>
+								<div class="mempagebox">
+									<div id="memberAllBackBtn" class="btnPage">이전</div>
+									<div id="memberAllTblBox" class="btnPage"></div>
+									<div id="memberAllFrontBtn" class="btnPage">다음</div>
+									<input type="hidden" id="memberSearchStatus" value = "">
+									<input type="hidden" id="memberAllPageStartNum" value = 1>
+									<input type="hidden" id="memberMaxAllPage">
+								</div>
+							</div>
 						</div>
 					</div>
-
+					<div id="memberBox2" class="box">
+						<div class="subtitle">&nbsp;&nbsp;신규가입회원&nbsp; [Today : ${membertodayCount }명]</div>
+								<div id="memberchartdiv" style="width: 1300px; height: 100px; position: relative; top: -20px; left: 10px;"></div>
+	
+					</div>
+	
+	
+	
 				</div>
-				<div id="memberBox2" class="box">
-					<div class="subtitle">&nbsp;&nbsp;신규가입회원&nbsp; [Today : ${membertodayCount }명]</div>
-							<div id="memberchartdiv" style="width: 1300px; height: 100px; position: relative; top: -20px; left: 10px;"></div>
-
-				</div>
-
-
-
-			</div>
-
-			<div id="managerArticle" class="article">
-				<div id="managerBox1" class="box">
-							<div class="subtitle">&nbsp;&nbsp;회원목록&nbsp;</div>
-						<div id="memberSearch2">
-							<select name='memberOption2'>
-								<option value='' selected>-- 선택 --</option>
-								<option value='id'>아이디</option>
-								<option value='name'>이름</option>
-								<option value='grade'>등급</option>
-							</select> <input type="text" name="searchMem" id="managerSearchBar"> <input type="button" value="검색" id="searchMemBtn2">
-						</div>
-						<div id="memberlistTable2">
-							<table>
-								<thead>
-									<tr>
-										<th>회원아이디</th>
-										<th>회원비밀번호</th>
-										<th>회원이름</th>
-										<th>회원전화번호</th>
-										<th>회원등급</th>
-										<th colspan="2">관리자지정</th>
-									</tr>
-								</thead>
-								<tbody id="tbodygrade"></tbody>
-							</table>
-							<div class="pagebox">
-							<div id="managerAllBackBtn" class="btnPage">이전</div>
-							<div id="managerAllTblBox" class="btnPage"></div>
-							<div id="managerAllFrontBtn" class="btnPage">다음</div>
-							<input type="hidden" id="managerSearchStatus" value = "">
-							<input type="hidden" id="managerAllPageStartNum" value = 1>
-							<input type="hidden" id="managerMaxAllPage">
+	
+				<div id="managerArticle" class="article">
+					<div id="managerBox1" class="box">
+								<div class="subtitle">&nbsp;&nbsp;회원목록&nbsp;</div>
+							<div id="memberSearch2">
+								<select name='memberOption2'>
+									<option value='' selected>-- 선택 --</option>
+									<option value='id'>아이디</option>
+									<option value='name'>이름</option>
+									<option value='grade'>등급</option>
+								</select> <input type="text" name="searchMem" id="managerSearchBar"> <input type="button" value="검색" id="searchMemBtn2">
 							</div>
+							<div id="memberlistTable2">
+								<table>
+									<thead>
+										<tr>
+											<th>회원아이디</th>
+											<th>회원비밀번호</th>
+											<th>회원이름</th>
+											<th>회원전화번호</th>
+											<th>회원등급</th>
+											<th colspan="2">관리자지정</th>
+										</tr>
+									</thead>
+									<tbody id="tbodygrade"></tbody>
+								</table>
+								<div class="pagebox">
+									<div id="managerAllBackBtn" class="btnPage">이전</div>
+									<div id="managerAllTblBox" class="btnPage"></div>
+									<div id="managerAllFrontBtn" class="btnPage">다음</div>
+									<input type="hidden" id="managerSearchStatus" value = "">
+									<input type="hidden" id="managerAllPageStartNum" value = 1>
+									<input type="hidden" id="managerMaxAllPage">
+								</div>
 						</div>
 
+	
+					</div>
+					<div id="managerBox2" class="box">
+		            <div class="subtitle">&nbsp;&nbsp;회원과 강사 비율&nbsp;</div>
+		            <div id="memdonut">
+		            </div>
 				</div>
-				<div id="managerBox2" class="box"></div>
-			</div>
+				</div>
 
 			<div id="qnaArticle" class="article">
 				<div class="box" id="qnabox1">
@@ -2227,6 +2270,7 @@ height: 26px;
 							$("#statusArticle").css("display", "none");
 							$("#othersArticle").css("display", "none");
 							getList2();
+							google.charts.setOnLoadCallback(drawChart7);
 						});
 						$("#qna").click(() => {
 							$("#notice").removeAttr("style");
@@ -4475,6 +4519,7 @@ height: 26px;
 							})
 						}
 					</script>
+
 
 	<script>
 						//(문지현)회원목록

@@ -40,4 +40,8 @@ public interface ServiceAboutDashBoardI {
 	public int getMemberToday();
 	
 	public int getMember7days(int day);
+	
+	public int getMemall();
+	
+	public int getMemteacherall();
 }

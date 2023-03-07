@@ -36,6 +36,7 @@
    margin-bottom: 20px;
 }
 
+
 input[type='button'], button[type='button']:not([id ='backBtn'],[id ='frontBtn'],[class='pageBtn']){
    background-color: #75BD43;
    border: none;
@@ -147,7 +148,9 @@ td a {
                   placeholder="검색어를 입력하세요..."> <input type="button"
                   value="검색" id="searchBtn">
                <div style="text-align: right;">
-                  <button type="button" onclick="location.href='/board/city_regView'"
+
+                  <button type="button" onclick="location.href='/board/city_regView?pageNum=1&start=1'"
+
                      id="write">글쓰기</button>
                </div>
             </div>

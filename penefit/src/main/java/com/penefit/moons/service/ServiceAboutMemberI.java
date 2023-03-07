@@ -45,7 +45,6 @@ public interface ServiceAboutMemberI {
 	//관리자 멤버리스트 페이지
 	public List<MemberVO> getMemManagerList(String status, String keyword, int startNum);
 	
-	//관리자 멤버리스트 페이지수
 	public int getMemberMaxPage(String status, String keyword);
 	
 	//관리자 강사리스트 페이지
@@ -53,5 +52,5 @@ public interface ServiceAboutMemberI {
 	
 	//관리자 강사리스트 페이지수
 	public int getManagerMaxPage(String status, String keyword);
-		
+
 }
