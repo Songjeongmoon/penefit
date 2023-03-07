@@ -136,7 +136,7 @@ public class ControllerAboutBoard {
 		
 	// 지역별게시판 등록뷰
 	@GetMapping("/city_regView")
-	public String cityBoardReg() {
+	public String cityBoardReg(int pageNum) {
 
 		return "board/city_regView";
 	}

@@ -166,6 +166,8 @@ public class ControllerAboutMember {
 	@PutMapping("/gradeChange")
 	@ResponseBody
 	public String gradeChange(String id, String grade) {
+		System.out.println(id);
+		System.out.println(grade);
 		String path = serviceMember.updateGrade(id, grade);
 		return path;
 	}
@@ -173,7 +175,6 @@ public class ControllerAboutMember {
 	@PostMapping("/UpdateMemManager")
 	@ResponseBody
 	public String UpdateMemManager(@RequestBody MemberVO member) {
-		System.out.println("uptatemember :" + member);
 		String path = serviceMember.updateMemberManager(member);
 		return path;
 	}

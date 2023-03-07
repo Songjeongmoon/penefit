@@ -365,37 +365,38 @@
 						
 					</script>
 					<!--   <새로> -->
-			      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-			   	 <script type="text/javascript">
-			      google.charts.load("current", {packages:["corechart"]});
-			      google.charts.setOnLoadCallback(drawChart);
-			      function drawChart() {
-			        var data = google.visualization.arrayToDataTable([
-			          ['구분', '명'],
-			          ['회원', ${memberCount}],
-			          ['강사', ${memberTeacherCount}]
-			        ]);
-			
-			        var options = {
-			 		  pieHole: 0.3,
-			 		  pieSliceText: 'percentage' ,
-			 		  pieSliceTextStyle: {
-			             color: 'black',
-			             fontSize: 20,
-			           },
-			      	  width:700,
-					  height:400,
-					  colors: [ '#b21f1f', '#DBDBDB', 'black'],
-			        backgroundColor :'none',
-			       chartArea:{left:5,top:80,width:'80%',height:'80%'},
-			       is3D : true,
-			       
-			        };
-				
-			        var chart = new google.visualization.PieChart(document.getElementById('memdonut'));
-			        chart.draw(data, options);
-			      }
-			    </script>
+               <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+               google.charts.load("current", {packages:["corechart"]});
+               google.charts.setOnLoadCallback(drawChart7);
+
+               function drawChart7() {
+                 var data = google.visualization.arrayToDataTable([
+                   ['구분', '명'],
+                   ['회원', ${memberCount}],
+                   ['강사', ${memberTeacherCount}]
+                 ]);
+         
+                 var options = {
+                  pieHole: 0.3,
+                  pieSliceText: 'percentage' ,
+                  pieSliceTextStyle: {
+                      color: 'black',
+                      fontSize: 20,
+                    },
+                    width:700,
+                 height:400,
+                 colors: [ '#b21f1f', '#DBDBDB', 'black'],
+                 backgroundColor :'none',
+                chartArea:{left:5,top:80,width:'80%',height:'80%'},
+                is3D : true,
+                
+                 };
+            
+                 var chart = new google.visualization.PieChart(document.getElementById('memdonut'));
+                 chart.draw(data, options);
+               }
+             </script>
 
 <link rel="stylesheet" href="/css/reset.css" />
 <style>
@@ -1045,7 +1046,17 @@ table tbody tr:hover {
 	width: 300px;
 	left: 300px;
 }
+.mempagebox{
+	text-align: center;
+	position: absolute;
+	bottom: 5px;
+	margin: 0 auto;
+	width: 700px;
+	left: 300px;
+	top : 440px
 
+	
+}
 div.page {
 	display: inline;
 	margin: 0 5px;
@@ -1386,6 +1397,7 @@ background-color: gray;
 }
 #memberlistTable_table{
 	width: 1300px;
+	position: relative;
 }
 #memberlistTable input{
 	border: thin solid #f0f0f0;
@@ -1614,94 +1626,99 @@ height: 26px;
 				</div>
 			</div>
 
-			<div id="memberArticle" class="article">
-				<div id="memberBox1" class="box">
-					<div class="subtitle">&nbsp;&nbsp;회원목록</div>
-					<div class=memberlistgrade>
-						<div id="memberSearch">
-							<select name='memberOption'>
-								<option value='' selected>-- 선택 --</option>
-								<option value='member_id'>아이디</option>
-								<option value='member_name'>이름</option>
-								<option value='member_grade'>등급</option>
-							</select> <input type="text" name="searchMem" id="searchMem1"> <input type="button" value="검색" id="searchMemBtn" onclick="serchMem()">
-						</div>
-						<div id="memberlistTable">
-							<table id="memberlistTable_table">
-								<thead>
-									<tr>
-										<th>아이디</th>
-										<th>비밀번호</th>
-										<th>이름</th>
-										<th>전화번호</th>
-										<th>우편번호</th>
-										<th>주소</th>
-										<th>상세주소</th>
-										<th>등급</th>
-										<th colspan="2">관리자지정</th>
-									</tr>
-								</thead>
-								<tbody id="membertbody">
-
-								</tbody>
-							</table>
-							<div id="page" style="text-align: center;">
-								<input type="hidden" name="Memmanager_startNum" value="1">
-								<button type="button" id="Memmanager_backBtn" style="width: 40px;">이전</button>
-								<div id="Memmanager_pages" style="display: inline;"></div>
-								<button type="button" id="Memmanager_frontBtn" style="width: 40px;">다음</button>
+	<div id="memberArticle" class="article">
+					<div id="memberBox1" class="box">
+						<div class="subtitle">&nbsp;&nbsp;회원목록</div>
+						<div class=memberlistgrade>
+							<div id="memberSearch">
+								<select name='memberOption'>
+									<option value='' selected>-- 선택 --</option>
+									<option value='id'>아이디</option>
+									<option value='name'>이름</option>
+									<option value='grade'>등급</option>
+								</select> <input type="text" name="searchMem" id="memberSearchBar"> <input type="button" value="검색" id="searchMemBtn">
+							</div>
+							<div id="memberlistTable">
+								<table id="memberlistTable_table">
+									<thead>
+										<tr>
+											<th>아이디</th>
+											<th>비밀번호</th>
+											<th>이름</th>
+											<th>전화번호</th>
+											<th>우편번호</th>
+											<th>주소</th>
+											<th>상세주소</th>
+											<th>등급</th>
+											<th colspan="2">관리자지정</th>
+										</tr>
+									</thead>
+									<tbody id="membertbody"></tbody>
+								</table>
+								<div class="mempagebox">
+									<div id="memberAllBackBtn" class="btnPage">이전</div>
+									<div id="memberAllTblBox" class="btnPage"></div>
+									<div id="memberAllFrontBtn" class="btnPage">다음</div>
+									<input type="hidden" id="memberSearchStatus" value = "">
+									<input type="hidden" id="memberAllPageStartNum" value = 1>
+									<input type="hidden" id="memberMaxAllPage">
+								</div>
 							</div>
 						</div>
+	
 					</div>
-
+					<div id="memberBox2" class="box">
+						<div class="subtitle">&nbsp;&nbsp;신규가입회원&nbsp; [Today : ${membertodayCount }명]</div>
+								<div id="memberchartdiv" style="width: 1300px; height: 100px; position: relative; top: -20px; left: 10px;"></div>
+	
+					</div>
+	
+	
+	
 				</div>
-				<div id="memberBox2" class="box">
-					<div class="subtitle">&nbsp;&nbsp;신규가입회원&nbsp; [Today : ${membertodayCount }명]</div>
-							<div id="memberchartdiv" style="width: 1300px; height: 100px; position: relative; top: -20px; left: 10px;"></div>
-
-				</div>
-
-
-
-			</div>
-
-			<div id="managerArticle" class="article">
-				<div id="managerBox1" class="box">
-							<div class="subtitle">&nbsp;&nbsp;회원목록&nbsp;</div>
-						<div id="memberSearch2">
-							<select name='memberOption2'>
-								<option value='' selected>-- 선택 --</option>
-								<option value='member_id'>아이디</option>
-								<option value='member_name'>이름</option>
-								<option value='member_grade'>등급</option>
-							</select> <input type="text" name="searchMem" id="searchMem2"> <input type="button" value="검색" id="searchMemBtn" onclick="serchMem2()">
+	
+				<div id="managerArticle" class="article">
+					<div id="managerBox1" class="box">
+								<div class="subtitle">&nbsp;&nbsp;회원목록&nbsp;</div>
+							<div id="memberSearch2">
+								<select name='memberOption2'>
+									<option value='' selected>-- 선택 --</option>
+									<option value='id'>아이디</option>
+									<option value='name'>이름</option>
+									<option value='grade'>등급</option>
+								</select> <input type="text" name="searchMem" id="managerSearchBar"> <input type="button" value="검색" id="searchMemBtn2">
+							</div>
+							<div id="memberlistTable2">
+								<table>
+									<thead>
+										<tr>
+											<th>회원아이디</th>
+											<th>회원비밀번호</th>
+											<th>회원이름</th>
+											<th>회원전화번호</th>
+											<th>회원등급</th>
+											<th colspan="2">관리자지정</th>
+										</tr>
+									</thead>
+									<tbody id="tbodygrade"></tbody>
+								</table>
+								<div class="pagebox">
+									<div id="managerAllBackBtn" class="btnPage">이전</div>
+									<div id="managerAllTblBox" class="btnPage"></div>
+									<div id="managerAllFrontBtn" class="btnPage">다음</div>
+									<input type="hidden" id="managerSearchStatus" value = "">
+									<input type="hidden" id="managerAllPageStartNum" value = 1>
+									<input type="hidden" id="managerMaxAllPage">
+								</div>
 						</div>
-						<div id="memberlistTable2">
-							<table>
-								<thead>
-									<tr>
-										<th>회원아이디</th>
-										<th>회원비밀번호</th>
-										<th>회원이름</th>
-										<th>회원전화번호</th>
-										<th>회원등급</th>
-										<th colspan="2">관리자지정</th>
-									</tr>
-								</thead>
-								<tbody id="tbodygrade">
-
-								</tbody>
-							</table>
-						</div>
-
-				</div>
-				<div id="managerBox2" class="box">
-				<div class="subtitle">&nbsp;&nbsp;회원과 강사 비율&nbsp;</div>
-				<div id="memdonut">
+	
+					</div>
+					<div id="managerBox2" class="box">
+		            <div class="subtitle">&nbsp;&nbsp;회원과 강사 비율&nbsp;</div>
+		            <div id="memdonut">
+		            </div>
 				</div>
 				</div>
-				
-			</div>
 
 			<div id="qnaArticle" class="article">
 				<div class="box" id="qnabox1">
@@ -2235,6 +2252,9 @@ height: 26px;
 							$("#reviewArticle").css("display", "none");
 							$("#statusArticle").css("display", "none");
 							$("#othersArticle").css("display", "none");
+							$("#memberSearchBar").val("");
+							$("select[name='memberOption']").val("");
+							getList();
 						});
 						$("#manager").click(() => {
 							$("#member").removeAttr("style");
@@ -2249,6 +2269,8 @@ height: 26px;
 							$("#reviewArticle").css("display", "none");
 							$("#statusArticle").css("display", "none");
 							$("#othersArticle").css("display", "none");
+							getList2();
+							google.charts.setOnLoadCallback(drawChart7);
 						});
 						$("#qna").click(() => {
 							$("#notice").removeAttr("style");
@@ -4498,369 +4520,350 @@ height: 26px;
 						}
 					</script>
 
+
 	<script>
 						//(문지현)회원목록
-						getlist();
-						Memmanager_page();
-						function getlist() {
-							let tbody = document.querySelector("#membertbody");
-							const xhttp = new XMLHttpRequest();
-							xhttp.onload = function () {
-								let data = this.responseText;
-								let obj = JSON.parse(data);
-
-								for (i = 0; i < obj.length; i++) {
-									tbody.innerHTML += "<tr><td class='objid''>" + obj[i].member_id + "</td><td><input type='text' value=" + obj[i].member_pw + "></td><td>"
-										+ "<input type='text' value=" + obj[i].member_name + "></td><td><input type='text' value=" + obj[i].member_tel + "></td><td>"
-										+ "<input type='text' value=" + obj[i].postnum + "></td><td><input  type='text' value='" + obj[i].member_address + "'></td><td>"
-										+ "<input  type='text' value='" + obj[i].member_addressdetail + "'></td><td>" + obj[i].member_grade + "</td>"
-										+ "<td><input type='button' class = 'memChange' value='수정'></td>"
-										+ "<td><input type='button' class = 'memDel' value='삭제'></td></tr>";
-								}
-							}
-							xhttp.open("GET", "/member/MembermanagerList?pageNum=1", true);
-							xhttp.send();
+			function getList() {
+				let status = $("select[name='memberOption']").val()
+				let keyword = $("#memberSearchBar").val();
+				$("#memberAllTblBox").empty();
+				$("#membertbody").empty();
+				$("#memberAllFrontBtn").css("display", "inline-block");
+				$.ajax({
+					method: "get",
+					url: "/member/MembermanagerList",
+					dataType: 'json',
+					data: {
+						status: status,
+						keyword: keyword,
+						startNum: 1
+					},
+					success: function (data) {
+						for (let i = 0; i < data.length; i++) {
+							$("#membertbody").append("<tr><td>" + data[i].member_id + "</td><td><input type='text' value=" + data[i].member_pw + "></td><td>"
+								+ "<input type='text' value=" + data[i].member_name + "></td><td><input type='text' value=" + data[i].member_tel + "></td><td>"
+								+ "<input type='text' value=" + data[i].postnum + "></td><td><input  type='text' value='" + data[i].member_address + "'></td><td>"
+								+ "<input  type='text' value='" + data[i].member_addressdetail + "'></td><td>" + data[i].member_grade + "</td>"
+								+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+								+ "<td><input type='button' class = 'memDel'  value='삭제'></td></tr>")
 						}
-
-						$("#Memmanager_pages").on("click", function (event) {
-							let e = event.target.className;
-							if (e == "pageBtn") {
-								$("#membertbody").empty();
-								let pageNum = event.target.textContent;
-								$.ajax({
-									url: "/member/MembermanagerList",
-									method: "get",
-									dataType: "json",
-									data: {
-										pageNum: pageNum
-									},
-									success: (data) => {
-
-										for (let i = 0; i < data.length; i++) {
-											$("#membertbody").append("<tr><td>" + data[i].member_id + "</td><td><input type='text' value=" + data[i].member_pw + "></td><td>"
-												+ "<input type='text' value=" + data[i].member_name + "></td><td><input type='text' value=" + data[i].member_tel + "></td><td>"
-												+ "<input type='text' value=" + data[i].postnum + "></td><td><input  type='text' value='" + data[i].member_address + "'></td><td>"
-												+ "<input  type='text' value='" + data[i].member_addressdetail + "'></td><td>" + data[i].member_grade + "</td>"
-												+ "<td><input type='button' class = 'memChange' value='수정'></td>"
-												+ "<td><input type='button' class = 'memDel' value='삭제'></td></tr>");
-										}
-										$("td").css({
-											"border-bottom": "thin solid #BBB09F",
-											"height": "40px"
-										});
-										$("td:nth-of-type(4)").css({
-											"width": "300px",
-											"height": "100px",
-										});
-										$("a").css("color", "black");
-										$("a").css("text-decoration", "none");
-									},
-									error: () => {
-										alert("Error [실패]");
+					},
+					error: function () {
+						alert("error");
+					},
+					complete: () => {
+						$("#memberAllBackBtn").css("display", "none");
+						$.ajax({
+							url: "/member/member-max-all",
+							method: "GET",
+							data: {
+								status: status,
+								keyword: keyword
+							},
+							success: (data) => {
+								$("#memberMaxAllPage").val(data);
+								for (let i = 1; i < 6; i++) {
+									if (i <= data) {
+										$("#memberAllTblBox").append("<div class = 'page'>" + i + "</div>");
 									}
-
-
-								})
-
+									if (i >= data) {
+										$("#memberAllFrontBtn").css("display", "none");
+									}
+								}
+							},
+							error: () => {
+								alert("[error] 페이지를 가져올수 없습니다.");
 							}
-
-
 						})
+					}
+				})
+			}
 
-						//회원목록 최대페이지
-						function Memmanager_max() {
-							let maxPage;
-							$.ajax({
-								url: "/member/MembermanagermaxPage",
-								method: "get",
-								async: false,
-								success: function (data) {
-									maxPage = data;
-								},
-								error: function () {
-									alert("error!");
-								}
-							})
-							return maxPage;
+			$("#memberAllTblBox").click((event) => {
+				if (event.target.classList == "page") {
+					$("#membertbody").empty();
+					let status = $("select[name='memberOption']").val()
+					let keyword = $("#memberSearchBar").val();
+					let startNum = event.target.textContent;
+					let page = event.target.textContent;
+					$.ajax({
+						url: "/member/MembermanagerList",
+						method: "GET",
+						datatype: "json",
+						data: {
+							status: status,
+							keyword: keyword,
+							startNum: startNum
+						},
+						success: (data) => {
+							for (let i = 0; i < data.length; i++) {
+								$("#membertbody").append("<tr><td>" + data[i].member_id + "</td><td><input type='text' value=" + data[i].member_pw + "></td><td>"
+									+ "<input type='text' value=" + data[i].member_name + "></td><td><input type='text' value=" + data[i].member_tel + "></td><td>"
+									+ "<input type='text' value=" + data[i].postnum + "></td><td><input  type='text' value='" + data[i].member_address + "'></td><td>"
+									+ "<input  type='text' value='" + data[i].member_addressdetail + "'></td><td>" + data[i].member_grade + "</td>"
+									+ "<td><input type='button' class = 'memChange' value='수정'></td>"
+									+ "<td><input type='button' class = 'memDel'  value='삭제'></td></tr>")
+							}
+						},
+						error: () => {
+							alert("[error] 페이지를 불러올수 없습니다.");
 						}
+					})
+				}
+			})
+			$("#memberAllBackBtn").click(() => {
+				$("#memberAllFrontBtn").css("display", "inline-block");
+				$("#memberAllTblBox").empty();
+				let startNum = $("#memberAllPageStartNum").val();
+				startNum = Number(startNum) - 5;
+				$("#memberAllPageStartNum").val(startNum);
+				if (startNum <= 1) {
+					$("#memberAllBackBtn").css("display", "none");
+					startNum = 1;
+				}
+				for (let i = startNum; i < startNum + 5; i++) {
+					$("#memberAllTblBox").append("<div class = 'page'>" + i + "</div>");
+				}
+			})
 
-						//회원목록 페이지버튼
-						function Memmanager_page() {
-							$("#membertbody").empty();
-							//ajax로 가져온다
-							let start = $("input[name=Memmanager_startNum]").val();
-							let startNum = Number(start);
-							let maxPage = Memmanager_max();
-							let endPage = startNum + 4;
+			$("#memberAllFrontBtn").click(() => {
+				$("#memberAllBackBtn").css("display", "inline-block");
+				$("#memberAllTblBox").empty();
+				let startNum = $("#memberAllPageStartNum").val();
+				startNum = Number(startNum) + 5;
+				$("#memberAllPageStartNum").val(startNum);
+				let maxPage = $("#memberMaxAllPage").val();
+				for (let i = startNum; i < startNum + 5; i++) {
+					if (i <= maxPage) {
+						$("#memberAllTblBox").append("<div class = 'page'>" + i + "</div>");
+					}
+					if (i >= maxPage) {
+						$("#memberAllFrontBtn").css("display", "none");
+					}
+				}
+			})
 
-							if (startNum == 1) {
-								$("#Memmanager_backBtn").hide();
-							}
-							if (endPage > maxPage) {
-								endPage = (maxPage + 1);
-							}
-
-							for (let i = startNum; i < endPage + 1; i++) {
-								$("#Memmanager_pages").append(
-									"<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
-								)
-							}
-							$("#Memmanager_frontBtn").css({
-								"width": "40px",
-								"margin": "0 3px",
-								"border": "none",
-								"background-color": "rgba(0, 0, 0, 0)"
-							})
-							$("#Memmanager_backBtn").css({
-								"width": "40px",
-								"margin": "0 3px",
-								"border": "none",
-								"background-color": "rgba(0, 0, 0, 0)"
-							})
+			$("#searchMemBtn").click(function () {
+				getList();
+			});
+			$("#memberSearchBar").keydown(function (evt) {
+				if (evt.keyCode == 13) {
+					getList();
+				}
+			});
 
 
+			
+			$("#membertbody").click((e) => {
+				if (e.target.value == "수정") {
+					let id = e.target.parentElement.parentElement.children[0].innerText;
+					let pw = e.target.parentElement.parentElement.children[1].firstChild.value;
+					let name = e.target.parentElement.parentElement.children[2].firstChild.value;
+					let tel = e.target.parentElement.parentElement.children[3].firstChild.value;
+					let postnum = e.target.parentElement.parentElement.children[4].firstChild.value;
+					let address = e.target.parentElement.parentElement.children[5].firstChild.value;
+					let addressdetail = e.target.parentElement.parentElement.children[6].firstChild.value;
+					let grade = e.target.parentElement.parentElement.children[7].innerText;
+
+					let obj_member = {
+						"member_id": id,
+						"member_pw": pw,
+						"member_name": name,
+						"member_tel": tel,
+						"postnum": postnum,
+						"member_address": address,
+						"member_addressdetail": addressdetail,
+						"member_grade": grade
+					}
+					alert(JSON.stringify(obj_member));
+					$.ajax({
+						url: "/member/UpdateMemManager",
+						method: "POST",
+						contentType: "application/json",
+						data: JSON.stringify(obj_member),
+						success: function (data) {
+							alert(data);
 						}
-						//나의 문의내역 다음버튼
-						$("#Memmanager_frontBtn").click(() => {
-							$("#Memmanager_backBtn").show();
-							$("#Memmanager_pages").empty();
-							let start = $("input[name=Memmanager_startNum]").val();
-							let startNum = Number(start) + 5;
-							$("input[name=Memmanager_startNum]").val(startNum);
+					})
 
-							let maxPage = Memmanager_max();
+				} else if (e.target.value == "삭제") {
+					let id = e.target.parentElement.parentElement.children[0].innerText;
 
-							let endPage = startNum + 5;
-							if (endPage > maxPage) {
-								endPage = maxPage;
-								$("#Memmanager_frontBtn").hide();
-							}
-							for (let i = startNum; i < endPage + 1; i++) {
-
-								$("#Memmanager_pages").append(
-									"<button type ='button' class='pageBtn' name ='pageBtn'>" + i + "</button>"
-								)
-							}
-							$("#Memmanager_frontBtn").css({
-								"width": "40px",
-								"margin": "0 3px",
-								"border": "none",
-								"background-color": "rgba(0, 0, 0, 0)"
-							})
-							$("#Memmanager_backBtn").css({
-								"width": "40px",
-								"margin": "0 3px",
-								"border": "none",
-								"background-color": "rgba(0, 0, 0, 0)"
-							})
-						});
-
-						//나의 문의내역 이전버튼
-						$("#Memmanager_backBtn").click(() => {
-							$("#Memmanager_frontBtn").show();
-							$("#Memmanager_pages").empty();
-							let start = $("input[name=Memmanager_startNum]").val();
-							let startNum = Number(start) - 5;
-
-
-							if (startNum == 1) {
-								$("#Memmanager_backBtn").hide();
-							}
-							$("input[name=Memmanager_startNum]").val(startNum);
-
-
-							let maxPage = Memmanager_max();
-							let endPage = startNum + 4;
-
-							for (let i = startNum; i < endPage + 1; i++) {
-
-								$("#Memmanager_pages").append(
-									"<button type ='button' class='pageBtn' name ='pageBtn'>" + i + "</button>"
-								)
-							}
-						});
-
-
-
-						function serchMem() {
-
-							$("#membertbody").empty();
-							let memberOption = $("select[name='memberOption']").val();
-							let search = $("#searchMem1").val();
-							alert(memberOption);
-
-							urldata = "";
-							data = "";
-							if (memberOption == "member_id") {
-								urldata = "/member/selectOneid";
-								data = "id";
-							} else if (memberOption == "member_name") {
-								urldata = "/member/selectOnename";
-								data = "name";
-							} else if (memberOption == "member_grade") {
-								urldata = "/member/selectOnegrade";
-								data = "grade";
-							}
-							$.ajax({
-								url: urldata + "?" + data + "=" + search,
-								method: "GET",
-								dataType: "json",
-								success: (data) => {
-									for (let i = 0; i < data.length; i++) {
-										$("#membertbody").append("<tr><td>" + data[i].member_id + "</td><td><input type='text' value=" + data[i].member_pw + "></td><td>"
-											+ "<input type='text' value=" + data[i].member_name + "></td><td><input type='text' value=" + data[i].member_tel + "></td><td>"
-											+ "<input type='text' value=" + data[i].postnum + "></td><td><input  type='text' value='" + data[i].member_address + "'></td><td>"
-											+ "<input  type='text' value='" + data[i].member_addressdetail + "'></td><td>" + data[i].member_grade + "</td>"
-											+ "<td><input type='button' class = 'memChange' value='수정'></td>"
-											+ "<td><input type='button' class = 'memDel'  value='삭제'></td></tr>")
-
-									}
-
-								}
-
-							})
+					$.ajax({
+						url: "/member/deleteMemManager",
+						method: "DELETE",
+						data: {
+							"id": id
+						},
+						success: function (data) {
+							alert(data);
 						}
+					})
 
+				}
 
-						$("#membertbody").click((e) => {
-							if (e.target.value == "수정") {
-								let id = e.target.parentElement.parentElement.children[0].innerText;
-								let pw = e.target.parentElement.parentElement.children[1].firstChild.value;
-								let name = e.target.parentElement.parentElement.children[2].firstChild.value;
-								let tel = e.target.parentElement.parentElement.children[3].firstChild.value;
-								let postnum = e.target.parentElement.parentElement.children[4].firstChild.value;
-								let address = e.target.parentElement.parentElement.children[5].firstChild.value;
-								let addressdetail = e.target.parentElement.parentElement.children[6].firstChild.value;
-								let grade = e.target.parentElement.parentElement.children[7].innerText;
-
-								let obj_member = {
-									"member_id": id,
-									"member_pw": pw,
-									"member_name": name,
-									"member_tel": tel,
-									"postnum": postnum,
-									"member_address": address,
-									"member_addressdetail": addressdetail,
-									"member_grade": grade
+			})
+			
+			//(문지현)회원등급변경
+			function getList2() {
+				let status = $("select[name='memberOption2']").val()
+				let keyword = $("#managerSearchBar").val();
+				$("#managerAllTblBox").empty();
+				$("#tbodygrade").empty();
+				$("#managerAllFrontBtn").css("display", "inline-block");
+				$.ajax({
+					method: "get",
+					url: "/member/managermanagerList",
+					dataType: 'json',
+					data: {
+						status: status,
+						keyword: keyword,
+						startNum: 1
+					},
+					success: function (data) {
+						for (i = 0; i < data.length; i++) {
+	                           $("#tbodygrade").append("<tr><td class='objid''>" + data[i].member_id + "</td><td>" + data[i].member_pw + "</td><td>" + data[i].member_name + "</td><td>" + data[i].member_tel + "</td><td>"
+	                              + data[i].member_grade + "</td><td><select name='memberOptionChange'>"
+	                              + "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
+	                              + "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
+	                              + "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>")
+	                    }
+	                     
+					},
+					error: function () {
+						alert("error");
+					},
+					complete: () => {
+						$("#managerAllBackBtn").css("display", "none");
+						$.ajax({
+							url: "/member/manager-max-all",
+							method: "GET",
+							data: {
+								status: status,
+								keyword: keyword
+							},
+							success: (data) => {
+								$("#managerMaxAllPage").val(data);
+								for (let i = 1; i < 6; i++) {
+									if (i <= data) {
+										$("#managerAllTblBox").append("<div class = 'page'>" + i + "</div>");
+									}
+									if (i >= data) {
+										$("#managerAllFrontBtn").css("display", "none");
+									}
 								}
-								alert(JSON.stringify(obj_member));
-								$.ajax({
-									url: "/member/UpdateMemManager",
-									method: "POST",
-									contentType: "application/json",
-									data: JSON.stringify(obj_member),
-									success: function (data) {
-										alert(data);
-									}
-								})
-
-							} else if (e.target.value == "삭제") {
-								let id = e.target.parentElement.parentElement.children[0].innerText;
-
-								$.ajax({
-									url: "/member/deleteMemManager",
-									method: "DELETE",
-									data: {
-										"id": id
-									},
-									success: function (data) {
-										alert(data);
-									}
-								})
-
+							},
+							error: () => {
+								alert("[error] 페이지를 가져올수 없습니다.");
 							}
-
 						})
-						//(문지현)회원등급변경
+					}
+				})
+			}
 
-						getlist2();
+			$("#managerAllTblBox").click((event) => {
+				if (event.target.classList == "page") {
+					$("#tbodygrade").empty();
+					let status = $("select[name='memberOption2']").val()
+					let keyword = $("#managerSearchBar").val();
+					let startNum = event.target.textContent;
+					let page = event.target.textContent;
+					$.ajax({
+						url: "/member/managermanagerList",
+						method: "GET",
+						datatype: "json",
+						data: {
+							status: status,
+							keyword: keyword,
+							startNum: startNum
+						},
+						success: (data) => {
+							for (i = 0; i < data.length; i++) {
+		                           $("#tbodygrade").append("<tr><td class='objid''>" + data[i].member_id + "</td><td>" + data[i].member_pw + "</td><td>" + data[i].member_name + "</td><td>" + data[i].member_tel + "</td><td>"
+		                              + data[i].member_grade + "</td><td><select name='memberOptionChange'>"
+		                              + "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
+		                              + "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
+		                              + "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>")
+		                    }
+						},
+						error: () => {
+							alert("[error] 페이지를 불러올수 없습니다.");
+						}
+					})
+				}
+			})
+			$("#managerAllBackBtn").click(() => {
+				$("#managerAllFrontBtn").css("display", "inline-block");
+				$("#managerAllTblBox").empty();
+				let startNum = $("#managerAllPageStartNum").val();
+				startNum = Number(startNum) - 5;
+				$("#managerAllPageStartNum").val(startNum);
+				if (startNum <= 1) {
+					$("#managerAllBackBtn").css("display", "none");
+					startNum = 1;
+				}
+				for (let i = startNum; i < startNum + 5; i++) {
+					$("#managerAllTblBox").append("<div class = 'page'>" + i + "</div>");
+				}
+			})
 
-						function getlist2() {
-							let tbody = document.querySelector("#tbodygrade");
-							const xhttp = new XMLHttpRequest();
-							xhttp.onload = function () {
-								let data = this.responseText;
-								let obj = JSON.parse(data);
+			$("#managerAllFrontBtn").click(() => {
+				$("#managerAllBackBtn").css("display", "inline-block");
+				$("#managerAllTblBox").empty();
+				let startNum = $("#managerAllPageStartNum").val();
+				startNum = Number(startNum) + 5;
+				$("#managerllPageStartNum").val(startNum);
+				let maxPage = $("#managerMaxAllPage").val();
+				for (let i = startNum; i < startNum + 5; i++) {
+					if (i <= maxPage) {
+						$("#managerAllTblBox").append("<div class = 'page'>" + i + "</div>");
+					}
+					if (i >= maxPage) {
+						$("#managerAllFrontBtn").css("display", "none");
+					}
+				}
+			})
 
-								for (i = 0; i < obj.length; i++) {
-									tbody.innerHTML += "<tr><td class='objid''>" + obj[i].member_id + "</td><td>" + obj[i].member_pw + "</td><td>" + obj[i].member_name + "</td><td>" + obj[i].member_tel + "</td><td>"
-										+ obj[i].member_grade + "</td><td><select name='memberOptionChange'>"
-										+ "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
-										+ "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
-										+ "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>";
-								}
-							}
-							xhttp.open("GET", "/member/selectall", true);
-							xhttp.send();
+			$("#searchMemBtn2").click(function () {
+				getList2();
+			});
+			$("#managerSearchBar").keydown(function (evt) {
+				if (evt.keyCode == 13) {
+					getList2();
+				}
+			});
+
+						
+
+
+						
+					
+			$("#tbodygrade").click((e) => {
+				if (e.target.className == "gradeChange") {
+					let memberOptionChange = e.target.parentElement.previousElementSibling.firstChild.value;
+					let gradeid = e.target.parentElement.parentElement.firstChild.textContent;
+					$.ajax({
+						url: "/member/gradeChange",
+						method: "PUT",
+						data: {
+							id : gradeid,
+							grade : memberOptionChange
+						},
+						success: function (data) {
+							alert(data);
+
+						},
+						error: function () {
+							alert("error..");
 						}
 
+					})
 
-						function serchMem2() {
+				}
 
-							$("#tbodygrade").empty();
-							let memberOption = $("select[name='memberOption2']").val();
-							let search = $("#searchMem2").val();
-							alert(memberOption);
-							alert(search);
-							urldata = "";
-							data = "";
-							if (memberOption == "member_id") {
-								urldata = "/member/selectOneid";
-								data = "id";
-							} else if (memberOption == "member_name") {
-								urldata = "/member/selectOnename";
-								data = "name";
-							} else if (memberOption == "member_grade") {
-								urldata = "/member/selectOnegrade";
-								data = "grade";
-							}
-							$.ajax({
-								url: urldata + "?" + data + "=" + search,
-								method: "GET",
-								dataType: "json",
-								success: (data) => {
-									for (let i = 0; i < data.length; i++) {
-										$("#tbodygrade").append("<tr><td>" + data[i].member_id + "</td><td>" + data[i].member_pw + "</td><td>" + data[i].member_name + "</td><td>" + data[i].member_tel + "</td><td>"
-											+ data[i].member_grade + "</td><td><select name='memberOption2'>"
-											+ "<option value='hh'>-- 선택 --</option><option value='A'>일반</option>"
-											+ "<option value='B'>강사</option><option value='C'>관리자</option></select></td>"
-											+ "<td><input class = 'gradeChange' type = 'button' value ='저장'></td></tr>")
+			})
 
-									}
-
-								}
-
-							})
-						}
-						$("#tbodygrade").click((e) => {
-							if (e.target.className == "gradeChange") {
-								let memberOptionChange = e.target.parentElement.previousElementSibling.firstChild.value;
-								let gradeid = e.target.parentElement.parentElement.firstChild.textContent;
-								alert(memberOptionChange);
-								alert(id);
-								$.ajax({
-									url: "/member/gradeChange",
-									method: "PUT",
-									data: {
-										"gradeid": gradeid,
-										"grade": memberOptionChange
-									},
-									success: function (data) {
-										alert(data);
-
-									},
-									error: function () {
-										alert("error..");
-									}
-
-								})
-
-							}
-
-						})
-
-
-					</script>
+	</script>
 </body>
 
 </html>

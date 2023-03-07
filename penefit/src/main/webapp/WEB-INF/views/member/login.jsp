@@ -93,6 +93,7 @@ p {
        }else {
        }
        })*/
+
       function submit_check() {
          const member_id = $("input[name='member_id']").val();
          const member_pw = $("input[name='member_pw']").val();

@@ -111,14 +111,10 @@ input[id="checkAll"] {
          </div>
       </section>
 
-<<<<<<< HEAD
-   </div>
-   <%@ include file="footer.jsp"%>
-=======
-	</div>
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
 <<<<<<< HEAD
+   </div>
+
    <script>
    
    //체크박스로 전체 선택
@@ -126,13 +122,14 @@ input[id="checkAll"] {
       if ($('#checkAll').is(':checked')) {
          $('.checking').prop('checked', true);
          calcPrice();
-         alert("amount : " + amount);
       } else {
          $('.checking').prop('checked', false);
          amount=0;
          $("#price").text(0);
          
 =======
+	</div>
+
 	<script>
 	
 	//체크박스로 전체 선택
@@ -146,6 +143,7 @@ input[id="checkAll"] {
 			$("#price").text(0);
 			
 >>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
+
 
       }
       
@@ -251,6 +249,7 @@ input[id="checkAll"] {
             $("a").css("color","black");
             calcPrice();
 
+
 <<<<<<< HEAD
          }
          xhttp.open("GET", "shoppingcartList", true);
@@ -262,7 +261,6 @@ input[id="checkAll"] {
                   ".delete_img",
                   function(evt) {
                      let shopping_cart_num = evt.target.parentElement.parentElement.parentElement.children[0].firstChild.value;
-                     alert(shopping_cart_num);
                      deleteCart(shopping_cart_num);
                   })
 =======
@@ -314,6 +312,7 @@ input[id="checkAll"] {
       $("#deleteAll").click(function() {
          deleteAllCart();
       })
+
 
 <<<<<<< HEAD
       function deleteAllCart() {
@@ -427,12 +426,12 @@ input[id="checkAll"] {
 		}
 >>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
+
 <<<<<<< HEAD
       //1차 금액계산
       let amount;
       calcPrice();
       
-      alert("amount : " + amount);
       function calcPrice() {
          amount = 0;
          $("input[class='checking']")
@@ -468,11 +467,11 @@ input[id="checkAll"] {
 		}
 >>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
 
+
 <<<<<<< HEAD
       //체크 변경시 금액계산
       $(document).on("click", ".checking", function() {
          calcPrice();
-         alert("amount : " + amount);
       });
 =======
 		//체크 변경시 금액계산
@@ -490,7 +489,6 @@ input[id="checkAll"] {
       //2. 결제요청하기
       function requestPay() {
          
-         alert("amount : " + amount);
          
          let today = new Date();
          let date = "ORD";
@@ -514,43 +512,6 @@ input[id="checkAll"] {
                // 결제 성공 시 로직
                var msg = '결제가 완료되었습니다.';
                sendParam(amount,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
-               
-=======
-		//아임포트  결제 API
-		//1. 객체 초기화하기 : 	주문 페이지에서 가맹점 식별코드를 이용하여 IMP 객체를 초기화 합니다.
-		const IMP = window.IMP; // 생략 가능
-		IMP.init("imp13816725"); // 예: imp00000000a
-		
-		//2. 결제요청하기
-		function requestPay() {
-			
-			
-			let today = new Date();
-			let date = "ORD";
-			let randomStr = Math.random().toString(36).substring(2, 9)
-					.toUpperCase();
-			let order_num = date.concat(today.getFullYear(),
-					today.getMonth() + 1, today.getDate(), '-', randomStr);
-			IMP.request_pay({
-				pg : "html5_inicis",
-				pay_method : "card",
-				merchant_uid : order_num, // 주문번호
-				name : "Penefit 클래스 결제의 건",
-				amount : amount, // 숫자 타입
-				buyer_email : "",
-				buyer_name : "${memberinfo.member_name}",
-				buyer_tel : "${memberinfo.member_tel}",
-				buyer_addr : "${memberinfo.member_address}",
-				buyer_postcode : ""
-			}, function(rsp) { // callback
-				if (rsp.success) {
-					// 결제 성공 시 로직
-					var msg = '결제가 완료되었습니다.';
-					sendParam(amount,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
-					
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
-
-<<<<<<< HEAD
             } else {
                // 결제 실패 시 로직
                var msg = '결제에 실패하였습니다.';
@@ -597,6 +558,37 @@ input[id="checkAll"] {
          
          const json_obj = JSON.stringify(his_obj);
 =======
+		//아임포트  결제 API
+		//1. 객체 초기화하기 : 	주문 페이지에서 가맹점 식별코드를 이용하여 IMP 객체를 초기화 합니다.
+		const IMP = window.IMP; // 생략 가능
+		IMP.init("imp13816725"); // 예: imp00000000a
+		
+		//2. 결제요청하기
+		function requestPay() {
+			
+			
+			let today = new Date();
+			let date = "ORD";
+			let randomStr = Math.random().toString(36).substring(2, 9)
+					.toUpperCase();
+			let order_num = date.concat(today.getFullYear(),
+					today.getMonth() + 1, today.getDate(), '-', randomStr);
+			IMP.request_pay({
+				pg : "html5_inicis",
+				pay_method : "card",
+				merchant_uid : order_num, // 주문번호
+				name : "Penefit 클래스 결제의 건",
+				amount : amount, // 숫자 타입
+				buyer_email : "",
+				buyer_name : "${memberinfo.member_name}",
+				buyer_tel : "${memberinfo.member_tel}",
+				buyer_addr : "${memberinfo.member_address}",
+				buyer_postcode : ""
+			}, function(rsp) { // callback
+				if (rsp.success) {
+					// 결제 성공 시 로직
+					var msg = '결제가 완료되었습니다.';
+					sendParam(amount,rsp.imp_uid,rsp.merchant_uid,rsp.pay_method,rsp.pg_provider,rsp.pg_tid,rsp.bank_name,rsp.card_name,rsp.card_quota,rsp.card_number,rsp.name,rsp.currency,rsp.buyer_name,rsp.buyer_email,rsp.buyer_tel,rsp.buyer_addr);
 				} else {
 					// 결제 실패 시 로직
 					var msg = '결제에 실패하였습니다.';

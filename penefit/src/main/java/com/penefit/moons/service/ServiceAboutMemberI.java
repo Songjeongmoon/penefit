@@ -43,10 +43,14 @@ public interface ServiceAboutMemberI {
 	public String deleteMemberManager(String id);
 	
 	//관리자 멤버리스트 페이지
-	public List<MemberVO> getMemManagerList(int pageNum);
+	public List<MemberVO> getMemManagerList(String status, String keyword, int startNum);
 	
-	//관리자 멤버리스트 페이지수
-	public int getMemManagerListmaxPage();
-		
+	public int getMemberMaxPage(String status, String keyword);
+	
+	//관리자 강사리스트 페이지
+	public List<MemberVO> getManagerManagerList(String status, String keyword, int startNum);
+	
+	//관리자 강사리스트 페이지수
+	public int getManagerMaxPage(String status, String keyword);
 
 }

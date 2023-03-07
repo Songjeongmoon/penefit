@@ -13,547 +13,567 @@
 
 <style>
 .mypageTitle {
-   text-align: center;
-   margin-bottom: 10PX;
+	text-align: center;
+	margin-bottom: 10PX;
 }
 
 .meminfo {
-   width: 550px;
-   height: 800px;
-   margin: 0 auto;
-   margin-top: 30px;
-   border-radius: 7px;
-   padding: 10px;
-   box-shadow: 2px 2px 2px 2px #DBD5CB;
+	width: 550px;
+	height: 800px;
+	margin: 0 auto;
+	margin-top: 30px;
+	border-radius: 7px;
+	padding: 10px;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
 }
 
 .mem_info {
-   margin-top: 60px;
-   margin-left: 110px;
+	margin-top: 60px;
+	margin-left: 110px;
 }
 
 input[type=text] {
-   width: 300px;
-   height: 40px;
-   font-size: 14px;
-   margin-top: 5px;
-   margin-bottom: 10px;
+	width: 300px;
+	height: 40px;
+	font-size: 14px;
+	margin-top: 5px;
+	margin-bottom: 10px;
 }
 
 #modal_history {
-   position: absolute;
-   width: 450px;
-   height: 600px;
-   border: 2px solid black;
-   background-color: white;
-   z-index: 300;
-   border-radius: 10px;
-   display: inline-block;
-   padding: 20px;
-   top: 20px;
-   left: 490px;
+	position: absolute;
+	width: 450px;
+	height: 600px;
+	border: 2px solid black;
+	background-color: white;
+	z-index: 300;
+	border-radius: 10px;
+	display: inline-block;
+	padding: 20px;
+	top: 20%;
+	left: 38%;
 }
 
 .selectBox {
-   display: none;
-   text-align: center;
-   margin-top: 10px;
-   position: absolute;
-   left: 100px;
+	display: none;
+	text-align: center;
+	margin-top: 10px;
+	position: absolute;
+	left: 100px;
 }
 
 #selectClass {
-   height: 40px;
-   display: none;
-   position: absolute;
+	height: 40px;
+	display: none;
+	position: absolute;
 }
 
 #gotoReviewForm {
-   height: 40px;
-   background-color: #75BD43;
-   border-radius: 7px;
-   border: none;
-   box-shadow: 2px 2px 2px 2px #DBD5CB;
-   width: 90px;
-   position: absolute;
-   left: 200px;
+	height: 40px;
+	background-color: #75BD43;
+	border-radius: 7px;
+	border: none;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
+	width: 90px;
+	position: absolute;
+	left: 200px;
 }
 
-#modal_history_case {
-   position: fixed;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   background: rgba(0, 0, 0, 0.8);
-   z-index: 300;
-   display: none;
+#modal_history_case, #customerModalCase {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 300;
+	display: none;
 }
 
 #modal_qna_case {
-   position: fixed;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   display: none;
-   background: rgba(0, 0, 0, 0.8);
-   z-index: 600;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: none;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 600;
 }
 
 #history_content th {
-   background-color: #DBD5CB;
-   height: 35px;
+	background-color: #DBD5CB;
+	height: 35px;
 }
 
 #history_content {
-   margin: 0 auto;
-   text-align: center;
-   width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+	width: 1000px;
 }
 
 #history_content tr {
-   height: 40px;
+	height: 40px;
 }
 
 #modal_qna {
-   position: absolute;
-   width: 450px;
-   height: 500px;
-   border: 2px solid black;
-   background-color: white;
-   z-index: 300;
-   border-radius: 10px;
-   display: inline-block;
-   padding: 20px;
-   top: 20px;
-   left: 490px;
+	position: absolute;
+	width: 450px;
+	height: 500px;
+	border: 2px solid black;
+	background-color: white;
+	z-index: 300;
+	border-radius: 10px;
+	display: inline-block;
+	padding: 20px;
+	left: 40%;
+	top: 20%;
 }
 
 input[type='button'] {
-   background-color: #75BD43;
-   border-radius: 7px;
-   border: none;
-   box-shadow: 2px 2px 2px 2px #DBD5CB;
-   width: 130px;
-   height: 40px;
-   line-height: 40px;
-   font-weight: bold;
-   margin-top: 10px;
+	background-color: #75BD43;
+	border-radius: 7px;
+	border: none;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
+	width: 130px;
+	height: 40px;
+	line-height: 40px;
+	font-weight: bold;
+	margin-top: 10px;
 }
 
 #delMemBtn {
-   background-color: gray;
+	background-color: gray;
 }
 
 h2 {
-   text-align: center;
-   font-size: 35px;
-   margin-bottom: 30px;
+	text-align: center;
+	font-size: 35px;
+	margin-bottom: 30px;
 }
 
 table {
-   margin: 0 auto;
-   border: none;
+	margin: 0 auto;
+	border: none;
 }
 
 h4 {
-   text-align: center;
-   font-weight: bold;
-   font-size: 35px;
-   margin-bottom: 30px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 35px;
+	margin-bottom: 30px;
 }
 
 #modalClose {
-   position: absolute;
-   background-color: rgba(0, 0, 0, 0);
-   border: none;
-   left: 450px;
-   bottom: 590px;
-   font-size: 40px;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	left: 450px;
+	bottom: 590px;
+	font-size: 40px;
 }
 
 #cancelbtn, #writebtn, #closebtn {
-   width: 150px;
-   height: 40px;
-   background-color: #75BD43;
-   border-radius: 7px;
-   border: none;
-   box-shadow: 2px 2px 2px 2px #DBD5CB;
+	width: 150px;
+	height: 40px;
+	background-color: #75BD43;
+	border-radius: 7px;
+	border: none;
+	box-shadow: 2px 2px 2px 2px #DBD5CB;
 }
 
 #closebtn {
-   position: absolute;
-   left: 160px;
-   bottom: 30px;
+	position: absolute;
+	left: 160px;
+	bottom: 30px;
 }
 
 #history_detail tr {
-   height: 35px;
+	height: 35px;
 }
 
 #history_detail th {
-   width: 100px;
+	width: 100px;
 }
 
 .aside_menu:hover {
-   cursor: pointer;
+	cursor: pointer;
 }
 
 #sugTbl {
-   width: 900px;
-   text-align: center;
+	width: 900px;
+	text-align: center;
 }
 
 #sugTbl th {
-   background-color: #DBD5CB;
-   height: 35px;
-   margin-top: 20px;
-}
-
-.mypageTitle {
-   text-align: center;
-   font-size: 35px;
-   margin-bottom: 30px;
+	background-color: #DBD5CB;
+	height: 35px;
+	margin-top: 20px;
 }
 
 #myclasstbl {
-   text-align: center;
+	width: 900px;
+}
+
+#myclasstbl th {
+	background-color: #DBD5CB;
+	height: 35px;
+	margin-top: 20px;
+}
+
+.mypageTitle {
+	text-align: center;
+	font-size: 35px;
+	margin-bottom: 30px;
+}
+
+#myclasstbl {
+	text-align: center;
 }
 
 #reviewTbl th {
-   background-color: #DBD5CB;
-   height: 35px;
-   margin-top: 20px;
+	background-color: #DBD5CB;
+	height: 35px;
+	margin-top: 20px;
 }
 
 #reviewTbl {
-   text-align: center;
+	text-align: center;
 }
 
 #qnatbl {
-   width: 900px;
-   text-align: center;
+	width: 900px;
+	text-align: center;
 }
 
 #qnatbl th {
-   background-color: #DBD5CB;
-   height: 35px;
-   margin-top: 20px;
+	background-color: #DBD5CB;
+	height: 35px;
+	margin-top: 20px;
+}
+
+#classMemberTbl th {
+	background-color: #DBD5CB;
+	height: 35px;
+	margin-top: 20px;
 }
 
 #qna_reply, #qna_detail {
-   width: 400px;
+	width: 400px;
 }
 
 #qna_reply th {
-   text-align: center;
+	text-align: center;
 }
 
 #qna_detail th {
-   text-align: center;
+	text-align: center;
 }
 
 #qna_reply {
-   text-align: left;
+	text-align: left;
 }
 
 #qna_reply tr:nth-of-type(2) {
-   text-align: left;
-   height: 150px;
-   overflow: scroll;
+	text-align: left;
+	height: 150px;
+	overflow: scroll;
 }
 
 .pageBtn {
-   width: 30px;
-   margin: 0 3px;
-   border: none;
-   background-color: rgba(0, 0, 0, 0);
+	width: 30px;
+	margin: 0 3px;
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
 }
 
 #history_backBtn {
-   border: none;
-   background-color: rgba(0, 0, 0, 0);
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
 }
 
 #history_frontBtn {
-   border: none;
-   background-color: rgba(0, 0, 0, 0);
-}
-
-#modalFilter {
+	border: none;
+	background-color: rgba(0, 0, 0, 0);
 }
 
 #customerModal {
-	display: none;
 	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform:translate(-50%, -50%);
-	background-color: yellow;
+	transform: translate(-50%, -50%);
+	background-color: white;
 	width: 600px;
 	height: 800px;
+	left: 50%; top : 50%;
+	z-index: 400;
+	padding: 20px;
+	top: 50%;
+	border-radius: 10px;
 }
+
 #infoCloseBtn {
 	display: inline-block;
 	position: relative;
 	cursor: pointer;
 	z-index: 1;
 }
+
 .myClassInfo {
 	cursor: pointer;
 }
+
 #classListBackBtn, #pageBtnBox, #classListFrontBtn, .pageBtn {
 	display: inline-block
 }
-
-
 </style>
 </head>
 
 <body>
-	
-   <%@ include file="../header.jsp"%>
-   <div class="box">
-      <section>
-         <aside>
-            <ul>
-               <li class="aside_title">마이페이지</li>
-               <li class="aside_menu" id="myinfoLabel">내 정보</li>
-               <li class="aside_menu" id="myHistoryLabel"><a href="#">구매내역</a></li>
-               <li class="aside_menu" id="myReviewLabel"><a href="#">나의후기</a></li>
-               <li class="aside_menu" id="aside_menu_btn">나의 클래스
-                  <div id="aside_submenu">
-                     <p id="mySuggestLabel">&nbsp;&nbsp;제안내역</p>
-                     <p>
-                     <p id="myClassLabel">&nbsp;&nbsp;클래스내역</p>
-                     <p>
-                     <p>&nbsp;&nbsp;추가?</p>
-                  </div>
-               </li>
-               <li class="aside_menu" id="myInquiryLabel">나의 문의내역</li>
-            </ul>
 
-         </aside>
-         <div class="content" id="myinfo">
-            <h2>내 정보 관리</h2>
-            <div class="meminfo">
-               <div class="mem_info">
-                  <div id="mem_maintitle"></div>
+	<%@ include file="../header.jsp"%>
+	<div class="box">
+		<section>
+			<aside>
+				<ul>
+					<li class="aside_title">마이페이지</li>
+					<li class="aside_menu" id="myinfoLabel">내 정보</li>
+					<li class="aside_menu" id="myHistoryLabel"><a href="#">구매내역</a></li>
+					<li class="aside_menu" id="myReviewLabel"><a href="#">나의후기</a></li>
+					<li class="aside_menu" id="aside_menu_btn">나의 클래스
+						<div id="aside_submenu">
+							<p id="mySuggestLabel">&nbsp;&nbsp;제안내역</p>
+							<p>
+							<p id="myClassLabel">&nbsp;&nbsp;클래스내역</p>
+							<p>
+							<p>&nbsp;&nbsp;추가?</p>
+						</div>
+					</li>
+					<li class="aside_menu" id="myInquiryLabel">나의 문의내역</li>
+				</ul>
+
+			</aside>
+			<div class="content" id="myinfo">
+				<h2>내 정보 관리</h2>
+				<div class="meminfo">
+					<div class="mem_info">
+						<div id="mem_maintitle"></div>
 
 
-                  <div id="mem_id">
-                     아이디<br> <input type="text" name="member_id" value="${member_id }" readonly>
-                  </div>
-                  <div id="mem_pw">
-                     비밀번호<br> <input type="text" name="member_pw" value="${memberinfo.member_pw }">
-                  </div>
-                  <div id="mem_name">
-                     이름<br> <input type="text" name="member_name" value="${memberinfo.member_name }" readonly>
-                  </div>
-                  <div id="mem_tel">
-                     전화번호<br> <input type="text" name="member_tel" value="${memberinfo.member_tel }">
-                  </div>
-                  <div id="postnum">
-                     우편번호<br> <input type="text" name="postnum" value="${memberinfo.postnum }" /> <input type="button" onclick="execution_daum_address()" value="주소찾기" />
-                  </div>
-                  <div id="mem_address">
-                     주소<br> <input type="text" name="member_address" value="${memberinfo.member_address }">
-                  </div>
-                  <div id="mem_addressdetail">
-                     상세주소<br> <input type="text" name="member_addressdetail" value="${memberinfo.member_addressdetail }" />
-                  </div>
-                  <div id="mem_grade">
-                     <br> <input type="hidden" name="member_grade" value="${memberinfo.member_grade }">
-                  </div>
+						<div id="mem_id">
+							아이디<br> <input type="text" name="member_id" value="${member_id }" readonly>
+						</div>
+						<div id="mem_pw">
+							비밀번호<br> <input type="text" name="member_pw" value="${memberinfo.member_pw }">
+						</div>
+						<div id="mem_name">
+							이름<br> <input type="text" name="member_name" value="${memberinfo.member_name }" readonly>
+						</div>
+						<div id="mem_tel">
+							전화번호<br> <input type="text" name="member_tel" value="${memberinfo.member_tel }">
+						</div>
+						<div id="postnum">
+							우편번호<br> <input type="text" name="postnum" value="${memberinfo.postnum }" /> <input type="button" onclick="execution_daum_address()" value="주소찾기" />
+						</div>
+						<div id="mem_address">
+							주소<br> <input type="text" name="member_address" value="${memberinfo.member_address }">
+						</div>
+						<div id="mem_addressdetail">
+							상세주소<br> <input type="text" name="member_addressdetail" value="${memberinfo.member_addressdetail }" />
+						</div>
+						<div id="mem_grade">
+							<br> <input type="hidden" name="member_grade" value="${memberinfo.member_grade }">
+						</div>
 
-                  <div id="mem_buttons">
-                     <input type="button" name="mem_update" value="정보수정" onclick="UpdateMem()"> <input type="button" name="mem_delete" value="회원탈퇴" id="delMemBtn" onclick="delMem()">
-                  </div>
-               </div>
-            </div>
+						<div id="mem_buttons">
+							<input type="button" name="mem_update" value="정보수정" onclick="UpdateMem()"> <input type="button" name="mem_delete" value="회원탈퇴" id="delMemBtn" onclick="delMem()">
+						</div>
+					</div>
+				</div>
 
-         </div>
-         <div class="content" id="purchaseHistory">
-            <h2 class="mypageTitle">구매내역</h2>
-            <!-- 구매상세내역 모달 -->
-            <div id="modal_history_case">
-               <div id="modal_history">
-                  <h4>구매상세내역</h4>
-                  <button type="button" id="modalClose">Ｘ</button>
+			</div>
+			<div class="content" id="purchaseHistory">
+				<h2 class="mypageTitle">구매내역</h2>
+				<!-- 구매상세내역 모달 -->
+				<div id="modal_history_case">
+					<div id="modal_history">
+						<h4>구매상세내역</h4>
+						<button type="button" id="modalClose">Ｘ</button>
 
-                  <table id="history_detail">
-                     <!-- 구매내역 상세보기 -->
-                  </table>
-                  <div style="text-align: center; margin-top: 20px;">
-                     <button type="button" id="cancelbtn">구매취소하기</button>
-                     <button type="button" id="writebtn">리뷰</button>
-                  </div>
-                  <div class="selectBox">
-                     <select id="selectClass">
+						<table id="history_detail">
+							<!-- 구매내역 상세보기 -->
+						</table>
+						<div style="text-align: center; margin-top: 20px;">
+							<button type="button" id="cancelbtn">구매취소하기</button>
+							<button type="button" id="writebtn">리뷰</button>
+						</div>
+						<div class="selectBox">
+							<select id="selectClass">
 
-                     </select>
-                     <button type="button" id="gotoReviewForm">작성</button>
-                  </div>
-               </div>
-            </div>
+							</select>
+							<button type="button" id="gotoReviewForm">작성</button>
+						</div>
+					</div>
+				</div>
 
-            <!-- 구매리스트 -->
-            <table id="history_content">
-               <thead>
-                  <tr>
-                     <th>구매번호</th>
-                     <th>주문번호</th>
-                     <th>구매일자</th>
-                     <th>구매내용</th>
-                     <th>상태</th>
-                  </tr>
-               </thead>
-               <tbody id="historyTbody">
-                  <!-- 구매리스트 -->
-               </tbody>
-            </table>
-            <br>
-            <div id="page" style="text-align: center;">
-               <input type="hidden" name="history_startNum" value="1">
-               <button type="button" id="history_backBtn" style="width: 40px;">이전</button>
-               <div id="history_pages" style="display: inline;"></div>
-               <button type="button" id="history_frontBtn" style="width: 40px;">다음</button>
-            </div>
+				<!-- 구매리스트 -->
+				<table id="history_content">
+					<thead>
+						<tr>
+							<th>구매번호</th>
+							<th>주문번호</th>
+							<th>구매일자</th>
+							<th>구매내용</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					<tbody id="historyTbody">
+						<!-- 구매리스트 -->
+					</tbody>
+				</table>
+				<br>
+				<div id="page" style="text-align: center;">
+					<input type="hidden" name="history_startNum" value="1">
+					<button type="button" id="history_backBtn" style="width: 40px;">이전</button>
+					<div id="history_pages" style="display: inline;"></div>
+					<button type="button" id="history_frontBtn" style="width: 40px;">다음</button>
+				</div>
 
-         </div>
+			</div>
 
-         <div class="content" id="myReview">
-            <h2>나의 후기</h2>
-            <table id="reviewTbl" style="width: 800px;">
-               <thead>
-                  <tr>
-                     <th>작성일</th>
-                     <th colspan="2">클래스정보</th>
-                     <th>내용</th>
-                  </tr>
-               </thead>
+			<div class="content" id="myReview">
+				<h2>나의 후기</h2>
+				<table id="reviewTbl" style="width: 800px;">
+					<thead>
+						<tr>
+							<th>작성일</th>
+							<th colspan="2">클래스정보</th>
+							<th>내용</th>
+						</tr>
+					</thead>
 
-               <tbody id="reviewBody"></tbody>
+					<tbody id="reviewBody"></tbody>
 
-            </table>
-            <div id="page" style="text-align: center;">
-               <input type="hidden" name="review_startNum" value="1">
-               <button type="button" id="review_backBtn" style="width: 40px;">이전</button>
-               <div id="review_pages" style="display: inline;"></div>
-               <button type="button" id="review_frontBtn" style="width: 40px;">다음</button>
-            </div>
+				</table>
+				<div id="page" style="text-align: center;">
+					<input type="hidden" name="review_startNum" value="1">
+					<button type="button" id="review_backBtn" style="width: 40px;">이전</button>
+					<div id="review_pages" style="display: inline;"></div>
+					<button type="button" id="review_frontBtn" style="width: 40px;">다음</button>
+				</div>
 
-         </div>
+			</div>
 
-         <div class="content" id="myClassSuggest">
-            <h2 class="mypageTitle">클래스제안내역</h2>
-            <table id="sugTbl">
-               <thead>
-                  <tr>
-                     <th>분류</th>
-                     <th style="width: 300px;">제목</th>
-                     <th>지역</th>
-                     <th>시간대</th>
-                     <th>참가비</th>
-                     <th>정원</th>
-                     <th>등록일</th>
-                  </tr>
-               </thead>
+			<div class="content" id="myClassSuggest">
+				<h2 class="mypageTitle">클래스제안내역</h2>
+				<table id="sugTbl">
+					<thead>
+						<tr>
+							<th>분류</th>
+							<th style="width: 300px;">제목</th>
+							<th>지역</th>
+							<th>시간대</th>
+							<th>참가비</th>
+							<th>정원</th>
+							<th>등록일</th>
+						</tr>
+					</thead>
 
-               <tbody id="suggestionBody"></tbody>
+					<tbody id="suggestionBody"></tbody>
 
-            </table>
-            <div id="page" style="text-align: center;">
-               <input type="hidden" name="suggest_startNum" value="1">
-               <button type="button" id="suggest_backBtn" style="width: 40px;">이전</button>
-               <div id="suggest_pages" style="display: inline;"></div>
-               <button type="button" id="suggest_frontBtn" style="width: 40px;">다음</button>
-            </div>
-         </div>
-         <div class="content" id="myClassList">
-            <h2 class="mypageTitle">나의클래스</h2>
-            <table id="myclasstbl">
-               <thead>
-                  <tr>
-                     <th style="width: 300px">제목</th>
-                     <th>강사</th>
-                     <th>강의일자</th>
-                     <th>지역</th>
-                  </tr>
-               </thead>
+				</table>
+				<div id="page" style="text-align: center;">
+					<input type="hidden" name="suggest_startNum" value="1">
+					<button type="button" id="suggest_backBtn" style="width: 40px;">이전</button>
+					<div id="suggest_pages" style="display: inline;"></div>
+					<button type="button" id="suggest_frontBtn" style="width: 40px;">다음</button>
+				</div>
+			</div>
+			<div class="content" id="myClassList">
+				<h2 class="mypageTitle">나의클래스</h2>
+				<table id="myclasstbl">
+					<thead>
+						<tr>
+							<th style="width: 500px">제목</th>
+							<th>강사</th>
+							<th>강의일자</th>
+							<th>지역</th>
+						</tr>
+					</thead>
 
-               <tbody id="myClassListBody"></tbody>
+					<tbody id="myClassListBody"></tbody>
 
-            </table>
-            <input type = "text" name= "classListStartNum" value = "1">
-            <input type = "text" name= "classListMaxPage" >
-            
-            <div id = "classListBackBtn">이전</div>
-            <div id = "pageBtnBox"></div>
-            <div id = "classListFrontBtn">다음</div>
+				</table>
+				<input type="hidden" name="classListStartNum" value="1"> <input type="hidden" name="classListMaxPage">
+				<div style="text-align: center;">
+					<div id="classListBackBtn">이전</div>
+					<div id="pageBtnBox"></div>
+					<div id="classListFrontBtn">다음</div>
+				</div>
+			</div>
+			<div class="content" id="myInquiry">
+				<h2 class="mypageTitle">문의내역</h2>
+				<table id="qnatbl">
+					<thead>
+						<tr>
+							<th>문의번호</th>
+							<th>문의글</th>
+							<th>상태</th>
+							<th>등록일</th>
+						</tr>
+					</thead>
+					<tbody id="qnaTbody">
+						<!--  -->
+					</tbody>
+				</table>
+				<div id="page" style="text-align: center;">
+					<input type="hidden" name="qna_startNum" value="1">
+					<button type="button" id="qna_backBtn" style="width: 40px;">이전</button>
+					<div id="qna_pages" style="display: inline;"></div>
+					<button type="button" id="qna_frontBtn" style="width: 40px;">다음</button>
+				</div>
+				<div id="modal_qna_case">
+					<div id="modal_qna">
+						<h4>문의상세내역</h4>
+						<table id="qna_detail">
+							<!-- 문의 상세보기 -->
+						</table>
+						<table id="qna_reply">
+							<!-- 문의 답변 -->
+							<tr>
+								<th>답변 내용</th>
+							</tr>
+							<tr>
+								<td id="qna_reply_content" style="height: 200px;"></td>
+							</tr>
+						</table>
+						<button type="button" id="closebtn">뒤로 돌아가기</button>
 
-         </div>
-         <div class="content" id="myInquiry">
-            <h2 class="mypageTitle">문의내역</h2>
-            <table id="qnatbl">
-               <thead>
-                  <tr>
-                     <th>문의번호</th>
-                     <th>문의글</th>
-                     <th>상태</th>
-                     <th>등록일</th>
-                  </tr>
-               </thead>
-               <tbody id="qnaTbody">
-                  <!--  -->
-               </tbody>
-            </table>
-            <div id="page" style="text-align: center;">
-               <input type="hidden" name="qna_startNum" value="1">
-               <button type="button" id="qna_backBtn" style="width: 40px;">이전</button>
-               <div id="qna_pages" style="display: inline;"></div>
-               <button type="button" id="qna_frontBtn" style="width: 40px;">다음</button>
-            </div>
-            <div id="modal_qna_case">
-               <div id="modal_qna">
-                  <h4>문의상세내역</h4>
-                  <table id="qna_detail">
-                     <!-- 문의 상세보기 -->
-                  </table>
-                  <table id="qna_reply">
-                     <!-- 문의 답변 -->
-                     <tr>
-                        <th>답변 내용</th>
-                     </tr>
-                     <tr>
-                        <td id="qna_reply_content" style="height: 200px;"></td>
-                     </tr>
-                  </table>
-                  <button type="button" id="closebtn">뒤로 돌아가기</button>
+					</div>
+				</div>
 
-               </div>
-            </div>
+			</div>
+		</section>
+	</div>
 
-         </div>
-      </section>
-   </div>
-   <div id = "modalFilter">
-	   <div id = "customerModal">
-	   			<div id = "infoCloseBtn">[X]</div>
-	   		<table>
-	   			<thead>
-	   				<tr>
-	   					<th>아이디</th><th>이름</th><th>전화번호</th>
-	   				</tr>
-	   			</thead>
-	   			<tbody id = "customerInfo"></tbody>
-	   			
-	   		</table>
-	   </div>
-   </div>
-   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-   <script>
+	<div id="customerModalCase">
+		<div id="customerModal">
+			<div id="infoCloseBtn" style="float: right;">[X]</div>
+			<h3 style="text-align: center; font-size: 35px;">회원명단</h3>
+			<br>
+			<table style="width: 500px;" id="classMemberTbl">
+				<thead>
+					<tr>
+						<th>아이디</th>
+						<th>이름</th>
+						<th>전화번호</th>
+					</tr>
+				</thead>
+				<tbody id="customerInfo"></tbody>
+
+			</table>
+		</div>
+	</div>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
                /* 다음 주소 연동 */
                function execution_daum_address() {
 
@@ -650,8 +670,6 @@ h4 {
                $("#myClassLabel").click(function () {
                   $(".content:not(#myClassList)").css("display", "none");
                   $("#myClassList").css("display", "block");
-                  getMyClassList();
-                  getMyClassMax();
                   
                });
 
@@ -736,7 +754,7 @@ h4 {
                            + "<td><a href='#' class='modal_history'>" + list[i].buy_history_current + "</a></td></tr>");
 
                      }
-                     $("#historyTbody td").css("border-bottom", "thin solid #BBB09F");
+                     $("#historyTbody td").css("border-bottom", "thin solid #BBB09F").css("height","20px");
                      $("#historyTbody a").css("color", "black");
                      $("#historyTbody a").css("text-decoration", "none");
                   }
@@ -746,6 +764,7 @@ h4 {
                }
 
                $(".content").on("click", function (event) {
+            	   $("#historyTbody").removeAttr("style");
                   let e = event.target.className;
                   if (e == "pageBtn") {
                      let pageNum = event.target.textContent;
@@ -766,7 +785,7 @@ h4 {
                                  + "<td><a href='#' class='modal_history'>" + data[i].buy_history_date + "</a></td>"
                                  + "<td><a href='#' class='modal_history'>" + data[i].name + "</a></td>"
                                  + "<td><a href='#' class='modal_history'>" + data[i].buy_history_current + "</a></td></tr>");
-                              $("#historyTbody td").css("border-bottom", "thin solid #BBB09F");
+                              $("#historyTbody td").css("border-bottom", "thin solid #BBB09F").css("height","20px");
                               $("#historyTbody a").css("color", "black");
                               $("#historyTbody a").css("text-decoration", "none");
                            }
@@ -784,16 +803,17 @@ h4 {
                })
 
                $("#history_backBtn").click(() => {
-                  let start = $("input[name=startNum]").val();
-                  start = Number(start) - 5;
-                  $("input[name=startNum]").val(start);
-
                   $("#history_pages").empty();
+                  let start = $("input[name=history_startNum]").val();
+                  start = Number(start) - 5;
+                  $("input[name=history_startNum]").val(start);
+
                   if (start < 1) {
                      start = 1;
-                     $("input[name='startNum']").val(start);
+                     $("input[name='history_startNum']").val(start);
+                     $("#history_backBtn").css("display", "none");
+                     
                   }
-
                   for (let i = start; i < start + 5; i++) {
                      if (i <= history_max()) {
                         $("#history_frontBtn").css("display", "inline-block");
@@ -824,13 +844,12 @@ h4 {
                
                function history_page() {
                   //ajax로 가져온다
-
+				$("#history_pages").empty();
                   let maxPage = history_max();
                   //startnum 이 maxpage보다 커지면 반복문이 안돌아가게
-                  
                   for (let startNum = 1; startNum < 6; startNum++) {
                      //안에 if문      else:다음버튼이 안나오게 display none
-                     if (startNum <= maxPage) {
+                     if (startNum < maxPage) {
                         $("#history_pages").append(
                            "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + startNum + "</button>"
                         )
@@ -848,9 +867,14 @@ h4 {
                   let start = $("input[name=history_startNum]").val();
                   start = Number(start) + 5;
                   $("input[name=startNum]").val(start);
+                  let end = start+4;
 
+                  if(end > history_max()){
+                	  end=(history_max()+1);
+                  }
+                  
                   $("#history_pages").empty();
-                  for (let i = start; i < start + 5; i++) {
+                  for (let i = start; i <end; i++) {
 
                      if (i < history_max()) {
                         $("#history_pages").append(
@@ -989,7 +1013,6 @@ h4 {
                      }
                      $("td").css({
                         "border-bottom": "thin solid #BBB09F",
-                        "height": "40px"
                      });
                      $("td:nth-of-type(4)").css({
                         "width": "300px",
@@ -1029,7 +1052,6 @@ h4 {
                            }
                            $("td").css({
                               "border-bottom": "thin solid #BBB09F",
-                              "height": "40px"
                            });
                            $("td:nth-of-type(4)").css({
                               "width": "300px",
@@ -1069,6 +1091,7 @@ h4 {
                
                function review_page() {
                   //ajax로 가져온다
+                  $("#review_pages")
                   let start = $("input[name=review_startNum]").val();
                   let startNum = Number(start);
                   let maxPage = review_max();
@@ -1080,8 +1103,10 @@ h4 {
                   if(endPage > maxPage){
                      endPage=(maxPage+1);
                   }
-                  
-                  for (let i = startNum; i < endPage+1; i++) {
+                  if(maxPage < 6){
+                	  $("#review_frontBtn").hide();
+                   }
+                  for (let i = startNum; i < endPage; i++) {
                      $("#review_pages").append(
                      "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
                      )
@@ -1329,8 +1354,10 @@ h4 {
                   if(endPage > maxPage){
                      endPage=(maxPage+1);
                   }
-                  
-                  for (let i = startNum; i < endPage+1; i++) {
+                  if(maxPage<6){
+                	  $("#qna_frontBtn").hide();
+                  }
+                  for (let i = startNum; i < endPage; i++) {
                      $("#qna_pages").append(
                      "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
                      )
@@ -1587,8 +1614,10 @@ h4 {
                   if(endPage > maxPage){
                      endPage=(maxPage+1);
                   }
-                  
-                  for (let i = startNum; i < endPage+1; i++) {
+                  if(maxPage<6){
+                	  $("#suggest_frontBtn").hide();
+                  }
+                  for (let i = startNum; i < endPage; i++) {
                      $("#suggest_pages").append(
                      "<button type ='button' class='pageBtn' name ='pageBtn' style='width: 30px;   margin: 0 3px;   border: none;   background-color: rgba(0, 0, 0, 0);'>" + i + "</button>"
                      )
@@ -1699,7 +1728,12 @@ h4 {
 									+ "<td>" + data[i].class_date + "</td>"
 									+ "<td>" + data[i].city_code + "</td>"
 									+ "</tr>");
+							  
 						}
+						 $("td").css({
+                             "border-bottom": "thin solid #BBB09F",
+                             "height" :"30px"
+                          });
 					},
 					error: () => {
 						alert("데이터를 가져오기 실패했습니다.");
@@ -1762,6 +1796,10 @@ h4 {
 									+ "<td>" + data[i].city_code + "</td>"
 									+ "</tr>");
 						}
+						   $("td").css({
+	                              "border-bottom": "thin solid #BBB09F",
+	                              "height" :"30px"
+	                           });
 					},
 					error: () => {
 						alert("데이터를 가져오기 실패했습니다.");
@@ -1815,7 +1853,7 @@ h4 {
 						class_code: code
 					},
 					success: (data) => {
-						$("#customerModal").css("display", "inline-block");
+						$("#customerModalCase").css("display", "block");
 						if(data.length == 0){
 							$("#customerInfo").append("0명 입니다.");
 							return false;
@@ -1827,6 +1865,10 @@ h4 {
 									+ "<td>" + data[i].member_tel + "</td>"
 									+ "</tr>")
 						}
+						   $("td").css({
+	                              "border-bottom": "thin solid #BBB09F",
+	                              "height" :"30px"
+	                           });
 					},
 					error: () => {
 						alert("[error] 데이터 가져오기 실패하였습니다.");
@@ -1837,7 +1879,7 @@ h4 {
 		})
 		
 		$("#infoCloseBtn").click(() => {
-			$("#customerModal").css("display", "none");
+			$("#customerModalCase").css("display", "none");
 		})
 		
 		
