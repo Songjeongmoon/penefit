@@ -93,5 +93,13 @@
 	WHERE member_id = #{member_id}
 	</select>
 	
-
+			<!-- 총 멤버 수 -->
+	<select id="getMemall" resultType="_int">
+	SELECT COUNT(*) FROM member  WHERE member_grade = 'A';
+	</select>
+	
+				<!-- 총 강사 수 -->
+	<select id="getMemteacherall" resultType="_int">
+	SELECT COUNT(*) FROM member  WHERE member_grade = 'B';
+	</select>
 </mapper>

@@ -44,7 +44,7 @@ public class RestControllerAboutMember {
 	
 	@GetMapping("/managermanagerList")
 	public List<MemberVO> getManagerManagerList(String status, String keyword, int startNum){
-		startNum = (startNum - 1) * 5;
+		startNum = (startNum - 1) * 10;
 		List<MemberVO> list = serviceMember.getManagerManagerList(status, keyword, startNum);
 		return list;
 	}
@@ -53,9 +53,9 @@ public class RestControllerAboutMember {
 	public int getManagerMaxPage(String status, String keyword){
 		int result = serviceMember.getManagerMaxPage(status, keyword);
 		if(result % 5 == 0) {
-			return result / 5;
+			return result / 10;
 		} else {
-			return result / 5 + 1;
+			return result / 10 + 1;
 		}
 	}
 }

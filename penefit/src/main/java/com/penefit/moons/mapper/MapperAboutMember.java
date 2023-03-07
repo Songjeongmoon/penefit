@@ -77,4 +77,7 @@ public interface MapperAboutMember {
 	
 	public int getManagerMaxPageGrade(String keyword);
 	
+	public int getMemall();
+	
+	public int getMemteacherall();
 }
