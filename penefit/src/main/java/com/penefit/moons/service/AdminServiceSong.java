@@ -185,6 +185,11 @@ public class AdminServiceSong implements AdminServiceSongIm{
 	public void approveSuggestion(int suggest_num) {
 		 mapper.approveSuggestion(suggest_num);		
 	}
+
+	@Override
+	public void gradeUpgrade(String member_id) {
+		mapper.upgradeUpgrade(member_id);
+	}
 	
 	
 	

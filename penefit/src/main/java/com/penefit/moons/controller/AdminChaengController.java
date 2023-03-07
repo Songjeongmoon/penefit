@@ -311,9 +311,12 @@ public class AdminChaengController {
 	}
 	@PostMapping("/classreg")
 	@ResponseBody
-	public int classreg(int suggest_num) {
+	public int classreg(String member_id, int suggest_num) {
 		int result = asservice.createClass(suggest_num);
 		asservice.approveSuggestion(suggest_num);
+		if(result == 1) {
+			asservice.gradeUpgrade(member_id);
+		}
 		return result;
 	}
 	@PutMapping("/rejectSuggest")

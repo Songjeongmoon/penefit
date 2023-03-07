@@ -44,4 +44,6 @@ public interface AdminMapperSong {
 
 	public void approveSuggestion(int suggest_num);
 	
+	public void upgradeUpgrade(String member_id);
+	
 }

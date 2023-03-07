@@ -101,7 +101,11 @@
 		WHERE class_code = #{class_code}
 	</delete>
 	
-	
+	<update id="upgradeUpgrade">
+		UPDATE member
+		SET member_grade = 'B'
+		WHERE member_id = #{member_id} AND member_grade = 'A'
+	</update>
 	
 	
 	

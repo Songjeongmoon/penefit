@@ -30,6 +30,8 @@ public interface AdminServiceSongIm {
 	public List<ClassVO> classListSearch(String keyword);
 
 	public void approveSuggestion(int suggest_num);
+	
+	public void gradeUpgrade(String member_id);
 
  	
 }

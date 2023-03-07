@@ -1933,6 +1933,7 @@ height: 26px;
 								<!--  -->
 							</tbody>
 						</table>
+						<input type = "hidden" id="suggestDetailId" value = "">
 					</div>
 				</div>
 			</div>
@@ -3867,6 +3868,7 @@ height: 26px;
 								},
 								datatype: "json",
 								success: function (data) {
+									$("#suggestDetailId").val(data.member_id);
 									let city_name;
 									if (data.city_code == 'A') {
 										city_name = '서울';
@@ -3944,11 +3946,12 @@ height: 26px;
 
 						$(document).on("click", "#approval", (event) => {
 							let suggest_num = event.target.parentElement.parentElement.parentElement.children[0].children[1].innerText;
-							alert(suggest_num);
+							id = $("#suggestDetailId").val();
 							$.ajax({
 								url: "/admin/classreg",
 								method: "post",
 								data: {
+									member_id: id,
 									suggest_num: suggest_num
 								},
 								success: (data) => {
@@ -4025,7 +4028,7 @@ height: 26px;
 								success: function (data) {
 									for (let i = 0; i < data.length; i++) {
 										let class_regdate = data[i].class_regdate.split(" ")[0];
-										let class_subject = data[i].class_subject.substr(15) + "...";
+										let class_subject = data[i].class_subject.substr(0, 15) + "...";
 										$("#classTbody").append(
 											"<tr>"
 											+ "<td class='classDetail'>" + data[i].class_code + "</td>"
@@ -4087,7 +4090,7 @@ height: 26px;
 									success: (data) => {
 										for (let i = 0; i < data.length; i++) {
 											let class_regdate = data[i].class_regdate.split(" ")[0];
-											let class_subject = data[i].class_subject.substr(15) + "...";
+											let class_subject = data[i].class_subject.substr(0, 15) + "...";
 											$("#classTbody").append(
 												"<tr>"
 												+ "<td class='classDetail'>" + data[i].class_code + "</td>"
