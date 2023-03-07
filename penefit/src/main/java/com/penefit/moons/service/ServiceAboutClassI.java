@@ -144,6 +144,7 @@ public interface ServiceAboutClassI {
 	public List<ClassVO> homenewlist();
 
 	public List<ClassVO> homerecolist();
-
-
+	
+	public ClassVO reviewCheck(String class_code);
+	
 }

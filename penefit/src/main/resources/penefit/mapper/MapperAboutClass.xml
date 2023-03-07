@@ -372,4 +372,10 @@
 		now())
 		ON DUPLICATE KEY UPDATE visit = visit + 1
 	</insert>
+	
+	<select id="reviewCheck" resultType="com.penefit.moons.domain.ClassVO">
+		SELECT *
+		FROM class
+		WHERE class_code = #{class_code} AND NOW() > class_date
+	</select>
 </mapper>

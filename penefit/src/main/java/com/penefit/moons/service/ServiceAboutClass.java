@@ -345,6 +345,12 @@ public class ServiceAboutClass implements ServiceAboutClassI {
 		return list;
 	}
 
+
+	@Override
+	public ClassVO reviewCheck(String class_code) {
+		return mapper.reviewCheck(class_code);
+	}
+
 	
 	
 	

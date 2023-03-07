@@ -1615,12 +1615,14 @@ height: 26px;
 								</thead>
 								<tbody id="membertbody"></tbody>
 							</table>
+							<div class="pagebox">
 							<div id="memberAllBackBtn" class="btnPage">이전</div>
 							<div id="memberAllTblBox" class="btnPage"></div>
 							<div id="memberAllFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="memberSearchStatus" value = "">
 							<input type="hidden" id="memberAllPageStartNum" value = 1>
 							<input type="hidden" id="memberMaxAllPage">
+							</div>
 							
 						</div>
 					</div>
@@ -1661,12 +1663,14 @@ height: 26px;
 								</thead>
 								<tbody id="tbodygrade"></tbody>
 							</table>
+							<div class="pagebox">
 							<div id="managerAllBackBtn" class="btnPage">이전</div>
 							<div id="managerAllTblBox" class="btnPage"></div>
 							<div id="managerAllFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="managerSearchStatus" value = "">
 							<input type="hidden" id="managerAllPageStartNum" value = 1>
 							<input type="hidden" id="managerMaxAllPage">
+							</div>
 						</div>
 
 				</div>

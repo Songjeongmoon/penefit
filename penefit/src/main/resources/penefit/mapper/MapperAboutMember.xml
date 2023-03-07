@@ -62,28 +62,28 @@
 	  	WHERE member_id LIKE CONCAT('%',#{param1},'%')
 	  	OR member_name LIKE CONCAT('%',#{param1},'%')
 	  	OR member_grade LIKE CONCAT('%',#{param1},'%')
-	  	LIMIT #{param2}, 5
+	  	LIMIT #{param2}, 10
 	</select>
 	
 	<select id="getManagerManagerListId" resultType="com.penefit.moons.domain.MemberVO">
 		SELECT *
 	  	FROM member
 	  	WHERE member_id LIKE CONCAT('%',#{param1},'%')
-	  	LIMIT #{param2}, 5
+	  	LIMIT #{param2}, 10
 	</select>
 	
 	<select id="getManagerManagerListName" resultType="com.penefit.moons.domain.MemberVO">
 		SELECT *
 	  	FROM member
 	  	WHERE member_name LIKE CONCAT('%',#{param1},'%')
-	  	LIMIT #{param2}, 5
+	  	LIMIT #{param2}, 10
 	</select>
 	
 	<select id="getManagerManagerListGrade" resultType="com.penefit.moons.domain.MemberVO">
 		SELECT *
 	  	FROM member
 	  	WHERE member_grade LIKE CONCAT('%',#{param1},'%')
-	  	LIMIT #{param2}, 5
+	  	LIMIT #{param2}, 10
 	</select>
 	
 	 <update id="updateGrade" >

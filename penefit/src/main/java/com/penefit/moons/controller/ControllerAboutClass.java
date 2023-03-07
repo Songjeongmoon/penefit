@@ -2,6 +2,7 @@ package com.penefit.moons.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import com.penefit.moons.domain.ClassVO;
 import com.penefit.moons.domain.ReviewVO;
@@ -193,12 +194,26 @@ public class ControllerAboutClass {
 
 	// 리뷰 등록하기 페이지로
 	@GetMapping("/reviewForm")
-	public void regFormView(Model model, HttpSession session, String class_code, int buy_history_num) {
+	public String regFormView(HttpServletResponse res, Model model, HttpSession session, String class_code, int buy_history_num) {
 		String member_id = (String) session.getAttribute("member_id");
-		ClassVO classinfo = service.selectClassOne(class_code);
-		model.addAttribute("m", member_id);
-		model.addAttribute("buy_history_num", buy_history_num);
-		model.addAttribute("classinfo", classinfo);
+		ClassVO result = null;
+		try {
+			res.setContentType("text/html; charset=UTF-8");
+			result = service.reviewCheck(class_code);
+			PrintWriter out = res.getWriter();
+			if(result == null) {
+				out.println("<script>alert('강의시간이 지난후 리뷰작성이 가능합니다.'); history.back()</script>");
+				out.close();
+			} else {
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			model.addAttribute("m", member_id);
+			model.addAttribute("buy_history_num", buy_history_num);
+			model.addAttribute("classinfo", result);
+			return "/class/reviewForm";
+		
 	}
 
 	// 리뷰등록

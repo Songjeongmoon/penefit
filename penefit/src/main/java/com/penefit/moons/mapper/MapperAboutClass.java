@@ -164,6 +164,8 @@ public interface MapperAboutClass {
 	public List<ClassVO> homenewlist();
 
 	public List<ClassVO> homerecolist();
+	
+	public ClassVO reviewCheck(String class_code);
 
 	
 }

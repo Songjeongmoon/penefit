@@ -160,8 +160,16 @@
    position: absolute;
    top: 520px;
    overflow: hidden;
-   
    left: 220px;
+}
+
+#detail_box4 {
+   display: none;
+   position: absolute;
+   top: 520px;
+   overflow: hidden;
+   left: 220px;
+   padding: 55px;
 }
 
 #class_detail_info {
@@ -233,88 +241,93 @@
 }
 
 #review_container {
-   
    position: relative;
-   box-shadow: 5px 5px 5px rgb(0,0,0,0.2);
-   border-radius:14px;
-   padding:10px;
+   box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.2);
+   border-radius: 14px;
+   padding: 10px;
 }
 
 #rev_img {
-   
    width: 170px;
    height: 170px;
    margin: 0 auto;
 }
 
-
 #modal {
-display: none;
-position: fixed;
-z-index: 1;
-left: 0;
-top: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.5);
-text-align: center;
+   display: none;
+   position: fixed;
+   z-index: 1;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   text-align: center;
 }
 
 #modal button {
-display: inline-block;
-width: 30px;
-height: 30px;
-border: none;
-background-color: transparent;
-font-size: 1.2rem;
-color: #fff;
-cursor: pointer;
-position: absolute;
-top: 10px;
-right: 10px;
+   display: inline-block;
+   width: 30px;
+   height: 30px;
+   border: none;
+   background-color: transparent;
+   font-size: 1.2rem;
+   color: #fff;
+   cursor: pointer;
+   position: absolute;
+   top: 10px;
+   right: 10px;
 }
 
 .modal_content {
-background-color: #fff;
-margin: auto;
-padding: 20px;
-border: 1px solid #888;
-width: 80%;
-max-width: 400px;
-height: 550px;
-position: absolute;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-border-radius: 12px;
-overflow-y: auto;
+   background-color: #fff;
+   margin: auto;
+   padding: 20px;
+   border: 1px solid #888;
+   width: 80%;
+   max-width: 400px;
+   height: 550px;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   border-radius: 12px;
+   overflow-y: auto;
 }
 
 #modal .modal_layer {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.5);
-z-index: -1;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: -1;
 }
 
 #tbody tr {
-border-bottom: 1px solid #ccc;
+   border-bottom: 1px solid #ccc;
 }
 
 #tbody td {
-padding: 10px;
-border-bottom: 1px solid lightgray;
+   padding: 10px;
+   border-bottom: 1px solid lightgray;
 }
 
 #tbody td:first-child {
-font-weight: bold;
+   font-weight: bold;
 }
 
 #btn_x:hover {
-color: #ff5f5f;
+   color: #ff5f5f;
+}
+
+#refund{
+   font-size:30px;
+}
+
+mark{
+   background-color:#ffe9e0;
 }
 </style>
 </head>
@@ -380,15 +393,15 @@ color: #ff5f5f;
                      <div class="swiper-slide">
                         <div class="container" id="review_container">
                            <div class="item" id="rev_img">
-						<c:if test="${r.review_photo != ''}">
-                              <img src="../images/${r.review_photo }" class="review_img"
-                                 style="width: 150px; height: 150px;">
-                         </c:if>
-                         
-                         <c:if test="${r.review_photo == ''}">
-                              <img src="../images/logo.png" class="review_img"
-                                 style="width: 150px; height: 150px;">
-                         </c:if>
+                              <c:if test="${r.review_photo != ''}">
+                                 <img src="../images/${r.review_photo }" class="review_img"
+                                    style="width: 150px; height: 150px;">
+                              </c:if>
+
+                              <c:if test="${r.review_photo == ''}">
+                                 <img src="../images/logo.png" class="review_img"
+                                    style="width: 150px; height: 150px;">
+                              </c:if>
                            </div>
                            <input type="hidden" id="review_num" value="${r.review_num }">
 
@@ -402,7 +415,9 @@ color: #ff5f5f;
                                  </c:otherwise>
                               </c:choose>
                            </div>
-                           <div class="item" id="rev_writer"><strong>${r.member_id }</strong></div>
+                           <div class="item" id="rev_writer">
+                              <strong>${r.member_id }</strong>
+                           </div>
                            <div class="item" id="rev_regdate">${r.review_regdate }</div>
                            <%-- <div class="item" id="rev_score">${r.score }</div> --%>
                         </div>
@@ -412,11 +427,43 @@ color: #ff5f5f;
                </div>
 
                <div class="swiper-pagination"></div>
-               <strong><div class="swiper-button-prev" style="color:lightgray"></div></strong>
-               <strong><div class="swiper-button-next" style="color:lightgray"></div></strong>
+               <strong>
+                  <div class="swiper-button-prev" style="color: lightgray"></div>
+               </strong> <strong>
+                  <div class="swiper-button-next" style="color: lightgray"></div>
+               </strong>
+
             </div>
 
             <div class="detail_box" id="detail_box3"></div>
+a
+
+            <div class="detail_box" id="detail_box4">
+               <div id="refund"><mark> 환불정책 </mark> </div><br>
+               <div id="refunt_content">
+               <p>상품의 환불은 '시간' 이 아닌 <mark>'일자'</mark>를 기준으로 합니다.</p>
+               <br>
+               <br>
+               <p>
+               <p>1) 클래스 6일 이전 취소 시 <strong><span style="color:red;">100%</span></strong>환불</p><br>
+               <p>2) 클래스 5일 이전 취소 시 결제 금액의 <strong><span style="color:red;">5% </span></strong>배상 후 환불</p><br>
+               <p>3) 클래스 4일 이전 취소 시 결제 금액의 <strong><span style="color:red;">10%</span></strong> 배상 후 환불</p><br>
+               <p>4) 클래스 3일 이전 취소 시 결제 금액의 <strong><span style="color:red;">20%</span></strong> 배상 후 환불</p><br>
+               <p>5) 클래스 2일 이전 취소 시 결제 금액의 <strong><span style="color:red;">30%</span></strong> 배상 후 환불</p><br>
+               <p>6) 클래스 1일전, 당일 취소 불가 환불 불가 (단, 결제 후 1시간 이내 취소 시, 밤12시 이전 100% &nbsp;&nbsp;&nbsp;&nbsp;환불) </p><br>
+               <br>
+               <br>
+               
+               <p>
+                  * 모든 환불 건은 클래스 일정을 기준으로 환불처리<br>
+                  <br>
+                  * 환불 정책이외 구매자 및 작가 개인사정으로 환불이 필요할 경우 구매자와 작가 직접 협의<br>
+                  <br>
+                  * 환불 정책이외 환불이 필요할 경우 구매자와 작가 직접 협의. 페네핏은 통신판매중개자이며, 
+                  &nbsp;&nbsp;&nbsp;통신판매의 당사자가 아닙니다. 상품, 상품정보, 거래에 관한 의무와 책임은 판매자에 있습니다.
+               </p>
+               </div>               
+            </div>
          </div>
       </section>
 
@@ -424,7 +471,7 @@ color: #ff5f5f;
       <!--리뷰 modal -->
       <div id="modal">
          <div class="modal_content">
-            <button id="btn_x" style="width:30px; float:right; color:black;" >X</button>
+            <button id="btn_x" style="width: 30px; float: right; color: black;">X</button>
             <table style="margin: 0 auto;">
                <thead>
                </thead>
@@ -443,7 +490,14 @@ color: #ff5f5f;
    <script
       src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
+
+
+
+
    <%-- <%@ include file="../footer.jsp"%> --%>
+
+
+
 
 
    <script>
@@ -523,23 +577,13 @@ color: #ff5f5f;
 
       //장바구니에 담기
       $("#addCart").click(function() {
-<<<<<<< HEAD
-         if("${member_id}" == ""){
+         if ("${member_id}" == "") {
             alert("회원만 이용할 수 있습니다.");
             location.href = "/member/login";
-         }else{
-               //alert("장바구니 버튼 클릭!");
-             location.href = "shoppingcart?class_code=" + class_code;
+         } else {
+            //alert("장바구니 버튼 클릭!");
+            location.href = "shoppingcart?class_code=" + class_code;
          }
-=======
-    	  if("${member_id}" == ""){
-    		  alert("회원만 이용할 수 있습니다.");
-    		  location.href = "/member/login";
-    	  }else{
-  	          //alert("장바구니 버튼 클릭!");
-	          location.href = "shoppingcart?class_code=" + class_code;
-    	  }
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
       });
 
       $("#detail_box1_btn").click(function() {
@@ -554,6 +598,11 @@ color: #ff5f5f;
       $("#detail_box3_btn").click(function() {
          $(".detail_box:not(#detail_box3)").css("display", "none");
          $("#detail_box3").css("display", "block");
+      });
+
+      $("#detail_box4_btn").click(function() {
+         $(".detail_box:not(#detail_box4)").css("display", "none");
+         $("#detail_box4").css("display", "block");
       });
 
       const swiper = new Swiper('#detail_box2', {
@@ -604,26 +653,13 @@ color: #ff5f5f;
                      xhttp.onload = function() {
                         let result = this.responseText;
                         let reviewlist = JSON.parse(result);
-<<<<<<< HEAD
-                  let imgurl = reviewlist.review_photo;
-                  if(imgurl == ""){
-                     imgurl = "logo.png";
-                  }
-                  
-=======
-						let imgurl = reviewlist.review_photo;
-						if(imgurl == ""){
-							imgurl = "logo.png";
-						}
-						
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
+                        let imgurl = reviewlist.review_photo;
+                        if (imgurl == "") {
+                           imgurl = "logo.png";
+                        }
 
                         $("#tbody").empty();
-<<<<<<< HEAD
-                  
-=======
-						
->>>>>>> branch 'master' of https://github.com/Songjeongmoon/penefit.git
+
                         $("#tbody")
                               .append(
                                     "<tr><td colspan='2'><img src='../images/"+ imgurl +"' width='200px; '></td></tr>"
@@ -641,15 +677,12 @@ color: #ff5f5f;
                                           + "</td></tr>"
 
                               );
-                        
-                  
-               
+
                      }
                      xhttp.open("GET", "modalReview?review_num="
                            + review_num, true);
                      xhttp.send();
                   })
-
 
       /* $(document).on("mouseleave", ".review_img", function(){
          $("#modal").css("display", "none");
