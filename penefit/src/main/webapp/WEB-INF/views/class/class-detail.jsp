@@ -330,14 +330,19 @@ mark{
    background-color:#ffe9e0;
 }
 #star {
-	position: relative;
+	position: absolute;
+	left: 160px;
 	color: #ddd;
+	margin: 0;
+	padding: 0;
 }
 #redStar {
 	position: absolute;
-	left: 100px;
+	left: 160px;
 	color: red;
 	overflow: hidden;
+	margin: 0;
+	padding: 0;
 }
 </style>
 </head>
@@ -685,11 +690,32 @@ mark{
                                           + reviewlist.review_regdate
                                           + "</td></tr>"
                                           + "<tr><td id = 'star'>"
-                                          + "★★★★★<span id='redStar'>★★★★★</span>"
-                                          + "</td></tr>"
+                                          + "★★★★★"
+                                          + "</td><td id='redStar'>★★★★★</td></tr>"
                               );
-                        let width = Number(reviewlist.score) * 18.2;
-                        $("#redStar").css("width", width+"px");
+						if(reviewlist.score == 0){
+	                        $("#redStar").css("display", "none");							
+						}else if(reviewlist.score == 0.5){
+							$("#redStar").css("width", "0px");	
+						}else if(reviewlist.score == 1){
+							$("#redStar").css("width", "6px");	
+						}else if(reviewlist.score == 1.5){
+							$("#redStar").css("width", "18px");	
+						}else if(reviewlist.score == 2){
+							$("#redStar").css("width", "24px");	
+						}else if(reviewlist.score == 2.5){
+							$("#redStar").css("width", "36px");	
+						}else if(reviewlist.score == 3){
+							$("#redStar").css("width", "42px");	
+						}else if(reviewlist.score == 3.5){
+							$("#redStar").css("width", "54px");	
+						}else if(reviewlist.score == 4){
+							$("#redStar").css("width", "60px");	
+						}else if(reviewlist.score == 4.5){
+							$("#redStar").css("width", "72px");	
+						}else{
+							$("#redStar").css("width", "78px");	
+						}
 
                      }
                      xhttp.open("GET", "modalReview?review_num="

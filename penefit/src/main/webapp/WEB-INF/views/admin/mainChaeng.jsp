@@ -4197,7 +4197,7 @@ height: 26px;
 										+ "<tr><th>가격</th><td><input type = 'text' name = 'class_price' value='" + data.class_price + "' ></input></td></tr>"
 										+ "<tr><th>첨부사진</th><td><input type = 'text' name = 'suggest_photo' value='" + data.suggest_photo + "' ></td></tr>"
 										+ "<tr><th>파일 새로넣기</th><td><input type = 'file' name = 'files' multiple='multiple'></td></tr>"
-										+ "<tr><td colspan='2'><input type = 'submit' value = '수정'><input type = 'button' value = '삭제' class='delClass'></td></tr>"
+										+ "<tr><td colspan='2'><input type = 'button' id='classUpdateBtn' value = '수정'><input type = 'button' value = '삭제' class='delClass'></td></tr>"
 
 									);
 								},
@@ -4207,6 +4207,27 @@ height: 26px;
 							})
 
 						}
+						$(document).on("click", "#classUpdateBtn", () => {
+							let form = $("#classUpdateForm")[0];
+							let data = new FormData(form);
+							$.ajax({             
+						    	method: "PUT",          
+						        enctype: 'multipart/form-data',  
+						        url: "/admin/class/update",        
+						        data: data,          
+						        processData: false,    
+						        contentType: false,      
+						        cache: false,           
+						        timeout: 600000,       
+						        success: function(data) {
+						        	alert(data);
+						        },          
+						        error: function () {  
+						            alert("fail");      
+						        }     
+							});
+							
+						})
 
 						//클래스 삭제
 						$(document).on("click", ".delClass", function (evt) {

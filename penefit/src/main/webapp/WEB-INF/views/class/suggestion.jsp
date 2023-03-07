@@ -161,7 +161,7 @@
                   </tr>
                   <tr>
                      <th>추가이미지 첨부</th>
-                     <td><input type="file" multiple="multiple" name="files"></td>
+                     <td><input type="file" multiple="multiple" name="files">10MB이하의 파일만 허용가능합니다. Total 30MB</td>
                   </tr>
                   <tr>
                      <td colspan="2" style="text-align: center"><input

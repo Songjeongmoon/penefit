@@ -72,31 +72,20 @@ public class AdminServiceSong implements AdminServiceSongIm{
 			}
 			
 			String fileName = "";
-			String uuid = "";
 			List<MultipartFile> list = files.getFiles("files");
-			String name = "";
-			String[] uuids = UUID.randomUUID().toString().split("-");
-			
-			for(int i = 0; i < uuids.length; i++) {
-				uuid += uuids[i];				
-			}
+			String[] uuids = UUID.randomUUID().toString().split("-");	
 			for(int i = 0; i < list.size(); i++) {
-				
-				name = list.get(i).getOriginalFilename();
-				String[] names = name.split("-");
-				name = "";
-				for(int j = 0; j < names.length; j++) {
-					name += names[j];					
-				}
+				String extention = list.get(i).getOriginalFilename().substring(list.get(i).getOriginalFilename().lastIndexOf(".") + 1);
+			
 				if(i == 0) {
-					fileName += uuid + name;					
+					fileName += uuids[0] + "." + extention;					
 				} else {
-					fileName += "-" + uuid + name;
+					fileName += "-" + uuids[0] + "." + extention;
 				}
 				
 				
 				try {
-					File saveFile = new File(savePath, uuid + name);
+					File saveFile = new File(savePath, uuids[0] + "." + extention);
 					list.get(i).transferTo(saveFile);
 				} catch (IllegalStateException e) {
 					e.printStackTrace();

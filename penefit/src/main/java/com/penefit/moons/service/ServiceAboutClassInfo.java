@@ -35,17 +35,18 @@ public class ServiceAboutClassInfo implements ServiceAboutClassInfoIm{
 		
 		for(int i = 0; i < list.size(); i++) {
 			String[] uuids = UUID.randomUUID().toString().split("-");
+			String extention = list.get(i).getOriginalFilename().substring(list.get(i).getOriginalFilename().lastIndexOf(".") + 1);
 			
 			String uuid = "";
-				uuid += uuids[0];
+				uuid = uuids[0];
 			if(i == 0) {
-				fileNames += uuid;				
+				fileNames += uuid + "." + extention;				
 			}else {
-				fileNames += "-" + uuid;				
+				fileNames += "-" + uuid + "." + extention;				
 			}
 			
 			try {
-				File saveFile = new File(savePath, uuid);
+				File saveFile = new File(savePath, uuid + "." + extention);
 				list.get(i).transferTo(saveFile);
 			} catch (IllegalStateException | IOException e) {
 					e.printStackTrace();
