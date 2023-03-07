@@ -1440,6 +1440,9 @@ height: 26px;
 #statusbox3{
 	grid-column: 1/4;
 }
+.btnPage{
+	display: inline;
+}
 </style>
 </head>
 
@@ -1736,9 +1739,9 @@ height: 26px;
 							<tbody id="qnaNewTbl"></tbody>
 						</table>
 						<div class="pagebox">
-							<div id="qnaNewBackBtn" class="page">이전</div>
-							<div id="qnaNewTblBox" class="page"></div>
-							<div id="qnaNewFrontBtn" class="page">다음</div>
+							<div id="qnaNewBackBtn" class="btnPage">이전</div>
+							<div id="qnaNewTblBox" class="btnPage"></div>
+							<div id="qnaNewFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="pageNewStartNum"> <input type="hidden" id="maxNewPage">
 						</div>
 					</div>
@@ -1766,9 +1769,9 @@ height: 26px;
 							<tbody id="qnaAllTbl"></tbody>
 						</table>
 						<div class="pagebox">
-							<div id="qnaAllBackBtn" class="page">이전</div>
-							<div id="qnaAllTblBox" class="page"></div>
-							<div id="qnaAllFrontBtn" class="page">다음</div>
+							<div id="qnaAllBackBtn" class="btnPage">이전</div>
+							<div id="qnaAllTblBox" class="btnPage"></div>
+							<div id="qnaAllFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="pageStartNum"> <input type="hidden" id="maxPage">
 						</div>
 					</div>
@@ -1819,9 +1822,9 @@ height: 26px;
 							<tbody id="noticeTbody"></tbody>
 						</table>
 						<div class="pagebox">
-							<div id="noticeAllBackBtn" class="page">이전</div>
-							<div id="noticeAllTblBox" class="page"></div>
-							<div id="noticeAllFrontBtn" class="page">다음</div>
+							<div id="noticeAllBackBtn" class="btnPage">이전</div>
+							<div id="noticeAllTblBox" class="btnPage"></div>
+							<div id="noticeAllFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="noticePageStartNum"> <input type="hidden" id="noticeMaxPage">
 						</div>
 					</div>
@@ -1859,9 +1862,9 @@ height: 26px;
 							<tbody id="noticeNewTbody"></tbody>
 						</table>
 						<div class="pagebox">
-							<div id="noticeNewBackBtn" class="page">이전</div>
-							<div id="noticeNewTblBox" class="page"></div>
-							<div id="noticeNewFrontBtn" class="page">다음</div>
+							<div id="noticeNewBackBtn" class="btnPage">이전</div>
+							<div id="noticeNewTblBox" class="btnPage"></div>
+							<div id="noticeNewFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="noticeNewPageStartNum"> <input type="hidden" id="noticeNewMaxPage">
 						</div>
 					</div>
@@ -1885,9 +1888,9 @@ height: 26px;
 							<tbody id="suggestNewTbody"></tbody>
 						</table>
 						<div class="pagebox">
-							<div id="suggestNewBackBtn" class="page">이전</div>
-							<div id="suggestNewTblBox" class="page"></div>
-							<div id="suggestNewFrontBtn" class="page">다음</div>
+							<div id="suggestNewBackBtn" class="btnPage">이전</div>
+							<div id="suggestNewTblBox" class="btnPage"></div>
+							<div id="suggestNewFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="suggestNewPageStartNum"> <input type="hidden" id="suggestNewMaxPage">
 						</div>
 					</div>
@@ -1915,9 +1918,9 @@ height: 26px;
 							<tbody id="suggestAllTbody"></tbody>
 						</table>
 						<div class="pagebox">
-							<div id="suggestAllBackBtn" class="page">이전</div>
-							<div id="suggestAllTblBox" class="page"></div>
-							<div id="suggestAllFrontBtn" class="page">다음</div>
+							<div id="suggestAllBackBtn" class="btnPage">이전</div>
+							<div id="suggestAllTblBox" class="btnPage"></div>
+							<div id="suggestAllFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="suggestAllPageStartNum"> <input type="hidden" id="suggestAllMaxPage"> <input type="hidden" id="filterKeyword">
 						</div>
 					</div>
@@ -1958,9 +1961,9 @@ height: 26px;
 							</tbody>
 						</table>
 						<div class="pagebox">
-							<div id="classAllBackBtn" class="page">이전</div>
-							<div id="classAllTblBox" class="page"></div>
-							<div id="classAllFrontBtn" class="page">다음</div>
+							<div id="classAllBackBtn" class="btnPage">이전</div>
+							<div id="classAllTblBox" class="btnPage"></div>
+							<div id="classAllFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="classAllPageStartNum" value=1> <input type="hidden" id="classAllMaxPage"> <input type="hidden" id="statusKeyword" value="desc"> <input type="hidden" id="dayStatus" value="desc"> <input type="hidden" id="push" value=0>
 						</div>
 					</div>
@@ -2014,9 +2017,9 @@ height: 26px;
 							<tbody id="reviewNewTbl"></tbody>
 						</table>
 						<div class="pagebox">
-							<div id="reviewNewBackBtn" class="page">이전</div>
-							<div id="reviewNewTblBox" class="page"></div>
-							<div id="reviewNewFrontBtn" class="page">다음</div>
+							<div id="reviewNewBackBtn" class="btnPage">이전</div>
+							<div id="reviewNewTblBox" class="btnPage"></div>
+							<div id="reviewNewFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="reviewPageNewStartNum" value=1> <input type="hidden" id="reviewMaxNewPage">
 						</div>
 					</div>
@@ -2046,9 +2049,9 @@ height: 26px;
 							<tbody id="reviewAllTbl"></tbody>
 						</table>
 						<div class="pagebox">
-							<div id="reviewAllBackBtn" class="page">이전</div>
-							<div id="reviewAllTblBox" class="page"></div>
-							<div id="reviewAllFrontBtn" class="page">다음</div>
+							<div id="reviewAllBackBtn" class="btnPage">이전</div>
+							<div id="reviewAllTblBox" class="btnPage"></div>
+							<div id="reviewAllFrontBtn" class="btnPage">다음</div>
 							<input type="hidden" id="reviewPageAllStartNum" value=1> <input type="hidden" id="reviewMaxAllPage">
 						</div>
 					</div>

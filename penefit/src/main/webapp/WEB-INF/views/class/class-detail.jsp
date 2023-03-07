@@ -329,6 +329,16 @@
 mark{
    background-color:#ffe9e0;
 }
+#star {
+	position: relative;
+	color: #ddd;
+}
+#redStar {
+	position: absolute;
+	left: 100px;
+	color: red;
+	overflow: hidden;
+}
 </style>
 </head>
 <body>
@@ -436,7 +446,7 @@ mark{
             </div>
 
             <div class="detail_box" id="detail_box3"></div>
-a
+
 
             <div class="detail_box" id="detail_box4">
                <div id="refund"><mark> 환불정책 </mark> </div><br>
@@ -583,6 +593,7 @@ a
             location.href = "/member/login";
          } else {
             //alert("장바구니 버튼 클릭!");
+           	alert("장바구니에 담겼습니다.");
             location.href = "shoppingcart?class_code=" + class_code;
          }
       });
@@ -673,11 +684,12 @@ a
                                           + "<tr><td>"
                                           + reviewlist.review_regdate
                                           + "</td></tr>"
-                                          + "<tr><td>"
-                                          + reviewlist.score
+                                          + "<tr><td id = 'star'>"
+                                          + "★★★★★<span id='redStar'>★★★★★</span>"
                                           + "</td></tr>"
-
                               );
+                        let width = Number(reviewlist.score) * 18.2;
+                        $("#redStar").css("width", width+"px");
 
                      }
                      xhttp.open("GET", "modalReview?review_num="

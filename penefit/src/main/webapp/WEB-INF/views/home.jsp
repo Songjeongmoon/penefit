@@ -236,9 +236,9 @@ to {
          <h1>금주의 신규 OPEN!!</h1>
             <c:forEach var="c" items="${newlist }">
                <div class="class_one">
-                  <a href="class-detail?class_code=${c.class_code }"><img src="../images/${fn:split(c.suggest_photo,'-')[0]}"></a>
+                  <a href="/class/class-detail?class_code=${c.class_code }"><img src="../images/${fn:split(c.suggest_photo,'-')[0]}"></a>
                   <p>
-                     <a href="class-detail?class_code=${c.class_code }">${c.class_subject }</a>
+                     <a href="/class/class-detail?class_code=${c.class_code }">${c.class_subject }</a>
                   </p>
                   <p>${c.class_teacher }</p>
                </div>   
@@ -252,9 +252,9 @@ to {
          <h1>페네핏이 추천하는!</h1>
             <c:forEach var="c" items="${recolist }">
                <div class="class_one">
-                  <a href="class-detail?class_code=${c.class_code }"><img src="../images/${fn:split(c.suggest_photo,'-')[0]}"></a>
+                  <a href="/class/class-detail?class_code=${c.class_code }"><img src="../images/${fn:split(c.suggest_photo,'-')[0]}"></a>
                   <p>
-                     <a href="class-detail?class_code=${c.class_code }">${c.class_subject }</a>
+                     <a href="/class/class-detail?class_code=${c.class_code }">${c.class_subject }</a>
                   </p>
                   <p>${c.class_teacher }</p>
                </div>   

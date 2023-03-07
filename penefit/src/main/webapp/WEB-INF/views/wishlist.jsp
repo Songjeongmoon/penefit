@@ -70,6 +70,7 @@ th {
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function() {
 				let data = this.responseText;
+				alert("삭제되었습니다.");
 				getWishList();
 			}
 			xhttp.open("DELETE", "/wishlist2?wishNum=" + wishNum, true);

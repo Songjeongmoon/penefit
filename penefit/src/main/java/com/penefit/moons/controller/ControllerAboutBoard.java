@@ -186,11 +186,17 @@ public class ControllerAboutBoard {
 	
 	//지역게시판 삭제
 	@GetMapping("/delCity")
-	public String delCity(int board_num) {
-		
+	public void delCity(int board_num, HttpServletResponse res) {
+		res.setContentType("text/html; charset=UTF-8");
 		bservice.delCity(board_num);
+		try {
+			PrintWriter out = res.getWriter();
+			out.print("<script> alert('삭제되었습니다.'); location.href='cityBoardview';</script>");
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		return "redirect:cityBoardview";
 	}
 	
 }
