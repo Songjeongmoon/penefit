@@ -324,6 +324,33 @@ h4 {
 #classListBackBtn, #pageBtnBox, #classListFrontBtn, .pageBtn {
 	display: inline-block
 }
+#delMemModal{
+	display: none;
+	border-radius: 10px;
+	border: 2px solid black;
+	position: absolute;
+	width: 600px;
+	height: 100px;
+	background-color: white;
+	left: 50%;
+	transform:translateX(-50%);
+	z-index: 1000;
+	
+}
+#delMemberBtn{
+	border: 1px solid black;
+	background-color: white;
+	border-radius: 5px;
+	width: 50px;
+	height: 30px;
+	color: red;
+	transition: all ease-in 0.05s;
+}
+#delMemberBtn:hover{
+	transform: scale(1.1, 1.1);
+	background-color: blue;
+}
+
 </style>
 </head>
 
@@ -388,7 +415,11 @@ h4 {
 						</div>
 					</div>
 				</div>
-
+			</div>
+			<div id="delMemModal">
+				<div>정말 삭제하시려면 아이디를 입력하신 후 확인버튼을 눌러주세요.</div>
+				<input type = "text" id ="delMemCheck">
+				<button id="delMemberBtn">확인</button>
 			</div>
 			<div class="content" id="purchaseHistory">
 				<h2 class="mypageTitle">구매내역</h2>
@@ -718,21 +749,7 @@ h4 {
                 }
 
                function delMem() {
-                  const memberid = $("input[name='member_id']").val();
-
-                  $.ajax({
-                     url: "deleteMember",
-                     method: "DELETE",
-                     data: {
-                        "member_id": memberid
-                     },
-                     success: (data) => {
-                        alert(data);
-                        location.href = "/";
-                     },
-
-                  });
-
+            	   $("#delMemModal").css("display", "block");
                }
 
                
@@ -1882,6 +1899,27 @@ h4 {
 			$("#customerModalCase").css("display", "none");
 		})
 		
+		$("#delMemberBtn").click(() => {
+			if($("#delMemCheck").val() == "${member_id}"){
+				const memberid = $("input[name='member_id']").val();
+                
+
+                $.ajax({
+                   url: "deleteMember",
+                   method: "DELETE",
+                   data: {
+                      "member_id": memberid
+                   },
+                   success: (data) => {
+                      alert(data);
+                      $("#delMemModal").css("display", "none");
+                      location.href = "/";
+                      
+                   },
+
+                });
+			}
+		})
 		
 	</script>
 </body>

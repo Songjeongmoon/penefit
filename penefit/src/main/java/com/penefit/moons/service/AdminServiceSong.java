@@ -73,9 +73,9 @@ public class AdminServiceSong implements AdminServiceSongIm{
 			
 			String fileName = "";
 			List<MultipartFile> list = files.getFiles("files");
-			String[] uuids = UUID.randomUUID().toString().split("-");	
 			for(int i = 0; i < list.size(); i++) {
 				String extention = list.get(i).getOriginalFilename().substring(list.get(i).getOriginalFilename().lastIndexOf(".") + 1);
+				String[] uuids = UUID.randomUUID().toString().split("-");	
 			
 				if(i == 0) {
 					fileName += uuids[0] + "." + extention;					
