@@ -4541,7 +4541,7 @@ height: 26px;
 									})
 								},
 								error: function () {
-									alert("error");
+									alert("최근 구매내역이 존재하지 않습니다.");
 								}
 							})
 						}
